@@ -1,0 +1,46 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.project'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	implementation 'com.mysql:mysql-connector-j'
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	testImplementation 'junit:junit:4.13.1'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+
+	compileOnly 'org.projectlombok:lombok:1.18.32'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
