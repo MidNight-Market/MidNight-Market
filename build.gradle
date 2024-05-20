@@ -29,8 +29,12 @@ dependencies {
 	implementation 'com.mysql:mysql-connector-j'
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 	testImplementation 'junit:junit:4.13.1'
+	/*
+	authorize 초기설정 후 주입
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	 */
 
 
 	compileOnly 'org.projectlombok:lombok:1.18.32'
