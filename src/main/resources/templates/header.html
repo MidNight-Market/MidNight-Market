@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+
+<th:block th:fragment="setFragment(content)">
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
+    <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+
+<header>
+    <div class="inner">
+        <ul class="top-menu">
+            <li><a href="">회원가입</a></li>
+            <li><a href="">로그인</a></li>
+            <li><a href="">고객센터</a></li>
+        </ul>
+        <h1>
+            <img src="" alt="로고없음">
+        </h1>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ≡ 카테고리
+            </button>
+            <div class="dropdown-menu">
+                <ul class="btn-group dropend">
+                    <button class="dropdown-item" type="button">과일/견과/쌀
+                    <li><a class="dropdown-item" href="#">국산과일</a></li>
+                    <li><a class="dropdown-item" href="#">수입과일</a></li>
+                    <li><a class="dropdown-item" href="#">냉동·건과일</a></li>
+                    <li><a class="dropdown-item" href="#">견과류</a></li>
+                    <li><a class="dropdown-item" href="#">쌀·잡곡</a></li>
+                    </button>
+                </ul>
+                <ul><button class="dropdown-item" type="button">Another action</button></ul>
+                <ul><button class="dropdown-item" type="button">Something else here</button></ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+</body>
+</th:block>
+</html>
