@@ -1,25 +1,34 @@
--- 2024/05/21 --
--- init sqlFile edit --
+# 2024/05/21 --
+# init sqlFile edit --
 
+# 2024/05/22 --
+# AUTO_INCREMENT 추가
+
+#수정완료
 CREATE TABLE customer (
-	customer_code	bigint	NOT NULL,
+	customer_code bigint AUTO_INCREMENT,
 	customer_id	varchar(30)	NOT NULL,
-	customer_pw	varchar(160)	NOT NULL,
-	customer_nick_name	varchar(30)	NOT NULL,
-	customer_register_date DATETIME	NOT NULL,
+	customer_pw	varchar(160) NOT NULL,
+	customer_nick_name varchar(30) NOT NULL,
+	customer_register_date DATETIME	DEFAULT NOW(),
 	customer_class	varchar(50)	NOT NULL,
-	address	varchar(400)	NOT NULL
+	address	varchar(400) NOT NULL,
+	PRIMARY KEY (customer_code)
 );
 
+#수정완료
 CREATE TABLE seller (
-	seller_code	bigint	NOT NULL,
+	seller_code	bigint AUTO_INCREMENT,
 	seller_id	varchar(30)	NOT NULL,
 	seller_pw	varchar(160)	NOT NULL,
-	seller_name	varchar(40)	NOT NULL
+	seller_name	varchar(40)	NOT NULL,
+	primary key (seller_code)
+
 );
 
+#수정완료
 CREATE TABLE product (
-	product_code	bigint	NOT NULL,
+	product_code	bigint	AUTO_INCREMENT,
 	product_name	varchar(200)	NOT NULL,
 	product_price	bigint	NOT NULL	DEFAULT 0,
 	product_category_code	bigint	NOT NULL,
@@ -29,17 +38,21 @@ CREATE TABLE product (
 	product_register_date	DATETIME	NOT NULL,
 	main_image_link	varchar(256)	NULL,
 	thumbnail_image_link	varchar(256)	NULL,
-	seller_code	bigint	NOT NULL
+	seller_code	bigint	NOT NULL,
+	PRIMARY KEY(product_code)
 );
 
+#수정완료
 CREATE TABLE product_image_detail (
-	product_image_detail_code	bigint	NOT NULL,
+	product_image_detail_code	bigint	AUTO_INCREMENT,
 	detail_image_detail_link	varchar(256)	NOT NULL,
-	product_code	bigint	NOT NULL
+	product_code	bigint	NOT NULL,
+	PRIMARY KEY(product_image_detail_code)
 );
 
+#수정완료
 CREATE TABLE product_buy (
-	product_buy_code	bigint	NOT NULL,
+	product_buy_code	bigint	AUTO_INCREMENT,
 	product_buy_quantity	bigint	NOT NULL,
 	product_buy_address	varchar(400)	NULL,
 	product_buy_date	DATETIME	NOT NULL,
@@ -49,16 +62,21 @@ CREATE TABLE product_buy (
 	product_buy_discount_all	bigint	NULL,
 	member_coupon_code	bigint	NOT NULL,
 	product_code	bigint	NOT NULL,
-	customer_code	bigint	NOT NULL
+	customer_code	bigint	NOT NULL,
+	PRIMARY KEY(product_buy_code)
+
 );
 
+# 수정완료
 CREATE TABLE address (
-	address_code	bigint	NOT NULL,
-	address	varchar(400)	NOT NULL
+	address_code	bigint	AUTO_INCREMENT,
+	address	varchar(400)	NOT NULL,
+	PRIMARY KEY(address_code)
 );
 
+#수정완료
 CREATE TABLE product_review (
-	product_review_code	bigint	NOT NULL,
+	product_review_code	bigint	AUTO_INCREMENT,
 	product_review_title	varchar(100)	NULL,
 	product_review_content	varchar(4000)	NULL,
 	product_review_image	varchar(100)	NULL,
@@ -71,75 +89,97 @@ CREATE TABLE product_review (
 	product_review_up_count	bigint	NULL	DEFAULT 0,
 	product_review_view_count	bigint	NULL	DEFAULT 0,
 	customer_id	varchar(30)	NOT NULL,
-	customer_code	bigint	NOT NULL
+	customer_code	bigint	NOT NULL,
+	PRIMARY KEY(product_review_code)
+
 );
 
+#수정완료
 CREATE TABLE admin (
 	admin_id	varchar(100)	NOT NULL,
-	admin_password	varchar(100)	NOT NULL
+	admin_password	varchar(100)	NOT NULL,
+	PRIMARY KEY(admin_id)
 );
 
+#수정완료
 CREATE TABLE member_coupon (
-	member_coupon_code	bigint	NOT NULL,
+	member_coupon_code	bigint AUTO_INCREMENT,
 	member_coupon_create_date	DATETIME	NULL	DEFAULT now(),
 	member_coupon_end_date	DATETIME	NULL,
 	member_coupon_use_status	BOOLEAN	NULL,
 	member_coupon_use_date	DATETIME	NULL,
-	customer_code	bigint	NOT NULL
+	customer_code	bigint	NOT NULL,
+	PRIMARY KEY(member_coupon_code)
 );
 
+#수정완료
 CREATE TABLE coupon (
-	coupon_code	bigint	NOT NULL,
+	coupon_code	bigint	AUTO_INCREMENT,
 	coupon_name	varchar(100)	NOT NULL,
 	discount_amount	bigint	NULL,
-	discount_percentage	bigint	NULL
+	discount_percentage	bigint	NULL,
+	PRIMARY KEY(coupon_code)
 );
 
+#수정완료
 CREATE TABLE product_pick (
-	customer_code	bigint	NOT NULL,
+	customer_code	bigint	AUTO_INCREMENT,
 	product_pick_quantity	bigint	NOT NULL,
-	product_code	bigint	NOT NULL
+	product_code	bigint	NOT NULL,
+	PRIMARY KEY(customer_code)
 );
 
+#수정완료
 CREATE TABLE product_qna (
-	product_qna_code	bigint	NOT NULL,
+	product_qna_code	bigint AUTO_INCREMENT,
 	product_qna_title	varchar(100)	NOT NULL,
 	product_qna_content	varchar(256)	NOT NULL,
 	customer_id	varchar(30)	NOT NULL,
 	product_qna_date	DATETIME	NOT NULL,
 	product_qna_status	BOOLEAN	NOT NULL,
-	customer_code	bigint	NOT NULL
+	customer_code	bigint	NOT NULL,
+	PRIMARY KEY(product_qna_code)
 );
 
+#수정완료
 CREATE TABLE product_qna_answer (
-	product_qna_answer_code	bigint	NOT NULL,
+	product_qna_answer_code	bigint	AUTO_INCREMENT,
 	seller_name	varchar(40)	NOT NULL,
 	product_qna_answer_content	VARCHAR(256)	NULL,
 	customer_id	varchar(30)	NOT NULL,
 	product_qna_answer_date	DATETIME	NOT NULL,
 	seller_code	bigint	NOT NULL,
-	product_qna_code	bigint	NOT NULL
+	product_qna_code	bigint	NOT NULL,
+	PRIMARY KEY(product_qna_answer_code)
 );
 
+#수정완료
 CREATE TABLE product_category_detail (
 	product_category_detail_code	bigint	NOT NULL,
-	product_category_detail_name	varchar(50)	NOT NULL
+	product_category_detail_name	varchar(50)	NOT NULL,
+	primary key (product_category_detail_code)
 );
 
+#수정완료
 CREATE TABLE product_category (
-	product_category_code	bigint	NOT NULL,
+	product_category_code	bigint	AUTO_INCREMENT,
 	product_category_name	varchar(50)	NOT NULL,
-	product_category_detail_code	bigint	NOT NULL
+	product_category_detail_code	bigint	NOT NULL,
+	PRIMARY KEY(product_category_code)
+
 );
 
+#수정완료
 CREATE TABLE payment (
-	payment_code	bigint	NOT NULL,
+	payment_code	bigint	AUTO_INCREMENT,
 	payment_date	DATETIME	NOT NULL,
 	payment_price	bigint	NOT NULL,
 	payment_method	varchar(100)	NOT NULL,
 	customer_code	bigint	NOT NULL,
-	product_buy_code	bigint	NOT NULL
+	product_buy_code	bigint	NOT NULL,
+	PRIMARY KEY (payment_code)
 );
+
 
 CREATE TABLE notification (
 	notification_type	varchar(100)	NOT NULL,
@@ -148,22 +188,27 @@ CREATE TABLE notification (
 	customer_code	bigint	NOT NULL
 );
 
+#수정완료
 CREATE TABLE member_point (
-	member_point_code	bigint	NOT NULL,
+	member_point_code	bigint	AUTO_INCREMENT,
 	customer_code	bigint	NOT NULL,
 	member_point_save_date	DATETIME	NOT NULL	DEFAULT now(),
 	member_point_use_date	DATETIME	NOT NULL,
 	member_point_type	varchar(30)	NOT NULL,
 	member_point_current	bigint	NOT NULL,
-	member_point_amount	bigint	NOT NULL
+	member_point_amount	bigint	NOT NULL,
+	PRIMARY KEY(member_point_code)
 );
 
+#수정완료
 CREATE TABLE service_center_notice (
-	service_center_notice_bno	bigint	NOT NULL,
+	service_center_notice_bno	bigint	AUTO_INCREMENT,
 	service_center_notice_title	varchar(100)	NOT NULL,
 	service_center_notice_date	DATETIME	NOT NULL,
-	admin_id2	varchar(100)	NOT NULL
+	admin_id2	varchar(100)	NOT NULL,
+	PRIMARY KEY (service_center_notice_bno)
 );
+
 
 CREATE TABLE service_center_inquiry (
 	customer_id	varchar(30)	NOT NULL,
@@ -173,87 +218,14 @@ CREATE TABLE service_center_inquiry (
 	customer_code	bigint	NOT NULL
 );
 
+#수정완료
 CREATE TABLE seller_pick (
-	seller_pick_code	bigint	NOT NULL,
+	seller_pick_code	bigint	AUTO_INCREMENT,
 	seller_code	bigint	NOT NULL,
-	customer_code	bigint	NOT NULL
+	customer_code	bigint	NOT NULL,
+	PRIMARY KEY(seller_pick_code)
 );
 
-ALTER TABLE customer ADD CONSTRAINT PK_CUSTOMER PRIMARY KEY (
-	customer_code
-);
-
-ALTER TABLE seller ADD CONSTRAINT PK_SELLER PRIMARY KEY (
-	seller_code
-);
-
-ALTER TABLE product ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
-	product_code
-);
-
-ALTER TABLE product_image_detail ADD CONSTRAINT PK_PRODUCT_IMAGE_DETAIL PRIMARY KEY (
-	product_image_detail_code
-);
-
-ALTER TABLE product_buy ADD CONSTRAINT PK_PRODUCT_BUY PRIMARY KEY (
-	product_buy_code
-);
-
-ALTER TABLE address ADD CONSTRAINT PK_ADDRESS PRIMARY KEY (
-	address_code
-);
-
-ALTER TABLE product_review ADD CONSTRAINT PK_PRODUCT_REVIEW PRIMARY KEY (
-	product_review_code
-);
-
-ALTER TABLE admin ADD CONSTRAINT PK_ADMIN PRIMARY KEY (
-	admin_id
-);
-
-ALTER TABLE member_coupon ADD CONSTRAINT PK_MEMBER_COUPON PRIMARY KEY (
-	member_coupon_code
-);
-
-ALTER TABLE coupon ADD CONSTRAINT PK_COUPON PRIMARY KEY (
-	coupon_code
-);
-
-ALTER TABLE product_qna ADD CONSTRAINT PK_PRODUCT_QNA PRIMARY KEY (
-	product_qna_code
-);
-
-ALTER TABLE product_qna_answer ADD CONSTRAINT PK_PRODUCT_QNA_ANSWER PRIMARY KEY (
-	product_qna_answer_code
-);
-
-ALTER TABLE product_category_detail ADD CONSTRAINT PK_PRODUCT_CATEGORY_DETAIL PRIMARY KEY (
-	product_category_detail_code
-);
-
-ALTER TABLE product_category ADD CONSTRAINT PK_PRODUCT_CATEGORY PRIMARY KEY (
-	product_category_code
-);
-
-ALTER TABLE payment ADD CONSTRAINT PK_PAYMENT PRIMARY KEY (
-	payment_code
-);
-
-ALTER TABLE member_point ADD CONSTRAINT PK_MEMBER_POINT PRIMARY KEY (
-	member_point_code
-);
-
-ALTER TABLE service_center_notice ADD CONSTRAINT PK_SERVICE_CENTER_NOTICE PRIMARY KEY (
-	service_center_notice_bno
-);
-
-ALTER TABLE service_center_inquiry ADD CONSTRAINT PK_SERVICE_CENTER_INQUIRY PRIMARY KEY (
-	customer_id
-);
-
-ALTER TABLE seller_pick ADD CONSTRAINT PK_SELLER_PICK PRIMARY KEY (
-	seller_pick_code
-);
 
 ALTER TABLE product ADD CONSTRAINT FK_product_category_TO_product_1 FOREIGN KEY (
 	product_category_code
