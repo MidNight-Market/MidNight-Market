@@ -1,5 +1,6 @@
 package com.project.www.controller;
 
+import com.project.www.domain.ProductVO;
 import com.project.www.domain.SellerVO;
 import com.project.www.service.SellerService;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,13 @@ public class SellerController {
     @PostMapping("/register")
     public String register(SellerVO sellerVO){
 
-        log.info(">>>>>셀러브이오>>>{}",sellerVO);
+        //log.info(">>>>>셀러브이오>>>{}",sellerVO);
 
         int isOk = ssv.register(sellerVO);
 
         return "/index";
     }
+
+
 
 }
