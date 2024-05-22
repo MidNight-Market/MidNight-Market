@@ -382,3 +382,20 @@ REFERENCES customer (
 	customer_code
 );
 
+#상품등록 카테고리
+insert into product_category_detail
+values
+(1,'국산과일'),
+(1,'수입과일'),
+(1,'냉동,건과일')
+;
+
+#product_category_code는 자동증가하지말고 따로 부여해 주면 좋을듯합니다. ex>과일01, 육류02
+insert into product_category(product_category_name,product_category_detail_code)
+values
+('과일',1),
+('육류',1),
+('채소',1),
+('기타',1)
+;
+
