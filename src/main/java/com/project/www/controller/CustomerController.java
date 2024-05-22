@@ -21,7 +21,7 @@ public class CustomerController {
 
     @PostMapping("/register")
     public String register(CustomerVO cvo){
-
-        return null;
+        csv.insert(cvo);
+        return "index";
     }
 }

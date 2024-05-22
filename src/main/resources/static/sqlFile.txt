@@ -5,13 +5,14 @@
 # AUTO_INCREMENT 추가
 
 #수정완료
+#05/22 id -> email, class -> not null 삭제, class 기본등급 bronze
 CREATE TABLE customer (
 	customer_code bigint AUTO_INCREMENT,
-	customer_id	varchar(30)	NOT NULL,
+	customer_email	varchar(30)	NOT NULL,
 	customer_pw	varchar(160) NOT NULL,
 	customer_nick_name varchar(30) NOT NULL,
 	customer_register_date DATETIME	DEFAULT NOW(),
-	customer_class	varchar(50)	NOT NULL,
+	customer_class	varchar(50) DEFAULT "BRONZE",
 	address	varchar(400) NOT NULL,
 	PRIMARY KEY (customer_code)
 );
