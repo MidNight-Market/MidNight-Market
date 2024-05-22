@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<th:block th:replace="~{layout :: setFragment(~{this::content})}">-->
+<!--    <th:block th:fragment="content">-->
+
+<style>
+    section{
+        margin-top: 100px;
+        text-align: center;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    h2{
+        margin-right: 250px;
+    }
+    .login-input{
+        width: 300px;
+        height: 30px;
+        margin: 10px 0 10px 0;
+        padding-left: 10px;
+    }
+    .login-setting-menu{
+        width: 320px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-size: x-small;
+    }
+    .login-setting-menu>ul{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .login-setting-menu>ul>li{
+        margin-right: 5px;
+    }
+    .login-setting-menu>ul>li:last-child{
+        margin-right: 0;
+    }
+    .login-btn{
+        padding: 10px 134px 10px 134px;
+        margin: 20px 0 40px 0;
+        border: none;
+        font-weight: bold;
+        font-size: 15px;
+        background-color: #FC7524;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
+</head>
+
+<section>
+    <form action="/customer/login" method="post">
+        <div>
+        <div class="login-menu">
+        <h2>로그인</h2>
+            <div>
+                <label for="email"></label>
+                <input type="email" class="login-input" id="email" name="email" placeholder="example@example.com">
+            </div>
+            <div>
+                <label for="pwd"></label>
+                <input type="password" class="login-input" id="pwd" name="pwd" placeholder="password">
+            </div>
+        </div>
+        <div class="login-setting-menu">
+            <label><input type="checkbox" name="id-save" th:value="email">이메일 저장</label>
+            <ul>
+                <li><a th:href="">아이디 찾기</a></li>
+                <li><a th:href="">비밀번호 재설정</a></li>
+                <li><a th:href="">회원가입</a></li>
+            </ul>
+        </div>
+
+        <button type="submit" class="login-btn">로그인</button>
+
+        <div class="social-login-menu">
+            <a th:href=""><img th:src="" >네이버 로그인</a>
+            <a th:href=""><img th:src="@{/dist/icon/kakao_login_medium.png}">카카오 로그인</a>
+            <a th:href=""><img th:src="" >구글 로그인</a>
+        </div>
+    </div>
+    </form>
+</section>
+
+
+<!--    </th:block>-->
+<!--</th:block>-->
