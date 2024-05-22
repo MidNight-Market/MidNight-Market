@@ -32,6 +32,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//Webflux
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 	compileOnly 'org.projectlombok:lombok:1.18.32'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
