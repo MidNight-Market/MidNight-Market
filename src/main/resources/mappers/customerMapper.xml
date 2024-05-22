@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.www.repository.CustomerMapper">
+    <insert id="insert">
+        insert into customer(customer_email, customer_pw, customer_nick_name, address)
+        values(#{customerEmail}, #{customerPw},#{customerNickName}, #{address})
+    </insert>
+</mapper>

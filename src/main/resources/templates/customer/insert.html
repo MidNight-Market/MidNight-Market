@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container-sm">
+    <h1>회원가입</h1>
+    <form action="/customer/insert" method="post">
+        <div class="mb-3">
+            <label for="e" class="form-label">이메일</label>
+            <input type="email" class="form-control" name="customerEmail" id="e" placeholder="이메일을 입력해주세요.">
+            <button type="button" id="checkE">이메일 인증</button>
+        </div>
+        <div class="mb-3" id="divE" style="display: none">
+            <label for="ec" class="form-label">인증번호</label>
+            <input type="text" class="form-control" name="" id="ec" placeholder="">
+            <span id="timer" style="display: none"></span>
+            <button type="button" id="confirmE" >인증번호 확인</button>
+        </div>
+        <div class="mb-3">
+            <label for="p" class="form-label">패스워드</label>
+            <input type="password" class="form-control" name="customerPw" id="p" placeholder="비밀번호를 입력해주세요.">
+        </div>
+        <div class="mb-3">
+            <label for="pc" class="form-label">패스워드확인</label>
+            <input type="password" class="form-control" name="password" id="pc" placeholder="비밀번호를 한번 더 입력해주세요.">
+        </div>
+        <div class="mb-3">
+            <label for="n" class="form-label">닉네임</label>
+            <input type="text" class="form-control" name="customerNickName" id="n" placeholder="닉네임을 입력해주세요.">
+            <button>중복확인</button>
+        </div>
+        <div class="mb-3">
+            <label for="a" class="form-label">주소</label>
+            <input type="password" class="form-control" name="address" id="a">
+        </div>
+        <button type="submit" class="btn btn-primary">가입하기</button>
+    </form>
+    <script th:src="@{/js/customerInsert.js}"></script>
+</div>
+</body>
+</html>
