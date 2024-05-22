@@ -3,45 +3,231 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 
 <th:block th:fragment="setFragment(content)">
-<head>
-    <meta charset="UTF-8">
-    <title>header</title>
-    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
-    <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
-</head>
-<body>
 
-<header>
-    <div class="inner">
-        <ul class="top-menu">
-            <li><a href="">회원가입</a></li>
-            <li><a href="">로그인</a></li>
-            <li><a href="">고객센터</a></li>
-        </ul>
-        <h1>
-            <img src="" alt="로고없음">
-        </h1>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                ≡ 카테고리
-            </button>
-            <div class="dropdown-menu">
-                <ul class="btn-group dropend">
-                    <button class="dropdown-item" type="button">과일/견과/쌀
-                    <li><a class="dropdown-item" href="#">국산과일</a></li>
-                    <li><a class="dropdown-item" href="#">수입과일</a></li>
-                    <li><a class="dropdown-item" href="#">냉동·건과일</a></li>
-                    <li><a class="dropdown-item" href="#">견과류</a></li>
-                    <li><a class="dropdown-item" href="#">쌀·잡곡</a></li>
-                    </button>
+    <style>
+        header {
+            margin: 0;
+        }
+        .inner {
+            /*background-color: rgb(215, 246, 250);*/
+            margin: auto;
+            box-sizing: border-box;
+        }
+        .top1-menu {
+            display: flex;
+            justify-content: right;
+            margin: 30px 0 30px 0;
+        }
+        .top1-menu>ul {
+            margin: 0;
+            padding: 0;
+        }
+        .top1-menu>li {
+            margin-right: 30px;
+            display: inline-block;
+        }
+        .logo-img {
+            text-align: center;
+        }
+        .logo-img>img{
+            width: 120px;
+            height: 120px;
+        }
+        .top2-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 200px;
+            margin: 40px 0 40px 0;
+        }
+        .category-menu {
+            position: fixed;
+            background-color: #FC7524;
+        }
+        .category-menu>p {
+            text-align: center;
+            padding: 20px 0 30px 0;
+            font-weight: bold;
+        }
+        .category-menu> ul ul {
+            display: none;
+        }
+        .category-menu > ul > li {
+            position: relative;
+        }
+        .category-menu ul > li > a {
+            display: block;
+            padding: 10px 40px 10px 40px;
+            text-align: center;
+        }
+        .category-menu ul > li:hover > a {
+            background-color: white;
+        }
+        .category-menu > ul > li:hover > ul {
+            display: block;
+            position: absolute;
+            background-color: beige;
+            top: 0;
+            left: 100%;
+            width: 100%;
+        }
+        .search_bar{
+            width: 300px;
+            height: 30px;
+            padding-left: 10px;
+            margin-left: 150px;
+            border: none;
+            border-radius: 10px;
+            background-color: beige;
+        }
+        .search_bar::placeholder{
+            text-align: center;
+        }
+        .search_bar:focus{
+            outline: none;
+        }
+        .mypage-part>a{
+            margin-right: 40px;
+        }
+    </style>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>header</title>
+        <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
+        <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
+    </head>
+    <body>
+
+    <header>
+        <form action="">
+            <div class="inner">
+                <ul class="top1-menu">
+                    <li><a href="">회원가입</a></li>
+                    <li><a href="">로그인</a></li>
+                    <li><a href="">고객센터</a></li>
                 </ul>
-                <ul><button class="dropdown-item" type="button">Another action</button></ul>
-                <ul><button class="dropdown-item" type="button">Something else here</button></ul>
             </div>
-        </div>
-    </div>
-</header>
+            <h1 class="logo-img">
+                <img th:src="@{/dist/icon/logo.png}" alt="로고없음">
+            </h1>
+            <div class="inner top2-menu">
+                <div>
+                    <div class="category-menu">
+                        <p>≡ 카테고리</p>
+                        <ul>
+                            <li>
+                                <a href="#">채소</a>
+                                <ul>
+                                    <li><a href="#">고구마·감자·당근</a></li>
+                                    <li><a href="#">양파·대파·마늘·배추</a></li>
+                                    <li><a href="#">쌈채소·나물</a></li>
+                                    <li><a href="#">콩나물·버섯</a></li>
+                                    <li><a href="#">브로콜리·양상추</a></li>
+                                    <li><a href="#">오이·호박·고추</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">과일/견과/쌀</a>
+                                <ul>
+                                    <li><a href="#">국산과일</a></li>
+                                    <li><a href="#">수입과일</a></li>
+                                    <li><a href="#">냉동·건과일</a></li>
+                                    <li><a href="#">견과류</a></li>
+                                    <li><a href="#">쌀·잡곡</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">수산/해산/건어물</a>
+                                <ul>
+                                    <li><a href="#">생선류</a></li>
+                                    <li><a href="#">오징어·낙지·문어</a></li>
+                                    <li><a href="#">새우·게</a></li>
+                                    <li><a href="#">해산물·전복·조개류</a></li>
+                                    <li><a href="#">멸치·황태</a></li>
+                                    <li><a href="#">어포·쥐포</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">정육/가공육/계란</a>
+                                <ul>
+                                    <li><a href="#">계란·가공란</a></li>
+                                    <li><a href="#">닭·오리고기</a></li>
+                                    <li><a href="#">돼지고기</a></li>
+                                    <li><a href="#">소고기</a></li>
+                                    <li><a href="#">양념육·가공육</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">과자/빙과/베이커리</a>
+                                <ul>
+                                    <li><a href="#">과자·간식</a></li>
+                                    <li><a href="#">초콜릿·젤리·캔디·껌</a></li>
+                                    <li><a href="#">빙과·아이스크림</a></li>
+                                    <li><a href="#">베이커리</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">생수/음료</a>
+                                <ul>
+                                    <li><a href="#">생수·탄산수</a></li>
+                                    <li><a href="#">탄산음료</a></li>
+                                    <li><a href="#">과일·야채음료</a></li>
+                                    <li><a href="#">스포츠·건강음료</a></li>
+                                    <li><a href="#">전통·차·기타음료</a></li>
 
-</body>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">우유/유제품</a>
+                                <ul>
+                                    <li><a href="#">우유·두유</a></li>
+                                    <li><a href="#">요거트·요구르트</a></li>
+                                    <li><a href="#">연유·생크림·버터</a></li>
+                                    <li><a href="#">가공치즈</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">면/양념/통조림</a>
+                                <ul>
+                                    <li><a href="#">라면</a></li>
+                                    <li><a href="#">파스타면·생면</a></li>
+                                    <li><a href="#">밀가루·가루·믹스</a></li>
+                                    <li><a href="#">죽·스프·카레</a></li>
+                                    <li><a href="#">양념·액젓·장류</a></li>
+                                    <li><a href="#">햄·통조림·병조림</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">밀키트/간편식</a>
+                                <ul>
+                                    <li><a href="#">밀키트</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-part">
+                    <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">
+                    <img src="" alt="">
+                </div>
+                <div class="mypage-part">
+                    <a href="#" id="mypageBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                    </a>
+                    <a href="#" id="cartBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                            <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
+                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </header>
+    </body>
 </th:block>
 </html>
