@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class SellerVO {
 
-    private int sellerCode;
+    private long sellerCode;
     private String sellerId;
     private String sellerPw;
     private String sellerName;

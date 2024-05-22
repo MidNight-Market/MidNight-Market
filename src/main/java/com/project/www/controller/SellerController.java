@@ -26,6 +26,8 @@ public class SellerController {
 
         log.info(">>>>>셀러브이오>>>{}",sellerVO);
 
+        int isOk = ssv.register(sellerVO);
+
         return "/index";
     }
 
