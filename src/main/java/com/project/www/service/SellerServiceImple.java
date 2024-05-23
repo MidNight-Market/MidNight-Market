@@ -17,4 +17,9 @@ public class SellerServiceImple implements SellerService{
     public int register(SellerVO sellerVO) {
         return sellerMapper.register(sellerVO);
     }
+
+    @Override
+    public Object getList(String id) {
+        return null;
+    }
 }

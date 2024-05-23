@@ -24,14 +24,13 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class CustomerController {
     private final CustomerService csv;
-    private final PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/insert")
     public void insert() {}
 
     @PostMapping("/insert")
     public String insert(CustomerVO cvo){
-        cvo.setCustomerPw(passwordEncoder.encode(cvo.getCustomerPw()));
         csv.insert(cvo);
         log.info("cvo값 체크 {}", cvo);
         return "index";
