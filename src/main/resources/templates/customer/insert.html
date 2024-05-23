@@ -10,9 +10,9 @@
 <div class="container-sm">
     <h1>회원가입</h1>
     <form action="/customer/insert" method="post">
-        <div id="mail_input" name="mail_input">
-            <input type="email" name="mail" id="customerEmail" placeholder="이메일 입력">
-            <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
+        <div class="mb-3" id="mail_input" name="mail_input">
+            <input type="email"  name="customerEmail" id="customerEmail" placeholder="이메일 입력" class="form-control">
+            <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()" class="btn btn-primary">인증번호</button>
         </div>
         <br>
         <div id="mail_number" name="mail_number" style="display: none">
