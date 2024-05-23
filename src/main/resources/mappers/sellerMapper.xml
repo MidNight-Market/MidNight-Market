@@ -8,5 +8,11 @@
         INSERT INTO seller
         VALUES (#{id}, #{pw}, #{shopName})
     </insert>
+
+    <select id="getList" resultType="com.project.www.domain.ProductVO">
+        SELECT * FROM product
+        WHERE
+        id = #{id}
+    </select>
     
 </mapper>

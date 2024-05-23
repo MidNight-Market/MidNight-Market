@@ -135,6 +135,7 @@ CREATE TABLE product_qna_answer (
 CREATE TABLE product_category_detail (
 	id bigint NOT NULL,
 	name VARCHAR(50) NOT NULL,
+	product_category_id bigint NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -142,7 +143,6 @@ CREATE TABLE product_category_detail (
 CREATE TABLE product_category (
 	id bigint NOT NULL,
 	name VARCHAR(50) NOT NULL,
-	product_category_detail_id bigint NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -295,11 +295,11 @@ REFERENCES product_qna (
 	id
 );
 
-ALTER TABLE product_category ADD CONSTRAINT FK_product_category_detail_TO_product_category_1 FOREIGN KEY (
-	product_category_detail_id
+ALTER TABLE `product_category_detail` ADD CONSTRAINT `FK_product_category_TO_product_category_detail_1` FOREIGN KEY (
+	`product_category_id`
 )
-REFERENCES product_category_detail (
-	id
+REFERENCES `product_category` (
+	`id`
 );
 
 ALTER TABLE payment ADD CONSTRAINT FK_customer_TO_payment_1 FOREIGN KEY (
@@ -364,3 +364,14 @@ ALTER TABLE product_detail_image ADD CONSTRAINT FK_product_TO_product_detail_ima
 REFERENCES product (
 	id
 );
+
+
+#product register 시 필요하여 잠시 문구 추가
+
+insert into product_category
+values(01,'과일'),(02,'육류'),(03,'채소'),(04,'기타');
+
+
+insert into product_category_detail
+values
+(01,'국산과일',01),(02,'수입과일',01),(03,'냉동,건과일',01);
