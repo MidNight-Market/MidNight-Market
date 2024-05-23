@@ -24,8 +24,8 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/","/index","/js/**","/dist/**","/customer/login",
-                                "/customer/register","/seller/register","/product/register","/upload/**").permitAll()
+                        .requestMatchers("/","/index","/js/**","/dist/**","/customer/*","/customer/login",
+                                "/customer/insert","/seller/register","/product/register","/upload/**","/mail/**").permitAll()
                         .requestMatchers("/customer/list").hasRole("ADMIN").anyRequest().authenticated()
                 )
                 .formLogin(login -> login

@@ -3,14 +3,6 @@ let isRunning = false;
 let leftSec = 180;
 let display = document.querySelector('#timer');
 
-document.getElementById('checkE').addEventListener('click', ()=> {
-    let email = document.getElementById('e').value;
-    console.log(email);
-    document.getElementById('divE').style.display = "";
-    document.getElementById('timer').style.display = "";
-    sendAuthNum();
-});
-
 function sendAuthNum(){
     if (isRunning){
         clearInterval(timer);
@@ -33,4 +25,21 @@ function startTimer(count, display) {
         }
     }, 1000);
     isRunning = true;
+}
+
+async function sendEmailToServer(email){
+    try {
+        const url = '/customer/'+email;
+        const config = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+        };
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
 }
