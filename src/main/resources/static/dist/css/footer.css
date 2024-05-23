@@ -1,0 +1,96 @@
+/* footer */
+footer {
+    /* background-color: rgba(211, 211, 211, 0.454); */
+    border-top: 1px solid lightgray;
+  }
+
+  footer > .inner {
+    height: 320px;
+    padding: 20px 0;
+  }
+
+  footer > .inner > .icon > ul  {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 27%;
+  }
+
+  footer > .inner > .icon > ul > li {
+    padding: 10px 50px 30px;
+  }
+
+  li.youtube a{
+    color: red;
+  }
+
+  li.instagram a{
+    color: purple;
+  }
+
+    li.twitter a{
+        color: blue;
+  }
+
+  footer > .inner > .footerBt {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+  }
+
+  footer > .inner > .footerBt .t {
+    margin: 10px 0;
+    line-height: 30px;
+  }
+
+  footer > .inner > .footerBt .t > span {
+    padding: 10px 20px;
+    position: relative;
+    /* font-size: 15px; */
+  }
+
+  footer > .inner > .footerBt .t2 {
+    margin: 10px 0;
+    line-height: 30px;
+    padding-left: 60px;
+    padding-bottom: 30px;
+  }
+
+  footer > .inner > .footerBt .t2 > span {
+    padding: 10px 20px;
+    position: relative;
+    /* font-size: 15px; */
+  }
+
+  footer > .inner > .footerBt .t2 > span > a{
+    color: black;
+  }
+
+  .service{
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 50px;
+  }
+
+  .service2{
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 20px;
+  }
+
+  footer > .inner > .footerBt .t3 {
+    margin: 10px 0;
+    /* line-height: 20px; */
+  }
+
+  footer > .inner > .footerBt .t3 > span{
+    padding: 10px 20px;
+    font-size: small;
+  }
+
+
+  footer > .inner > .footerBt .t4{
+    margin: 30px 10px;
+    padding-left: 10px;
+    font-size:xx-small;
+  }
