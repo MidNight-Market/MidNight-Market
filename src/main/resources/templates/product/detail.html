@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{header :: header}"></th:block>
+
+<style>
+    .container{
+        border: 1px solid black;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    </style>
+
+<div class="container">
+
+<h1>상품 디테일 페이지</h1>
+
+    <img th:src="${dto.productVO.mainImage}" style="width: 300px" height="300px">
+
+<th:block th:each="descImg:${dto.imageList}">
+
+    <div>
+    <img th:src="${descImg.detailImage}" style="width: 600px" height="600px">
+    </div>
+
+
+</th:block>
+    <button>상품 구매</button>
+</div>
+
+
+<th:block th:replace="~{footer :: footer}"></th:block>

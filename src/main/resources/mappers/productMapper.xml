@@ -15,4 +15,10 @@
     <select id="getProductId" resultType="long">
         SELECT max(id) FROM product
     </select>
+    
+    <select id="getDetail" resultType="com.project.www.domain.ProductVO">
+        SELECT * FROM product
+        WHERE
+        id = #{id}
+    </select>
 </mapper>

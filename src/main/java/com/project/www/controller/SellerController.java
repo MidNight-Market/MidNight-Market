@@ -42,15 +42,16 @@ public class SellerController {
     }
 
     @GetMapping("/productList")
-    public void productList(Model m){
+    public void productList(Model model){
     //아이디 또는 이메일 a태그 또는 프린시펄로 받아오기
 
         String id = "dbscksdnd";
 
         List<ProductVO> list = ssv.getList(id);
         
-        log.info(">>>>>상품 리스트 출력");
+        log.info(">>>>>상품 리스트 출력{}",list);
 
+        model.addAttribute("list",list);
     }
 
 
