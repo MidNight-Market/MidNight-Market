@@ -8,7 +8,7 @@
         margin-top: 100px;
         text-align: center;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
     }
     h2{
         margin-right: 250px;
@@ -23,7 +23,7 @@
         width: 320px;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin: 0 0 20px 65px;
         font-size: x-small;
     }
     .login-setting-menu>ul{
@@ -82,10 +82,15 @@
 
         <div class="social-login-menu">
             <a th:href=""><img th:src="" >네이버 로그인</a>
-            <a th:href=""><img th:src="@{/dist/icon/kakao_login_medium.png}">카카오 로그인</a>
+            <a th:href="">
+                <img th:src="@{/dist/icon/btn_kakao.svg}" alt="이미지(카카오)없음">카카오 로그인
+            </a>
             <a th:href=""><img th:src="" >구글 로그인</a>
         </div>
     </div>
+        <div>
+            <input type="button" onclick="location.href='/oauth2/authorization/kakao'">
+        </div>
     </form>
 </section>
 
