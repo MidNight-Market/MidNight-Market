@@ -1,6 +1,6 @@
 package com.project.www.handler;
 
-import com.project.www.domain.ProductImageDetailVO;
+import com.project.www.domain.ProductDetailImageVO;
 import com.project.www.domain.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
@@ -54,8 +54,8 @@ public class FileHandler {
             Thumbnails.of(storeFile).size(100,100).toFile(thumbNail);
             
             //productVO에 주소 저장
-            productVO.setMainImageLink("/upload/"+today+"/"+fullFileName);
-            productVO.setThumbnailImageLink("/upload/"+today+"/"+uuidStr+"_th_"+fileName);
+            productVO.setMainImage("/upload/"+today+"/"+fullFileName);
+            productVO.setThumbImage("/upload/"+today+"/"+uuidStr+"_th_"+fileName);
             
             
         }catch (Exception e){
@@ -71,9 +71,9 @@ public class FileHandler {
 
 
 
-    public List<ProductImageDetailVO> uploadFiles(MultipartFile[] files,ProductVO productVO){
+    public List<ProductDetailImageVO> uploadFiles(MultipartFile[] files, ProductVO productVO){
 
-        List<ProductImageDetailVO> imageList  = new ArrayList<>();
+        List<ProductDetailImageVO> imageList  = new ArrayList<>();
 
         LocalDate date= LocalDate.now();
         String today = date.toString();
@@ -86,7 +86,7 @@ public class FileHandler {
         }
 
         for(MultipartFile file : files){
-            ProductImageDetailVO fvo = new ProductImageDetailVO();
+            ProductDetailImageVO fvo = new ProductDetailImageVO();
 
             UUID uuid = UUID.randomUUID();
             String uuidStr = uuid.toString();
@@ -101,7 +101,11 @@ public class FileHandler {
 
             try {
                 file.transferTo(storeFile);
-                fvo.setDetailImageDetailLink("/upload/"+today+"/"+fullFileName);
+                fvo.setDetailImage("/upload/"+today+"/"+fullFileName);
+
+               int sequence = Integer.parseInt(fileName.substring(fileName.indexOf('.')-1,fileName.indexOf('.')));
+
+               fvo.setSequence(sequence);
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -110,6 +114,8 @@ public class FileHandler {
         }
         return imageList;
     }
+
+
 
 
 }
