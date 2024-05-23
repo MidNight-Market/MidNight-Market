@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 public class CustomerVO {
     private long customerCode;
-    private String customerId;
+    private String customerEmail;
     private String customerPw;
     private String customerNickName;
     private String customerRegisterDate;
