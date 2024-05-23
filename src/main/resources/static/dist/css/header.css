@@ -1,6 +1,10 @@
        header {
             margin: 0;
         }
+
+        .header{
+            border-bottom: 1px solid lightgray;
+        }
         .inner {
             /*background-color: rgb(215, 246, 250);*/
             margin: auto;
