@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<th:block th:replace="~{header :: header}"></th:block>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body>
 <div class="container-sm">
     <h1>회원가입</h1>
     <form action="/customer/insert" method="post">
-        <div class="mb-3">
-            <label for="e" class="form-label">이메일</label>
-            <input type="email" class="form-control" name="customerEmail" id="e" placeholder="이메일을 입력해주세요.">
-            <button type="button" id="checkE">이메일 인증</button>
+        <div id="mail_input" name="mail_input">
+            <input type="email" name="mail" id="customerEmail" placeholder="이메일 입력">
+            <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
         </div>
-        <div class="mb-3" id="divE" style="display: none">
-            <label for="ec" class="form-label">인증번호</label>
-            <input type="text" class="form-control" name="" id="ec" placeholder="">
-            <span id="timer" style="display: none"></span>
-            <button type="button" id="confirmE" >인증번호 확인</button>
+        <br>
+        <div id="mail_number" name="mail_number" style="display: none">
+            <input type="text" name="number" id="number" placeholder="인증번호 입력">
+            <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
         </div>
+        <br>
+        <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
         <div class="mb-3">
             <label for="p" class="form-label">패스워드</label>
             <input type="password" class="form-control" name="customerPw" id="p" placeholder="비밀번호를 입력해주세요.">
@@ -41,4 +43,4 @@
     <script th:src="@{/js/customerInsert.js}"></script>
 </div>
 </body>
-</html>
+<th:block th:replace="~{footer :: footer}"></th:block>

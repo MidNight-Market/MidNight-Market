@@ -1,15 +1,33 @@
+function sendNumber(){
+    $("#mail_number").css("display","block");
+    $.ajax({
+        url:"/customer/mail",
+        type:"post",
+        dataType:"json",
+        data:{"mail" : $("#customerEmail").val()},
+        success: function(data){
+            alert("인증번호 발송");
+            $("#Confirm").attr("value",data);
+        }
+    });
+}
+
+function confirmNumber(){
+    var number1 = $("#number").val();
+    var number2 = $("#Confirm").val();
+
+    if(number1 === number2){
+        alert("인증되었습니다.");
+    }else{
+        alert("번호가 다릅니다.");
+    }
+}
+
 let timer;
 let isRunning = false;
 let leftSec = 180;
 let display = document.querySelector('#timer');
 
-document.getElementById('checkE').addEventListener('click', ()=> {
-    let email = document.getElementById('e').value;
-    console.log(email);
-    document.getElementById('divE').style.display = "";
-    document.getElementById('timer').style.display = "";
-    sendAuthNum();
-});
 
 function sendAuthNum(){
     if (isRunning){

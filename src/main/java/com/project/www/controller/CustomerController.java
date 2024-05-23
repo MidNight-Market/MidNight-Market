@@ -2,6 +2,7 @@ package com.project.www.controller;
 
 import com.project.www.domain.CustomerVO;
 import com.project.www.service.CustomerService;
+import com.project.www.service.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -24,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class CustomerController {
     private final CustomerService csv;
-
+    private final MailService mailService;
 
     @GetMapping("/insert")
     public void insert() {}
@@ -34,6 +35,16 @@ public class CustomerController {
         csv.insert(cvo);
         log.info("cvo값 체크 {}", cvo);
         return "index";
+    }
+    @GetMapping("/loginSelect")
+    public void loginSelect(){}
+    @ResponseBody
+    @PostMapping("/mail")
+    public String MailSend(String mail){
+        log.info("이메일 들어옴 {}",mail);
+        int number = mailService.sendMail(mail);
+        String num = "" + number;
+        return num;
     }
 
 /*    @GetMapping("/login")
