@@ -2,105 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 
-<th:block th:fragment="setFragment(content)">
-
-    <style>
-        header {
-            margin: 0;
-        }
-        .inner {
-            /*background-color: rgb(215, 246, 250);*/
-            margin: auto;
-            box-sizing: border-box;
-        }
-        .top1-menu {
-            display: flex;
-            justify-content: right;
-            margin: 30px 0 30px 0;
-        }
-        .top1-menu>ul {
-            margin: 0;
-            padding: 0;
-        }
-        .top1-menu>li {
-            margin-right: 30px;
-            display: inline-block;
-        }
-        .logo-img {
-            text-align: center;
-        }
-        .logo-img>img{
-            width: 120px;
-            height: 120px;
-        }
-        .top2-menu {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 200px;
-            margin: 40px 0 40px 0;
-        }
-        .category-menu {
-            position: fixed;
-            background-color: #FC7524;
-        }
-        .category-menu>p {
-            text-align: center;
-            padding: 20px 0 30px 0;
-            font-weight: bold;
-        }
-        .category-menu> ul ul {
-            display: none;
-        }
-        .category-menu > ul > li {
-            position: relative;
-        }
-        .category-menu ul > li > a {
-            display: block;
-            padding: 10px 40px 10px 40px;
-            text-align: center;
-        }
-        .category-menu ul > li:hover > a {
-            background-color: white;
-        }
-        .category-menu > ul > li:hover > ul {
-            display: block;
-            position: absolute;
-            background-color: beige;
-            top: 0;
-            left: 100%;
-            width: 100%;
-        }
-        .search_bar{
-            width: 300px;
-            height: 30px;
-            padding-left: 10px;
-            margin-left: 150px;
-            border: none;
-            border-radius: 10px;
-            background-color: beige;
-        }
-        .search_bar::placeholder{
-            text-align: center;
-        }
-        .search_bar:focus{
-            outline: none;
-        }
-        .mypage-part>a{
-            margin-right: 40px;
-        }
-    </style>
+<th:block th:fragment="header">
 
     <head>
         <meta charset="UTF-8">
         <title>header</title>
         <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
-        <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
         <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
+        <link rel="stylesheet" th:href="@{/dist/css/header.css}">
+        <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
     </head>
     <body>
 
-    <header>
+    <header class="header" th:fragment="header">
         <form action="">
             <div class="inner">
                 <ul class="top1-menu">

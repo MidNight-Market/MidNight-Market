@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .container{
+        border: 1px solid black;
+        margin: auto;
+        width: 100%;
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    ul{
+        display: flex;
+    }
+
+    li{
+        margin-left: 40px;
+    }
+</style>
+<body>
+
+<div class="container">
+    <h1>내가 등록한 상품 리스트</h1>
+    <h3>판매자 이름</h3>
+    <th:block >
+    <ul>
+        <li> <img src="" alt="사진등록"> </li>
+        <li> 상품명 </li>
+        <li>등록개수</li>
+        <li>가격</li>
+        <li>등록한 개수</li>
+        <li>팔린 갯수</li>
+    </ul>
+    </th:block>
+</div>
+
+
+</body>
+</html>
