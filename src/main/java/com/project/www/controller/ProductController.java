@@ -36,10 +36,9 @@ public class ProductController {
         productDTO.setImageList(fileHandler.uploadFiles(files,productVO));
 
         log.info(">>>프로덕트DTO{}",productDTO);
-       //int isOk = psv.insert(productDTO);
 
+       int isOk = psv.insert(productDTO);
 
-       log.info(">>>>>프로덕트브이오>>>>{}",productVO);
 
 
 

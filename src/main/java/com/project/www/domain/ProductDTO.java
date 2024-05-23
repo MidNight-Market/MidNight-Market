@@ -12,6 +12,6 @@ import java.util.List;
 public class ProductDTO {
 
     private ProductVO productVO;
-    private List<ProductImageDetailVO> imageList;
+    private List<ProductDetailImageVO> imageList;
 
 }
