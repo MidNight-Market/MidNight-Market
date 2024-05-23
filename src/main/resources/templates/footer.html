@@ -1,174 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{footer :: setFragment(~{this::footer})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+
+<!--<th:block th:replace="~{footer :: setFragment(~{this::footer})}">-->
+<!--</th:block>-->
     <th:block th:fragment="footer">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- 부트 스트랩 -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
                   rel="stylesheet"
                   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
                   crossorigin="anonymous">
 
+            <!-- 구글 폰트 -->
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Gothic+Coding&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-            <title>Document</title>
-            <style>
-                /* reset */
-                html, body, div, span, applet, object, iframe,
-                h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-                a, abbr, acronym, address, big, cite, code,
-                del, dfn, em, img, ins, kbd, q, s, samp,
-                small, strike, strong, sub, sup, tt, var,
-                b, u, i, center,
-                dl, dt, dd, ol, ul, li,
-                fieldset, form, label, legend,
-                table, caption, tbody, tfoot, thead, tr, th, td,
-                article, aside, canvas, details, embed,
-                figure, figcaption, header, hgroup,
-                menu, nav, output, ruby, section, summary,
-                time, mark, audio, video {
-                margin: 0;
-                padding: 0;
-                border: 0;
-                font-size: 100%;
-                font: inherit;
-                vertical-align: baseline;
-                }
-                /* HTML5 display-role reset for older browsers */
-                article, aside, details, figcaption, figure, header, hgroup, menu, nav {
-                    display: block;
-                }
-                body {
-                    line-height: 1;
+            <title>footer</title>
 
-                }
-                ol, ul {
-                    list-style: none;
-                }
-                blockquote, q {
-                    quotes: none;
-                }
-                blockquote:before, blockquote:after,
-                q:before, q:after {
-                    content: '';
-                    content: none;
-                }
-                table {
-                    border-collapse: collapse;
-                    border-spacing: 0;
-                }
-                a{
-                    text-decoration: none;
-                }
+            <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
+            <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
+            <link rel="stylesheet" th:href="@{/dist/css/footer.css}">
+            <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
 
-                /* footer */
-                footer {
-                /* background-color: rgba(211, 211, 211, 0.454); */
-                border-top: 1px solid lightgray;
-                font-family: "Noto Sans KR", sans-serif;
-                }
-
-
-                footer > .inner {
-                    height: 320px;
-                    padding: 20px 0;
-                }
-
-                footer > .inner > .icon > ul  {
-                    display: flex;
-                    justify-content: flex-start;
-                    margin-left: 27%;
-                }
-
-                footer > .inner > .icon > ul > li {
-                    padding: 10px 50px 30px;
-                }
-
-                li.youtube a{
-                    color: red;
-                }
-
-                li.instagram a{
-                    color: purple;
-                }
-
-                li.twitter a{
-                    color: blue;
-                }
-
-                .phone {
-                    color: green;
-                }
-
-                footer > .inner > .footerBt {
-                    margin: 20px 0;
-                    display: flex;
-                    justify-content: space-between;
-                    border-top: 1px solid lightgray;
-                }
-
-                footer > .inner > .footerBt .t {
-                    margin: 10px 0;
-                    line-height: 30px;
-                }
-
-                footer > .inner > .footerBt .t > span {
-                    padding: 10px 20px;
-                    position: relative;
-                    /* font-size: 15px; */
-                }
-
-                footer > .inner > .footerBt .t2 {
-                    margin: 10px 0;
-                    line-height: 30px;
-                    padding-left: 60px;
-                    padding-bottom: 30px;
-                }
-
-                footer > .inner > .footerBt .t2 > span {
-                    padding: 10px 20px;
-                    position: relative;
-                    /* font-size: 15px; */
-                }
-
-                footer > .inner > .footerBt .t2 > span > a{
-                    color: black;
-                }
-
-                .service{
-                    font-size: 30px;
-                    font-weight: bold;
-                    line-height: 50px;
-                }
-
-                .service2{
-                    font-size: 30px;
-                    font-weight: bold;
-                    line-height: 20px;
-                }
-
-                footer > .inner > .footerBt .t3 {
-                    margin: 10px 0;
-                    /* line-height: 20px; */
-                }
-
-                footer > .inner > .footerBt .t3 > span{
-                    padding: 10px 20px;
-                    font-size: small;
-                }
-
-
-                footer > .inner > .footerBt .t4{
-                    margin: 30px 10px;
-                    padding-left: 10px;
-                    font-size:xx-small;
-                }
-            </style>
         </head>
         <body>
-        <footer>
+        <footer class="footer" th:fragment="footer">
             <div class="inner">
                 <div class="icon">
                     <ul>
@@ -235,5 +94,4 @@
         </footer>
         </body>
     </th:block>
-</th:block>
 </html>
