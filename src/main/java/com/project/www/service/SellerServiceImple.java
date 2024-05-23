@@ -1,10 +1,13 @@
 package com.project.www.service;
 
+import com.project.www.domain.ProductVO;
 import com.project.www.domain.SellerVO;
 import com.project.www.repository.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -19,7 +22,9 @@ public class SellerServiceImple implements SellerService{
     }
 
     @Override
-    public Object getList(String id) {
-        return null;
+    public List<ProductVO> getList(String id) {
+        return sellerMapper.getList(id);
     }
+
+
 }

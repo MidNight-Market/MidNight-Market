@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{header :: header}"></th:block>
 <style>
     .container{
         border: 1px solid black;
@@ -16,7 +12,6 @@
         justify-content: space-around;
     }
 </style>
-<body>
 
 <form action="/seller/register" method="post">
     <div class="container">
@@ -34,5 +29,4 @@
     </div>
 </form>
 
-</body>
-</html>
+<th:block th:replace="~{footer :: footer}"></th:block>
