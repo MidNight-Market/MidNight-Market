@@ -15,4 +15,6 @@
     <select id="getProductId" resultType="long">
         SELECT max(id) FROM product
     </select>
+
+
 </mapper>
