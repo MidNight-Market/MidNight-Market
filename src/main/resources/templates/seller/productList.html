@@ -1,0 +1,51 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{header :: header}"></th:block>
+
+<style>
+    .container{
+        border: 1px solid black;
+        margin: auto;
+        width: 100%;
+        height: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .invenList{
+        border: 1px solid black;
+        width: 100%;
+        display: flex;
+    }
+
+    .invenList:hover{
+        background-color: skyblue;
+    }
+
+    .invenInfo{
+        border: 1px solid black;
+        width: 100%;
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+    }
+</style>
+
+<div class="container">
+    <h1>내가 등록한 상품 리스트</h1>
+    <h3>[[${list[0].sellerId}]]님께서 등록한 상품들</h3>
+
+    <th:block th:each="li:${list}">
+        <a th:href="@{/product/detail(id=${li.id})}">
+    <ul class="invenList">
+        <li class="invenInfo"> <img th:src="${li.thumbImage}" alt="사진등록"> </li>
+        <li class="invenInfo">상품명 : [[${li.name}]] </li>
+        <li class="invenInfo">잔여개수 :  <span th:text="${li.totalQty - li.soldQty}"></span> </li>
+        <li class="invenInfo">가격 : [[${li.price}]]원</li>
+    </ul>
+        </a>
+    </th:block>
+
+</div>
+
+<th:block th:replace="~{footer :: footer}"></th:block>

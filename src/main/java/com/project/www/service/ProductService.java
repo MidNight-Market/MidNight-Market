@@ -5,4 +5,6 @@ import com.project.www.domain.ProductVO;
 
 public interface ProductService {
     int insert(ProductDTO productDTO);
+
+    ProductDTO getDetail(long id);
 }

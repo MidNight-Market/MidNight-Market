@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{header :: header}"></th:block>
 <style>
     .container{
         border: 1px solid black;
@@ -16,23 +12,21 @@
         justify-content: space-around;
     }
 </style>
-<body>
 
 <form action="/seller/register" method="post">
     <div class="container">
         <h1>판매자 회원가입</h1>
         <div>
-            아이디 : <input type="text" name="sellerId">
+            아이디 : <input type="text" name="id">
         </div>
         <div>
-            비밀번호 : <input type="text" name="sellerPw">
+            비밀번호 : <input type="text" name="pw">
         </div>
         <div>
-            쇼핑몰 이름 : <input type="text" name="sellerName">
+            쇼핑몰 이름 : <input type="text" name="shopName">
         </div>
         <button>회원가입</button>
     </div>
 </form>
 
-</body>
-</html>
+<th:block th:replace="~{footer :: footer}"></th:block>
