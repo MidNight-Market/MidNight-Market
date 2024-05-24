@@ -9,26 +9,21 @@ footer {
     padding: 20px 0;
   }
 
-  footer > .inner > .icon > ul  {
+  footer > .inner > .icon {
+    width: 600px;
     display: flex;
-    justify-content: flex-start;
-    margin-left: 27%;
+    justify-content: center;
+  }
+
+  footer > .inner > .icon > ul  {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   footer > .inner > .icon > ul > li {
     padding: 10px 50px 30px;
-  }
-
-  li.youtube a{
-    color: red;
-  }
-
-  li.instagram a{
-    color: purple;
-  }
-
-    li.twitter a{
-        color: blue;
   }
 
   footer > .inner > .footerBt {
