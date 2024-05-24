@@ -5,16 +5,17 @@
     <title>Title</title>
 </head>
 <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body>
 
 <h1>Naver Smart Editor 2.0</h1>
 <form>
     <div id="smarteditor">
         <textarea name="editorTxt" id="editorTxt"
-        rows="20" cols="10" placeholder="내용을 입력해주세요"
+        rows="100" cols="100" placeholder="내용을 입력해주세요"
         style="width: 500px">
         </textarea>
-        <button type="submit"></button>
+        <button>전송</button>
     </div>
 </form>
 
@@ -33,6 +34,20 @@
     $(document).ready(function (){
         smartEditor()
     })
+
+    submitPost = function () {
+        oEditor.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", [])
+        let content = document.getElementById("editorTxt").value
+
+        if (content == ''){
+            alert("내용 입력해주삼")
+            oEditors.getById["editorTxt"].exec("FOCUS")
+            return
+        } else{
+                console.log(content)
+            }
+    }
+
 </script>
 
 </body>
