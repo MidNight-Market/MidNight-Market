@@ -40,4 +40,11 @@ public class ProductServiceImple implements ProductService{
 
         return isOK;
     }
+
+    @Override
+    public ProductDTO getDetail(long id) {
+
+        return new ProductDTO(productMapper.getDetail(id),
+                productDetailImageMapper.getDetail(id));
+    }
 }

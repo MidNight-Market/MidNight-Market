@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js"></script>
+<body>
+
+<h1>Naver Smart Editor 2.0</h1>
+<form>
+    <div id="smarteditor">
+        <textarea name="editorTxt" id="editorTxt"
+        rows="20" cols="10" placeholder="내용을 입력해주세요"
+        style="width: 500px">
+        </textarea>
+        <button type="submit"></button>
+    </div>
+</form>
+
+<script>
+    let oEditors = []
+    smartEditor = function (){
+        console.log('Naver SmartEditor')
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef : oEditors,
+            elPlaceHolder : 'editorTxt',
+            sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+            fCreator: "createSEditor2"
+        })
+    }
+
+    $(document).ready(function (){
+        smartEditor()
+    })
+</script>
+
+</body>
+</html>

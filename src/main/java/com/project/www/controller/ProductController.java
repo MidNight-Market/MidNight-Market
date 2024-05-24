@@ -7,6 +7,7 @@ import com.project.www.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +40,25 @@ public class ProductController {
 
        int isOk = psv.insert(productDTO);
 
-
-
-
         return "/index";
     }
+
+    @GetMapping("/detail")
+    public void detail(@RequestParam("id")long id, Model model){
+
+        //log.info(">>>>Product Detail Id 확이>>>>{}",id);
+        ProductDTO productDTO = psv.getDetail(id);
+
+        log.info(">>>DTO확인>>>>{}",productDTO);
+
+        model.addAttribute("dto",productDTO);
+
+    }
+
+    //Editer Test Code
+    @GetMapping("/editer")
+    public void edit(){}
+
 
 
 }
