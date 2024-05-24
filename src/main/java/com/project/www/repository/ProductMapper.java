@@ -9,4 +9,6 @@ public interface ProductMapper {
     int insert(ProductVO productVO);
 
     long getProductId();
+
+    ProductVO getDetail(long id);
 }

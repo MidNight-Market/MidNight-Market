@@ -9,4 +9,11 @@
         VALUES (#{detailImage}, #{sequence}, #{productId})
     </insert>
 
+    <select id="getDetail" resultType="com.project.www.domain.ProductDetailImageVO">
+        SELECT * FROM product_detail_image
+        WHERE
+        product_id = #{id}
+        ORDER BY sequence
+    </select>
+
 </mapper>
