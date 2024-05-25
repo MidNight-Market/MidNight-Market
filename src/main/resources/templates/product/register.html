@@ -30,13 +30,20 @@
     상품명 : <input type="text" name="name">
   </div>
 
-  <div>
-    상품 카테고리 : <select name="productCategoryId">
-    <option value="1">육류</option>
-    <option value="2">채소</option>
-    <option value="3">과자</option>
-    <option value="4">기타</option>
-  </select>
+  <div style="display: flex">
+    상품 카테고리 :
+    <select class="form-select" aria-label="Default select example" id="categorySelect" onchange="updateCategoryOptions()">
+      <option selected>---------</option>
+
+      <th:block th:each="productCategory:${pcDTO.pcList}" >
+        <option th:value="${productCategory.id}">[[${productCategory.name}]]</option>
+      </th:block>
+
+    </select>
+    세부 카테고리 :
+    <select class="form-select" aria-label="Default select example" id="categoryDetailSelect" name="productCategoryDetailId">
+      <option selected>---------</option>
+    </select>
   </div>
 
   <div>
@@ -76,5 +83,12 @@
 판매자 아이디를 이메일로 변경
 
 -->
+
+
+<script th:inline="javascript">
+  const productCategoryDTO = [[${pcDTO}]];
+</script>
+
+<script th:src="@{/js/productRegister.js}"></script>
 
 <th:block th:replace="~{footer :: footer}"></th:block>

@@ -1,4 +1,27 @@
 
+const  qnaTopData = [
+    "반품/교환 신청 시 <br> 주의사항이 있나요?",
+    "배송 받은 상품에 <br> 문제가 있어요. <br><br> 교환/반품신청이 가능한가요?",
+    "회원가입은 어떻게 하나요?",
+    "매장으로 방문하여 <br> A/S 접수가 가능한가요?",
+    "[국내]외국인은 탑승시 <br> 어떤 신분증이 필요한가요?",
+    "A/S 절차는 어떻게 되며, <br> 시간은 얼마나 소요되나요?",
+    "개명을 하였는데 <br> 이름 변경은 어떻게 하나요?",
+    "만 14세 미만도 <br> 가입 가능한가요?",
+    "상품은 어떻게 포장되나요?",
+    "친환경 인증이란 무엇인가요?"
+];
+
+for(let i=0; i<qnaTopData.length; i++){
+
+    let str = `<button type="button" class="topBox" data-bs-toggle="modal" data-bs-target="#myModal" id="topBox${i}">`;
+    str += `<span>${qnaTopData[i]}</span>`;
+    str += `</button>`;
+    document.querySelector('.qnaTop').innerHTML += str;
+}
+
+
+
 
 const topBoxData = [
     "단순변심 및 사이즈/색상 불만에 관련된 교환/반품 신청은 배송완료 후 7일 이내(주말/공휴일 포함)에 가능합니다.<br>" +
