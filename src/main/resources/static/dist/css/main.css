@@ -1,0 +1,147 @@
+@font-face {
+    font-family: 'NanumSquareB';
+    src: url(../font/nanum-square/NanumSquareB.ttf);
+}
+@font-face {
+    font-family: 'NanumSquareEB';
+    src: url(../font/nanum-square/NanumSquareEB.ttf);
+}
+.sectionBox{
+    margin: auto;
+    box-sizing: border-box;
+    position: relative;
+    width: 940px;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*이미지 보이는 영역*/
+sectionBox>.slideImg{
+    width: 840px;
+    height: 220px;
+    /*overflow: hidden;*/
+}
+/*이미지 움직이는 영역*/
+sectionBox>.slideImg>.slideImgInner{
+    height: 220px;
+    display: flex; /* 좌우 슬라이드를 위해 flex로 사진 가로정렬 */
+}
+/*sectionBox>.slideImg>.slideImgInner>.slide{*/
+/*    width: 840px;*/
+/*    height: 220px;*/
+/*}*/
+.sectionBox>.slideImg>.slideImgInner>.slide>a>.slideshow-image {
+    /* 이미지 보이는 영역의 크기와 맞춤 */
+    width: 840px;
+    height: 220px;
+}
+
+.sectionBox>.sectionSlideBtn>.leftBtn{
+    position: absolute;
+    top: 110px;
+    left: 80px;
+    filter: opacity(0.2) drop-shadow(0 0 0 #ffffff);
+}
+.sectionBox>.sectionSlideBtn>.rightBtn{
+    position: absolute;
+    top: 110px;
+    right: 80px;
+    filter: opacity(0.2) drop-shadow(0 0 0 #ffffff);
+}
+.sectionBox>.sectionSlideBtn>a>img{
+    width: 30px;
+    height: 30px;
+}
+.sectionBox>.slideDotBtn{
+    width: 200px;
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    justify-content: space-around;
+    filter: opacity(0.5) drop-shadow(0 0 0 #ffffff);
+}
+.sectionBox>.slideDotBtn>a>img{
+    margin: 0 10px;
+    width: 17px;
+    height: 17px;
+}
+
+.mainBox{
+    width:940px;
+    margin: 30px 0 0 0;
+    padding: 0;
+}
+.mainBox>.mainComment{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 10px 0;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'NanumSquareEB';
+}
+.mainBox>.mainComment:first-child{
+    margin-top: 100px;
+}
+.mainBox>div>p:first-child{
+    color: #ED234B;
+    font-family: 'NanumSquareEB';
+    margin: 10px 3px;
+}
+.mainBox>div>p:last-child{
+    font-size: 22px;
+    font-family: 'NanumSquareEB';
+    margin: 10px 0 20px 0;
+}
+.mainBox>ul{
+    padding: 0;
+    margin: 0;
+    width: 940px;
+    height: 330px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.mainBox>ul>li{
+    width: 940px;
+    height: 300px;
+}
+.mainBox>ul>li:last-child{
+    margin-right: 0;
+}
+.mainBox>ul>li>a>div{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.mainBox>ul>li>a>div>button{
+    border: none;
+    width: 180px;
+    height: 30px;
+    font-weight: bold;
+}
+.mainBox>ul>li>a>div>span{
+    font-size: 15px;
+    text-align: center;
+}
+.mainBox>ul>li>a>div:last-child{
+    display: flex;
+    justify-content: left;
+    margin-left: 10px;
+    font-size: x-small;
+}
+.mainBox>ul>li>a>div:last-child>span{
+    font-size: x-small;
+}
+.mainBox>ul>li>a>span:hover{
+    /*color: #3E9AE5;*/
+    transition: 0.5s;
+}
+.mainBox>ul>li>a>img{
+    width: 235px;
+    height: 180px;
+    /*border: 5px solid rgba(255, 255, 255, 0);*/
+}
+mainBox>ul>li>a>img:hover{
+    transition: 0.5s;
+    transform: scale(1.05);
+}

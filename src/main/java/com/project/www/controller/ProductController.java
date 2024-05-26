@@ -56,7 +56,7 @@ public class ProductController {
     }
 
     //Editer Test Code
-    @GetMapping("/editer")
+    @GetMapping("/edit")
     public void edit(){}
 
 

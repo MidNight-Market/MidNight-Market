@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,10 +48,15 @@ public class CustomerController {
         return num;
     }
 
-/*    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }*/
+
+    @GetMapping("/auth/kakao/callback")
+    public @ResponseBody String kakaoCallback(String code){ //@ResponseBody Data를 리턴해주는 컨트롤러 함수
+        return "redirect:/auth/kakao/callback&response_type=code"+code;
+    }
+
+    @GetMapping("/login")
+    public void login(){
+    }
 
 /*    @GetMapping("/index")
     public @ResponseBody String kakao(String code){//Data를 리턴해주는 컨트롤 함수

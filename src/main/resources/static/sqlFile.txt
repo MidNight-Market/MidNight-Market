@@ -1,11 +1,13 @@
 #수정완료
 CREATE TABLE customer (
 	id VARCHAR(30) NOT NULL,
-	pw VARCHAR(160) NOT NULL,
+	pw VARCHAR(160),
 	nick_name VARCHAR(30) NOT NULL,
 	register_date DATETIME DEFAULT NOW(),
 	class VARCHAR(50) DEFAULT 'BRONZE',
-	address VARCHAR(400) NOT NULL,
+	address VARCHAR(400),
+	type VARCHAR(10),
+	token VARCHAR(100),
 	PRIMARY KEY (id)
 );
 
@@ -22,7 +24,7 @@ CREATE TABLE product (
 	id bigint NOT NULL AUTO_INCREMENT,
 	name VARCHAR(200) NOT NULL,
 	price bigint NOT NULL DEFAULT 0,
-	product_category_id bigint NOT NULL,
+	product_category_detail_id bigint NOT NULL,
 	description text,
 	total_qty bigint,
 	sold_qty bigint,
@@ -52,9 +54,8 @@ CREATE TABLE product_buy (
 
 #수정완료
 CREATE TABLE address (
-	id bigint NOT NULL,
 	address VARCHAR(400) NOT NULL,
-	PRIMARY KEY (id)
+	customer_id VARCHAR(30)
 );
 
 #수정완료
@@ -218,10 +219,11 @@ ALTER TABLE product_category_detail ADD CONSTRAINT FK_product_category_TO_produc
 REFERENCES product_category (
 	id
 );
-ALTER TABLE product ADD CONSTRAINT FK_product_category_TO_product_1 FOREIGN KEY (
-	product_category_id
+
+ALTER TABLE product ADD CONSTRAINT FK_product_category_detail_TO_product_1 FOREIGN KEY (
+	product_category_detail_id
 )
-REFERENCES product_category (
+REFERENCES product_category_detail (
 	id
 );
 
@@ -363,6 +365,13 @@ ALTER TABLE product_detail_image ADD CONSTRAINT FK_product_TO_product_detail_ima
 	product_id
 )
 REFERENCES product (
+	id
+);
+
+ALTER TABLE address ADD CONSTRAINT FK_customer_TO_address_1 FOREIGN KEY (
+	customer_id
+)
+REFERENCES customer (
 	id
 );
 

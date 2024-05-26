@@ -1,10 +1,277 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/main.css}">
+    <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
+</head>
 <th:block th:replace="~{header :: header}"></th:block>
 
-        <div class="mt-4 p-5 bg-primary text-white rounded">
-            <h3>Hello World</h3>
-            <p>Hello World</p>
-        </div>
+<body>
+<section>
+    <!--광고배너(자동슬라이드)-->
+    <div class="inner sectionBox">
+        <div class="slideImg">
+            <div class="slideImgInner">
 
+                <a href="#">
+                    <img th:src="@{/dist/image/banner_ad1.jpg}" class="slideshow-image">
+                </a>
+                <a href="#">
+                    <img th:src="@{/dist/image/banner_ad2.jpg}" class="slideshow-image">
+                </a>
+                <a href="#">
+                    <img th:src="@{/dist/image/banner_ad3.jpg}" class="slideshow-image">
+                </a>
+                <a href="#">
+                    <img th:src="@{/dist/image/banner_ad4.jpg}" class="slideshow-image">
+                </a>
+                <a href="#">
+                    <img th:src="@{/dist/image/banner_ad5.jpg}" class="slideshow-image">
+                </a>
+            </div>
+        </div>
+        <div class="sectionSlideBtn">
+            <a href="#" class="leftBtn"><img th:src="@{/dist/icon/chevron_left.png}"></a>
+            <a href="#" class="rightBtn"><img th:src="@{/dist/icon/chevron_right.png}"></a>
+        </div>
+        <div class="slideDotBtn">
+            <a href="#" class="DotBtn DotBtn1"><img th:src="@{/dist/icon/fiber_manual_record.png}"></a>
+            <a href="#" class="DotBtn DotBtn2"><img th:src="@{/dist/icon/fiber_manual_record.png}"></a>
+            <a href="#" class="DotBtn DotBtn3"><img th:src="@{/dist/icon/fiber_manual_record.png}"></a>
+        </div>
+    </div>
+</section>
+
+<main>
+    <!-- 세일 상품 -->
+    <div class="inner mainBox">
+        <div class="mainComment">금주의 다양한 신상품!</div>
+        <div>
+            <p>NEW</p>
+            <p>신상품</p>
+        </div>
+        <ul>
+            <li><a href="#">
+                <img src="">
+                <div>
+                <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+                </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 베스트 상품 -->
+    <div class="inner mainBox">
+        <div class="mainComment">가장 많이 팔린 상품!</div>
+        <div>
+            <p>BEST</p>
+            <p>베스트 상품</p>
+        </div>
+        <ul>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 신상품 -->
+    <div class="inner mainBox">
+        <div class="mainComment">놓치면 후회할 가격!</div>
+        <div>
+            <p>SALE</p>
+            <p>세일 상품</p>
+        </div>
+        <ul>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+            <li><a href="#">
+                <img src="">
+                <div>
+                    <button type="button">장바구니에 담기</button>
+                </div>
+                <div class="product">
+                    <span>상품명</span>
+                </div>
+                <div class="product">
+                    <span>가격</span>
+                </div>
+                <div class="product">
+                    <span>리뷰수</span>
+                </div>
+            </a>
+            </li>
+        </ul>
+    </div>
+</main>
+<script th:src="@{/js/main.js}"></script>
+</body>
 <th:block th:replace="~{footer :: footer}"></th:block>
