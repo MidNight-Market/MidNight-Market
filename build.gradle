@@ -19,6 +19,8 @@ configurations {
 
 repositories {
 	mavenCentral()
+	//결제관련 api
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -39,6 +41,8 @@ dependencies {
 	implementation 'org.apache.tika:tika-core:2.4.1'
 	implementation 'org.apache.tika:tika-parsers:2.4.1'
 	implementation 'net.coobird:thumbnailator:0.4.17'
+	//결제관련api
+	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
 
 
 	compileOnly 'org.projectlombok:lombok:1.18.32'

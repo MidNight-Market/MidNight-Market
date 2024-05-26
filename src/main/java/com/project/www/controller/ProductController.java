@@ -62,7 +62,7 @@ public class ProductController {
 
         log.info(">>>DTO확인>>>>{}",productDTO);
 
-        model.addAttribute("dto",productDTO);
+        model.addAttribute("productDTO",productDTO);
 
     }
 

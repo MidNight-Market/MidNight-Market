@@ -12,15 +12,25 @@
         flex-direction: column;
         justify-content: space-around;
     }
+
+    #qtyBox{
+        width: 50%;
+        height: 100px;
+        margin: 50px auto;
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+    }
     </style>
 
 <div class="container">
 
 <h1>상품 디테일 페이지</h1>
 
-    <img th:src="${dto.productVO.mainImage}" style="width: 300px" height="300px">
+    <img th:src="${productDTO.productVO.mainImage}" style="width: 300px" height="300px">
 
-<th:block th:each="descImg:${dto.imageList}">
+<th:block th:each="descImg:${productDTO.imageList}">
 
     <div>
     <img th:src="${descImg.detailImage}" style="width: 600px" height="600px">
@@ -28,8 +38,35 @@
 
 
 </th:block>
-    <button>상품 구매</button>
+
+    <div id="qtyBox">
+
+        <button disabled id="-">-&nbsp;</button>
+        <span style="font-size: 30px" id="productQty"> 0 </span>
+        <button id="+">&nbsp;+</button>
+
+        <div>
+        <span>총 결제금액 :</span>
+        <span id="productPrice">0</span>
+        <span>원</span>
+        </div>
+
+    </div>
+
+    <button id="purchaseButton">상품 구매</button>
 </div>
+
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+
+<script th:inline="javascript">
+    const productDTO = [[${productDTO}]];
+</script>
+
+<script th:src="@{/js/productDetail.js}"></script>
+
+<script th:src="@{/js/payment.js}"></script>
 
 
 <th:block th:replace="~{footer :: footer}"></th:block>
