@@ -37,8 +37,12 @@ public class CustomerController {
         log.info("cvo값 체크 {}", cvo);
         return "index";
     }
-    @GetMapping("/loginSelect")
-    public void loginSelect(){}
+    @GetMapping("/registerSelect")
+    public void registerSelect(){}
+
+    @GetMapping("/socialSelect")
+    public void socialSelect(){}
+
     @ResponseBody
     @PostMapping("/mail")
     public String MailSend(String mail){

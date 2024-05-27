@@ -5,7 +5,7 @@
 <mapper namespace="com.project.www.repository.SellerMapper">
     
     <insert id="register">
-        INSERT INTO seller
+        INSERT INTO seller(id,pw,shop_name)
         VALUES (#{id}, #{pw}, #{shopName})
     </insert>
 

@@ -94,6 +94,12 @@
             color: black;
             border: none;
         }
+        .box1:hover{
+            filter: brightness(85%);
+        }
+        .box2:hover{
+            filter: brightness(85%);
+        }
 
         .text3 {
             display: block;
@@ -105,7 +111,7 @@
         }
         .custom-modal .modal-content{
             width: 40% !important;
-            margin: 100px auto !important;
+            margin: 190px auto !important;
         }
 
         .modal-title{
@@ -123,36 +129,59 @@
             font-weight: bold;
             font-size: 22px;
             color: rgba(0, 0, 0, 0.53);
+            border-bottom: 1px solid lightgrey;
         }
         .register-type{
             margin: 0 auto;
-            border: 1px solid black;
-            width: 70%;
+            width: 55%;
             height: 350px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .select-box{
-            width: 70%;
+            width: 100%;
             height: 50px;
             margin: 10px 0;
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             text-align: center;
             line-height: 50px;
-            font-size: 17px;
-            font-weight: bolder;
+            font-size: 18px;
+            font-weight: bold;
             position: relative;
+        }
+        .select-box:hover {
+            filter: brightness(85%);
         }
         .social-image{
             position: absolute;
             top: 50%;
             left: 10%;
             transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
         }
+        .text-with-lines {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 25px;
+            margin: 10px 0;
+            text-align: center;
+            line-height: 50px;
+            font-size: 17px;
+            font-weight: bold;
+            color: rgba(128, 128, 128, 0.63);
 
+        }
+        .text-with-lines::before,
+        .text-with-lines::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.63);
+            margin: 0 10px;
+
+        }
 
     </style>
 </head>
@@ -209,10 +238,11 @@
             <div class="modal-body">
                 <div id="registerDescription"><p>소셜 로그인 및 이메일로 가입할 수 있어요!</p></div>
                 <div class="register-type">
-                    <a href="" class="select-box"> <img src="/dist/image/social-image/google.png" class="social-image"> Google</a>
-                    <a href="" class="select-box" style="background-color: #03c75a; color: white">  <img src="/dist/image/social-image/naver.png" class="social-image"> Naver</a>
-                    <a href="" class="select-box" style="background-color: #F7E600; color: #3A1D1D">  <img src="/dist/image/social-image/kakao.png" class="social-image"> Kakao</a>
-                    <a href="" class="select-box">회원가입</a>
+                    <a href="/customer/socialSelect" class="select-box" style="background-color: rgba(211,211,211,0.36)"> <img src="/dist/image/social-image/google.png" class="social-image">Google로 시작하기</a>
+                    <a href="/customer/socialSelect" class="select-box" style="background-color: #03c75a; color: white">  <img src="/dist/image/social-image/naver.png" class="social-image">네이버로 시작하기</a>
+                    <a href="/customer/socialSelect" class="select-box" style="background-color: #F7E600; color: #3A1D1D">  <img src="/dist/image/social-image/kakao.png" class="social-image">카카오로 시작하기</a>
+                    <div class="text-with-lines">또는</div>
+                    <a href="/customer/insert" class="select-box" style="background-color: gray; color: white">ID/PW 회원가입</a>
                 </div>
             </div>
             <div class="modal-footer">
