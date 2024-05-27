@@ -1,6 +1,5 @@
 package com.project.www.service;
 
-import com.project.www.domain.ProductCategoryDTO;
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductDetailImageVO;
 import com.project.www.repository.ProductCategoryDetailMapper;
@@ -49,18 +48,21 @@ public class ProductServiceImple implements ProductService{
     @Override
     public ProductDTO getDetail(long id) {
 
-        return new ProductDTO(productMapper.getDetail(id),
-                productDetailImageMapper.getDetail(id));
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductVO(productMapper.getDetail(id));
+        productDTO.setImageList(productDetailImageMapper.getDetail(id));
+
+        return productDTO;
     }
 
     @Override
-    public ProductCategoryDTO getProductCategoryDTO() {
+    public ProductDTO getProductCategoryList() {
 
-        ProductCategoryDTO productCategoryDTO = new ProductCategoryDTO();
+        ProductDTO productDTO = new ProductDTO();
 
-        productCategoryDTO.setPcList(productCategoryMapper.getList());
-        productCategoryDTO.setPcdList(productCategoryDetailMapper.getList());
+        productDTO.setPcList(productCategoryMapper.getList());
+        productDTO.setPcdList(productCategoryDetailMapper.getList());
 
-        return productCategoryDTO;
+        return productDTO;
     }
 }

@@ -11,6 +11,13 @@
         #{totalQty}, #{mainImage}, #{thumbImage}, #{sellerId}
         )
     </insert>
+
+    <select id="getMyRegisteredProduct" resultType="com.project.www.domain.ProductVO">
+        SELECT * FROM product
+        WHERE
+        seller_id = #{id}
+    </select>
+
     <select id="getProductId" resultType="long">
         SELECT max(id) FROM product
     </select>
@@ -19,4 +26,11 @@
         WHERE
         id = #{id}
     </select>
+    
+    <update id="productQtyUpdate">
+        UPDATE product SET
+        total_qty = #{totalQty}
+        WHERE
+        id = #{id}
+    </update>
 </mapper>

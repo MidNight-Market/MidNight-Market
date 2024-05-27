@@ -9,10 +9,5 @@
         VALUES (#{id}, #{pw}, #{shopName})
     </insert>
 
-    <select id="getList" resultType="com.project.www.domain.ProductVO">
-        SELECT * FROM product
-        WHERE
-        seller_id = #{id}
-    </select>
     
 </mapper>

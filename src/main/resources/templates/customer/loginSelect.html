@@ -13,7 +13,7 @@
         .join{
             width: 100%;
             height: 500px;
-<!--            background-color: beige;-->
+        <!--            background-color: beige;-->
             padding-bottom: 20px;
         }
         .join>.join1 {
@@ -23,7 +23,7 @@
             float: left;
             position: relative;
             border-right: 1px solid lightgray;
-<!--            margin-top: 30px;-->
+        <!--            margin-top: 30px;-->
             margin-bottom: 30px;
         }
 
@@ -62,7 +62,7 @@
             margin-bottom: 10px;
             box-sizing: border-box;
             background-image: linear-gradient(to left,
-                    rgba(128, 0, 128, 0.717), rgba(255, 0, 0, 0.589));
+            rgba(128, 0, 128, 0.717), rgba(255, 0, 0, 0.589));
             position: absolute;
             top: 38%;
             left: 50%;
@@ -72,6 +72,7 @@
             padding-top: 20px;
             transform: translate(-50%, -50%);
             color: white;
+            border: none;
         }
 
         .box2 {
@@ -91,17 +92,67 @@
             padding-top: 20px;
             transform: translate(-50%, -50%);
             color: black;
+            border: none;
         }
 
         .text3 {
             display: block;
-            margin-left: 35px;
             margin-top: 10px;
         }
 
         .text4 {
             font-weight: 900;
         }
+        .custom-modal .modal-content{
+            width: 40% !important;
+            margin: 100px auto !important;
+        }
+
+        .modal-title{
+            font-size: 30px;
+            font-weight: 700;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        #registerDescription{
+            margin: 30px 0 20px;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 22px;
+            color: rgba(0, 0, 0, 0.53);
+        }
+        .register-type{
+            margin: 0 auto;
+            border: 1px solid black;
+            width: 70%;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .select-box{
+            width: 70%;
+            height: 50px;
+            margin: 10px 0;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 50px;
+            font-size: 17px;
+            font-weight: bolder;
+            position: relative;
+        }
+        .social-image{
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+        }
+
 
     </style>
 </head>
@@ -120,8 +171,7 @@
     </div>
 
     <div class="join2">
-        <a href="">
-            <div class="box1">
+            <button type="button" class="box1" data-bs-toggle="modal" data-bs-target="#myModal" id="customerRegister">
                     <span class="person">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                              class="bi bi-person" viewBox="0 0 16 16">
@@ -131,11 +181,9 @@
                     </span>
                 <span class="text4">개인회원</span>
                 <span class="text3">본인인증 또는 SNS인증 후 가입</span>
-            </div>
-        </a>
+            </button>
 
-        <a href="">
-            <div class="box2">
+            <button type="button" class="box2" id="sellerRegister">
                     <span class="person">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                              class="bi bi-person" viewBox="0 0 16 16">
@@ -145,14 +193,42 @@
                     </span>
                 <span class="text4">사업자 회원</span>
                 <span class="text3">사업자번호 인증 후 가입</span>
-            </div>
-        </a>
+            </button>
 
+    </div>
+</div>
+
+<!-- Modal Line -->
+<div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog custom-modal" style="max-width: none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">회원가입하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="registerDescription"><p>소셜 로그인 및 이메일로 가입할 수 있어요!</p></div>
+                <div class="register-type">
+                    <a href="" class="select-box"> <img src="/dist/image/social-image/google.png" class="social-image"> Google</a>
+                    <a href="" class="select-box" style="background-color: #03c75a; color: white">  <img src="/dist/image/social-image/naver.png" class="social-image"> Naver</a>
+                    <a href="" class="select-box" style="background-color: #F7E600; color: #3A1D1D">  <img src="/dist/image/social-image/kakao.png" class="social-image"> Kakao</a>
+                    <a href="" class="select-box">회원가입</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
     </div>
 </div>
 
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
+
+<script>
+    document.getElementById('sellerRegister').addEventListener('click',()=>{
+        window.location.href = '/seller/register';
+    })
+</script>
 
 </html>
