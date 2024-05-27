@@ -27,7 +27,7 @@ CREATE TABLE product (
 	product_category_detail_id bigint NOT NULL,
 	description text,
 	total_qty bigint,
-	sold_qty bigint,
+	total_sold_qty bigint default 0,
 	register_date DATETIME DEFAULT NOW(),
 	main_image VARCHAR(256),
 	thumb_image VARCHAR(256),

@@ -1,5 +1,6 @@
 package com.project.www.controller;
 
+import com.project.www.domain.ProductCategoryDTO;
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductVO;
 import com.project.www.handler.FileHandler;
@@ -24,7 +25,16 @@ public class ProductController {
     private final FileHandler fileHandler;
 
     @GetMapping("/register")
-    public void register(){}
+    public void register(Model model){
+
+        ProductCategoryDTO pcDTO = psv.getProductCategoryDTO();
+
+        log.info("카테고리 DTO 리스트 출력{} ",pcDTO);
+
+        model.addAttribute("pcDTO",pcDTO);
+
+
+    }
 
     @PostMapping("/register")
     public String register(ProductVO productVO,
@@ -39,6 +49,7 @@ public class ProductController {
         log.info(">>>프로덕트DTO{}",productDTO);
 
        int isOk = psv.insert(productDTO);
+       
 
         return "/index";
     }
@@ -51,7 +62,7 @@ public class ProductController {
 
         log.info(">>>DTO확인>>>>{}",productDTO);
 
-        model.addAttribute("dto",productDTO);
+        model.addAttribute("productDTO",productDTO);
 
     }
 
