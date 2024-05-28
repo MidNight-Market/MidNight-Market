@@ -192,14 +192,15 @@ CREATE TABLE notice (
 );
 
 #수정완료
-CREATE TABLE inquiry (
-	id VARCHAR(30) NOT NULL,
+CREATE TABLE help(
+	hno bigint NOT NULL AUTO_INCREMENT,
+	id VARCHAR(100) NOT NULL,
+	title VARCHAR(100) NOT NULL,
 	content TEXT NOT NULL,
-	image VARCHAR(256) NOT NULL,
-	category VARCHAR(100) NOT NULL,
-	customer_id VARCHAR(150) NOT NULL,
-	PRIMARY KEY (id)
-);
+	reply VARCHAR(10) default 'N',
+	customer_id VARCHAR(150),
+	reg_at DATETIME default now(),
+	PRIMARY KEY(hno));
 
 #수정완료(찜코드를 어떻게하면...)
 CREATE TABLE seller_pick (
@@ -344,7 +345,7 @@ REFERENCES admin (
 	id
 );
 
-ALTER TABLE inquiry ADD CONSTRAINT FK_customer_TO_inquiry_1 FOREIGN KEY (
+ALTER TABLE help ADD CONSTRAINT FK_customer_TO_help_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
@@ -433,4 +434,3 @@ INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (39, "죽/스프/카레", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (40, "양념/액젓/장류", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (41, "햄/통조림/병조림", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (42, "밀키트", 9);
-
