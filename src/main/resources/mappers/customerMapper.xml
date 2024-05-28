@@ -7,4 +7,7 @@
         insert into customer(id, pw, nick_name, address)
         values(#{customerEmail}, #{customerPw}, #{customerNickName}, #{address})
     </insert>
+    <select id="checkEmail" resultType="int">
+        select count(id) from customer where id = #{id}
+    </select>
 </mapper>

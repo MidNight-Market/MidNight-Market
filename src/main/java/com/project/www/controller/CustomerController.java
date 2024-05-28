@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
@@ -46,7 +43,6 @@ public class CustomerController {
     @ResponseBody
     @PostMapping("/mail")
     public String MailSend(String mail){
-        log.info("이메일 들어옴 {}",mail);
         int number = mailService.sendMail(mail);
         String num = "" + number;
         return num;
@@ -54,6 +50,12 @@ public class CustomerController {
 
     @GetMapping("/login")
     public void login(){
+    }
+    @ResponseBody
+    @GetMapping("/{email}")
+    public String remove(@PathVariable("email")String email) {
+        int isOk = csv.checkEmail(email);
+        return isOk > 0 ? "1" : "0";
     }
 
 }
