@@ -5,14 +5,9 @@
 <mapper namespace="com.project.www.repository.SellerMapper">
     
     <insert id="register">
-        INSERT INTO seller
+        INSERT INTO seller(id,pw,shop_name)
         VALUES (#{id}, #{pw}, #{shopName})
     </insert>
 
-    <select id="getList" resultType="com.project.www.domain.ProductVO">
-        SELECT * FROM product
-        WHERE
-        seller_id = #{id}
-    </select>
     
 </mapper>

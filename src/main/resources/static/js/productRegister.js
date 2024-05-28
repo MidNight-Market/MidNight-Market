@@ -5,12 +5,12 @@
     // 기존 옵션들을 모두 제거합니다
     categoryDetailSelect.innerHTML = "";
 
-    for(let i=0; i<productCategoryDTO.pcdList.length; i++){
+    for(let i=0; i<productDTO.pcdList.length; i++){
 
-        if(productCategoryDTO.pcdList[i].productCategoryId == categorySelect.value){
+        if(productDTO.pcdList[i].productCategoryId == categorySelect.value){
             let option = document.createElement('option');
-            option.text = productCategoryDTO.pcdList[i].name;
-            option.value = productCategoryDTO.pcdList[i].id;
+            option.text = productDTO.pcdList[i].name;
+            option.value = productDTO.pcdList[i].id;
             categoryDetailSelect.add(option);
         }
 

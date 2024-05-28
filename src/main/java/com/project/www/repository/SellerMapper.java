@@ -10,5 +10,4 @@ import java.util.List;
 public interface SellerMapper {
     int register(SellerVO sellerVO);
 
-    List<ProductVO> getList(String id);
 }
