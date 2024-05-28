@@ -8,7 +8,7 @@ document.addEventListener('click',(e)=>{
     if(e.target.id == '+'){
 
         productQty.innerText = parseInt(productQty.innerText) + 1;
-        productPrice.innerText = Number(productDTO.productVO.price * productQty.innerText);
+        productPrice.innerText = Number(productDTO.productVO.price * productQty.innerText)+'원';
 
         if(Number(productQty.innerText) == productDTO.productVO.totalQty){
             document.getElementById('+').disabled = true;
@@ -28,7 +28,7 @@ document.addEventListener('click',(e)=>{
     if(e.target.id == '-'){
         console.log('추가');
         productQty.innerText = parseInt(productQty.innerText) - 1;
-        productPrice.innerText = Number(productDTO.productVO.price * productQty.innerText);
+        productPrice.innerText = Number(productDTO.productVO.price * productQty.innerText)+'원';
 
         if(parseInt(productQty.innerText) > 0){
             document.getElementById('-').disabled = false;
