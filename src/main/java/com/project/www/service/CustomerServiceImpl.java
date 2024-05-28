@@ -16,4 +16,10 @@ public class CustomerServiceImpl implements CustomerService{
     public void insert(CustomerVO cvo) {
         customerMapper.insert(cvo);
     }
+
+    @Override
+    public int checkEmail(String email) {
+        int isOk = customerMapper.checkEmail(email);
+        return isOk;
+    }
 }

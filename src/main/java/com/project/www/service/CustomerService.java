@@ -4,4 +4,6 @@ import com.project.www.domain.CustomerVO;
 
 public interface CustomerService {
     void insert(CustomerVO cvo);
+
+    int checkEmail(String email);
 }
