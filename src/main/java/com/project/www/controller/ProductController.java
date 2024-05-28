@@ -24,7 +24,14 @@ public class ProductController {
     private final FileHandler fileHandler;
 
     @GetMapping("/register")
-    public void register(){}
+    public void register(Model model){
+
+        ProductDTO productDTO = psv.getProductCategoryList();
+
+        model.addAttribute("productDTO",productDTO);
+
+
+    }
 
     @PostMapping("/register")
     public String register(ProductVO productVO,
@@ -39,6 +46,7 @@ public class ProductController {
         log.info(">>>프로덕트DTO{}",productDTO);
 
        int isOk = psv.insert(productDTO);
+       
 
         return "/index";
     }
@@ -51,7 +59,7 @@ public class ProductController {
 
         log.info(">>>DTO확인>>>>{}",productDTO);
 
-        model.addAttribute("dto",productDTO);
+        model.addAttribute("productDTO",productDTO);
 
     }
 

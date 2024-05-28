@@ -2,6 +2,8 @@ package com.project.www.service;
 
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductDetailImageVO;
+import com.project.www.repository.ProductCategoryDetailMapper;
+import com.project.www.repository.ProductCategoryMapper;
 import com.project.www.repository.ProductDetailImageMapper;
 import com.project.www.repository.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ public class ProductServiceImple implements ProductService{
 
     private final ProductMapper productMapper;
     private final ProductDetailImageMapper productDetailImageMapper;
+    private final ProductCategoryMapper productCategoryMapper;
+    private final ProductCategoryDetailMapper productCategoryDetailMapper;
 
     @Transactional
     @Override
@@ -44,7 +48,21 @@ public class ProductServiceImple implements ProductService{
     @Override
     public ProductDTO getDetail(long id) {
 
-        return new ProductDTO(productMapper.getDetail(id),
-                productDetailImageMapper.getDetail(id));
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductVO(productMapper.getDetail(id));
+        productDTO.setImageList(productDetailImageMapper.getDetail(id));
+
+        return productDTO;
+    }
+
+    @Override
+    public ProductDTO getProductCategoryList() {
+
+        ProductDTO productDTO = new ProductDTO();
+
+        productDTO.setPcList(productCategoryMapper.getList());
+        productDTO.setPcdList(productCategoryDetailMapper.getList());
+
+        return productDTO;
     }
 }
