@@ -13,5 +13,7 @@ public class ProductDTO {
 
     private ProductVO productVO;
     private List<ProductDetailImageVO> imageList;
+    private List<ProductCategoryVO> pcList;
+    private List<ProductCategoryDetailVO> pcdList;
 
 }

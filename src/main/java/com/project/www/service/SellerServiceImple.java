@@ -1,7 +1,9 @@
 package com.project.www.service;
 
+import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductVO;
 import com.project.www.domain.SellerVO;
+import com.project.www.repository.ProductMapper;
 import com.project.www.repository.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.util.List;
 public class SellerServiceImple implements SellerService{
 
     private final SellerMapper sellerMapper;
+    private final ProductMapper productMapper;
 
     @Override
     public int register(SellerVO sellerVO) {
@@ -22,8 +25,13 @@ public class SellerServiceImple implements SellerService{
     }
 
     @Override
-    public List<ProductVO> getList(String id) {
-        return sellerMapper.getList(id);
+    public  List<ProductVO> getMyRegisteredProduct(String id) {
+        return productMapper.getMyRegisteredProduct(id);
+    }
+
+    @Override
+    public int productQtyUpdate(ProductVO productVO) {
+        return productMapper.productQtyUpdate(productVO);
     }
 
 

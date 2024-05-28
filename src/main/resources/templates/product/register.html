@@ -35,7 +35,7 @@
     <select class="form-select" aria-label="Default select example" id="categorySelect" onchange="updateCategoryOptions()">
       <option selected>---------</option>
 
-      <th:block th:each="productCategory:${pcDTO.pcList}" >
+      <th:block th:each="productCategory:${productDTO.pcList}" >
         <option th:value="${productCategory.id}">[[${productCategory.name}]]</option>
       </th:block>
 
@@ -86,7 +86,7 @@
 
 
 <script th:inline="javascript">
-  const productCategoryDTO = [[${pcDTO}]];
+  const productDTO = [[${productDTO}]];
 </script>
 
 <script th:src="@{/js/productRegister.js}"></script>

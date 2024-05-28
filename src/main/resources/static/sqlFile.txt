@@ -1,21 +1,25 @@
 #수정완료
 CREATE TABLE customer (
-	id VARCHAR(30) NOT NULL,
+	id VARCHAR(150) NOT NULL,
 	pw VARCHAR(160),
 	nick_name VARCHAR(30) NOT NULL,
+	provider VARCHAR(30),
+	provider_id VARCHAR(150),
 	register_date DATETIME DEFAULT NOW(),
 	class VARCHAR(50) DEFAULT 'BRONZE',
 	address VARCHAR(400),
-	type VARCHAR(10),
-	token VARCHAR(100),
+	role VARCHAR(20) DEFAULT 'role_user',
 	PRIMARY KEY (id)
 );
 
 #수정완료
 CREATE TABLE seller (
-	id VARCHAR(30) NOT NULL,
+	id VARCHAR(150) NOT NULL,
 	pw VARCHAR(160) NOT NULL,
 	shop_name VARCHAR(40) NOT NULL,
+	provider VARCHAR(30),
+    provider_id VARCHAR(150),
+    role VARCHAR(20) DEFAULT 'role_seller',
 	PRIMARY KEY (id)
 );
 
@@ -31,7 +35,7 @@ CREATE TABLE product (
 	register_date DATETIME DEFAULT NOW(),
 	main_image VARCHAR(256),
 	thumb_image VARCHAR(256),
-	seller_id VARCHAR(30) NOT NULL,
+	seller_id VARCHAR(50) NOT NULL,
 	is_del VARCHAR(5) DEFAULT "N",
 	PRIMARY KEY (id)
 );
@@ -48,14 +52,14 @@ CREATE TABLE product_buy (
 	discount_amount bigint,
 	member_coupon_id bigint NOT NULL,
 	product_id bigint NOT NULL,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 
 #수정완료
 CREATE TABLE address (
 	address VARCHAR(400) NOT NULL,
-	customer_id VARCHAR(30)
+	customer_id VARCHAR(150)
 );
 
 #수정완료
@@ -72,7 +76,7 @@ CREATE TABLE product_review (
 	rev_count bigint DEFAULT 0,
 	rev_up_count bigint DEFAULT 0,
 	rev_view_count bigint DEFAULT 0,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -90,7 +94,7 @@ CREATE TABLE member_coupon (
 	end_date DATETIME,
 	use_status BOOLEAN,
 	use_date DATETIME,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	PRIMARY KEY (coupon_id)
 );
 
@@ -105,7 +109,7 @@ CREATE TABLE coupon (
 
 #수정완료
 CREATE TABLE product_pick (
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	qty bigint NOT NULL,
 	product_id bigint NOT NULL
 );
@@ -117,7 +121,7 @@ CREATE TABLE product_qna (
 	content VARCHAR(256) NOT NULL,
 	register_date DATETIME DEFAULT NOW(),
 	qna_status BOOLEAN NOT NULL,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -126,9 +130,9 @@ CREATE TABLE product_qna_answer (
 	id bigint NOT NULL AUTO_INCREMENT,
 	shop_name VARCHAR(40) NOT NULL,
 	content VARCHAR(256) NOT NULL,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	answer_date DATETIME DEFAULT NOW(),
-	seller_id VARCHAR(30) NOT NULL,
+	seller_id VARCHAR(50) NOT NULL,
 	qna_id bigint NOT NULL,
 	PRIMARY KEY (id)
 );
@@ -154,7 +158,7 @@ CREATE TABLE payment (
 	pay_date DATETIME DEFAULT NOW(),
 	pay_price bigint NOT NULL,
 	pay_method VARCHAR(100) NOT NULL,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	product_buy_id bigint NOT NULL,
 	PRIMARY KEY (pay_id)
 );
@@ -164,13 +168,13 @@ CREATE TABLE notification (
 	notify_type VARCHAR(100) NOT NULL,
 	notify_content VARCHAR(200) NOT NULL,
 	notify_date DATETIME DEFAULT NOW(),
-	customer_id VARCHAR(30) NOT NULL
+	customer_id VARCHAR(150) NOT NULL
 );
 
 #수정완료
 CREATE TABLE member_point (
 	id bigint NOT NULL AUTO_INCREMENT,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	save_date DATETIME DEFAULT NOW(),
 	use_date DATETIME,
 	point_type VARCHAR(30),
@@ -193,15 +197,15 @@ CREATE TABLE inquiry (
 	content TEXT NOT NULL,
 	image VARCHAR(256) NOT NULL,
 	category VARCHAR(100) NOT NULL,
-	customer_id VARCHAR(30) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 
 #수정완료(찜코드를 어떻게하면...)
 CREATE TABLE seller_pick (
 	id bigint NOT NULL,
-	seller_id VARCHAR(30) NOT NULL,
-	customer_id VARCHAR(30) NOT NULL,
+	seller_id VARCHAR(50) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id)
 );
 
