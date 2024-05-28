@@ -64,8 +64,8 @@ public class ProductController {
     }
 
     //Editer Test Code
-    @GetMapping("/edit")
-    public void edit(){}
+    @GetMapping("/list")
+    public void list(){}
 
 
 
