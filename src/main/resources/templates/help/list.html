@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+<th:block th:replace="~{header :: header}"></th:block>
+<body>
+<h1>1:1 문의</h1>
+<a href="/help/register"><button type="button" class="helpBtn">문의하기</button></a>
+<div class="input-group mb-3" style="width: 500px;">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>작성유무</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hvo:${list}">
+            <td>[[${hvo.hno}]]</td>
+            <td>[[${hvo.id}]]</td>
+            <td><a th:href="@{/help/detail(hvo=${hvo.hno})}">[[${hvo.title}]]</a></td>
+            <td>[[${hvo.regAt}]]</td>
+            <td>[[${hvo.reply}]]</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+<th:block th:replace="~{footer :: footer}"></th:block>

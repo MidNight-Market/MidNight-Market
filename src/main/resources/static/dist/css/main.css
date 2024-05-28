@@ -6,31 +6,7 @@
     font-family: 'NanumSquareEB';
     src: url(../font/nanum-square/NanumSquareEB.ttf);
 }
-
-.sectionBox>.slide{
-    position: relative;
-    width: 940px;
-    margin: 0 auto;
-    height: 260px;
-    overflow: hidden;
-}
-
-/*.sectionBox>.slide>.slideImgInner{*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*}*/
-
-/*.sectionBox>.slide>.slideImgInner.animated{*/
-/*    transition: 0.5s ease-out;*/
-/*}*/
-/*.sectionBox>.slide>.slideImgInner>.slideImg{*/
-/*    float: left;*/
-/*    width: 940px;*/
-/*    height: 260px;*/
-/*}*/
-
-
-.sectionBox{
+.sectionBox {
     margin: 0 auto;
     width: 940px;
     height: 260px;
@@ -40,60 +16,81 @@
     position: relative;
     overflow: hidden;
 }
-.sectionBox>.slide{ /*이미지 보이는 영역*/
+
+.sectionBox>.slide {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
-.sectionBox>.slide>.slideImgInner.animated> { /*이미지 움직이는 영역*/
-    transition: 0.5s ease-out;
+
+.sectionBox>.slide>.slideImgInner {
+    display: flex; /* 가로로 배치 */
+    transition: transform 0.5s ease;
 }
+
+.animated {
+    transition: transform 0.5s ease;
+}
+
 .sectionBox>.slide>.slideImgInner>.slideImg {
-    position: relative;
     width: 940px;
     height: 260px;
 }
+
 .sectionBox>.slide>.slideImgInner>.slideImg>img {
-    width: 940px;
-    height: 260px;
+    width: 100%;
+    height: 100%;
 }
-.sectionBox>.sectionSlideBtn>button{
+
+.slideImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.slideImg.active {
+    opacity: 1;
+}
+
+.sectionBox>.sectionSlideBtn>button {
     border: 0;
     outline: 0;
     background-color: transparent;
 }
-.sectionBox>.sectionSlideBtn>.leftBtn{
+
+.sectionBox>.sectionSlideBtn>.leftBtn {
     position: absolute;
-    top: 110px;
-    left: 30px;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
     filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);
 }
-.sectionBox>.sectionSlideBtn>.rightBtn{
+
+.sectionBox>.sectionSlideBtn>.rightBtn {
     position: absolute;
-    top: 110px;
-    right: 30px;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
     filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);
 }
+
 .sectionBox>.sectionSlideBtn>a>img{
     width: 30px;
     height: 30px;
 }
-/*.sectionBox>.slideDotBtn{*/
-/*    width: 240px;*/
-/*    bottom: 5px;*/
-/*    position: absolute;*/
-/*    display: flex;*/
-/*    justify-content: space-around;*/
-/*    filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);*/
-/*}*/
-/*.sectionBox>.slideDotBtn>button{*/
-/*    border: 0;*/
-/*    outline: 0;*/
-/*    background-color: transparent;*/
-/*}*/
-/*.sectionBox>.slideDotBtn>a>img{*/
-/*    margin: 0 10px;*/
-/*    width: 17px;*/
-/*    height: 17px;*/
-/*}*/
+
+.slideImgInner {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease;
+}
+.animated {
+    transition: transform 0.5s ease;
+}
 
 .mainBox{
     width:940px;
