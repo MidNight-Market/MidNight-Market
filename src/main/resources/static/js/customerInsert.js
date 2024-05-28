@@ -104,6 +104,8 @@ document.getElementById('joinBtn').addEventListener('click',()=>{
 });
 
 // 이용약관
+const joinBtn = document.getElementById('joinBtn');
+joinBtn.disabled = 'disabled';
 const pchkBoxes = document.querySelectorAll('input[name="chk"]'); // 필수약관
 const cchkBoxes = document.querySelectorAll('input[name="chk1"]'); // 선택약관
 
@@ -116,9 +118,9 @@ function chkAll(isChecked) {
         checkbox.checked = isChecked;
     });
 
-    // 최소 두 개의 체크박스가 선택되었는지 확인하여 "동의" 버튼을 활성화
+    // 최소 두 개의 체크박스가 선택되었는지 확인하여 가입하기 버튼을 활성화
     const checkedCount = Array.from(pchkBoxes).filter((checkbox) => checkbox.checked).length;
-    agreeButton.disabled = checkedCount < 2;
+    joinBtn.disabled = checkedCount < 2;
 }
 
 // chkAll 체크박스에 이벤트 리스너 추가
@@ -126,23 +128,23 @@ document.querySelector('#chk').addEventListener('change', function () {
     chkAll(this.checked);
 });
 
-// "동의" 버튼을 업데이트하는 개별 체크박스에 이벤트 리스너 추가
+// 가입하기 버튼을 업데이트하는 개별 체크박스에 이벤트 리스너 추가
 const individualCheckboxes = document.querySelectorAll('input[name="chk"]');
 individualCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', function () {
         const checkedCount = Array.from(individualCheckboxes).filter((checkbox) => checkbox.checked).length;
-        agreeButton.disabled = checkedCount < 2;
+        joinBtn.disabled = checkedCount < 2;
     });
 });
 
-let agree;
-
 function agreement(){
     alert("이용약관에 동의하셨습니다.")
-    agree = true;
 }
 function disagreement(){
     alert("이용약관 필수사항에 동의하시지 않으셨습니다.")
 }
+
+
+
 
 
