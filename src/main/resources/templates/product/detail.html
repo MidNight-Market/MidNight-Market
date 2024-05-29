@@ -9,69 +9,49 @@
 <style>
     .product-container{
         width: 940px;
-        height: 500px;
+        height: 800px;
         margin: 0 auto;
-        /*border : 1px solid black;*/
-        /*display: flex;*/
+        border: 1px solid red;
         justify-content: center;
     }
     .first-content{
-        /*border: 1px solid black;*/
+        border: 1px solid black;
         margin: 0 auto;
         width: 100%;
-        height: 500px;
+        height: 800px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        /*border: 1px solid red;*/
     }
     .main-image-box{
-        /*border: 1px solid blue;*/
-        width: 35%;
-        height: 65%;
+        width: 450px;
+        height: 450px;
+    }
+    .right-content-box{
+        width: 450px;
+        height: 100%;
+        border: 1px solid saddlebrown;
     }
     .product-description{
-        width: 60%;
-        height: 80%;
-        /*border: 1px solid blue;*/
+        width: 450px;
+        height: 50%;
+        border: 1px solid blue;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
     }
     .product-description-box{
+        border: 1px solid gold;
         width: 100%;
-        height: 20%;
+        height: 10%;
         display: flex;
-        border-bottom: 1px solid lightgrey;
+        /*border-bottom: 1px solid lightgrey;*/
         border-radius: 2px;
     }
-    .product-description-q{
-        width: 20%;
-        height: 100%;
-        border-right: 1px solid lightgrey;
-        border-radius: 2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 700;
-        color: rgb(102, 102, 102);
-    }
-    .product-description-a{
-        width: 80%;
-        height: 100%;
-        /*border: 1px solid black;*/
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-
 
     .pick-content{
-        width: 940px;
-        height: 250px;
-        /*border: 1px solid black;*/
+        width: 450px;
+        height: 50%;
+        border: 1px solid violet;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
@@ -165,63 +145,79 @@
 
 <div class="first-content">
     <div class="main-image-box"><img th:src="${productDTO.productVO.mainImage}" style="width: 100%; height: 100%"></div>
-    <div class="product-description">
+
+    <div class="right-content-box">
+
+        <div class="product-description">
+
         <div class="product-description-box">
-            <div class="product-description-q">
-                <p>상품명</p>
+            <p>카테고리 > 분류 > 분류</p>
             </div>
-            <div class="product-description-a">
-            <p style="font-size: 23px; font-weight: 600">[[${productDTO.productVO.name}]]</p>
+
+        <div class="product-description-box">
+            <p>[[${productDTO.productVO.name}]]</p>
+        </div>
+
+        <div class="product-description-box">
+            <p>[[${productDTO.productVO.price}]]원</p>
+        </div>
+
+        <div class="product-description-box">
+            <p>판매자</p>
+        </div>
+
+        <div class="product-description-box">
+            <p>3,000원(40,000원 이상 무료)</p>
+        </div>
+    </div>
+
+        <div class="pick-content">
+            <div class="pick-box">
+                <div class="product-count-box">
+                    <p>상품수량</p>
+                    <div id="count-box">
+                        <button class="count-button" id="-" disabled>-</button>
+                        <span class="count-quantity" id="productQty">1</span>
+                        <button class="count-button" id="+">+</button>
+                    </div>
+                    <p id="max-quantity-notice" style="color: red; margin: 30px 0 30px 30px" ></p>
+                </div>
+                <div class="total-sum">
+                    <span style="font-size: 27px; margin: 0 50px 0 100px">합계</span>
+                    <span class="product-price-text" id="productPrice" th:text="${#numbers.formatDecimal(productDTO.productVO.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
             </div>
-        <div class="product-description-box">
-            <div class="product-description-q">
-                <p>상품설명</p>
-            </div>
-            <div class="product-description-a">
-                <p style="font-weight: 670">[[${productDTO.productVO.description}]]</p>
-            </div>
         </div>
-        <div class="product-description-box">
-            <div class="product-description-q">
-                <p>원산지</p>
-            </div>
-            <div class="product-description-a">
-                <p style="font-size: 21px; font-weight: 620">상품설명 참조</p>
-            </div>
-        </div>
-        <div class="product-description-box">
-            <div class="product-description-q">
-                <p>판매자</p>
-            </div>
-            <div class="product-description-a">
-                <p style="font-size: 16px; font-weight: 600;">[[${productDTO.productVO.sellerId}]]</p>
-            </div>
-        </div>
+
+
     </div>
 </div>
 
 
-    <div class="pick-content">
-        <div class="buy-or-pick-box">
-            <button class="buy-or-pick-select">장바구니</button>
-            <button class="buy-or-pick-select" id="purchaseButton">주문하기</button>
-        </div>
-        <div class="pick-box">
-            <div class="product-count-box">
-                <p>[[${productDTO.productVO.name}]]</p>
-                <div id="count-box">
-                <button class="count-button" id="-" disabled>-</button>
-                    <span class="count-quantity" id="productQty">1</span>
-                <button class="count-button" id="+">+</button>
-                </div>
-                <p id="max-quantity-notice" style="color: red; margin: 30px 0 30px 30px" ></p>
-            </div>
-            <div class="total-sum">
-                <span style="font-size: 27px; margin: 0 50px 0 100px">합계</span>
-                <span class="product-price-text" id="productPrice" th:text="${#numbers.formatDecimal(productDTO.productVO.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
-            </div>
-        </div>
+<!--    <div class="pick-content">-->
+<!--        <div class="buy-or-pick-box">-->
+<!--            <button class="buy-or-pick-select">장바구니</button>-->
+<!--            <button class="buy-or-pick-select" id="purchaseButton">주문하기</button>-->
+<!--        </div>-->
+<!--        <div class="pick-box">-->
+<!--            <div class="product-count-box">-->
+<!--                <p>상품수량</p>-->
+<!--                <div id="count-box">-->
+<!--                <button class="count-button" id="-" disabled>-</button>-->
+<!--                    <span class="count-quantity" id="productQty">1</span>-->
+<!--                <button class="count-button" id="+">+</button>-->
+<!--                </div>-->
+<!--                <p id="max-quantity-notice" style="color: red; margin: 30px 0 30px 30px" ></p>-->
+<!--            </div>-->
+<!--            <div class="total-sum">-->
+<!--                <span style="font-size: 27px; margin: 0 50px 0 100px">합계</span>-->
+<!--                <span class="product-price-text" id="productPrice" th:text="${#numbers.formatDecimal(productDTO.productVO.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="navigation">
+
     </div>
 
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
