@@ -51,6 +51,7 @@ public class CustomerController {
     @GetMapping("/login")
     public void login(){
     }
+
     @ResponseBody
     @GetMapping("/check/{email}")
     public String checkEmail(@PathVariable("email")String email) {
