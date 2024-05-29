@@ -18,7 +18,7 @@
             <div class="inner">
                 <ul class="top1-menu">
                     <li><a href="/customer/registerSelect">회원가입</a></li>
-                    <li><a href="/">로그인</a></li>
+                    <li><a href="#login-modal" data-bs-toggle="modal" data-bs-target="#login-modal">로그인</a></li>
                     <li><a href="/help/desk">고객센터</a></li>
                     <li><a href="/help/list">문의</a></li>
                 </ul>
@@ -142,6 +142,48 @@
             </div>
         </form>
     </header>
+
+<!-- 모달창 라인  -->
+    <div class="modal" id="login-modal" tabindex="-1">
+        <div class="modal-dialog custom-login-modal" style="max-width: none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="font-size: 20px; font-weight: 700"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/">
+                    <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
+                    <div class="login-box">
+                        <div class="input-box">
+                            <input type="text" class="box-size" placeholder="아이디">
+                            <input type="password" class="box-size" placeholder="비밀번호">
+                        </div>
+                        <div class="other-info-box">
+                            <label>
+                                <input type="checkbox">
+                                <span style="margin-right: 15px;">아이디저장</span>
+                            </label>
+                            <a href=""><span>아이디 찾기 |</span></a>
+                            <a href=""><span>비밀번호 재설정 |</span></a>
+                            <a href=""><span>회원가입</span></a>
+                        </div>
+                        <button type="submit" class="box-size form-box">로그인</button>
+                        <div class="social-icon">
+                            <a href=""><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
+                            <a href=""><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
+                            <a href=""><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     </body>
 </th:block>
 </html>
