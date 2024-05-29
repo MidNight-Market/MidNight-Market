@@ -51,10 +51,17 @@ public class CustomerController {
     @GetMapping("/login")
     public void login(){
     }
+
     @ResponseBody
-    @GetMapping("/{email}")
-    public String remove(@PathVariable("email")String email) {
+    @GetMapping("/check/{email}")
+    public String checkEmail(@PathVariable("email")String email) {
         int isOk = csv.checkEmail(email);
+        return isOk > 0 ? "1" : "0";
+    }
+    @ResponseBody
+    @GetMapping("/checkN/{nickName}")
+    public String checkNickName(@PathVariable("nickName")String nickName) {
+        int isOk = csv.checkNickName(nickName);
         return isOk > 0 ? "1" : "0";
     }
 

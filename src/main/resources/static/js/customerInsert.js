@@ -161,7 +161,7 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
 });
 async function checkEmail(email) {
     try {
-        const url = '/customer/'+email;
+        const url = '/customer/check/'+email;
         const config = {
             method: 'GET'
         };
@@ -208,15 +208,14 @@ document.getElementById('checkNick').addEventListener('click', ()=>{
             alert("이미 있는 닉네임입니다. 다시 입력해주세요. ");
             document.getElementById("n").value = '';
         }else{
-            alert("사용가능한 이메일입니다. ");
-            document.getElementById('sendBtn').style.display = '';
+            alert("사용가능한 닉네임입니다. ");
         }
     })
 
 })
 async function checkNick(nickName) {
     try {
-        const url = '/customer/'+nickName;
+        const url = '/customer/checkN/'+nickName;
         const config = {
             method: 'GET'
         };

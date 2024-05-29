@@ -8,4 +8,6 @@ public interface CustomerMapper {
     void insert(CustomerVO cvo);
 
     int checkEmail(String email);
+
+    int checkNickName(String nickName);
 }
