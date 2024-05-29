@@ -63,12 +63,14 @@
     .titleDiv::after::before {
         right: -10px;
     }
-    .container-sm{
+    .main{
         width: 940px;
+        margin: 0 auto;
     }
 
 </style>
 <body>
+<section class="main">
 <div class="container-sm">
     <div class="title">
         <img src="/dist/image/bg.gif" class="bgimg"/>
@@ -102,7 +104,7 @@
         <div class="mb-3">
             <label for="n" class="form-label">닉네임</label>
             <input type="text" class="form-control" name="customerNickName" id="n" placeholder="닉네임을 입력해주세요.">
-            <button class="btn btn-primary" id="checkNick">중복확인</button>
+            <button class="btn btn-primary" id="checkNick" type="button">중복확인</button>
         </div>
         <div class="mb-3">
             <input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
@@ -647,5 +649,6 @@
     <script th:src="@{/js/customerInsert.js}"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </div>
+</section>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>
