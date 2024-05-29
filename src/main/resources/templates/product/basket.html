@@ -1,0 +1,293 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{header :: header}"></th:block>
+
+<head>
+
+    <title>Basket</title>
+
+    <style>
+        body {
+      width: 100%;
+  }
+
+  .basket1{
+      /* background-color: aqua; */
+      height: 800px;
+      padding: 10px 80px;
+  }
+
+  .basket2{
+      text-align: center;
+      margin: 50px;
+  }
+
+  .title1{
+      font-size: 30px;
+      font-weight: 550;
+  }
+
+  .basket3{
+      /* background-color: pink; */
+      width: 70%;
+      height: 500px;
+      float: left;
+  }
+
+  a{
+      color: black;
+  }
+  .text1{
+      margin-left: 10px;
+      margin-right: 10px;
+  }
+
+  .text2{
+
+  }
+
+  .checkbox{
+      /* margin-bottom: 10px; */
+      padding: 10px 0 0 10px;
+  }
+
+  hr{
+      border: 1px solid black;
+  }
+
+  .basket4{
+      background-color: rgba(211, 211, 211, 0.155);
+      width: 300px;
+      height: 350px;
+      float: right;
+      position: sticky;
+      top: 105px;
+      right: 70px;
+  }
+
+  .basket5{
+      padding: 20px;
+      /* margin-bottom: 10px; */
+      border: 1px solid lightgray;
+      border-radius: 3px;
+  }
+
+  .text3, .text4, .text5, .text7{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  }
+
+  .text6, .text8{
+      text-align: right;
+      margin-bottom: 20px;
+      font-size: 12px;
+  }
+
+  .text7{
+      margin-top: 50px;
+  }
+
+  .basket6{
+      float: right;
+      text-align: center;
+      width: 300px;
+      height: 70px;
+      background-color: orange;
+      line-height: 70px;
+      border-radius: 5px;
+  }
+
+  .basket7{
+      background-color: white;
+      width: 300px;
+      height: 30px;
+  }
+
+  .text9{
+      font-size: 20px;
+      font-weight: 550;
+  }
+
+  .accumulate{
+      background-color: orange;
+      border-radius: 10px;
+      padding: 3px;
+      margin-right: 5px;
+      color: white;
+  }
+
+  .basket8{
+      /* background-color: aqua; */
+      padding-top:90px;
+  }
+
+  .text10, .text11{
+      font-size: 12px;
+      margin-bottom: 20px;
+  }
+
+  .basket9{
+      /* background-color: yellow; */
+      padding: 10px;
+  }
+
+  .image1{
+      width: 100px;
+      height: 100px;
+      /* background-color: aqua; */
+      border: 1px solid black;
+      margin-left: 10px;
+      margin-right: 10px;
+  }
+
+  li{
+      display: flex;
+      align-items: center;
+      position: relative;
+      /* padding: 20px 0px; */
+  }
+
+  .name1{
+      /* background-color: aliceblue; */
+      width: 400px;
+      height: 100px;
+      line-height: 100px;
+  }
+
+  .box1{
+      /* background-color: pink; */
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+      display: flex;
+  }
+
+  .box2{
+      width: 40px;
+      height: 100px;
+      /* background-color: yellow; */
+  }
+
+  .price{
+      /* background-color: aqua; */
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      text-align: right;
+  }
+    </style>
+</head>
+
+<body>
+<div class="basket1">
+    <div class="basket2">
+        <span class="title1">장바구니</span>
+    </div>
+    <div class="basket3">
+        <div class="checkbox">
+            <a href="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                </svg>
+            </a>
+
+            <a href=""><span class="text1">전체 선택(/)</span></a>
+            <a href=""><span class="text2">선택 삭제</span></a>
+
+        </div>
+        <hr>
+        <div class="basket9">
+            <ul>
+                <li>
+                    <a href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path
+                                    d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                        </svg>
+                    </a>
+                    <a href="">
+                        <div class="image1">
+                            <img src="" alt="">
+
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="name1">제품명</div>
+                    </a>
+                    <div class="box1">
+                        <a href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-dash-square" viewBox="0 0 16 16">
+                                <path
+                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                            </svg>
+                        </a>
+                        <div class="box2">
+                            1
+                        </div>
+                        <a href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <path
+                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                <path
+                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="price">
+                        <span>원</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="basket4">
+        <div class="basket5">
+            <div class="text3">
+                <span>상품금액</span>
+                <span>원</span>
+            </div>
+            <div class="text4">
+                <span>상품 할인 금액</span>
+                <span>원</span>
+            </div>
+            <div class="text5">
+                <span>배송비</span>
+                <span>원</span>
+            </div>
+            <div class="text6">
+                <span>원 추가 주문시, 무료배송</span>
+            </div>
+            <div class="text7">
+                <span>결제 예정 금액</span>
+                <span>원</span>
+            </div>
+            <div class="text8">
+                <span><span class="accumulate">적립</span>로그인 후 회원 등급에 따라 적립</span>
+            </div>
+        </div>
+        <div class="basket7">
+
+        </div>
+        <a href="">
+            <div class="basket6">
+                <span class="text9">로그인</span>
+            </div>
+        </a>
+        <div class="basket8">
+            <span class="text10">[주문완료] 상태일 경우에만 주문 취소가 가능합니다.</span>
+            <span class="text11">[마이페이지>주문내역 상세페이지]에서 직접 취소 하실수 있습니다.</span>
+        </div>
+    </div>
+</div>
+</body>
+
+<th:block th:replace="~{footer :: footer}"></th:block>
