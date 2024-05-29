@@ -23,6 +23,7 @@ public class ProductController {
     private final ProductService psv;
     private final FileHandler fileHandler;
 
+
     @GetMapping("/register")
     public void register(Model model){
 
@@ -62,11 +63,6 @@ public class ProductController {
         model.addAttribute("productDTO",productDTO);
 
     }
-
-    //Editer Test Code
-    @GetMapping("/list")
-    public void list(){}
-
 
 
 }

@@ -33,4 +33,24 @@
         WHERE
         id = #{id}
     </update>
+
+    <select id="getNewProductList" resultType="com.project.www.domain.ProductVO">
+        SELECT * from product
+        ORDER BY register_date DESC
+        limit 0,4
+    </select>
+
+    <select id="getHeavySoldList" resultType="com.project.www.domain.ProductVO">
+        SELECT * from product
+        ORDER BY total_sold_qty DESC
+        limit 0,4
+    </select>
+
+    <select id="getDiscountProductList" resultType="com.project.www.domain.ProductVO">
+        SELECT * from product
+        ORDER BY discount_rate DESC
+        limit 0,4
+    </select>
+
+
 </mapper>

@@ -11,6 +11,7 @@
 <th:block th:replace="~{header :: header}"></th:block>
 
 <body>
+
 <section>
     <!--광고배너(자동슬라이드&버튼)-->
     <div class="inner sectionBox">
@@ -49,70 +50,21 @@
             <p>신상품</p>
         </div>
         <ul>
+            <th:block th:each="newProductList:${newProductList}">
             <li><a href="#">
-                <img src="">
-                <div>
-                <button type="button">장바구니에 담기</button>
+                <img th:src="${newProductList.mainImage}">
+                <div class="product">
+                    <span>[[${newProductList.name}]]</span>
                 </div>
                 <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
+                    <span th:text="${#numbers.formatDecimal(newProductList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
                 <div class="product">
                     <span>리뷰수</span>
                 </div>
                 </a>
             </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
+            </th:block>
         </ul>
     </div>
 
@@ -124,70 +76,22 @@
             <p>베스트 상품</p>
         </div>
         <ul>
+            <th:block th:each="heavySoldList:${heavySoldList}">
             <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
+                <img th:src="${heavySoldList.mainImage}">
+                <div class="product">
+                    <span>[[${heavySoldList.name}]]</span>
                 </div>
                 <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
+                    <span th:text="${#numbers.formatDecimal(heavySoldList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
                 <div class="product">
                     <span>리뷰수</span>
                 </div>
             </a>
             </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
+            </th:block>
+
         </ul>
     </div>
 
@@ -199,70 +103,25 @@
             <p>세일 상품</p>
         </div>
         <ul>
+            <th:block th:each="discountProductList:${discountProductList}">
+                <!-- 변수 선언 -->
+                <p th:with="discountRate=discountProductList.discountRate, denominator=3"></p>
             <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
+                <img th:src="${discountProductList.mainImage}">
+                <div class="product">
+                    <span>[[${discountProductList.name}]]</span>
                 </div>
                 <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
+                    <span th:text="${#numbers.formatDecimal(discountProductList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'" style="text-decoration: line-through; color: red;"></span>
+                    <span style="margin:0 10px;">([[${discountProductList.discountRate}]]%)-></span>
+                    <span th:text="${#numbers.formatDecimal(discountProductList.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
                 <div class="product">
                     <span>리뷰수</span>
                 </div>
             </a>
             </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
-            <li><a href="#">
-                <img src="">
-                <div>
-                    <button type="button">장바구니에 담기</button>
-                </div>
-                <div class="product">
-                    <span>상품명</span>
-                </div>
-                <div class="product">
-                    <span>가격</span>
-                </div>
-                <div class="product">
-                    <span>리뷰수</span>
-                </div>
-            </a>
-            </li>
+            </th:block>
         </ul>
     </div>
 </main>

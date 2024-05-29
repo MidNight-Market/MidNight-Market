@@ -28,6 +28,8 @@ CREATE TABLE product (
 	id bigint NOT NULL AUTO_INCREMENT,
 	name VARCHAR(200) NOT NULL,
 	price bigint NOT NULL DEFAULT 0,
+	discount_rate int default 0,
+	discount_price bigint default 0,
 	product_category_detail_id bigint NOT NULL,
 	description text,
 	total_qty bigint,
@@ -77,6 +79,7 @@ CREATE TABLE product_review (
 	rev_up_count bigint DEFAULT 0,
 	rev_view_count bigint DEFAULT 0,
 	customer_id VARCHAR(150) NOT NULL,
+	product_id bigint NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -378,6 +381,14 @@ ALTER TABLE address ADD CONSTRAINT FK_customer_TO_address_1 FOREIGN KEY (
 )
 REFERENCES customer (
 	id
+);
+
+#상품 <-> 상품리뷰
+ALTER TABLE `product_review` ADD CONSTRAINT `FK_product_TO_product_review_1` FOREIGN KEY (
+	`product_id`
+)
+REFERENCES `product` (
+	`id`
 );
 
 
