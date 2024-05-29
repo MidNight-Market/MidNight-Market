@@ -22,4 +22,10 @@ public class CustomerServiceImpl implements CustomerService{
         int isOk = customerMapper.checkEmail(email);
         return isOk;
     }
+
+    @Override
+    public int checkNickName(String nickName) {
+        int isOk = customerMapper.checkNickName(nickName);
+        return isOk;
+    }
 }

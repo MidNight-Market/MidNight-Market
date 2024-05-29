@@ -10,4 +10,7 @@
     <select id="checkEmail" resultType="int">
         select count(id) from customer where id = #{id}
     </select>
+    <select id="checkNickName" resultType="int">
+        select count(nick_name) from customer where nick_name = #{nick_name}
+    </select>
 </mapper>
