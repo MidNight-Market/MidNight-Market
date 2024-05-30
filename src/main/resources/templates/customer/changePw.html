@@ -1,0 +1,39 @@
+<th:block th:replace="~{header :: header}"></th:block>
+<head>
+    <title>비밀번호 재설정</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        body{
+            text-align: center;
+        }
+        .tim{
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:src="@{/js/customerInsert.js}"></script>
+<script src=""></script>
+
+<body>
+<div class="container-sm">
+    <h1 class="tim">비밀번호 재설정</h1>
+    <div class="mb-3" id="mail_input">
+        <label for="customerEmail" class="form-label">이메일</label>
+        <input type="email" name="customerEmail" id="customerEmail" placeholder="이메일 입력" class="form-control">
+        <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()" class="btn btn-primary">인증번호</button>
+    </div>
+    <br>
+    <div class="mb-3" id="mail_number">
+        <label for="number"></label>
+        <input type="text" name="number" id="number" placeholder="인증번호 입력" class="form-control">
+        <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-primary">이메일 인증</button>
+    </div>
+    <br>
+    <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+</div>
+</body>
+<th:block th:replace="~{footer :: footer}"></th:block>
