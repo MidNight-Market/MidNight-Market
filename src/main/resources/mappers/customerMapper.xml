@@ -7,4 +7,22 @@
         insert into customer(id, pw, nick_name, address)
         values(#{customerEmail}, #{customerPw}, #{customerNickName}, #{address})
     </insert>
+    <select id="checkEmail" resultType="int">
+        select count(id) from customer where id = #{id}
+    </select>
+    <select id="checkNickName" resultType="int">
+        select count(nick_name) from customer where nick_name = #{nick_name}
+    </select>
+    <select id="findNickName" resultType="String">
+        select id from customer where nick_name = #{nick_name}
+    </select>
+    <select id="findId" resultType="int">
+        select count(id) from customer where id = #{id}
+    </select>
+    <update id="updateDefaultPw">
+        update customer set pw = "resetPw" where id = #{id}
+    </update>
+    <update id="updatePw">
+        update customer set pw = #{pw} where id = #{id}
+    </update>
 </mapper>

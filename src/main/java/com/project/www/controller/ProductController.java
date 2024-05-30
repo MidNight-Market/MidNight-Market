@@ -23,6 +23,7 @@ public class ProductController {
     private final ProductService psv;
     private final FileHandler fileHandler;
 
+
     @GetMapping("/register")
     public void register(Model model){
 
@@ -63,10 +64,11 @@ public class ProductController {
 
     }
 
-    //Editer Test Code
-    @GetMapping("/edit")
-    public void edit(){}
+    @GetMapping("/basket")
+    public void basket(){}
 
 
+    @GetMapping("/list")
+    public void list(Model model){}
 
 }

@@ -1,91 +1,128 @@
-/* footer */
+@font-face {
+  font-family: 'NanumSquareB';
+  src: url(../font/nanum-square/NanumSquareB.ttf);
+}
+@font-face {
+  font-family: 'NanumSquareEB';
+  src: url(../font/nanum-square/NanumSquareEB.ttf);
+}
 footer {
-    /* background-color: rgba(211, 211, 211, 0.454); */
-    border-top: 1px solid lightgray;
-  }
+  border-top: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+}
 
-  footer > .inner {
-    height: 320px;
-    padding: 20px 0;
-  }
+footer > .inner {
+  width: 100%;
+  max-width: 1000px;
+  height: 320px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  footer > .inner > .icon {
-    width: 600px;
-    display: flex;
-    justify-content: center;
-  }
+footer > .inner > .icon {
+  width: 600px;
+  display: flex;
+  justify-content: center;
+}
 
-  footer > .inner > .icon > ul  {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-evenly;
-  }
+footer > .inner > .icon > ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
 
-  footer > .inner > .icon > ul > li {
-    padding: 10px 50px 30px;
-  }
+footer > .inner > .icon > ul > li {
+  padding: 10px 50px 30px;
+  list-style: none;
+}
 
-  footer > .inner > .footerBt {
-    margin: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid lightgray;
-  }
+footer > .inner > .footerBt {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid lightgray;
+  width: 100%;
+}
 
-  footer > .inner > .footerBt .t {
-    margin: 10px 0;
-    line-height: 30px;
-  }
+footer > .inner > .footerBt .t2{
+  width: 1000px;
+  display: flex;
+  justify-content: space-evenly;
+}
 
-  footer > .inner > .footerBt .t > span {
-    padding: 10px 20px;
-    position: relative;
-    /* font-size: 15px; */
-  }
+footer > .inner > .footerBt .t3 {
+  padding-top: 10px;
+}
 
-  footer > .inner > .footerBt .t2 {
-    margin: 10px 0;
-    line-height: 30px;
-    padding-left: 60px;
-    padding-bottom: 30px;
-  }
+footer > .inner > .footerBt .t,
+footer > .inner > .footerBt .t2 {
+  margin: 10px 0;
+  line-height: 30px;
+  text-align: center;
+  padding: 10px 0 10px 0;
+}
 
-  footer > .inner > .footerBt .t2 > span {
-    padding: 10px 20px;
-    position: relative;
-    /* font-size: 15px; */
-  }
+footer > .inner > .footerBt .t3,
+footer > .inner > .footerBt .t4 {
+  margin: 10px 0;
+  line-height: 20px;
+  text-align: left;
+}
 
-  footer > .inner > .footerBt .t2 > span > a{
-    color: black;
-  }
+footer > .inner > .footerBt .t > span,
+footer > .inner > .footerBt .t2 > span,
+footer > .inner > .footerBt .t3 > span {
+  padding: 10px 20px;
+  position: relative;
+}
 
-  .service{
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 50px;
-  }
+footer > .inner > .footerBt .t > span,
+footer > .inner > .footerBt .t2 > span {
+  padding: 10px 20px;
+  position: relative;
+  font-family: NanumSquareEB;
+}
 
-  .service2{
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 20px;
-  }
+footer > .inner > .footerBt .t3 > span,
+footer > .inner > .footerBt .t4 > span {
+  padding: 10px 20px;
+  position: relative;
+}
 
-  footer > .inner > .footerBt .t3 {
-    margin: 10px 0;
-    /* line-height: 20px; */
-  }
+footer > .inner > .footerBt .t2 > span > a {
+  color: black;
+}
 
-  footer > .inner > .footerBt .t3 > span{
-    padding: 10px 20px;
-    font-size: small;
-  }
+.service {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 60px;
+}
 
+.service2 {
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 20px;
+}
 
-  footer > .inner > .footerBt .t4{
-    margin: 30px 10px;
-    padding-left: 10px;
-    font-size:xx-small;
-  }
+footer > .inner > .footerBt .t3 > span:first-child{
+  font-size: medium;
+  line-height: 30px;
+}
+
+footer > .inner > .footerBt .t3 > span {
+  padding: 10px 20px;
+  font-size: small;
+}
+
+footer > .inner > .footerBt .t4 {
+  margin: 30px 10px;
+  padding-left: 10px;
+  font-size: xx-small;
+}

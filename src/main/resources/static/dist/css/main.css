@@ -6,94 +6,92 @@
     font-family: 'NanumSquareEB';
     src: url(../font/nanum-square/NanumSquareEB.ttf);
 }
-
-.sectionBox>.slide{
-    position: relative;
-    width: 940px;
-    margin: 0 auto;
-    height: 260px;
-    overflow: hidden;
+a span{
+    color : black;
 }
-
-/*.sectionBox>.slide>.slideImgInner{*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*}*/
-
-/*.sectionBox>.slide>.slideImgInner.animated{*/
-/*    transition: 0.5s ease-out;*/
-/*}*/
-/*.sectionBox>.slide>.slideImgInner>.slideImg{*/
-/*    float: left;*/
-/*    width: 940px;*/
-/*    height: 260px;*/
-/*}*/
-
-
-.sectionBox{
+.sectionBox {
     margin: 0 auto;
     width: 940px;
-    height: 260px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
 }
-.sectionBox>.slide{ /*이미지 보이는 영역*/
+
+.sectionBox>.slide {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
-.sectionBox>.slide>.slideImgInner.animated> { /*이미지 움직이는 영역*/
-    transition: 0.5s ease-out;
+
+.sectionBox>.slide>.slideImgInner {
+    display: flex;
+    transition: transform 0.5s ease;
 }
+
+.animated {
+    transition: transform 0.5s ease;
+}
+
 .sectionBox>.slide>.slideImgInner>.slideImg {
-    position: relative;
     width: 940px;
     height: 260px;
 }
+
 .sectionBox>.slide>.slideImgInner>.slideImg>img {
-    width: 940px;
-    height: 260px;
+    width: 100%;
+    height: 100%;
 }
-.sectionBox>.sectionSlideBtn>button{
+
+.slideImg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.slideImg.active {
+    opacity: 1;
+}
+
+.sectionBox>.sectionSlideBtn>button {
     border: 0;
     outline: 0;
     background-color: transparent;
 }
-.sectionBox>.sectionSlideBtn>.leftBtn{
+
+.sectionBox>.sectionSlideBtn>.leftBtn {
     position: absolute;
-    top: 110px;
-    left: 30px;
+    top: 42%;
+    left: 35px;
+    transform: translateY(-50%);
     filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);
 }
-.sectionBox>.sectionSlideBtn>.rightBtn{
+
+.sectionBox>.sectionSlideBtn>.rightBtn {
     position: absolute;
-    top: 110px;
-    right: 30px;
+    top: 42%;
+    right: 20px;
+    transform: translateY(-50%);
     filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);
 }
+
 .sectionBox>.sectionSlideBtn>a>img{
     width: 30px;
     height: 30px;
 }
-/*.sectionBox>.slideDotBtn{*/
-/*    width: 240px;*/
-/*    bottom: 5px;*/
-/*    position: absolute;*/
-/*    display: flex;*/
-/*    justify-content: space-around;*/
-/*    filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);*/
-/*}*/
-/*.sectionBox>.slideDotBtn>button{*/
-/*    border: 0;*/
-/*    outline: 0;*/
-/*    background-color: transparent;*/
-/*}*/
-/*.sectionBox>.slideDotBtn>a>img{*/
-/*    margin: 0 10px;*/
-/*    width: 17px;*/
-/*    height: 17px;*/
-/*}*/
+
+.slideImgInner {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease;
+}
+.animated {
+    transition: transform 0.5s ease;
+}
 
 .mainBox{
     width:940px;
@@ -110,6 +108,10 @@
 }
 .mainBox>.mainComment:first-child{
     margin-top: 100px;
+}
+.mainBox>div {
+    display: block;
+    text-align: left;
 }
 .mainBox>div>p:first-child{
     color: #ED234B;
@@ -128,10 +130,13 @@
     height: 330px;
     display: flex;
     justify-content: space-evenly;
+    align-items: end;
+    border: 4px solid lightgray;
 }
 .mainBox>ul>li{
-    width: 940px;
+    width: 220px;
     height: 300px;
+    /*border: 1px solid violet;*/
 }
 .mainBox>ul>li:last-child{
     margin-right: 0;
@@ -161,13 +166,11 @@
     font-size: x-small;
 }
 .mainBox>ul>li>a>span:hover{
-    /*color: #3E9AE5;*/
     transition: 0.5s;
 }
 .mainBox>ul>li>a>img{
-    width: 235px;
+    width: 220px;
     height: 180px;
-    /*border: 5px solid rgba(255, 255, 255, 0);*/
 }
 mainBox>ul>li>a>img:hover{
     transition: 0.5s;

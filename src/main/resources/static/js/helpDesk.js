@@ -297,46 +297,52 @@ const descData = [
 //HelpDescription
 const tap_btn = document.querySelectorAll('.tap_btn');
 
-tap_btn.forEach(div => {
-    div.addEventListener('click', (e)=>{
-
-        tap_btn.forEach(btn =>{
-            if(btn !== div){
-                btn.style.backgroundColor = 'white';
-                btn.style.color = 'black';
-            }
-        })
-
-        const targetDiv = e.target.closest('.tap_btn');
-
-        targetDiv.style.backgroundColor = 'black';
-        targetDiv.style.color = 'white';
-
-        let accArea = document.getElementById('accordion-list');
-        const type = e.target.id;
-        let output = `<div class="accordion accordion-flush" id="accordionFlushExample">`;
-
-        // descData 배열을 반복하여 type에 해당하는 데이터를 찾음
-        descData.forEach(data => {
-            if (data[type]) {
-                data[type].forEach((obj, index) => {
-                    const key = Object.keys(obj)[0];
-                    const value = obj[key];
-
-                    output += `<div class="accordion-item">`;
-                    output += `<h2 class="accordion-header" id="flush-heading${index}">`;
-                    output += `<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">`;
-                    output += `<span style="font-size: 20px; font-weight: 700">&nbsp;Q .&nbsp;</span><span style="font-weight: 600">&nbsp;${key}<span>`;
-                    output += `</button>`;
-                    output += `</h2>`;
-                    output += `<div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}" data-bs-parent="#accordionFlushExample">`;
-                    output += `<div class="accordion-body">${value}</div>`;
-                    output += `</div></div>`;
-                });
-            }
-        });
-
-        output += `</div>`;
-        accArea.innerHTML = output;
+function handleButtonClick(e) {
+    tap_btn.forEach(btn => {
+        if (btn !== e.target.closest('.tap_btn')) {
+            btn.style.backgroundColor = 'white';
+            btn.style.color = 'black';
+        }
     });
+
+    const targetDiv = e.target.closest('.tap_btn');
+    targetDiv.style.backgroundColor = 'black';
+    targetDiv.style.color = 'white';
+
+    let accArea = document.getElementById('accordion-list');
+    const type = e.target.id;
+    let output = `<div class="accordion accordion-flush" id="accordionFlushExample">`;
+
+    descData.forEach((data, dataIndex) => {
+        if (data[type]) {
+            data[type].forEach((obj, index) => {
+                const key = Object.keys(obj)[0];
+                const value = obj[key];
+
+                output += `<div class="accordion-item">`;
+                output += `<h2 class="accordion-header" id="flush-heading${index}">`;
+                output += `<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">`;
+                output += `<span style="font-size: 20px; font-weight: 700">&nbsp;Q .&nbsp;</span><span style="font-weight: 600">&nbsp;${key}<span>`;
+                output += `</button>`;
+                output += `</h2>`;
+                output += `<div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}" data-bs-parent="#accordionFlushExample">`;
+                output += `<div class="accordion-body">${value}</div>`;
+                output += `</div></div>`;
+            });
+        }
+    });
+
+    output += `</div>`;
+    accArea.innerHTML = output;
+}
+
+tap_btn.forEach(div => {
+    div.addEventListener('click', handleButtonClick);
 });
+
+// 페이지 로드 시 첫 번째 버튼 클릭 트리거 (아코디언 창은 닫혀있음)
+if (tap_btn.length > 0) {
+    const randomNumber = Math.floor(Math.random() * tap_btn.length);
+    tap_btn[randomNumber].click();
+}
+

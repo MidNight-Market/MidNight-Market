@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
@@ -26,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class CustomerController {
     private final CustomerService csv;
-    private final MailService mailService;
+    private final MailService msv;
 
     @GetMapping("/insert")
     public void insert() {}
@@ -34,7 +31,6 @@ public class CustomerController {
     @PostMapping("/insert")
     public String insert(CustomerVO cvo){
         csv.insert(cvo);
-        log.info("cvo값 체크 {}", cvo);
         return "index";
     }
     @GetMapping("/registerSelect")
@@ -43,17 +39,49 @@ public class CustomerController {
     @GetMapping("/socialSelect")
     public void socialSelect(){}
 
-    @ResponseBody
-    @PostMapping("/mail")
-    public String MailSend(String mail){
-        log.info("이메일 들어옴 {}",mail);
-        int number = mailService.sendMail(mail);
-        String num = "" + number;
-        return num;
-    }
-
-    @GetMapping("/login")
+    @PostMapping("/login")
     public void login(){
     }
 
+    @ResponseBody
+    @GetMapping("/check/{email}")
+    public String checkEmail(@PathVariable("email")String email) {
+        int isOk = csv.checkEmail(email);
+        return isOk > 0 ? "1" : "0";
+    }
+    @ResponseBody
+    @GetMapping("/checkN/{nickName}")
+    public String checkNickName(@PathVariable("nickName")String nickName) {
+
+        int isOk = csv.checkNickName(nickName);
+        return isOk > 0 ? "1" : "0";
+    }
+    @GetMapping("/changePw")
+    public void changePw(){
+        log.info("test");
+    }
+
+    @GetMapping("/findId")
+    public void findId(){}
+
+    @ResponseBody
+    @GetMapping("/findId/{nickName}")
+    public String findId(@PathVariable("nickName")String nickName){
+        return csv.findNickName(nickName);
+    }
+    @ResponseBody
+    @GetMapping("/findAccount/{id}")
+    public int findAccount(@PathVariable("id")String id){
+        int isOk = csv.findId(id);
+        if(isOk> 0){
+            csv.updateDefaultPw(id);
+            msv.sendResetPw(id);
+        }
+        return csv.findId(id);
+    }
+    @PostMapping("/resetPw")
+    public String resetPw(String id, String pw){
+        csv.updatePw(id, pw);
+        return "index";
+    }
 }
