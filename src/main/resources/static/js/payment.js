@@ -7,21 +7,22 @@ document.getElementById('purchaseButton').addEventListener('click', ()=> {
         pg: 'html5_inicis',
         pay_method: 'card',
         merchant_uid: 'merchant_uid' + new Date().getTime(),
-        name: `주문명: ${productDTO.productVO.name}`,
-        amount:`${document.getElementById('productPrice').innerText}`,
+        name: `${productDTO.productVO.name}`,
+        amount:Number(`${document.getElementById('productPrice').innerText.replace(/[,원]/g,"")}`),
         buyer_email: 'email',
-        buyer_name: 'nick_name',
-        buyer_tel: 'tel',
+        buyer_name: '윤찬웅',
+        buyer_tel: '010-1234-5678',
         buyer_addr: 'address',
-        buyer_postcode: '123-456'
     }, function(rsp) {
-        if (rsp.success) {
-            alert('결제가 완료되었습니다.');
-            window.location.href = '/';
-            // 결제 성공 후 처리
-        } else {
-            alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
-            // 결제 실패 후 처리
-        }
+        console.log(rsp);
+        //결제 성공 여부
+        // if (rsp.success) {
+        //     alert('결제가 완료되었습니다.');
+        //     window.location.href = '/';
+        //     // 결제 성공 후 처리
+        // } else {
+        //     alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+        //     // 결제 실패 후 처리
+        // }
     });
 });

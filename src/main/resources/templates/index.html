@@ -51,7 +51,7 @@
         </div>
         <ul>
             <th:block th:each="newProductList:${newProductList}">
-            <li><a href="#">
+            <li><a th:href="@{/product/detail(id = ${newProductList.id})}">
                 <img th:src="${newProductList.mainImage}">
                 <div class="product">
                     <span>[[${newProductList.name}]]</span>
@@ -77,7 +77,7 @@
         </div>
         <ul>
             <th:block th:each="heavySoldList:${heavySoldList}">
-            <li><a href="#">
+            <li><a th:href="@{/product/detail(id = ${heavySoldList.id})}">
                 <img th:src="${heavySoldList.mainImage}">
                 <div class="product">
                     <span>[[${heavySoldList.name}]]</span>
@@ -105,8 +105,7 @@
         <ul>
             <th:block th:each="discountProductList:${discountProductList}">
                 <!-- 변수 선언 -->
-                <p th:with="discountRate=discountProductList.discountRate, denominator=3"></p>
-            <li><a href="#">
+            <li><a th:href="@{/product/detail(id = ${discountProductList.id})}">
                 <img th:src="${discountProductList.mainImage}">
                 <div class="product">
                     <span>[[${discountProductList.name}]]</span>

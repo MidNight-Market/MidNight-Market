@@ -64,5 +64,8 @@ public class ProductController {
 
     }
 
+    @GetMapping("/basket")
+    public void basket(){}
+
 
 }
