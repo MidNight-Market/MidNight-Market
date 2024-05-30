@@ -8,4 +8,6 @@ public interface CustomerService {
     int checkEmail(String email);
 
     int checkNickName(String nickName);
+
+    String findNickName(String nickName);
 }

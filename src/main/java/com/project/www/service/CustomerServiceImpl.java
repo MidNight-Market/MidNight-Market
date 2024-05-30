@@ -28,4 +28,9 @@ public class CustomerServiceImpl implements CustomerService{
         int isOk = customerMapper.checkNickName(nickName);
         return isOk;
     }
+
+    @Override
+    public String findNickName(String nickName) {
+        return customerMapper.findNickName(nickName);
+    }
 }

@@ -1,0 +1,25 @@
+<th:block th:replace="~{header :: header}"></th:block>
+<head>
+    <title>비밀번호 재설정</title>
+    <style>
+        .ft{
+            font-size: 50px;
+        }
+        section{
+            text-align: center;
+        }
+    </style>
+</head>
+<script src=""></script>
+<body>
+<section>
+    <p class="ft">아이디 찾기</p>
+    <label for="nickName"></label>닉네임
+    <input type="text" name="nickName" id="nickName"><br>
+    <button type="button" id="findId">확인</button>
+    <div id="resultDiv" style="display: none">
+
+    </div>
+</section>
+</body>
+<th:block th:replace="~{footer :: footer}"></th:block>
