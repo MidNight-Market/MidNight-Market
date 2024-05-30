@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class CustomerController {
     private final CustomerService csv;
+    private final MailService msv;
 
     @GetMapping("/insert")
     public void insert() {}
@@ -56,6 +57,16 @@ public class CustomerController {
         return isOk > 0 ? "1" : "0";
     }
     @GetMapping("/changePw")
-    public void changePw(){}
+    public void changePw(){
+        log.info("test");
+    }
 
+    @GetMapping("/findId")
+    public void findId(){}
+
+    @ResponseBody
+    @GetMapping("/findId/{nickName}")
+    public String findId(@PathVariable("nickName")String nickName){
+        return csv.findNickName(nickName);
+    }
 }
