@@ -2,6 +2,8 @@ package com.project.www.domain;
 
 import lombok.*;
 
+
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

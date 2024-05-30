@@ -21,8 +21,8 @@ public class PagingHandler {
         this.pgvo = pgvo;
         this.totalCount = totalCount;
 
-        this.endPage = (int)Math.ceil(pgvo.getPageNum()/(double)10)*5;
-        this.startPage = endPage - 4;
+        this.endPage = (int)Math.ceil(pgvo.getPageNum()/(double)5)*5; // 5개 단위로 페이지 계산
+        this.startPage = this.endPage - 4;
 
         this.realEndPage = (int)Math.ceil(totalCount/(double)pgvo.getPageSize());
 

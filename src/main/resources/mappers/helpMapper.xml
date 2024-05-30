@@ -7,7 +7,7 @@
     <select id="getList" resultType="com.project.www.domain.HelpVO">
         SELECT * from help
         order by hno desc
-        limit #{startPage}, #{pageSize}
+        limit #{pageStart}, #{pageSize}
     </select>
 
     <insert id="insert">
@@ -47,7 +47,7 @@
     </update>
 
     <select id="getTotal" resultType="int">
-        SELETE count(*) from help
+        SELECT count(hno) from help
     </select>
 
 </mapper>
