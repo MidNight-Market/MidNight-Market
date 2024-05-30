@@ -23,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class CustomerController {
     private final CustomerService csv;
-    private final MailService mailService;
 
     @GetMapping("/insert")
     public void insert() {}
@@ -31,7 +30,6 @@ public class CustomerController {
     @PostMapping("/insert")
     public String insert(CustomerVO cvo){
         csv.insert(cvo);
-        log.info("cvo값 체크 {}", cvo);
         return "index";
     }
     @GetMapping("/registerSelect")
@@ -40,22 +38,24 @@ public class CustomerController {
     @GetMapping("/socialSelect")
     public void socialSelect(){}
 
-    @ResponseBody
-    @PostMapping("/mail")
-    public String MailSend(String mail){
-        int number = mailService.sendMail(mail);
-        String num = "" + number;
-        return num;
-    }
-
-    @GetMapping("/login")
+    @PostMapping("/login")
     public void login(){
     }
+
     @ResponseBody
-    @GetMapping("/{email}")
-    public String remove(@PathVariable("email")String email) {
+    @GetMapping("/check/{email}")
+    public String checkEmail(@PathVariable("email")String email) {
         int isOk = csv.checkEmail(email);
         return isOk > 0 ? "1" : "0";
     }
+    @ResponseBody
+    @GetMapping("/checkN/{nickName}")
+    public String checkNickName(@PathVariable("nickName")String nickName) {
+
+        int isOk = csv.checkNickName(nickName);
+        return isOk > 0 ? "1" : "0";
+    }
+    @GetMapping("/changePw")
+    public void changePw(){}
 
 }
