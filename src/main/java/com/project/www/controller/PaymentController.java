@@ -5,6 +5,7 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 @Controller
+@Slf4j
 public class PaymentController {
 
     private IamportClient api;
@@ -29,6 +31,17 @@ public class PaymentController {
 
     @ResponseBody
     @RequestMapping(value = "/verifyIamprot/{imp_uid}")
-    public IamportResponse<Payment> verifyIamport(@PathVariable String imp_uid){}
+    public IamportResponse<Payment> paymentByImpUid(
+            Model model
+            ,Locale locale
+            ,HttpSession session
+            ,@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException
+        ,IOException {
+
+        log.info("정보 확인>>>{}",api.paymentByImpUid(imp_uid));
+
+        return api.paymentByImpUid(imp_uid);
+    }
+
 
 }
