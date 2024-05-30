@@ -3,15 +3,14 @@ package com.project.www.controller;
 import com.project.www.domain.HelpVO;
 import com.project.www.service.HelpService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/help/*")
 @Controller
@@ -23,14 +22,12 @@ public class HelpController {
   public void desk(){}
 
   @GetMapping("/register")
-  public void register(){
-  }
+  public void register(){}
 
   @PostMapping("/register")
   public String register(HelpVO hvo){
     hvo.setCustomerId("test");
     isOK = hsv.register(hvo);
-
     return "redirect:/help/list";
   }
 
@@ -38,16 +35,48 @@ public class HelpController {
   public void list(Model m){
     List<HelpVO> list = hsv.getList();
     m.addAttribute("list", list);
-}
+  }
 
-//  @GetMapping("/modify")
-//  public void modify(HelpVO hvo){
-//  }
-//
-//  @PutMapping("/modify")
-//  public String modify(){
-//    return "redirect:/help/list";
-//  }
+  @GetMapping("/detail")
+  public void detail(Model m, @RequestParam("hno") long hno){
+    HelpVO hvo = hsv.getDetail(hno);
+    m.addAttribute("hvo", hvo);
+  }
+
+  @GetMapping("/modify")
+  public void modify(Model m, @RequestParam("hno") long hno){
+    HelpVO hvo = hsv.getDetail(hno);
+    m.addAttribute("hvo", hvo);
+  }
+
+  @PostMapping("/modify")
+  public String modify(HelpVO hvo){
+    log.info("hvo{}",hvo);
+    isOK = hsv.modify(hvo);
+      return "redirect:/help/list?hno="+hvo.getHno();
+  }
+
+  @GetMapping("/delete")
+  public String delete(Model m, @RequestParam("hno") long hno){
+    isOK = hsv.delete(hno);
+    log.info("hno{}",hno);
+    m.addAttribute("test", isOK);
+    return "redirect:/help/list";
+  }
+
+  @PostMapping("/reply")
+  public String reply(HelpVO hvo){
+    log.info("hvo{}",hvo);
+
+    hsv.replyRegister(hvo);
+    return "redirect:/help/detail?hno="+hvo.getHno();
+  }
+
+  @GetMapping("/replyAns")
+  public void replyAns(Model m, @RequestParam("hno") long hno){
+    HelpVO hvo = hsv.getDetail(hno);
+    m.addAttribute("hvo", hvo);
+  }
 
 
 }

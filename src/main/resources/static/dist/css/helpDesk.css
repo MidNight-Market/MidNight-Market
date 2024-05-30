@@ -56,7 +56,6 @@
     margin: 0 auto;
     width: 70%;
     height: auto;
-//border: 1px solid black;
 }
 .tap_list{
     display: flex;
@@ -97,4 +96,10 @@
 }
 .accordion-body{
     margin: 20px;
+}
+
+.qnaBtn{
+    display: flex;
+    justify-content: center;
+    margin: 0 0 100px;
 }
