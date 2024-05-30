@@ -13,4 +13,7 @@
     <select id="checkNickName" resultType="int">
         select count(nick_name) from customer where nick_name = #{nick_name}
     </select>
+    <select id="findNickName" resultType="String">
+        select id from customer where nick_name = #{nick_name}
+    </select>
 </mapper>

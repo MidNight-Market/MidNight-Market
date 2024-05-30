@@ -10,4 +10,6 @@ public interface CustomerMapper {
     int checkEmail(String email);
 
     int checkNickName(String nickName);
+
+    String findNickName(String nickName);
 }
