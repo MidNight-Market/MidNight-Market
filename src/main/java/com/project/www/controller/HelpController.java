@@ -48,6 +48,9 @@ public class HelpController {
 
     PagingHandler ph = new PagingHandler(pgvo, totalCount);
 
+    log.info("totalCount{}", totalCount);
+    log.info("ph{}", ph);
+
     m.addAttribute("list", list);
     m.addAttribute("ph", ph);
   }
