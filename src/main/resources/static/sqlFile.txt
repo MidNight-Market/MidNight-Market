@@ -198,8 +198,11 @@ CREATE TABLE help(
 	title VARCHAR(100) NOT NULL,
 	content TEXT NOT NULL,
 	reply VARCHAR(10) default 'N',
+	reply_content VARCHAR(150),
+	secret BOOLEAN,
 	customer_id VARCHAR(150),
 	reg_at DATETIME default now(),
+	mod_at datetime default now(),
 	PRIMARY KEY(hno));
 
 #수정완료(찜코드를 어떻게하면...)
