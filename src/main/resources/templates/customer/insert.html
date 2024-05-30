@@ -5,7 +5,6 @@
     <title>회원가입</title>
 </head>
 <th:block th:replace="~{header :: header}"></th:block>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
     .container-sm{
         text-align: center;
@@ -81,13 +80,13 @@
             <label for="customerEmail" class="form-label">이메일</label>
             <input type="email" name="customerEmail" id="customerEmail" placeholder="이메일 입력" class="form-control">
             <button type="button" id="checkBtn" class="btn btn-primary">중복체크</button>
-            <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()" class="btn btn-primary" style="display: none">인증번호</button>
+            <button type="button" id="sendBtn" name="sendBtn" class="btn btn-primary" style="display: none">인증번호</button>
         </div>
         <br>
         <div id="mail_number" name="mail_number" style="display: none">
             <input type="text" name="number" id="number" placeholder="인증번호 입력">
             <span id="timer"></span>
-            <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+            <button type="button" name="confirmBtn" id="confirmBtn">이메일 인증</button>
         </div>
         <br>
         <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
@@ -646,6 +645,10 @@
 
         <button type="submit" class="btn btn-primary" id="joinBtn">가입하기</button>
     </form>
+<!--    <script th:inline="javascript">-->
+<!--        let isCorrect = [[${isCorrect}]]-->
+<!--        console.log(isCorrect);-->
+<!--    </script>-->
     <script th:src="@{/js/customerInsert.js}"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </div>

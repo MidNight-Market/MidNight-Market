@@ -1,33 +1,53 @@
-function sendNumber(){
-    $("#mail_number").css("display","block");
-    $.ajax({
-        url:"/customer/mail",
-        type:"post",
-        dataType:"json",
-        data:{"mail" : $("#customerEmail").val()},
-        success: function(data){
-            alert("인증번호 발송");
-            sendAuthNum();
-            $("#Confirm").attr("value",data);
-        }
-    });
-}
-
-function confirmNumber(){
-    var number1 = $("#number").val();
-    var number2 = $("#Confirm").val();
-
-    if(number1 === number2){
-        alert("인증되었습니다.");
-        display.style.display="none";
-        document.getElementById('number').style.display = "none"
-        document.getElementById('confirmBtn').style.display = "none"
-        document.getElementById('sendBtn').style.display = "none"
-        document.getElementById('checkBtn').style.display = "none"
-    }else{
-        alert("번호가 다릅니다.");
+async function sendNumber(){
+    let mail = document.getElementById('customerEmail').value;
+    try {
+        const url = '/mail/mailSend/'+mail;
+        const config = {
+            method: 'GET'
+        };
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    } catch (error) {
+        console.log(error);
     }
 }
+document.getElementById('sendBtn').addEventListener('click', ()=>{
+    sendNumber().then(result =>{
+        alert("이메일 전송 완료");
+        sendAuthNum();
+        document.getElementById('mail_number').style.display="";
+    });
+});
+async function confirmNumber(){
+    let inputNumber = document.getElementById('number').value;
+    try {
+        const url = '/mail/mailCheck/'+inputNumber;
+        const config = {
+            method: 'GET'
+        };
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+document.getElementById('confirmBtn').addEventListener('click', ()=>{
+    confirmNumber().then(result=>{
+        console.log(result);
+        if(result === "1"){
+            alert("인증번호 확인 완료.");
+            document.getElementById('mail_number').style.display="none";
+            document.getElementById('checkBtn').style.display="none";
+            document.getElementById('sendBtn').style.display="none";
+        }else{
+            alert("인증번호가 다릅니다. 다시 입력해주세요.")
+        }
+    })
+})
+
+
 
 let timer;
 let isRunning = false;
