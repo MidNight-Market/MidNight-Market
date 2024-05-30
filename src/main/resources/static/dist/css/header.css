@@ -1,12 +1,10 @@
 header {
     margin: 0;
 }
-
 .header{
     border-bottom: 1px solid lightgray;
 }
 .inner {
-    /*background-color: rgb(215, 246, 250);*/
     margin: auto;
     box-sizing: border-box;
 }
@@ -26,7 +24,7 @@ header {
 .logo-img {
     text-align: center;
 }
-.logo-img>img{
+.logo-img>a>img{
     width: 120px;
     height: 120px;
 }
@@ -34,57 +32,108 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 200px;
-    margin: 40px 0 40px 0;
+    width: 100%;
 }
-.category-menu {
-    position: fixed;
-    background-color: #FC7524;
-}
-.category-menu>p {
-    text-align: center;
-    padding: 20px 0 30px 0;
-    font-weight: bold;
-}
-.category-menu> ul ul {
-    display: none;
-}
-.category-menu > ul > li {
+
+.category-container {
     position: relative;
 }
+
+.category-menu {
+    background-color: #FC7524;
+    cursor: pointer;
+    position: relative;
+}
+
+.category-menu > p {
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: bold;
+    margin: 0;
+    width: 200px;
+}
+
+.category-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #FC7524;
+    z-index: 1000;
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.category-menu:hover ul {
+    opacity: 1; /* 투명도 설정 */
+    visibility: visible;
+}
+
+.category-menu ul > li {
+    position: relative;
+}
+
 .category-menu ul > li > a {
     display: block;
-    padding: 10px 40px 10px 40px;
+    padding: 10px 20px;
     text-align: center;
+    white-space: nowrap;
 }
+
 .category-menu ul > li:hover > a {
     background-color: white;
 }
+
 .category-menu > ul > li:hover > ul {
     display: block;
     position: absolute;
     background-color: beige;
     top: 0;
     left: 100%;
-    width: 100%;
+    width: 200px;
 }
-.search_bar{
-    width: 300px;
+
+.category-menu ul > li > ul {
+    display: none;
+}
+
+.search-part,
+.mypage-part {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search_bar {
+    width: 100%;
+    max-width: 300px;
     height: 30px;
-    padding-left: 10px;
-    margin-left: 150px;
     border: none;
     border-radius: 10px;
     background-color: beige;
+    transform: translateX(50%);
 }
-.search_bar::placeholder{
+
+.search_bar::placeholder {
     text-align: center;
 }
-.search_bar:focus{
+
+.search_bar:focus {
     outline: none;
 }
-.mypage-part>a{
-    margin-right: 40px;
+
+.mypage-part {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mypage-part > a {
+    margin-left: 20px;
 }
 
 /*모달창 라인*/

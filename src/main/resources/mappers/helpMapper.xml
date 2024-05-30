@@ -7,6 +7,7 @@
     <select id="getList" resultType="com.project.www.domain.HelpVO">
         SELECT * from help
         order by hno desc
+        limit #{startPage}, #{pageSize}
     </select>
 
     <insert id="insert">
@@ -44,5 +45,9 @@
         reply_content = #{replyContent}
         where hno = #{hno}
     </update>
+
+    <select id="getTotal" resultType="int">
+        SELETE count(*) from help
+    </select>
 
 </mapper>
