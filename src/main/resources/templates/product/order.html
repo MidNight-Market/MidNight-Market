@@ -1,0 +1,530 @@
+<head>
+
+    <title>order</title>
+
+    <style>
+        body {
+            width: 100%;
+          }
+
+          .basket1 {
+            /* background-color: aqua; */
+            height: 800px;
+            padding: 10px 80px;
+          }
+
+          .basket2 {
+            text-align: center;
+            margin: 50px;
+          }
+
+          .title1 {
+            font-size: 30px;
+            font-weight: 550;
+          }
+
+          .basket3 {
+            /* background-color: pink; */
+            width: 70%;
+            height: 500px;
+            float: left;
+          }
+
+          a {
+            color: black;
+          }
+
+          .text1 {
+            /* margin-left: 10px;
+            margin-right: 10px; */
+          }
+
+          .text2 {
+              margin-left: 20px;
+          }
+
+          hr {
+            border: 1px solid black;
+          }
+
+          .basket4 {
+            background-color: rgba(211, 211, 211, 0.155);
+            width: 300px;
+            height: 350px;
+            float: right;
+            position: sticky;
+            top: 105px;
+            right: 70px;
+          }
+
+          .basket5 {
+            padding: 20px;
+            /* margin-bottom: 10px; */
+            border: 1px solid lightgray;
+            border-radius: 3px;
+          }
+
+          .text3,
+          .text4,
+          .text5,
+          .text7 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+          }
+
+          .text6{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 12px;
+          }
+
+          .text7 {
+            margin-top: 50px;
+          }
+
+          .text8{
+            text-align: right;
+            font-size: 12px;
+          }
+
+          .basket6 {
+            float: right;
+            text-align: center;
+            width: 300px;
+            height: 70px;
+            background-color: orange;
+            line-height: 70px;
+            border-radius: 5px;
+          }
+
+          .basket7 {
+            background-color: white;
+            width: 300px;
+            height: 30px;
+          }
+
+          .text9 {
+            font-size: 20px;
+            font-weight: 550;
+          }
+
+          .accumulate {
+            background-color: orange;
+            border-radius: 10px;
+            padding: 3px;
+            margin-right: 5px;
+            color: white;
+          }
+
+          .basket8 {
+            /* background-color: aqua; */
+            padding-top: 90px;
+          }
+
+          .text10,
+          .text11 {
+            font-size: 12px;
+            margin-bottom: 20px;
+          }
+
+          .basket9 {
+            /* background-color: yellow; */
+            /* padding: 10px; */
+          }
+
+          .image1 {
+            width: 100px;
+            height: 100px;
+            /* background-color: aqua; */
+            border: 1px solid black;
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+
+          li {
+            display: flex;
+            align-items: center;
+            position: relative;
+            /* padding: 20px 0px; */
+          }
+
+          .name1 {
+            /* background-color: aliceblue; */
+            width: 400px;
+            height: 100px;
+            line-height: 100px;
+          }
+
+          .box1 {
+            /* background-color: pink; */
+            width: 100px;
+            height: 100px;
+            /* line-height: 100px; */
+            text-align: center;
+            display: flex;
+          }
+
+          .box2 {
+            width: 40px;
+            height: 100px;
+            /* background-color: yellow; */
+          }
+
+          .price {
+            /* background-color: aqua; */
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: right;
+            margin-left: 20px;
+          }
+
+          /* input 초기화 */
+          input[type="checkbox"] {
+            display: none;
+          }
+
+          /* (체크박스, 텍스트) 정렬 맞추기 */
+          .checkbox_label {
+            display: flex;
+            align-items: center;
+          }
+
+          /* 체크박스 디자인 */
+          .checkbox_icon::before {
+            content: "";
+            display: block;
+            margin-right: 5px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-color: transparent;
+            border: 1px solid #9da3a5;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+          }
+
+          /* checked */
+          .checkbox_label input:checked + .checkbox_icon::before {
+            /*   transition: all 0.15s ease; */
+            background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) #03c75a
+              no-repeat center;
+            border: none;
+          }
+
+          .button1 {
+              border: 1px solid lightgray;
+              background-color: rgba(211, 211, 211, 0.174);
+              width: 30px;
+              height: 30px;
+              margin-top: 35px;
+              align-items: center;
+          }
+
+
+        .order1{
+            width: 100%;
+            height: 200px;
+            /* background-color: aqua; */
+        }
+
+        .order_text1{
+            font-size: 20px;
+            font-weight: 550;
+        }
+
+        .order_text2{
+            text-align: center;
+        }
+
+        .order2{
+            /* background-color: aqua; */
+            width: 100%;
+            height: 250px;
+        }
+
+        .order_box{
+            width: 500px;
+            height: 70px;
+            /* background-color: blue; */
+        }
+
+        .order_box1{
+            /* background-color: yellow; */
+            width: 200px;
+            height: 50px;
+            float: left;
+        }
+
+        .order_box2{
+            /* background-color: pink; */
+            width: 300px;
+            height: 50px;
+            float: right;
+        }
+
+        .order3{
+            /* background-color: aqua; */
+            width: 100%;
+            height: 250px;
+        }
+
+        .order_text3{
+            float: right;
+            margin-top: -10px;
+            font-size: 13px;
+            color: gray;
+            font-weight: 550;
+        }
+
+        .question{
+            color: gray;
+        }
+
+        .modal_wrap {
+            display: none;
+            width: 350px;
+            height: 50px;
+            position: absolute;
+            top: 131%;
+            left: 88%;
+            margin: -250px 0 0 -250px;
+            background: white;
+            border: 1px solid black;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        .black_bg {
+            display: none;
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            /* background-color: rgba(0, 0, 0, 0.5); */
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .modal_close {
+            width: 26px;
+            height: 26px;
+            position: absolute;
+            top: -30px;
+            right: 0;
+        }
+
+        .modal_close>a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: url(https://img.icons8.com/metro/26/000000/close-window.png);
+            text-indent: -9999px;
+        }
+
+        button {
+            border: 1px solid black;
+            border-radius: 30px;
+        }
+
+        .order_text4{
+            color: black;
+            font-weight: 300;
+            text-align: center;
+            line-height: 50px;
+        }
+
+
+        .address1{
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+        }
+
+        .order_box3{
+            width: 200px;
+            height: 120px;
+            float: left;
+        }
+
+        .order_box4{
+            width: 300px;
+            height: 120px;
+            float: right;
+        }
+
+        .order_address1{
+            display: inline-block;
+            width: 200px;
+            height: 100px;
+        }
+
+        .order_box5{
+            width: 200px;
+            height: 120px;
+            float: left;
+            background-color: aqua;
+        }
+
+        .order_box6{
+            width: 570px;
+            height: 120px;
+            float: right;
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+<div class="basket1">
+    <div class="basket2">
+        <span class="title1">주문서</span>
+    </div>
+
+    <div class="order1">
+        <div class="order_text1">
+            주문 상품
+        </div>
+        <hr>
+        <div class="order_text2">
+            상품을 주문합니다.
+        </div>
+    </div>
+    <div class="order2">
+        <div class="order_text1">
+            <span>주문자 정보</span>
+        </div>
+        <hr>
+        <div class="order_box">
+            <div class="order_box1">
+                <span>보내는 분</span>
+            </div>
+            <div class="order_box2">
+                <span>123</span>
+            </div>
+            <div class="order_box1">
+                <span>휴대폰</span>
+            </div>
+            <div class="order_box2">
+                <span>123</span>
+            </div>
+            <div class="order_box1">
+                <span>이메일</span>
+            </div>
+            <div class="order_box2">
+                <span>123</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="order3">
+        <div class="order_text1">
+            <span>배송 정보</span>
+        </div>
+        <span class="order_text3">배송지 변경 안내
+                <button type='button' id="modal_btn">?</button>
+                <div class="black_bg"></div>
+                <div class="modal_wrap">
+                    <div class="modal_close">
+                        <a href="#">close</a>
+                    </div>
+                    <div class="order_text4">장바구니, 마이페이지에서 배송지를 변경할 수 있어요.</div>
+                </div>
+            </span>
+        <hr>
+        <div class="order_box">
+            <div class="order_box3">
+                <span>배송지</span>
+            </div>
+
+            <div class="order_box4">
+                <span>123</span>
+            </div>
+        </div>
+    </div>
+    <div class="basket3">
+        <div class="order_text1">
+            적립금ㆍ캐시 사용
+        </div>
+        <hr>
+        <div class="basket9">
+            <div class="order_box5">
+                <span>적립금ㆍ캐시</span>
+            </div>
+
+            <div class="order_box6">
+                <span>사용가능 잔액</span>
+            </div>
+        </div>
+    </div>
+    <div class="basket4">
+        <div class="basket5">
+            <div class="text3">
+                <span>주문금액</span>
+                <span>원</span>
+            </div>
+            <div class="text6">
+                <span>└ 상품금액</span>
+                <span>원</span>
+            </div>
+            <div class="text6">
+                <span>└ 상품 할인 금액</span>
+                <span>원</span>
+            </div>
+            <div class="text4">
+                <span>배송비</span>
+                <span>원</span>
+            </div>
+            <div class="text5">
+                <span>카드 할인</span>
+                <span>원</span>
+            </div>
+            <div class="text5">
+                <span>적립금ㆍ캐시</span>
+                <span>원</span>
+            </div>
+            <div class="text6">
+                <span>└ 적립금</span>
+                <span>원</span>
+            </div>        <div class="text6">
+            <span>└ 캐시</span>
+            <span>원</span>
+        </div>
+            <div class="text7">
+                <span>최종 결제 금액</span>
+                <span>원</span>
+            </div>
+            <div class="text8">
+                <span><span class="accumulate">적립</span>구매시 ?원</span>
+            </div>
+        </div>
+        <div class="basket7">
+
+        </div>
+        <a href="">
+            <div class="basket6">
+                <span class="text9">주문하기</span>
+            </div>
+        </a>
+        <div class="basket8">
+            <span class="text10">[주문완료] 상태일 경우에만 주문 취소가 가능합니다.</span>
+            <span class="text11">[마이페이지>주문내역 상세페이지]에서 직접 취소 하실수 있습니다.</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        function onClick() { document.querySelector('.modal_wrap').style.display = 'block'; document.querySelector('.black_bg').style.display = 'block'; }
+        function offClick() { document.querySelector('.modal_wrap').style.display = 'none'; document.querySelector('.black_bg').style.display = 'none'; }
+
+        document.getElementById('modal_btn').addEventListener('click', onClick);
+
+        document.querySelector('.modal_close').addEventListener('click', offClick);
+    };
+</script>
+</body>
