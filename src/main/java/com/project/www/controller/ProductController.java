@@ -68,4 +68,7 @@ public class ProductController {
     public void basket(){}
 
 
+    @GetMapping("/list")
+    public void list(Model model){}
+
 }
