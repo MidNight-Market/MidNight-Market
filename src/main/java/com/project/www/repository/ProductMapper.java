@@ -17,4 +17,10 @@ public interface ProductMapper {
     List<ProductVO> getMyRegisteredProduct(String id);
 
     int productQtyUpdate(ProductVO productVO);
+
+    List<ProductVO> getNewProductList();
+
+    List<ProductVO> getHeavySoldList();
+
+    List<ProductVO> getDiscountProductList();
 }
