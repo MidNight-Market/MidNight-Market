@@ -118,108 +118,6 @@
                         </ul>
                     </div>
                 </div>
-                <div class="search-part">
-                    <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">
-                    <img src="" alt="">
-                </div>
-                <h1 class="logo-img">
-                    <a href="/"><img th:src="@{/dist/icon/logo_icon.png}" class="logo"></a>
-                </h1>
-                <div class="inner top2-menu">
-                    <div class="category-container">
-                        <div class="category-menu">
-                            <p>카테고리</p>
-                            <ul>
-                                <li>
-                                    <a href="#">채소</a>
-                                    <ul>
-                                        <li><a href="#">고구마·감자·당근</a></li>
-                                        <li><a href="#">양파·대파·마늘·배추</a></li>
-                                        <li><a href="#">쌈채소·나물</a></li>
-                                        <li><a href="#">콩나물·버섯</a></li>
-                                        <li><a href="#">브로콜리·양상추</a></li>
-                                        <li><a href="#">오이·호박·고추</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">과일/견과/쌀</a>
-                                    <ul>
-                                        <li><a href="#">국산과일</a></li>
-                                        <li><a href="#">수입과일</a></li>
-                                        <li><a href="#">냉동·건과일</a></li>
-                                        <li><a href="#">견과류</a></li>
-                                        <li><a href="#">쌀·잡곡</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">수산/해산/건어물</a>
-                                    <ul>
-                                        <li><a href="#">생선류</a></li>
-                                        <li><a href="#">오징어·낙지·문어</a></li>
-                                        <li><a href="#">새우·게</a></li>
-                                        <li><a href="#">해산물·전복·조개류</a></li>
-                                        <li><a href="#">멸치·황태</a></li>
-                                        <li><a href="#">어포·쥐포</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">정육/가공육/계란</a>
-                                    <ul>
-                                        <li><a href="#">계란·가공란</a></li>
-                                        <li><a href="#">닭·오리고기</a></li>
-                                        <li><a href="#">돼지고기</a></li>
-                                        <li><a href="#">소고기</a></li>
-                                        <li><a href="#">양념육·가공육</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">과자/빙과/베이커리</a>
-                                    <ul>
-                                        <li><a href="#">과자·간식</a></li>
-                                        <li><a href="#">초콜릿·젤리·캔디·껌</a></li>
-                                        <li><a href="#">빙과·아이스크림</a></li>
-                                        <li><a href="#">베이커리</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">생수/음료</a>
-                                    <ul>
-                                        <li><a href="#">생수·탄산수</a></li>
-                                        <li><a href="#">탄산음료</a></li>
-                                        <li><a href="#">과일·야채음료</a></li>
-                                        <li><a href="#">스포츠·건강음료</a></li>
-                                        <li><a href="#">전통·차·기타음료</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">우유/유제품</a>
-                                    <ul>
-                                        <li><a href="#">우유·두유</a></li>
-                                        <li><a href="#">요거트·요구르트</a></li>
-                                        <li><a href="#">연유·생크림·버터</a></li>
-                                        <li><a href="#">가공치즈</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">면/양념/통조림</a>
-                                    <ul>
-                                        <li><a href="#">라면</a></li>
-                                        <li><a href="#">파스타면·생면</a></li>
-                                        <li><a href="#">밀가루·가루·믹스</a></li>
-                                        <li><a href="#">죽·스프·카레</a></li>
-                                        <li><a href="#">양념·액젓·장류</a></li>
-                                        <li><a href="#">햄·통조림·병조림</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">밀키트/간편식</a>
-                                    <ul>
-                                        <li><a href="#">밀키트</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="search-part">
                         <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">
                         <img src="" alt="">
@@ -263,9 +161,9 @@
                                 <input type="checkbox">
                                 <span style="margin-right: 15px;">아이디저장</span>
                             </label>
-                            <a href=""><span>아이디 찾기 |</span></a>
-                            <a href=""><span>비밀번호 재설정 |</span></a>
-                            <a href=""><span>회원가입</span></a>
+                            <a href="/customer/findId"><span>아이디 찾기 |</span></a>
+                            <a href="/customer/changePw"><span>비밀번호 재설정 |</span></a>
+                            <a href="/customer/insert"><span>회원가입</span></a>
                         </div>
                         <button type="submit" class="box-size form-box">로그인</button>
                         <div class="social-icon">
