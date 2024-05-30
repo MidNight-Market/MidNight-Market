@@ -5,6 +5,7 @@ import com.project.www.repository.HelpMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,28 @@ public class HelpServiceImpl implements HelpService {
     @Override
     public int register(HelpVO hvo) {
         return helpMapper.insert(hvo);
+    }
+
+    @Override
+    public HelpVO getDetail(long hno) {
+        return helpMapper.getDetail(hno);
+    }
+
+    @Override
+    public int modify(HelpVO hvo) {
+        return helpMapper.modify(hvo);
+    }
+
+    @Override
+    public int delete(long hno) {
+        return helpMapper.delete(hno);
+    }
+
+    @Transactional
+    @Override
+    public void replyRegister(HelpVO hvo) {
+        helpMapper.replyUpdate(hvo);
+        helpMapper.replyRegister(hvo);
     }
 
 }

@@ -53,8 +53,5 @@ showSlide(currentIdx);
 // 자동 슬라이드 시작
 startAutoSlide();
 
-// 슬라이드에 마우스를 올리면 자동 슬라이드 중지
 slideImgInner.addEventListener('mouseover', stopAutoSlide);
-
-// 슬라이드에서 마우스를 떼면 자동 슬라이드 재시작
 slideImgInner.addEventListener('mouseout', startAutoSlide);

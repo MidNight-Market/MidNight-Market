@@ -9,7 +9,7 @@
 .sectionBox {
     margin: 0 auto;
     width: 940px;
-    height: 260px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +24,7 @@
 }
 
 .sectionBox>.slide>.slideImgInner {
-    display: flex; /* 가로로 배치 */
+    display: flex;
     transition: transform 0.5s ease;
 }
 
@@ -44,8 +44,6 @@
 
 .slideImg {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -64,16 +62,16 @@
 
 .sectionBox>.sectionSlideBtn>.leftBtn {
     position: absolute;
-    top: 50%;
-    left: 10px;
+    top: 42%;
+    left: 35px;
     transform: translateY(-50%);
     filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);
 }
 
 .sectionBox>.sectionSlideBtn>.rightBtn {
     position: absolute;
-    top: 50%;
-    right: 10px;
+    top: 42%;
+    right: 20px;
     transform: translateY(-50%);
     filter: opacity(0.3) drop-shadow(0 0 0 #ffffff);
 }
@@ -107,6 +105,10 @@
 }
 .mainBox>.mainComment:first-child{
     margin-top: 100px;
+}
+.mainBox>div {
+    display: block;
+    text-align: left;
 }
 .mainBox>div>p:first-child{
     color: #ED234B;
@@ -158,13 +160,11 @@
     font-size: x-small;
 }
 .mainBox>ul>li>a>span:hover{
-    /*color: #3E9AE5;*/
     transition: 0.5s;
 }
 .mainBox>ul>li>a>img{
     width: 235px;
     height: 180px;
-    /*border: 5px solid rgba(255, 255, 255, 0);*/
 }
 mainBox>ul>li>a>img:hover{
     transition: 0.5s;

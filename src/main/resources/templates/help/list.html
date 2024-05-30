@@ -13,24 +13,31 @@
         <thead>
         <tr>
             <th>No</th>
-            <th>제목</th>
             <th>작성자</th>
+            <th>제목</th>
             <th>작성일</th>
-            <th>작성유무</th>
+            <th>답변상태</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="hvo:${list}">
+        <tbody th:each="hvo:${list}">
+        <tr>
             <td>[[${hvo.hno}]]</td>
             <td>[[${hvo.id}]]</td>
-            <td><a th:href="@{/help/detail(hvo=${hvo.hno})}">[[${hvo.title}]]</a></td>
+            <td><a th:href="@{/help/detail(hno=${hvo.hno})}">[[${hvo.title}]]</a></td>
             <td>[[${hvo.regAt}]]</td>
-            <td>[[${hvo.reply}]]</td>
+            <td>
+                <span th:text="${hvo.reply == 'N' || hvo.reply == 'n' ? '답변대기' : '답변완료'}"></span>
+            </td>
+        </tr>
+
+        <tr th:if="${hvo.replyContent != null}">
+            <td colspan="5">
+                <a th:href="@{/help/replyAns(hno=${hvo.hno})}">Re_관리자 답변입니다.</a>
+            </td>
         </tr>
         </tbody>
     </table>
-
 </div>
-
 </body>
+
 <th:block th:replace="~{footer :: footer}"></th:block>
