@@ -69,4 +69,19 @@ public class CustomerController {
     public String findId(@PathVariable("nickName")String nickName){
         return csv.findNickName(nickName);
     }
+    @ResponseBody
+    @GetMapping("/findAccount/{id}")
+    public int findAccount(@PathVariable("id")String id){
+        int isOk = csv.findId(id);
+        if(isOk> 0){
+            csv.updateDefaultPw(id);
+            msv.sendResetPw(id);
+        }
+        return csv.findId(id);
+    }
+    @PostMapping("/resetPw")
+    public String resetPw(String id, String pw){
+        csv.updatePw(id, pw);
+        return "index";
+    }
 }

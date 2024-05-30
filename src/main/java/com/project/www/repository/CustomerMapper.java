@@ -12,4 +12,10 @@ public interface CustomerMapper {
     int checkNickName(String nickName);
 
     String findNickName(String nickName);
+
+    int findId(String id);
+
+    void updateDefaultPw(String id);
+
+    void updatePw(String id, String pw);
 }
