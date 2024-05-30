@@ -1,6 +1,7 @@
 package com.project.www.service;
 
 import com.project.www.domain.HelpVO;
+import com.project.www.domain.PagingVO;
 import com.project.www.repository.HelpMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,13 @@ import java.util.List;
 public class HelpServiceImpl implements HelpService {
     private final HelpMapper helpMapper;
 
+//    @Override
+//    public List<HelpVO> getList(PagingVO pgvo) {
+//        return helpMapper.getList(pgvo);
+//    }
     @Override
-    public List<HelpVO> getList() {
-        return helpMapper.getList();
+    public List<HelpVO> getList(PagingVO pgvo) {
+        return helpMapper.getList(pgvo);
     }
 
     @Override
@@ -45,6 +50,11 @@ public class HelpServiceImpl implements HelpService {
     public void replyRegister(HelpVO hvo) {
         helpMapper.replyUpdate(hvo);
         helpMapper.replyRegister(hvo);
+    }
+
+    @Override
+    public int getTotal(PagingVO pgvo) {
+        return helpMapper.getTotal(pgvo);
     }
 
 }

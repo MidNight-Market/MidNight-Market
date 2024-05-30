@@ -31,12 +31,32 @@
         </tr>
 
         <tr th:if="${hvo.replyContent != null}">
-            <td colspan="5">
+            <td colspan="5" class="replyAdmin">
                 <a th:href="@{/help/replyAns(hno=${hvo.hno})}">Re_관리자 답변입니다.</a>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <!--페이지네이션-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item ${ph.prev eq false ? 'disabled' : ''}">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">≪</span>
+                </a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(ph.startPage, ph.endPage)}"
+                th:classappend="${ph.pgvo.pageNum == i} ? 'active'">
+                <a th:href="@{/help/list(pageNum=${i}, pageSize=${ph.pgvo.pageSize})}" th:text="${i}"></a>
+            </li>
+            <li class="page-item ${ph.next eq false ? 'disabled' : ''}">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">≫</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 

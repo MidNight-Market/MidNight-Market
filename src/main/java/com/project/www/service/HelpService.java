@@ -1,11 +1,13 @@
 package com.project.www.service;
 
 import com.project.www.domain.HelpVO;
+import com.project.www.domain.PagingVO;
 
 import java.util.List;
 
 public interface HelpService {
-    List<HelpVO> getList();
+//    List<HelpVO> getList();
+    List<HelpVO> getList(PagingVO pgvo);
 
     int register(HelpVO hvo);
 
@@ -16,4 +18,6 @@ public interface HelpService {
     int delete(long hno);
 
     void replyRegister(HelpVO hvo);
+
+    int getTotal(PagingVO pgvo);
 }

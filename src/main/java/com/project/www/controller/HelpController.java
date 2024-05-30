@@ -1,6 +1,8 @@
 package com.project.www.controller;
 
 import com.project.www.domain.HelpVO;
+import com.project.www.domain.PagingVO;
+import com.project.www.handler.PagingHandler;
 import com.project.www.service.HelpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -31,10 +34,22 @@ public class HelpController {
     return "redirect:/help/list";
   }
 
+//  @GetMapping("/list")
+//  public void list(Model m){
+//    List<HelpVO> list = hsv.getList();
+//    m.addAttribute("list", list);
+//  }
+
   @GetMapping("/list")
-  public void list(Model m){
-    List<HelpVO> list = hsv.getList();
+  public void list(Model m, PagingVO pgvo){
+    List<HelpVO> list = hsv.getList(pgvo);
+
+    int totalCount = hsv.getTotal(pgvo);
+
+    PagingHandler ph = new PagingHandler(pgvo, totalCount);
+
     m.addAttribute("list", list);
+    m.addAttribute("ph", ph);
   }
 
   @GetMapping("/detail")
