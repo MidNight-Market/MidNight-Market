@@ -33,4 +33,19 @@ public class CustomerServiceImpl implements CustomerService{
     public String findNickName(String nickName) {
         return customerMapper.findNickName(nickName);
     }
+
+    @Override
+    public int findId(String id) {
+        return customerMapper.findId(id);
+    }
+
+    @Override
+    public void updateDefaultPw(String id) {
+        customerMapper.updateDefaultPw(id);
+    }
+
+    @Override
+    public void updatePw(String id, String pw) {
+        customerMapper.updatePw(id, pw);
+    }
 }

@@ -43,4 +43,22 @@ public class MailService {
     public Boolean checkNumber(int inputNumber) {
         return number == inputNumber;
     }
+
+    @Async
+    public void sendResetPw(String id) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        try {
+            message.setFrom(senderEmail);
+            message.setRecipients(MimeMessage.RecipientType.TO, id);
+            message.setSubject("비밀번호 초기화");
+            String body = "";
+            body += "<h3>" + "해당 비밀번호로 로그인 후 비밀번호를 변경해주세요." + "</h3>";
+            body += "<h1>" + "resetPw" + "</h1>";
+            body += "<h3>" + "감사합니다." + "</h3>";
+            message.setText(body,"UTF-8", "html");
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }
