@@ -44,18 +44,14 @@ CREATE TABLE product (
 
 #수정완료
 CREATE TABLE product_buy (
-	id bigint NOT NULL AUTO_INCREMENT,
-	qty bigint NOT NULL,
-	address VARCHAR(400),
-	buy_date DATETIME DEFAULT NOW(),
-	progress VARCHAR(10) NOT NULL,
-	delivery_pay bigint NOT NULL,
-	pay_price bigint NOT NULL,
-	discount_amount bigint,
-	member_coupon_id bigint NOT NULL,
-	product_id bigint NOT NULL,
+	merchent_uid bigint NOT NULL,
 	customer_id VARCHAR(150) NOT NULL,
-	PRIMARY KEY (id)
+	product_id bigint NOT NULL,
+	pay_price bigint NOT NULL,
+	buy_date DATETIME DEFAULT NOW(),
+	address VARCHAR(400),
+	status VARCHAR(10) default 'success',
+	PRIMARY KEY (merchent_uid)
 );
 
 #수정완료
@@ -246,25 +242,19 @@ REFERENCES seller (
 	id
 );
 
-ALTER TABLE product_buy ADD CONSTRAINT FK_member_coupon_TO_product_buy_1 FOREIGN KEY (
-	member_coupon_id
-)
-REFERENCES member_coupon (
-	coupon_id
-);
 
 ALTER TABLE product_buy ADD CONSTRAINT FK_product_TO_product_buy_1 FOREIGN KEY (
 	product_id
 )
 REFERENCES product (
-	id
+	merchent_uid
 );
 
 ALTER TABLE product_buy ADD CONSTRAINT FK_customer_TO_product_buy_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
-	id
+	merchent_uid
 );
 
 ALTER TABLE product_review ADD CONSTRAINT FK_customer_TO_product_review_1 FOREIGN KEY (
