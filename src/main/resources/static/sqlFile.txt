@@ -108,7 +108,7 @@ CREATE TABLE coupon (
 );
 
 #수정완료
-CREATE TABLE product_pick (
+CREATE TABLE basket (
 	customer_id VARCHAR(150) NOT NULL,
 	qty bigint NOT NULL,
 	product_id bigint NOT NULL
@@ -270,14 +270,14 @@ REFERENCES customer (
 	id
 );
 
-ALTER TABLE product_pick ADD CONSTRAINT FK_customer_TO_product_pick_1 FOREIGN KEY (
+ALTER TABLE basket ADD CONSTRAINT FK_customer_TO_basket_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
 	id
 );
 
-ALTER TABLE product_pick ADD CONSTRAINT FK_product_TO_product_pick_1 FOREIGN KEY (
+ALTER TABLE basket ADD CONSTRAINT FK_product_TO_basket_1 FOREIGN KEY (
 	product_id
 )
 REFERENCES product (
