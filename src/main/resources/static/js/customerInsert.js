@@ -149,10 +149,10 @@ document.querySelector('#chk').addEventListener('change', function () {
 });
 
 // 가입하기 버튼을 업데이트하는 개별 체크박스에 이벤트 리스너 추가
-const individualCheckboxes = document.querySelectorAll('input[name="chk"]');
-individualCheckboxes.forEach((checkbox) => {
+const inCheckboxes = document.querySelectorAll('input[name="chk"]');
+inCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', function () {
-        const checkedCount = Array.from(individualCheckboxes).filter((checkbox) => checkbox.checked).length;
+        const checkedCount = Array.from(inCheckboxes).filter((checkbox) => checkbox.checked).length;
         joinBtn.disabled = checkedCount < 2;
     });
 });

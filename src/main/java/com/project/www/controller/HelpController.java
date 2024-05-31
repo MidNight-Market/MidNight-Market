@@ -29,7 +29,7 @@ public class HelpController {
 
   @PostMapping("/register")
   public String register(HelpVO hvo){
-    hvo.setCustomerId("test");
+    log.info("hvo{}",hvo);
     isOK = hsv.register(hvo);
     return "redirect:/help/list";
   }
