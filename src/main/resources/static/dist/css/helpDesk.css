@@ -78,9 +78,13 @@
 }
 
 /*modal line*/
-.custom-modal .modal-content{
+.top-custom-modal .top-content{
     width: 60% !important;
     margin:0 auto !important;
+
+    .top-body{
+        margin: 30px 30px;
+    }
 }
 
 /*accordion line*/
@@ -88,9 +92,7 @@
     margin: 50px 0 100px;
     border: 1px solid black;
 }
-.modal-body{
-    margin: 30px 30px;
-}
+
 .accordion-header{
     margin: 40px 0;
 }

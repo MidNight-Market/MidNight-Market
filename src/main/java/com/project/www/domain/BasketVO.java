@@ -14,6 +14,5 @@ public class BasketVO {
     private String customerId;
     private long productId;
     private long qty;
-
-    List<ProductVO> productList;
+    private ProductVO productVO;
 }
