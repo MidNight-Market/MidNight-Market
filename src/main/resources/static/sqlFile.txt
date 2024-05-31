@@ -44,7 +44,7 @@ CREATE TABLE product (
 
 #수정완료
 CREATE TABLE product_buy (
-	merchent_uid bigint NOT NULL,
+	merchent_uid VARCHAR(100) NOT NULL,
 	customer_id VARCHAR(150) NOT NULL,
 	product_id bigint NOT NULL,
 	pay_price bigint NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE coupon (
 );
 
 #수정완료
-CREATE TABLE product_pick (
+CREATE TABLE basket (
 	customer_id VARCHAR(150) NOT NULL,
 	qty bigint NOT NULL,
 	product_id bigint NOT NULL
@@ -159,7 +159,6 @@ CREATE TABLE payment (
 	pay_price bigint NOT NULL,
 	pay_method VARCHAR(100) NOT NULL,
 	customer_id VARCHAR(150) NOT NULL,
-	product_buy_id bigint NOT NULL,
 	PRIMARY KEY (pay_id)
 );
 
@@ -199,7 +198,7 @@ CREATE TABLE help(
 	content TEXT NOT NULL,
 	reply VARCHAR(10) default 'N',
 	reply_content VARCHAR(150),
-	secret BOOLEAN,
+	secret VARCHAR(10),
 	customer_id VARCHAR(150),
 	reg_at DATETIME default now(),
 	mod_at datetime default now(),
@@ -247,14 +246,14 @@ ALTER TABLE product_buy ADD CONSTRAINT FK_product_TO_product_buy_1 FOREIGN KEY (
 	product_id
 )
 REFERENCES product (
-	merchent_uid
+	id
 );
 
 ALTER TABLE product_buy ADD CONSTRAINT FK_customer_TO_product_buy_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
-	merchent_uid
+	id
 );
 
 ALTER TABLE product_review ADD CONSTRAINT FK_customer_TO_product_review_1 FOREIGN KEY (
@@ -271,14 +270,14 @@ REFERENCES customer (
 	id
 );
 
-ALTER TABLE product_pick ADD CONSTRAINT FK_customer_TO_product_pick_1 FOREIGN KEY (
+ALTER TABLE basket ADD CONSTRAINT FK_customer_TO_basket_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
 	id
 );
 
-ALTER TABLE product_pick ADD CONSTRAINT FK_product_TO_product_pick_1 FOREIGN KEY (
+ALTER TABLE basket ADD CONSTRAINT FK_product_TO_basket_1 FOREIGN KEY (
 	product_id
 )
 REFERENCES product (
@@ -314,12 +313,6 @@ REFERENCES customer (
 	id
 );
 
-ALTER TABLE payment ADD CONSTRAINT FK_product_buy_TO_payment_1 FOREIGN KEY (
-	product_buy_id
-)
-REFERENCES product_buy (
-	id
-);
 
 ALTER TABLE notification ADD CONSTRAINT FK_customer_TO_notification_1 FOREIGN KEY (
 	customer_id

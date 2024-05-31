@@ -29,7 +29,7 @@ public class HelpController {
 
   @PostMapping("/register")
   public String register(HelpVO hvo){
-    hvo.setCustomerId("test");
+    log.info("hvo{}",hvo);
     isOK = hsv.register(hvo);
     return "redirect:/help/list";
   }
@@ -47,6 +47,9 @@ public class HelpController {
     int totalCount = hsv.getTotal(pgvo);
 
     PagingHandler ph = new PagingHandler(pgvo, totalCount);
+
+    log.info("totalCount{}", totalCount);
+    log.info("ph{}", ph);
 
     m.addAttribute("list", list);
     m.addAttribute("ph", ph);

@@ -32,6 +32,7 @@
          width: 70%;
          height: 500px;
          float: left;
+           border: 1px solid black;
        }
 
        a {
@@ -129,7 +130,7 @@
        }
 
        .basket9 {
-         /* background-color: yellow; */
+          /*background-color: yellow;*/
          /* padding: 10px; */
        }
 
@@ -244,6 +245,7 @@
         <hr>
         <div class="basket9">
             <ul>
+                <th:block th:each="myBasket:${myBasket}">
                 <li>
                     <a href="">
                         <label class="checkbox_label">
@@ -253,25 +255,26 @@
                     </a>
                     <a href="">
                         <div class="image1">
-                            <img src="" alt="">
+                            <img th:src="${myBasket.productVO.mainImage}"  style="width: 100%; height: 100%">
 
                         </div>
                     </a>
                     <a href="">
-                        <div class="name1">제품명</div>
+                        <div class="name1">[[${myBasket.productVO.name}]]</div>
                     </a>
 
                     <div class="box1">
-                        <button>-</button>
+                        <button id="-">-</button>
                         <div class="box2">
-
+                            <span>[[${myBasket.qty}]]</span>
                         </div>
-                        <button>+</button>
+                        <button id="+">+</button>
                     </div>
                     <div class="price">
-                        <span>원</span>
+                        <span th:text="${#numbers.formatDecimal(myBasket.productVO.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                     </div>
                 </li>
+                </th:block>
             </ul>
         </div>
     </div>
@@ -314,6 +317,10 @@
         </div>
     </div>
 </div>
+
+<script th:src="@{/js/myBasket.js}"></script>
+
+
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>

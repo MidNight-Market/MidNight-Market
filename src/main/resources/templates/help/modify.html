@@ -29,15 +29,17 @@
             <label for="content">내용 : </label>
             <textarea name="content" id="content" cols="50" rows="5" class="form-control">[[${hvo.content}]]</textarea>
         </div>
+        <div class="input-group mb-3">
+            <label for="secret"></label>
+            <input type="checkbox" id="secret" onclick="checkSecret()">비밀글 설정
+            <input type="hidden" name="secret" id="secretHidden" value="N">
+        </div>
+<!--        <div class="input-group mb-3" id="passwordInput" style="display: none;">-->
+<!--            비밀번호 : <input type="password" name="password">-->
+<!--        </div>-->
         <button type="submit" id="modBtn" class="btn btn-outline-warning">수정</button>
         <a th:href="@{/help/list}"><button type="button" id="listBtn" class="btn btn-outline-primary">목록</button></a>
     </form>
-    <script>
-        document.getElementById('modBtn').addEventListener('click',()=>{
-            document.getElementById('title').readOnly=false;
-            document.getElementById('content').readOnly=false;
-            alert("수정이 완료되었습니다.");
-        });
-    </script>
+    <script th:src="@{/js/helpModify.js}"></script>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>
