@@ -14,7 +14,7 @@ const  qnaTopData = [
 
 for(let i=0; i<qnaTopData.length; i++){
 
-    let str = `<button type="button" class="topBox" data-bs-toggle="modal" data-bs-target="#myModal" id="topBox${i}">`;
+    let str = `<button type="button" class="topBox" data-bs-toggle="modal" data-bs-target="#topModal" id="topBox${i}">`;
     str += `<span>${qnaTopData[i]}</span>`;
     str += `</button>`;
     document.querySelector('.qnaTop').innerHTML += str;
@@ -102,9 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const boxId = targetButton.id;
             const boxIndex = parseInt(boxId.charAt(boxId.length - 1));
 
-            document.querySelector('.modal-title').innerHTML = spanText;
+            document.querySelector('.top-title').innerHTML = spanText;
 
-            document.querySelector('.modal-body').innerHTML = topBoxData[boxIndex];
+            document.querySelector('.top-body').innerHTML = topBoxData[boxIndex];
         });
     });
 });

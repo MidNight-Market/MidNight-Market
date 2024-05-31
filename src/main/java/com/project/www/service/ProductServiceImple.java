@@ -1,15 +1,16 @@
 package com.project.www.service;
 
+import com.project.www.domain.BasketVO;
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductDetailImageVO;
-import com.project.www.repository.ProductCategoryDetailMapper;
-import com.project.www.repository.ProductCategoryMapper;
-import com.project.www.repository.ProductDetailImageMapper;
-import com.project.www.repository.ProductMapper;
+import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +21,7 @@ public class ProductServiceImple implements ProductService{
     private final ProductDetailImageMapper productDetailImageMapper;
     private final ProductCategoryMapper productCategoryMapper;
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
+    private final BasketMapper basketMapper;
 
     @Transactional
     @Override
@@ -65,4 +67,5 @@ public class ProductServiceImple implements ProductService{
 
         return productDTO;
     }
+
 }

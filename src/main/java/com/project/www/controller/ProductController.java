@@ -1,5 +1,6 @@
 package com.project.www.controller;
 
+import com.project.www.domain.BasketVO;
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductVO;
 import com.project.www.handler.FileHandler;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -39,17 +42,22 @@ public class ProductController {
                            @RequestParam(name = "file",required = false)MultipartFile file,
                            @RequestParam(name = "files",required = false)MultipartFile[] files){
 
+        //처음 가격 입력시 할인율이 0이기 떄문에 할인가격 == 처음가격
+        productVO.setDiscountPrice(productVO.getPrice());
+
         ProductDTO productDTO = new ProductDTO();
 
         productDTO.setProductVO(fileHandler.uploadFile(file,productVO));
         productDTO.setImageList(fileHandler.uploadFiles(files,productVO));
+
+
 
         log.info(">>>프로덕트DTO{}",productDTO);
 
        int isOk = psv.insert(productDTO);
        
 
-        return "/index";
+        return "redirect:/";
     }
 
     @GetMapping("/detail")
@@ -63,9 +71,6 @@ public class ProductController {
         model.addAttribute("productDTO",productDTO);
 
     }
-
-    @GetMapping("/basket")
-    public void basket(){}
 
 
     @GetMapping("/list")

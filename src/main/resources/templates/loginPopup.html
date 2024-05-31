@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+
+        .login-box{
+            margin: 0 auto;
+            width: 420px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /*border: 1px solid black;*/
+
+        }
+        .input-box{
+            margin: 10px auto;
+            width: 90%;
+            height: 90px;
+            /*border: 1px solid black;*/
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .box-size{
+            width: 300px;
+            height: 35px;
+            outline: none;
+        }
+        .other-info-box{
+            width: 75%;
+            height: 50px;
+            /*border: 1px solid black;*/
+            font-size: 11px;
+            color: black;
+        }
+        .other-info-box a{
+            color: black;
+        }
+        .form-box{
+            background-color: orangered;
+            color: white;
+            border: none;
+        }
+        .social-icon{
+            width: 75%;
+            height: 100px;
+            /*border: 1px solid black;*/
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .social-icon div{
+            /*border : 1px solid black;*/
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .login-select-box{
+            margin: 0 auto;
+            width: 200px;
+            height: 40px;
+            /*border: 1px solid black;*/
+            display: flex;
+            justify-content: center;
+            align-items: end;
+        }
+        .select-box{
+            width: 100px;
+            height: 40px;
+            background-color: white;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid lightgrey;
+            cursor: pointer;
+        }
+        .select-box:hover{
+            filter: brightness(90%);
+        }
+
+    </style>
+
+</head>
+<body>
+                <form id="select-change" action="/customer/test" method="get">
+                    <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
+
+                    <div class="login-select-box">
+                        <button type="button" class="select-box" id="customer">고객</button>
+                        <button type="button" class="select-box" id="seller">판매자</button>
+                    </div>
+
+
+                    <div class="login-box">
+                        <div class="input-box">
+
+                            <input type="text" class="box-size" placeholder="아이디">
+                            <input type="password" class="box-size" placeholder="비밀번호">
+                        </div>
+                        <div class="other-info-box">
+                            <label>
+                                <input type="checkbox">
+                                <span style="margin-right: 15px;">아이디저장</span>
+                            </label>
+                            <a href="/customer/findId"><span>아이디 찾기 |</span></a>
+                            <a href="/customer/changePw"><span>비밀번호 재설정 |</span></a>
+                            <a href="/customer/insert"><span>회원가입</span></a>
+                        </div>
+                        <button type="submit" class="box-size form-box">로그인</button>
+                        <div class="social-icon">
+                            <a href=""><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
+                            <a href=""><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
+                            <a href=""><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
+                        </div>
+                    </div>
+                </form>
+
+
+<script>
+
+    // form 요소를 가져옵니다.
+    document.getElementById('seller').addEventListener('click',()=>{
+        console.log('폼바꾸기 킄ㄹ릭');
+        let form = document.getElementById('select-change');
+        form.action = "/seller/test";
+    });
+</script>
+
+</body>
+</html>

@@ -32,4 +32,7 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/loginPopup")
+    public void loginPopup(Model model){}
+
 }
