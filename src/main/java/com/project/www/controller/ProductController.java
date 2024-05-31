@@ -44,6 +44,9 @@ public class ProductController {
         productDTO.setProductVO(fileHandler.uploadFile(file,productVO));
         productDTO.setImageList(fileHandler.uploadFiles(files,productVO));
 
+        if(productDTO.getProductVO().getDiscountRate() == 0){
+        }
+
         log.info(">>>프로덕트DTO{}",productDTO);
 
        int isOk = psv.insert(productDTO);
