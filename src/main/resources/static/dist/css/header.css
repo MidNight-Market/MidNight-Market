@@ -1,108 +1,31 @@
-header {
-    margin: 0;
+@font-face {
+    font-family: 'NanumSquareB';
+    src: url(../font/nanum-square/NanumSquareB.ttf);
 }
-.header{
+@font-face {
+    font-family: 'NanumSquareEB';
+    src: url(../font/nanum-square/NanumSquareEB.ttf);
+}
+
+.header {
+    margin: 0;
     border-bottom: 1px solid lightgray;
+    font-family: 'NanumSquareB';
 }
-.inner {
-    margin: auto;
-    box-sizing: border-box;
-}
-.top1-menu {
-    display: flex;
-    justify-content: right;
-    margin: 30px 0 30px 0;
-}
-.top1-menu>ul {
-    margin: 0;
-    padding: 0;
-}
-.top1-menu>li {
-    margin-right: 30px;
-    display: inline-block;
-}
-.logo-img {
-    text-align: center;
-}
-.logo-img>a>img{
-    width: 120px;
-    height: 120px;
-}
-.top2-menu {
+
+.top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    padding: 10px;
 }
 
-.category-container {
-    position: relative;
+.top_part {
+    display: flex;
+    align-items: center;
 }
 
-.category-menu {
-    background-color: #FC7524;
-    cursor: pointer;
-    position: relative;
-}
-
-.category-menu > p {
-    text-align: center;
-    padding: 10px 20px;
-    font-weight: bold;
-    margin: 0;
-    width: 200px;
-}
-
-.category-menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #FC7524;
-    z-index: 1000;
-    width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-
-.category-menu:hover ul {
-    opacity: 1; /* 투명도 설정 */
-    visibility: visible;
-}
-
-.category-menu ul > li {
-    position: relative;
-}
-
-.category-menu ul > li > a {
-    display: block;
-    padding: 10px 20px;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.category-menu ul > li:hover > a {
-    background-color: white;
-}
-
-.category-menu > ul > li:hover > ul {
-    display: block;
-    position: absolute;
-    background-color: beige;
-    top: 0;
-    left: 100%;
-    width: 200px;
-}
-
-.category-menu ul > li > ul {
-    display: none;
-}
-
-.search-part,
-.mypage-part {
+.search_part {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -110,13 +33,12 @@ header {
 }
 
 .search_bar {
-    width: 100%;
-    max-width: 300px;
+    width: 300px;
     height: 30px;
     border: none;
     border-radius: 10px;
     background-color: beige;
-    transform: translateX(50%);
+    text-align: center;
 }
 
 .search_bar::placeholder {
@@ -127,76 +49,154 @@ header {
     outline: none;
 }
 
-.mypage-part {
-    display: flex;
-    justify-content: flex-end;
+.inner {
+    margin: auto;
+    box-sizing: border-box;
 }
 
-.mypage-part > a {
-    margin-left: 20px;
+.sectionBox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    background-color: orange;
+}
+
+.navbar {
+    display: flex;
+}
+
+.menu_part {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.menu_part > li {
+    margin: 0;
+}
+
+.menu_part > li > .bar {
+    font-size: 19px;
+    font-family: 'NanumSquareEB';
+}
+
+.menu_part > li > a {
+    display: block;
+    width: 200px;
+    padding: 20px 0 20px 0;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+}
+
+.menu_part > li > a:hover {
+    background-color: orange;
+}
+
+.menu_part ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 0;
+    list-style: none;
+    min-width: 200px;
+    z-index: 1;
+}
+
+.menu_part ul.subsubmenu {
+    top: 0;
+    left: 100%;
+    border: 3px solid red;
+    max-height: 600px; /* 하위 메뉴의 최대 높이를 600px로 설정 */
+}
+
+.menu_part ul li a {
+    padding: 10px 15px;
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.menu_part ul li a:hover {
+    background-color: #f1f1f1;
+}
+
+.menu_part li:hover > ul {
+    display: block;
 }
 
 /*모달창 라인*/
 .custom-login-modal .modal-content{
-   width: 430px !important;
-   height: 500px;
-   margin:200px auto !important;
+    width: 430px !important;
+    height: 500px;
+    margin:200px auto !important;
 }
 .login-box{
-   margin: 0 auto;
-   width: 400px;
-   height: 400px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   /*border: 1px solid black;*/
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*border: 1px solid black;*/
 
 }
 .input-box{
-   margin: 10px auto;
-   width: 90%;
-   height: 90px;
-   /*border: 1px solid black;*/
-   display: flex;
-   flex-direction: column;
-   justify-content: space-around;
-   align-items: center;
+    margin: 10px auto;
+    width: 90%;
+    height: 90px;
+    /*border: 1px solid black;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 .box-size{
-   width: 300px;
-   height: 35px;
-   outline: none;
+    width: 300px;
+    height: 35px;
+    outline: none;
 }
 .other-info-box{
-   width: 75%;
-   height: 50px;
-   /*border: 1px solid black;*/
-   font-size: 11px;
-   color: black;
+    width: 75%;
+    height: 50px;
+    /*border: 1px solid black;*/
+    font-size: 11px;
+    color: black;
 }
 .other-info-box a{
-   color: black;
+    color: black;
 }
 .form-box{
-   background-color: orangered;
-   color: white;
-   border: none;
+    background-color: orangered;
+    color: white;
+    border: none;
 }
 .social-icon{
-   width: 75%;
-   height: 100px;
-   /*border: 1px solid black;*/
-   margin-top: 30px;
-   display: flex;
-   justify-content: space-evenly;
-   align-items: center;
+    width: 75%;
+    height: 100px;
+    /*border: 1px solid black;*/
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .social-icon div{
-   /*border : 1px solid black;*/
-   width: 50px;
-   height: 50px;
-   border-radius: 50px;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
+    /*border : 1px solid black;*/
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

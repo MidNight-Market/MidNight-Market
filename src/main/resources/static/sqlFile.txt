@@ -198,7 +198,7 @@ CREATE TABLE help(
 	content TEXT NOT NULL,
 	reply VARCHAR(10) default 'N',
 	reply_content VARCHAR(150),
-	secret BOOLEAN,
+	secret VARCHAR(10),
 	customer_id VARCHAR(150),
 	reg_at DATETIME default now(),
 	mod_at datetime default now(),

@@ -19,9 +19,9 @@ class ProjectApplicationTests {
 	void contextLoads() {
 		for(int i=0; i<200; i++){
 			HelpVO hvo = HelpVO.builder()
-					.id("test"+i)
-					.title("test"+i)
-					.content("test"+i)
+					.id("작성자"+i)
+					.title("제목입니다"+i)
+					.content("내용입니다"+i)
 					.build();
 
 			mapper.insert(hvo);

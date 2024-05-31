@@ -11,8 +11,8 @@
     </select>
 
     <insert id="insert">
-        INSERT into help(id,title,content)
-        values(#{id},#{title},#{content})
+        INSERT into help(id,title,content,secret)
+        values(#{id},#{title},#{content},#{secret})
     </insert>
 
     <select id="getDetail" resultType="com.project.www.domain.HelpVO">
