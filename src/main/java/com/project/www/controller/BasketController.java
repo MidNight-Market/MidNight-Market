@@ -26,19 +26,29 @@ public class BasketController {
         //상품의 중복 검사
         BasketVO productDuplicationVerifyVO = bsv.productDuplicationVerify(basketVO);
 
+        //상품 잔여수량 검사
+        ProductVO productVO = bsv.getProductDetail(basketVO.getProductId());
+
+
+
         log.info("상품 중복 검사  : {}",productDuplicationVerifyVO);
         log.info("장바구니 객체 확인>>>>{}",basketVO);
 
         int isOk = 0;
-        
+
         //장바구니에 똑같은 상품이 없을 시에
         if(productDuplicationVerifyVO == null){
-            isOk = bsv.register(basketVO);
-        }else{
-            isOk = bsv.productDuplicationUpdate(basketVO);
+            return bsv.register(basketVO);
+        } else{
+
+            // 장바구니에 넣을 수량 + 장바구니에 저장되어있는 수량 > 잔여수량 -> 저장되게 하면 안됌
+            if((basketVO.getQty() + productDuplicationVerifyVO.getQty()) > productVO.getTotalQty()){
+                return "excess_quantity"+productVO.getTotalQty();
+            }
+
+            return bsv.productDuplicationUpdate(basketVO);
         }
 
-        return  isOk > 0 ? "success" : "fail";
     }
 
     @GetMapping("/myBasket")
@@ -46,7 +56,7 @@ public class BasketController {
 
         //현재 로그인한 이메일을 가져와야함
         String email = "oco0217@gmail.com";
-        
+
         List<BasketVO> myBasket = bsv.getMyBasket(email);
 
         log.info("내 장바구니 리스트 가져온거 : {}",myBasket);
@@ -54,6 +64,36 @@ public class BasketController {
 
         return "/product/myBasket";
     }
+
+    @ResponseBody
+    @GetMapping("/myBasketList")
+    public List<BasketVO> myBasketList(@RequestParam("customerId") String customerId){
+        //log.info("바스켓객체 확인{}",customerId);
+        return bsv.getMyBasket(customerId);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/delete")
+    public String delete(@RequestBody List<BasketVO> basketList){
+
+        log.info("삭제할 바스켓 객체 확인>>{}",basketList);
+
+        int isOk = bsv.delete(basketList);
+
+        return isOk > 0 ? "success" : "fail";
+
+    }
+
+    @ResponseBody
+    @PutMapping("/update")
+    public String update(@RequestBody BasketVO basketVO){
+
+        int isOk = bsv.update(basketVO);
+        //log.info("업데이트할 바스켓 객체 확인 >> {} ",basketVO);
+
+        return isOk > 0 ? "success" : "fail";
+    }
+
 
 
 }

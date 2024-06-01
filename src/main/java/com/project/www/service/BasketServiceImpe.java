@@ -1,6 +1,7 @@
 package com.project.www.service;
 
 import com.project.www.domain.BasketVO;
+import com.project.www.domain.ProductVO;
 import com.project.www.repository.BasketMapper;
 import com.project.www.repository.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,13 @@ private final ProductMapper productMapper;
 
 
     @Override
-    public int register(BasketVO basketVO) {
-        return basketMapper.register(basketVO);
+    public String register(BasketVO basketVO) {
+        return basketMapper.register(basketVO) > 0 ? "register_success" : "fail";
     }
 
     @Override
-    public int productDuplicationUpdate(BasketVO basketVO) {
-        return basketMapper.productDuplicationUpdate(basketVO);
+    public String productDuplicationUpdate(BasketVO basketVO) {
+        return basketMapper.productDuplicationUpdate(basketVO) > 0 ? "update_success"+basketVO.getQty() : "fail";
     }
 
     @Override
@@ -41,6 +42,29 @@ private final ProductMapper productMapper;
         }
 
         return myBasket;
+    }
+
+    @Override
+    public ProductVO getProductDetail(long productId) {
+        return productMapper.getDetail(productId);
+    }
+
+    @Override
+    public int delete(List<BasketVO> basketList) {
+
+        int isOk = 1;
+
+        //여러개 이기때문에 for문으로 삭제
+        for(BasketVO bvo : basketList){
+          isOk *= basketMapper.delete(bvo);
+        }
+
+        return isOk;
+    }
+
+    @Override
+    public int update(BasketVO basketVO) {
+        return basketMapper.update(basketVO);
     }
 
 
