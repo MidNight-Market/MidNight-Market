@@ -39,7 +39,7 @@ public class CustomerController {
     @GetMapping("/socialSelect")
     public void socialSelect(){}
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public void login(){
     }
 
