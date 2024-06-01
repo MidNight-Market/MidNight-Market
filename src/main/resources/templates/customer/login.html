@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>로그인</h1>
+    <form action="/customer/insert" method="post">
+        <div class="mb-3" id="mail_input" name="mail_input">
+            <label for="id" class="form-label">이메일</label>
+            <input type="email" name="id" id="id" placeholder="이메일 입력" class="form-control">
+        </div>
+        <br>
+        <div class="mb-3">
+            <label for="pw" class="form-label">패스워드</label>
+            <input type="password" class="form-control" name="pw" id="pw" placeholder="비밀번호를 입력해주세요.">
+            <span id="validText" style="display: none"></span>
+        </div>
+        <div class="mb-3">
+            <label for="nickName" class="form-label">닉네임</label>
+            <input type="text" class="form-control" name="nickName" id="nickName" placeholder="닉네임을 입력해주세요.">
+        </div>
+        <button type="submit">가입하기</button>
+    </form>
+    <a href="/oauth2/authorization/google"><div style="background-image: url(/dist/image/social-image/google.png);">구글</div></a>
+</body>
+</html>
