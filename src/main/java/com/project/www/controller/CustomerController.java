@@ -5,17 +5,10 @@ import com.project.www.service.CustomerService;
 import com.project.www.service.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,12 +17,14 @@ import org.springframework.web.client.RestTemplate;
 public class CustomerController {
     private final CustomerService csv;
     private final MailService msv;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/insert")
     public void insert() {}
 
     @PostMapping("/insert")
     public String insert(CustomerVO cvo){
+        cvo.setPw(bCryptPasswordEncoder.encode(cvo.getPw()));
         csv.insert(cvo);
         return "index";
     }
