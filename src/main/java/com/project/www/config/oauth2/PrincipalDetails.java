@@ -1,6 +1,7 @@
 package com.project.www.config.oauth2;
 
 import com.project.www.domain.CustomerVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -9,9 +10,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+@Slf4j
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private CustomerVO cvo;
+    private final CustomerVO cvo;
     private Map<String, Object> attributes;
 
     //일반로그인
