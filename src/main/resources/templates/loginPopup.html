@@ -47,10 +47,6 @@
             color: white;
             border: none;
         }
-        .form-box:hover{
-            filter: brightness(85%);
-            cursor: pointer;
-        }
         .social-icon{
             width: 75%;
             height: 100px;
@@ -96,7 +92,7 @@
 </head>
 <body>
                 <form id="select-change" action="/customer/test" method="get">
-                    <h1 style="margin: 60px auto 50px; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
+                    <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
 
                     <div class="login-select-box">
                         <button type="button" class="select-box" id="customer">고객</button>
@@ -131,39 +127,12 @@
 
 <script>
 
-    document.addEventListener('click',(e)=>{
-
-        //고객일 경우
-        if(e.target.id == 'customer'){
-            console.log('고객일 경우');
-            let form = document.getElementById('select-change');
-            form.action = "/customer/고객의 주소.";
-            console.log(form);
-        }
-
-        //판매자일경우
-        if(e.target.id == 'seller'){
-            console.log('판매자일 경우');
-            let form = document.getElementById('select-change');
-            form.action = "/판매자의 로그인으로 이동할 주소 넣으면 됍니다.";
-            console.log(form);
-        }
-
-        const select_btn = document.querySelectorAll('.select-box');
-        select_btn.forEach(btn => {
-            if (btn !== e.target.closest('.select-box')) {
-                btn.style.color = 'black';
-                btn.style.borderBottom = '1px solid lightgray';
-            } else {
-                btn.style.color = 'black'; // 클릭된 요소의 색상 초기화 또는 원하는 색상으로 설정
-                btn.style.borderBottom = '2px solid black'
-                btn.style.fontWeight = '700';
-                btn.style.fontsize = '19px';
-            }
-        });
+    // form 요소를 가져옵니다.
+    document.getElementById('seller').addEventListener('click',()=>{
+        console.log('폼바꾸기 킄ㄹ릭');
+        let form = document.getElementById('select-change');
+        form.action = "/seller/test";
     });
-
-
 </script>
 
 </body>

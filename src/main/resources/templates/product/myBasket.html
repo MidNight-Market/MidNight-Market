@@ -3,8 +3,228 @@
 <th:block th:replace="~{header :: header}"></th:block>
 
 <head>
+
     <title>Basket</title>
-    <link rel="stylesheet" th:href="@{/dist/css/myBasket.css}">
+
+    <style>
+        body {
+         width: 100%;
+       }
+
+       .basket1 {
+         /* background-color: aqua; */
+         height: 800px;
+         padding: 10px 80px;
+       }
+
+       .basket2 {
+         text-align: center;
+         margin: 50px;
+       }
+
+       .title1 {
+         font-size: 30px;
+         font-weight: 550;
+       }
+
+       .basket3 {
+         /* background-color: pink; */
+         width: 70%;
+         height: 500px;
+         float: left;
+           border: 1px solid black;
+       }
+
+       a {
+         color: black;
+       }
+
+       .text1 {
+         /* margin-left: 10px;
+         margin-right: 10px; */
+       }
+
+       .text2 {
+           margin-left: 20px;
+       }
+
+       hr {
+         border: 1px solid black;
+       }
+
+       .basket4 {
+         background-color: rgba(211, 211, 211, 0.155);
+         width: 300px;
+         height: 350px;
+         float: right;
+         position: sticky;
+         top: 105px;
+         right: 70px;
+       }
+
+       .basket5 {
+         padding: 20px;
+         /* margin-bottom: 10px; */
+         border: 1px solid lightgray;
+         border-radius: 3px;
+       }
+
+       .text3,
+       .text4,
+       .text5,
+       .text7 {
+         display: flex;
+         justify-content: space-between;
+         margin-bottom: 20px;
+       }
+
+       .text6,
+       .text8 {
+         text-align: right;
+         margin-bottom: 20px;
+         font-size: 12px;
+       }
+
+       .text7 {
+         margin-top: 50px;
+       }
+
+       .basket6 {
+         float: right;
+         text-align: center;
+         width: 300px;
+         height: 70px;
+         background-color: orange;
+         line-height: 70px;
+         border-radius: 5px;
+       }
+
+       .basket7 {
+         background-color: white;
+         width: 300px;
+         height: 30px;
+       }
+
+       .text9 {
+         font-size: 20px;
+         font-weight: 550;
+       }
+
+       .accumulate {
+         background-color: orange;
+         border-radius: 10px;
+         padding: 3px;
+         margin-right: 5px;
+         color: white;
+       }
+
+       .basket8 {
+         /* background-color: aqua; */
+         padding-top: 90px;
+       }
+
+       .text10,
+       .text11 {
+         font-size: 12px;
+         margin-bottom: 20px;
+       }
+
+       .basket9 {
+          /*background-color: yellow;*/
+         /* padding: 10px; */
+       }
+
+       .image1 {
+         width: 100px;
+         height: 100px;
+         /* background-color: aqua; */
+         border: 1px solid black;
+         margin-left: 10px;
+         margin-right: 10px;
+       }
+
+       li {
+         display: flex;
+         align-items: center;
+         position: relative;
+         /* padding: 20px 0px; */
+       }
+
+       .name1 {
+         /* background-color: aliceblue; */
+         width: 400px;
+         height: 100px;
+         line-height: 100px;
+       }
+
+       .box1 {
+         /* background-color: pink; */
+         width: 100px;
+         height: 100px;
+         /* line-height: 100px; */
+         text-align: center;
+         display: flex;
+       }
+
+       .box2 {
+         width: 40px;
+         height: 100px;
+         /* background-color: yellow; */
+       }
+
+       .price {
+         /* background-color: aqua; */
+         width: 100px;
+         height: 100px;
+         line-height: 100px;
+         text-align: right;
+         margin-left: 20px;
+       }
+
+       /* input 초기화 */
+       input[type="checkbox"] {
+         display: none;
+       }
+
+       /* (체크박스, 텍스트) 정렬 맞추기 */
+       .checkbox_label {
+         display: flex;
+         align-items: center;
+       }
+
+       /* 체크박스 디자인 */
+       .checkbox_icon::before {
+         content: "";
+         display: block;
+         margin-right: 5px;
+         display: inline-block;
+         width: 15px;
+         height: 15px;
+         background-color: transparent;
+         border: 1px solid #9da3a5;
+         box-sizing: border-box;
+         position: relative;
+         cursor: pointer;
+       }
+
+       /* checked */
+       .checkbox_label input:checked + .checkbox_icon::before {
+         /*   transition: all 0.15s ease; */
+         background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) #03c75a
+           no-repeat center;
+         border: none;
+       }
+
+       button{
+           border: 1px solid lightgray;
+           background-color: rgba(211, 211, 211, 0.174);
+           width: 30px;
+           height: 30px;
+           margin-top: 35px;
+           align-items: center;
+       }
+
+    </style>
 </head>
 
 <body>
@@ -16,18 +236,45 @@
 
         <div>
             <label class="checkbox_label">
-                <input type="checkbox" id="basketCheckboxAll">
+                <input type="checkbox">
                 <span class="checkbox_icon">전체 선택</span>
-                <a href="" id="select-delete"><span class="text2">선택 삭제</span></a>
+                <a href=""><span class="text2">선택 삭제</span></a>
             </label>
         </div>
 
         <hr>
         <div class="basket9">
-            <ul id="basketList">
+            <ul>
+                <th:block th:each="myBasket:${myBasket}">
+                <li>
+                    <a href="">
+                        <label class="checkbox_label">
+                            <input type="checkbox">
+                            <span class="checkbox_icon"></span>
+                        </label>
+                    </a>
+                    <a href="">
+                        <div class="image1">
+                            <img th:src="${myBasket.productVO.mainImage}"  style="width: 100%; height: 100%">
 
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="name1">[[${myBasket.productVO.name}]]</div>
+                    </a>
 
-
+                    <div class="box1">
+                        <button id="-">-</button>
+                        <div class="box2">
+                            <span>[[${myBasket.qty}]]</span>
+                        </div>
+                        <button id="+">+</button>
+                    </div>
+                    <div class="price">
+                        <span th:text="${#numbers.formatDecimal(myBasket.productVO.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
+                    </div>
+                </li>
+                </th:block>
             </ul>
         </div>
     </div>
@@ -35,11 +282,11 @@
         <div class="basket5">
             <div class="text3">
                 <span>상품금액</span>
-                <span id="product-price-text">원</span>
+                <span>원</span>
             </div>
             <div class="text4">
                 <span>상품 할인 금액</span>
-                <span id="product-discount-price-text">원</span>
+                <span>원</span>
             </div>
             <div class="text5">
                 <span>배송비</span>
@@ -50,7 +297,7 @@
             </div>
             <div class="text7">
                 <span>결제 예정 금액</span>
-                <span id="product-total-price-text">원</span>
+                <span>원</span>
             </div>
             <div class="text8">
                 <span><span class="accumulate">적립</span>로그인 후 회원 등급에 따라 적립</span>
@@ -71,10 +318,9 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script th:inline="javascript">const myBasket = [[${myBasket}]];</script>
 <script th:src="@{/js/myBasket.js}"></script>
-<script th:inline="javascript">spreadMyBasketList([[${myBasket[0].customerId}]]);</script>
+
+
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
