@@ -9,12 +9,14 @@ import lombok.*;
 @Getter
 @Setter
 public class CustomerVO {
-    private long customerCode;
-    private String customerEmail;
-    private String customerPw;
-    private String customerNickName;
-    private String customerRegisterDate;
-    private String customerClass;
+    private String id;
+    private String pw;
+    private String nickName;
+    private String provider;
+    private String providerId;
+    private String registerDate;
+    private String cClass;
     private String address;
+    private String role;
 
 }

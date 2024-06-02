@@ -174,7 +174,6 @@
                 <!--                </div>-->
         </form>
     </header>
-
     <script>
         document.getElementById('login-popup').addEventListener('click', (event) => {
             event.preventDefault(); // 링크의 기본 동작을 막기
@@ -192,10 +191,10 @@
             const top = (screenHeight / 2) - (height / 2);
 
 
-            window.open('/loginPopup', '네이버팝업', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
+            window.open('/loginPopup', '로그인팝업', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
         });
     </script>
-
     </body>
 </th:block>
 </html>
+<!-- pr 테스트 수정 주석  -->

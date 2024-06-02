@@ -47,10 +47,6 @@
             color: white;
             border: none;
         }
-        .form-box:hover{
-            filter: brightness(85%);
-            cursor: pointer;
-        }
         .social-icon{
             width: 75%;
             height: 100px;
@@ -96,7 +92,7 @@
 </head>
 <body>
                 <form id="select-change" action="/customer/test" method="get">
-                    <h1 style="margin: 60px auto 50px; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
+                    <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
 
                     <div class="login-select-box">
                         <button type="button" class="select-box" id="customer">고객</button>
@@ -121,50 +117,60 @@
                         </div>
                         <button type="submit" class="box-size form-box">로그인</button>
                         <div class="social-icon">
-                            <a href=""><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
-                            <a href=""><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
-                            <a href=""><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
+                            <a href="/oauth2/authorization/google"><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
+                            <a href="/oauth2/authorization/kakao"><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
+                            <a href="/oauth2/authorization/naver"><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
                         </div>
                     </div>
                 </form>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const select_btn = document.querySelectorAll('.select-box');
 
+                        // 첫 번째 버튼이 있는 경우 클릭하고 스타일 적용
+                        if(select_btn.length > 0){
+                            select_btn[0].click();
+                            select_btn[0].style.color = 'black';
+                            select_btn[0].style.borderBottom = '2px solid black';
+                            select_btn[0].style.fontWeight = '700';
+                        }
 
-<script>
+                        document.addEventListener('click', (e) => {
+                            const clicked_btn = e.target.closest('.select-box');
 
-    document.addEventListener('click',(e)=>{
+                            if(clicked_btn) {
+                                // 모든 select-box 버튼의 스타일 초기화
+                                select_btn.forEach(btn => {
+                                    btn.style.color = 'black';
+                                    btn.style.borderBottom = '1px solid lightgray';
+                                    btn.style.fontWeight = 'normal';
+                                });
 
-        //고객일 경우
-        if(e.target.id == 'customer'){
-            console.log('고객일 경우');
-            let form = document.getElementById('select-change');
-            form.action = "/customer/고객의 주소.";
-            console.log(form);
-        }
+                                // 클릭된 버튼에 스타일 적용
+                                clicked_btn.style.color = 'black';
+                                clicked_btn.style.borderBottom = '2px solid black';
+                                clicked_btn.style.fontWeight = '700';
+                            }
 
-        //판매자일경우
-        if(e.target.id == 'seller'){
-            console.log('판매자일 경우');
-            let form = document.getElementById('select-change');
-            form.action = "/판매자의 로그인으로 이동할 주소 넣으면 됍니다.";
-            console.log(form);
-        }
+                            // 고객일 경우
+                            if(e.target.id == 'customer'){
+                                console.log('고객일 경우');
+                                let form = document.getElementById('select-change');
+                                form.action = "/customer/고객의 주소.";
+                                console.log(form);
+                            }
 
-        const select_btn = document.querySelectorAll('.select-box');
-        select_btn.forEach(btn => {
-            if (btn !== e.target.closest('.select-box')) {
-                btn.style.color = 'black';
-                btn.style.borderBottom = '1px solid lightgray';
-            } else {
-                btn.style.color = 'black'; // 클릭된 요소의 색상 초기화 또는 원하는 색상으로 설정
-                btn.style.borderBottom = '2px solid black'
-                btn.style.fontWeight = '700';
-                btn.style.fontsize = '19px';
-            }
-        });
-    });
+                            // 판매자일 경우
+                            if(e.target.id == 'seller'){
+                                console.log('판매자일 경우');
+                                let form = document.getElementById('select-change');
+                                form.action = "/판매자의 로그인으로 이동할 주소 넣으면 됍니다.";
+                                console.log(form);
+                            }
+                        });
+                    });
 
-
-</script>
+  </script>
 
 </body>
 </html>
