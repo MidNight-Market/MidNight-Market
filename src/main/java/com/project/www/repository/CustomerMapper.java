@@ -20,5 +20,5 @@ public interface CustomerMapper {
 
     void updatePw(String id, String pw);
 
-    CustomerVO findByUserName(String id);
+    CustomerVO findByUserName(String providerId);
 }

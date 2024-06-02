@@ -26,6 +26,6 @@
         update customer set pw = #{pw} where id = #{id}
     </update>
     <select id="findByUserName" resultType="com.project.www.domain.CustomerVO">
-        SELECT * FROM customer WHERE id = #{id}
+        SELECT * FROM customer where provider_id = #{providerId}
     </select>
 </mapper>

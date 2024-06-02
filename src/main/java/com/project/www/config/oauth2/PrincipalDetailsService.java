@@ -19,8 +19,8 @@ public class PrincipalDetailsService implements UserDetailsService {
     private CustomerMapper customerMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        CustomerVO userEntity = customerMapper.findByUserName(username);
+    public UserDetails loadUserByUsername(String providerId) throws UsernameNotFoundException {
+        CustomerVO userEntity = customerMapper.findByUserName(providerId);
         log.info("유저엔티티{}",userEntity);
         if(userEntity != null) {
             return new PrincipalDetails(userEntity);

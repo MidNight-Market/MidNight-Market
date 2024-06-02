@@ -33,18 +33,19 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .usernameParameter("id")
                         .passwordParameter("pw")
-                        .loginPage("/customer/login")
-                        .loginProcessingUrl("/customer/login")
-                        .defaultSuccessUrl("/customer/register").permitAll())
+                        .loginPage("/loginPopup")
+                        .loginProcessingUrl("/loginPopup")
+                        .defaultSuccessUrl("/customer/info").permitAll())
                 .logout(logout -> logout
-                        .logoutUrl("/customer/logout")
+                        .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/"))
-                .oauth2Login()
-                .loginPage("/customer/login")
-                .userInfoEndpoint()
-                .userService(PrincipalDetailsService);
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/loginPopup")
+                        .defaultSuccessUrl("/", true) // OAuth2 로그인 성공 시 리디렉션할 URL
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(PrincipalDetailsService)));
 
         return http.build();
     }
