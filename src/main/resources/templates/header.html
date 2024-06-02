@@ -21,7 +21,7 @@
                     </div>
                     <div class="inner sectionBox">
                         <a href="/customer/registerSelect" id="joinBtn">회원가입</a>
-                        <a href="#login-modal" data-bs-toggle="modal" data-bs-target="#login-modal" id="loginBtn" class="login">로그인</a>
+                        <a href="#" id="login-popup" class="login">로그인</a>
                         <a href="#" id="logoutBtn" class="logout" >로그아웃</a>
                     </div>
                 </div>
@@ -174,46 +174,27 @@
                 <!--                </div>-->
         </form>
     </header>
+    <script>
+        document.getElementById('login-popup').addEventListener('click', (event) => {
+            event.preventDefault(); // 링크의 기본 동작을 막기
+            console.log('잘클릭됌');
 
-    <!-- 모달창 라인  -->
-    <div class="modal" id="login-modal" tabindex="-1">
-        <div class="modal-dialog custom-login-modal" style="max-width: none">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="font-size: 20px; font-weight: 700"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/">
-                        <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
-                        <div class="login-box">
-                            <div class="input-box">
-                                <input type="text" class="box-size" placeholder="아이디">
-                                <input type="password" class="box-size" placeholder="비밀번호">
-                            </div>
-                            <div class="other-info-box">
-                                <label>
-                                    <input type="checkbox">
-                                    <span style="margin-right: 15px;">아이디저장</span>
-                                </label>
-                                <a href="/customer/findId"><span>아이디 찾기 |</span></a>
-                                <a href="/customer/changePw"><span>비밀번호 재설정 |</span></a>
-                                <a href="/customer/insert"><span>회원가입</span></a>
-                            </div>
-                            <button type="submit" class="box-size form-box">로그인</button>
-                            <div class="social-icon">
-                                <a href=""><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
-                                <a href=""><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
-                                <a href=""><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
+            const width = 600;
+            const height = 600;
+
+            // 화면의 크기를 가져옴
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+
+            // 팝업 창의 위치를 계산
+            const left = (screenWidth / 2) - (width / 2);
+            const top = (screenHeight / 2) - (height / 2);
+
+
+            window.open('/loginPopup', '로그인팝업', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
+        });
+    </script>
     </body>
 </th:block>
 </html>
+<!-- pr 테스트 수정 주석  -->
