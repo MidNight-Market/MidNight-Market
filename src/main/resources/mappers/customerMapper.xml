@@ -4,8 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.www.repository.CustomerMapper">
     <insert id="insert">
-        insert into customer(id, pw, nick_name, address)
-        values(#{customerEmail}, #{customerPw}, #{customerNickName}, #{address})
+        insert into customer(id, pw, nick_name, provider, provider_id, role)
+        values(#{id}, #{pw}, #{nickName}, #{provider}, #{providerId}, #{role})
     </insert>
     <select id="checkEmail" resultType="int">
         select count(id) from customer where id = #{id}
@@ -25,4 +25,7 @@
     <update id="updatePw">
         update customer set pw = #{pw} where id = #{id}
     </update>
+    <select id="findByUserName" resultType="com.project.www.domain.CustomerVO">
+        SELECT * FROM customer WHERE id = #{id}
+    </select>
 </mapper>
