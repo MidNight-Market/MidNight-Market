@@ -2,6 +2,7 @@ package com.project.www.repository;
 
 import com.project.www.domain.CustomerVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.security.core.userdetails.User;
 
 @Mapper
 public interface CustomerMapper {
@@ -18,4 +19,6 @@ public interface CustomerMapper {
     void updateDefaultPw(String id);
 
     void updatePw(String id, String pw);
+
+    CustomerVO findByUserName(String id);
 }

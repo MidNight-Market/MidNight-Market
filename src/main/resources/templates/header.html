@@ -21,7 +21,7 @@
                     </div>
                     <div class="inner sectionBox">
                         <a href="/customer/registerSelect" id="joinBtn">회원가입</a>
-                        <a href="#" id="login-popup" class="login">로그인</a>
+                        <a href="#login-modal" data-bs-toggle="modal" data-bs-target="#login-modal" id="loginBtn" class="login">로그인</a>
                         <a href="#" id="logoutBtn" class="logout" >로그아웃</a>
                     </div>
                 </div>
@@ -174,7 +174,6 @@
                 <!--                </div>-->
         </form>
     </header>
-
     <script>
         document.getElementById('login-popup').addEventListener('click', (event) => {
             event.preventDefault(); // 링크의 기본 동작을 막기
@@ -195,7 +194,6 @@
             window.open('/loginPopup', '로그인팝업', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
         });
     </script>
-
     </body>
 </th:block>
 </html>

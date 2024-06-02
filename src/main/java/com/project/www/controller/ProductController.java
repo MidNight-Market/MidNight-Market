@@ -25,8 +25,8 @@ public class ProductController {
 
     private final ProductService psv;
     private final FileHandler fileHandler;
-    
-    //상품 등록 페이지 이동
+
+
     @GetMapping("/register")
     public void register(Model model){
 
@@ -37,7 +37,6 @@ public class ProductController {
 
     }
 
-    //상품등록
     @PostMapping("/register")
     public String register(ProductVO productVO,
                            @RequestParam(name = "file",required = false)MultipartFile file,
@@ -61,7 +60,6 @@ public class ProductController {
         return "redirect:/";
     }
 
-    //상품 상세페이지 
     @GetMapping("/detail")
     public void detail(@RequestParam("id")long id, Model model){
 
@@ -75,12 +73,7 @@ public class ProductController {
     }
 
 
-    //상품 리스트 페이지
     @GetMapping("/list")
-    public void list(Model model){
-        
-    }
+    public void list(Model model){}
 
-    
-    
 }

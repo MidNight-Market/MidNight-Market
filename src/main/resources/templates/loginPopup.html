@@ -47,10 +47,6 @@
             color: white;
             border: none;
         }
-        .form-box:hover{
-            filter: brightness(85%);
-            cursor: pointer;
-        }
         .social-icon{
             width: 75%;
             height: 100px;
@@ -96,7 +92,7 @@
 </head>
 <body>
                 <form id="select-change" action="/customer/test" method="get">
-                    <h1 style="margin: 60px auto 50px; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
+                    <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
 
                     <div class="login-select-box">
                         <button type="button" class="select-box" id="customer">고객</button>
@@ -121,14 +117,12 @@
                         </div>
                         <button type="submit" class="box-size form-box">로그인</button>
                         <div class="social-icon">
-                            <a href=""><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
+                            <a href="/oauth2/authorization/google"><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
                             <a href=""><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
                             <a href=""><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
                         </div>
                     </div>
                 </form>
-
-
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         const select_btn = document.querySelectorAll('.select-box');
@@ -176,7 +170,7 @@
                         });
                     });
 
-                </script>
+  </script>
 
 </body>
 </html>
