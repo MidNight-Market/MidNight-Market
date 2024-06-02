@@ -131,6 +131,16 @@
 
 <script>
 
+    const select_btn = document.querySelectorAll('.select-box');
+
+    if(select_btn.length > 0){
+        select_btn[0].click();
+        select_btn[0].style.color = 'black';
+        select_btn[0].style.borderBottom = '2px solid black';
+        select_btn[0].style.fontWeight = '700';
+        select_btn[0].style.fontSize = '14px'; //
+    }
+
     document.addEventListener('click',(e)=>{
 
         //고객일 경우
@@ -154,11 +164,12 @@
             if (btn !== e.target.closest('.select-box')) {
                 btn.style.color = 'black';
                 btn.style.borderBottom = '1px solid lightgray';
+                btn.style.fontWeight = '500';
             } else {
                 btn.style.color = 'black'; // 클릭된 요소의 색상 초기화 또는 원하는 색상으로 설정
                 btn.style.borderBottom = '2px solid black'
                 btn.style.fontWeight = '700';
-                btn.style.fontsize = '19px';
+                btn.style.fontSize = '14px';
             }
         });
     });
