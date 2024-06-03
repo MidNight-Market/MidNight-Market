@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<th:block th:replace="~{header :: header}"></th:block>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -91,7 +92,7 @@
 
 </head>
 <body>
-                <form id="select-change" action="/customer/test" method="get">
+                <form id="select-change" action="/login/form" method="post">
                     <h1 style="margin: 30px auto; font-size: 30px; font-weight: 700; text-align: center">로그인</h1>
 
                     <div class="login-select-box">
@@ -103,8 +104,8 @@
                     <div class="login-box">
                         <div class="input-box">
 
-                            <input type="text" class="box-size" placeholder="아이디">
-                            <input type="password" class="box-size" placeholder="비밀번호">
+                            <input type="text" class="box-size" name="id" placeholder="아이디">
+                            <input type="password" class="box-size" name="pw" placeholder="비밀번호">
                         </div>
                         <div class="other-info-box">
                             <label>
@@ -173,4 +174,5 @@
   </script>
 
 </body>
+<th:block th:replace="~{footer :: footer}"></th:block>
 </html>
