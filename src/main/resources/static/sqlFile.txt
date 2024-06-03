@@ -43,15 +43,14 @@ CREATE TABLE product (
 );
 
 #수정완료
-CREATE TABLE product_buy (
-	merchent_uid VARCHAR(100) NOT NULL,
+CREATE TABLE orders (
+	merchant_uid VARCHAR(256) NOT NULL,
 	customer_id VARCHAR(150) NOT NULL,
 	product_id bigint NOT NULL,
+	qty bigint NOT NULL,
 	pay_price bigint NOT NULL,
-	buy_date DATETIME DEFAULT NOW(),
-	address VARCHAR(400),
-	status VARCHAR(10) default 'success',
-	PRIMARY KEY (merchent_uid)
+	orders_date DATETIME DEFAULT NOW(),
+	status VARCHAR(10) default 'stand_by'
 );
 
 #수정완료
@@ -154,12 +153,15 @@ CREATE TABLE product_category (
 
 #수정완료
 CREATE TABLE payment (
-	pay_id bigint NOT NULL AUTO_INCREMENT,
+	merchant_uid VARCHAR(256) NOT NULL,
+	customer_id VARCHAR(150) NOT NULL,
+	pay_description VARCHAR(100),
 	pay_date DATETIME DEFAULT NOW(),
 	pay_price bigint NOT NULL,
-	pay_method VARCHAR(100) NOT NULL,
-	customer_id VARCHAR(150) NOT NULL,
-	PRIMARY KEY (pay_id)
+	pay_method VARCHAR(100),
+	address VARCHAR(400),
+	status VARCHAR(10) DEFAULT 'stand_by',
+	PRIMARY KEY (merchant_uid)
 );
 
 #수정완료
@@ -219,6 +221,12 @@ CREATE TABLE product_detail_image (
 	product_id bigint NOT NULL
 );
 
+#찜하기 추가
+CREATE TABLE slang (
+    customer_id VARCHAR(30) NOT NULL,
+    product_id bigint NOT NULL
+);
+
 
 ALTER TABLE product_category_detail ADD CONSTRAINT FK_product_category_TO_product_category_detail_1 FOREIGN KEY (
 	product_category_id
@@ -242,18 +250,25 @@ REFERENCES seller (
 );
 
 
-ALTER TABLE product_buy ADD CONSTRAINT FK_product_TO_product_buy_1 FOREIGN KEY (
+ALTER TABLE orders ADD CONSTRAINT FK_product_TO_orders_1 FOREIGN KEY (
 	product_id
 )
 REFERENCES product (
 	id
 );
 
-ALTER TABLE product_buy ADD CONSTRAINT FK_customer_TO_product_buy_1 FOREIGN KEY (
+ALTER TABLE orders ADD CONSTRAINT FK_customer_TO_orders_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
 	id
+);
+
+ALTER TABLE orders ADD CONSTRAINT FK_payment_TO_orders_1 FOREIGN KEY (
+	merchant_uid
+)
+REFERENCES payment (
+	merchant_uid
 );
 
 ALTER TABLE product_review ADD CONSTRAINT FK_customer_TO_product_review_1 FOREIGN KEY (
@@ -312,6 +327,7 @@ ALTER TABLE payment ADD CONSTRAINT FK_customer_TO_payment_1 FOREIGN KEY (
 REFERENCES customer (
 	id
 );
+
 
 
 ALTER TABLE notification ADD CONSTRAINT FK_customer_TO_notification_1 FOREIGN KEY (
@@ -376,6 +392,21 @@ ALTER TABLE `product_review` ADD CONSTRAINT `FK_product_TO_product_review_1` FOR
 )
 REFERENCES `product` (
 	`id`
+);
+
+#찜하기 연결
+ALTER TABLE slang ADD CONSTRAINT FK_customer_TO_slang_1 FOREIGN KEY (
+	customer_id
+)
+REFERENCES customer (
+	id
+);
+
+ALTER TABLE slang ADD CONSTRAINT FK_product_TO_slang_1 FOREIGN KEY (
+	product_id
+)
+REFERENCES product (
+	id
 );
 
 
