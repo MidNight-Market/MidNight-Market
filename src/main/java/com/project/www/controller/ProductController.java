@@ -107,5 +107,10 @@ public class ProductController {
     }
 
 
+    @GetMapping("/product/detailPopup")
+    public String detailPopup() {
+        return "product/detailPopup"; //
+    }
+
 
 }
