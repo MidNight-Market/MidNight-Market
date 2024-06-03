@@ -50,18 +50,20 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         log.info("providerId {}", providerId);
         log.info("nickName {}", nickName);
         log.info("id {}", id);
-        CustomerVO cvo = customerMapper.findByUserName(providerId);
-        CustomerVO existCvo = new CustomerVO();
-        if(cvo == null) {
-            existCvo.setId(id);
-            existCvo.setNickName(nickName);
-            existCvo.setProvider(provider);
-            existCvo.setProviderId(providerId);
-            existCvo.setRole(role);
-            customerMapper.insert(existCvo);
-        }else{
-            existCvo = cvo;
+        CustomerVO existingCustomer = customerMapper.findByUserName(providerId);
+
+        if (existingCustomer == null) {
+            log.info("New user, creating account");
+            CustomerVO newCustomer = new CustomerVO();
+            newCustomer.setId(id);
+            newCustomer.setNickName(nickName);
+            newCustomer.setProvider(provider);
+            newCustomer.setProviderId(providerId);
+            newCustomer.setRole(role);
+            customerMapper.insert(newCustomer);
+            return new PrincipalDetails(newCustomer, oAuth2User.getAttributes());
+        } else {
+            return new PrincipalDetails(existingCustomer, oAuth2User.getAttributes());
         }
-        return new PrincipalDetails(existCvo, oAuth2User.getAttributes());
     }
 }
