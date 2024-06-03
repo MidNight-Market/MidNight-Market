@@ -40,8 +40,8 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void updateDefaultPw(String id) {
-        customerMapper.updateDefaultPw(id);
+    public void updateDefaultPw(String id, String pw) {
+        customerMapper.updateDefaultPw(id, pw);
     }
 
     @Override

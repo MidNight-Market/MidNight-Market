@@ -20,7 +20,7 @@
         select count(id) from customer where id = #{id}
     </select>
     <update id="updateDefaultPw">
-        update customer set pw = "resetPw" where id = #{id}
+        update customer set pw = #{pw} where id = #{id}
     </update>
     <update id="updatePw">
         update customer set pw = #{pw} where id = #{id}
