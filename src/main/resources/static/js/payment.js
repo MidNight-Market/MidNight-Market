@@ -1,3 +1,15 @@
+//사용자가 주문서 페이지를 벗어나려 할 경우
+window.addEventListener('beforeunload', function (event) {
+    // 확인 메시지를 설정합니다.
+    const confirmationMessage = '정말로 이 페이지를 떠나시겠습니까?';
+
+    // 이벤트에 설정합니다.
+    event.returnValue = confirmationMessage;
+
+    return confirmationMessage;
+});
+
+
 $(document).ready(function () {
 console.log('사전검증 함수');
     $.ajax({

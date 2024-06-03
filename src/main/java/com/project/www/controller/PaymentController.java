@@ -32,6 +32,14 @@ public class PaymentController {
         return psv.post(paymentDTO);
     }
 
+    @ResponseBody
+    @PostMapping("/basketPost")
+    public String basketPaymentPost(@RequestBody PaymentDTO paymentDTO){
+        log.info("장바구니 결제 DTO 확인 >>>>{}",paymentDTO);
+
+        return psv.basketPost(paymentDTO);
+    }
+
 
     @PostMapping("/orders")
     public String order(@RequestParam("merchantUid") String merchantUid, Model model){

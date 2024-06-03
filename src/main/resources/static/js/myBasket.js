@@ -1,3 +1,5 @@
+
+
 // 비동기로 불러오기 전에 체크된 체크박스 저장
 let checkedCheckboxes = [];
 
@@ -158,3 +160,48 @@ function myBasketList(response) {
         $('#product-total-price-text').text(0 + ' 원');
     }
 }
+
+//주문하기를 누를 경우
+document.getElementById('orders-button').addEventListener('click',(e)=>{
+
+    //글자누르면 인식 안될 수 있기 때문에 상위버튼 찾기
+    const button = e.target.closest('#orders-button');
+    
+    if(button){
+        console.log(' orders-button click check ');
+
+        if(myBasket == null){
+            alert('장바구니에 상품을 담고 주문해주세요.');
+        }
+
+        const merchant_uid = 'merchent_uid' + new Date().getTime();
+
+        const payData = {
+            merchantUid: merchant_uid,
+            customerId: `${myBasket[0].customerId}`
+        };
+
+        $.ajax({
+           type: 'POST',
+           url: '/payment/basketPost',
+           contentType: 'application/json',
+           data : JSON.stringify(payData),
+            success:function (rsp){
+
+               if(rsp === 'excess_quantity'){
+                   alert('수량이 맞지않습니다. 다시시도해주세요.');
+               }
+
+               if(rsp === 'post_success'){
+                   alert('주문서 페이지로 이동합니다.');
+                   //form데이터 merchantUid를 order페이지에 보낸다
+                   document.getElementById('merchantUid').value = merchant_uid;
+                   document.getElementById('orderMoveForm').submit();
+               }
+
+            }
+        });
+
+    }
+
+});

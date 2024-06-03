@@ -59,7 +59,7 @@
         <div class="basket7">
 
         </div>
-        <a href="">
+        <a href="#" id="orders-button">
             <div class="basket6">
                 <span class="text9">주문하기</span>
             </div>
@@ -70,6 +70,10 @@
         </div>
     </div>
 </div>
+
+<form action="/payment/orders" id="orderMoveForm" method="post">
+    <input type="hidden" name="merchantUid" id="merchantUid">
+</form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">const myBasket = [[${myBasket}]];</script>

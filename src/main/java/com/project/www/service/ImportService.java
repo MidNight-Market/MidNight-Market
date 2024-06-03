@@ -52,13 +52,13 @@ public class ImportService {
         BigDecimal paidPrice = iamportResponse.getResponse().getAmount(); //실제로 결제한 금액
 
         if(!preparePrice.equals(paidPrice)){
-            CancelData cancelData = cancelPayemnt(iamportResponse);
+            CancelData cancelData = cancelPayment(iamportResponse);
         }
 
         return iamportResponse.getResponse();
     }
 
-    public CancelData cancelPayemnt(IamportResponse<Payment> response){
+    public CancelData cancelPayment(IamportResponse<Payment> response){
         return new CancelData(response.getResponse().getImpUid(), true);
     }
 }
