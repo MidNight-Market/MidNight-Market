@@ -157,6 +157,7 @@ CREATE TABLE payment (
 	customer_id VARCHAR(150) NOT NULL,
 	pay_description VARCHAR(100),
 	pay_date DATETIME DEFAULT NOW(),
+	original_price bigint NOT NULL,
 	pay_price bigint NOT NULL,
 	pay_method VARCHAR(100),
 	address VARCHAR(400),

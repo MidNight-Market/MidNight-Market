@@ -623,18 +623,22 @@ input[type="checkbox"] {
         <hr>
         <div class="basket9">
             <ul>
+                <th:block th:each="ordersVO:${paymentDTO.ordersList}">
+
                 <li class="product1">
                     <a href="">
                         <div class="image1">
-                            <img src="" alt="">
+                            <img th:src="${ordersVO.productVO.mainImage}" alt="" style="width: 100%; height: 100%">
                         </div>
                     </a>
-                    <div class="name1">제품명</div>
-                    <div class="name2">개</div>
+                    <div class="name1">[[${ordersVO.productVO.name}]]</div>
+                    <div class="name2">[[${ordersVO.qty}]]개</div>
                     <div class="price">
-                        <span>원</span>
+                        <span>[[${ordersVO.payPrice}]]원</span>
                     </div>
                 </li>
+
+                </th:block>
             </ul>
         </div>
     </div>
@@ -648,19 +652,19 @@ input[type="checkbox"] {
                 <span>보내는 분</span>
             </div>
             <div class="order_box2">
-                <span>123</span>
+                <span>[[${paymentDTO.customerId}]]</span>
             </div>
             <div class="order_box1">
                 <span>휴대폰</span>
             </div>
             <div class="order_box2">
-                <span>123</span>
+                <span>넣을지 말지 결정</span>
             </div>
             <div class="order_box1">
                 <span>이메일</span>
             </div>
             <div class="order_box2">
-                <span>123</span>
+                <span>[[${paymentDTO.customerId}]]</span>
             </div>
         </div>
     </div>
@@ -725,15 +729,15 @@ input[type="checkbox"] {
         <div class="basket5">
             <div class="text3">
                 <span>주문금액</span>
-                <span>원</span>
+                <span th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
             </div>
             <div class="text6">
                 <span>└ 상품금액</span>
-                <span>원</span>
+                <span th:text="${#numbers.formatDecimal(paymentDTO.originalPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
             </div>
             <div class="text6">
                 <span>└ 상품 할인 금액</span>
-                <span>원</span>
+                <span th:text=" '-' + ${#numbers.formatDecimal((paymentDTO.originalPrice - paymentDTO.payPrice), 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
             </div>
             <div class="text4">
                 <span>배송비</span>
@@ -757,7 +761,7 @@ input[type="checkbox"] {
             </div>
             <div class="text7">
                 <span>최종 결제 금액</span>
-                <span>원</span>
+                <span th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
             </div>
             <div class="text8">
                 <span><span class="accumulate">적립</span>구매시 ?원</span>
@@ -1106,15 +1110,18 @@ input[type="checkbox"] {
         </div>
         <div class="order6">
             <div>
-                <a href="">
+                <a href="#" id="purchaseButton">
                     <div class="basket6">
-                        <span class="text9">원 결제하기</span>
+                        <span class="text9" th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원 결제하기'"></span>
                     </div>
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 <script>
     window.onload = function () {
@@ -1176,6 +1183,10 @@ input[type="checkbox"] {
     };
 </script>
 
+<script th:inline="javascript">
+    const paymentDTO = [[${paymentDTO}]];
+</script>
+<script th:src="@{/js/payment.js}"></script>
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
