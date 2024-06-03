@@ -22,23 +22,19 @@ footer > .inner {
   align-items: center;
 }
 
-footer > .inner > .icon {
-  width: 600px;
-  display: flex;
-  justify-content: center;
-}
-
-footer > .inner > .icon > ul {
-  margin: 0;
-  padding: 0;
+footer > .inner > .footerBt > div > .icon > ul {
+  width: 1000px;
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  margin: 10px 0;
+  line-height: 30px;
+  text-align: center;
+  padding: 10px 0 10px 0;
 }
 
-footer > .inner > .icon > ul > li {
-  padding: 10px 50px 30px;
-  list-style: none;
+footer > .inner > .footerBt > div > .icon > ul > li {
+  padding: 10px 20px;
+  position: relative;
 }
 
 footer > .inner > .footerBt {

@@ -235,5 +235,7 @@ async function postPaymentToServer(payData){
     }
 }
 
-
-
+function openWindow () {
+    const options = 'width=600, height=600, top=50, left=50, scrollbars=yes'
+    window.open('/product/detailPopup', '_blank', options);
+}

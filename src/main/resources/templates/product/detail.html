@@ -83,12 +83,58 @@
                                 style="background-color: rgba(255, 69, 0, 0.81);">상품주문
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="/payment/order" id="orderMoveForm" method="post">
+        <input type="hidden" name="merchantUid" id="merchantUid">
+    </form>
 
+
+    <div class="second-content">
+        <div class="detailMenuBar">
+            <ul>
+                <li><a href="">상품상세정보</a></li>
+                <li><a href="">상품후기</a></li>
+                <li><a href="">문의</a></li>
+                <li><a href="">배송/교환/반품안내</a></li>
+            </ul>
+        </div>
+
+        <div class="detailMenu">
+            <th:block th:each="i:${productDTO.imageList}">
+                <img th:src="${i.detailImage}">
+            </th:block>
+            <p>상품후기</p>
+            <div class="review">
+                <p>포토리뷰</p>
+                <button type="button" class="imgDetailBtn" onclick="openWindow()">더보기 ></button>
+            </div>
+
+            <div class="detailReviewBox">
+                <div class="reviewList">
+                    <p class="after">추천순</p>
+                    <p>최신순</p>
+                </div>
+                <div class="reviewImg">
+                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
+                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
+                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
+                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
+                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
+                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
                 </div>
             </div>
 
+            <p>상품문의</p>
+            <p>배송안내</p>
+            <p>교환/반품 안내</p>
         </div>
+
     </div>
+
+
 </div>
 
 <form action="/payment/order" id="orderMoveForm" method="post">
@@ -101,10 +147,11 @@
     const productDTO = [[${productDTO}]];
     const customerId = [[${customerId}]];
     const productId = [[${productId}]];
+    console.log(productDTO);
     console.log(customerId);
     console.log(productId);
 </script>
 <script th:src="@{/js/productDetail.js}"></script>
 </body>
 
-<th:block th:replace="~{footer :: footer}"></th:block>
+<!--<th:block th:replace="~{footer :: footer}"></th:block>-->
