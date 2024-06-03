@@ -199,7 +199,7 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
             
             //DB저장에 성공했을 시
             if(result == 'success'){
-                
+                alert('주문서 페이지로 이동합니다.');
                 //form데이터 merchantUid를 order페이지에 보낸다
                 document.getElementById('merchantUid').value = merchant_uid;
                 document.getElementById('orderMoveForm').submit();

@@ -16,6 +16,7 @@ public class PaymentDTO {
     private String customerId;
     private String payDescription;
     private String payDate;
+    private long originalPrice;
     private long payPrice;
     private String payMethod;
     private String address;

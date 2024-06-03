@@ -16,6 +16,7 @@ public class OrdersVO {
     private long payPrice;
     private String ordersDate;
     private String status;
+    private ProductVO productVO;
 
 
 }

@@ -5,9 +5,9 @@
 <mapper namespace="com.project.www.repository.PaymentMapper">
 
     <insert id="register">
-        INSERT INTO payment (merchant_uid, customer_id, pay_description, pay_price)
+        INSERT INTO payment (merchant_uid, customer_id, pay_description, original_price, pay_price)
         VALUES
-        (#{merchantUid}, #{customerId}, #{payDescription}, #{payPrice})
+        (#{merchantUid}, #{customerId}, #{payDescription}, #{originalPrice}, #{payPrice})
     </insert>
 
     <select id="getMyPaymentProduct" resultType="com.project.www.domain.PaymentDTO">

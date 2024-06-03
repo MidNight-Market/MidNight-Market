@@ -38,6 +38,8 @@ public class PaymentServiceImple implements PaymentService{
         //UID, customerId, payDescription, payPrice입력
         //상품설명 저장
         paymentDTO.setPayDescription(productVO.getName()+paymentDTO.getQty()+" 개");
+        //할인되기 전 가격 저장 (할인금액 구하기 위해)
+        paymentDTO.setOriginalPrice(productVO.getPrice() * paymentDTO.getQty());
         //결제할 가격 저장
         paymentDTO.setPayPrice( productVO.getDiscountPrice() * paymentDTO.getQty());
 
@@ -60,6 +62,12 @@ public class PaymentServiceImple implements PaymentService{
         //주문 정보도 가져와야함
         PaymentDTO paymentDTO = paymentMapper.getMyPaymentProduct(merchantUid);
         paymentDTO.setOrdersList(ordersMapper.getMyOrdersProduct(merchantUid));
+        
+        //상품정보 가져오기 (이미지);
+        for(OrdersVO ordersVO : paymentDTO.getOrdersList()){
+            ordersVO.setProductVO(productMapper.getDetail(ordersVO.getProductId()));
+        }
+        
         return paymentDTO;
     }
 }
