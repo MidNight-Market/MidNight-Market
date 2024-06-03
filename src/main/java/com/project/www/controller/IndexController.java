@@ -13,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-
 public class IndexController {
 
     private final IndexService isv;

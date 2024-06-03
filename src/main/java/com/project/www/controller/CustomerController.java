@@ -1,10 +1,12 @@
 package com.project.www.controller;
 
+import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.CustomerVO;
 import com.project.www.service.CustomerService;
 import com.project.www.service.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +35,6 @@ public class CustomerController {
 
     @GetMapping("/socialSelect")
     public void socialSelect(){}
-
-    @GetMapping("/login")
-    public void login(){
-    }
 
     @ResponseBody
     @GetMapping("/check/{email}")
@@ -78,5 +76,12 @@ public class CustomerController {
     public String resetPw(String id, String pw){
         csv.updatePw(id, pw);
         return "index";
+    }
+    @GetMapping("/info")
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        log.info("{}",principalDetails.getUsername());
+        log.info("{}",principalDetails.getAttributes());
+
+        return principalDetails.getUsername();
     }
 }

@@ -1,16 +1,17 @@
 package com.project.www.service;
 
-import com.project.www.domain.BasketVO;
 import com.project.www.domain.ProductDTO;
-
-import java.util.List;
+import com.project.www.domain.SlangVO;
 
 public interface ProductService {
     int insert(ProductDTO productDTO);
 
-    ProductDTO getDetail(long id);
+    ProductDTO getDetail(String customerId, long id);
 
 
     ProductDTO getProductCategoryList();
 
+    int slangPost(SlangVO slangVO);
+
+    int slangDelete(SlangVO slangVO);
 }

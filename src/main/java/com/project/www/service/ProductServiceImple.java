@@ -1,16 +1,13 @@
 package com.project.www.service;
 
-import com.project.www.domain.BasketVO;
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductDetailImageVO;
+import com.project.www.domain.SlangVO;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -21,7 +18,7 @@ public class ProductServiceImple implements ProductService{
     private final ProductDetailImageMapper productDetailImageMapper;
     private final ProductCategoryMapper productCategoryMapper;
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
-    private final BasketMapper basketMapper;
+    private final SlangMapper slangMapper;
 
     @Transactional
     @Override
@@ -48,11 +45,14 @@ public class ProductServiceImple implements ProductService{
     }
 
     @Override
-    public ProductDTO getDetail(long id) {
+    public ProductDTO getDetail(String customerId, long id) {
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.setProductVO(productMapper.getDetail(id));
         productDTO.setImageList(productDetailImageMapper.getDetail(id));
+        productDTO.setPcdVO(productCategoryDetailMapper.getMyCategoryDetail(productDTO.getProductVO().getProductCategoryDetailId()));
+        productDTO.setPcVO(productCategoryMapper.getMyCategory(productDTO.getPcdVO().getProductCategoryId()));
+        productDTO.setSlangVO(slangMapper.getMySlang(customerId, id));
 
         return productDTO;
     }
@@ -65,7 +65,19 @@ public class ProductServiceImple implements ProductService{
         productDTO.setPcList(productCategoryMapper.getList());
         productDTO.setPcdList(productCategoryDetailMapper.getList());
 
+
         return productDTO;
     }
+
+    @Override
+    public int slangPost(SlangVO slangVO) {
+        return slangMapper.slangPost(slangVO);
+    }
+
+    @Override
+    public int slangDelete(SlangVO slangVO) {
+        return slangMapper.slangDelete(slangVO);
+    }
+
 
 }
