@@ -44,7 +44,7 @@ CREATE TABLE product (
 
 #수정완료
 CREATE TABLE orders (
-	pay_uid VARCHAR(100) NOT NULL,
+	merchant_uid VARCHAR(256) NOT NULL,
 	customer_id VARCHAR(150) NOT NULL,
 	product_id bigint NOT NULL,
 	qty bigint NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE product_category (
 
 #수정완료
 CREATE TABLE payment (
-	pay_uid VARCHAR(100) NOT NULL,
+	merchant_uid VARCHAR(256) NOT NULL,
 	customer_id VARCHAR(150) NOT NULL,
 	pay_description VARCHAR(100),
 	pay_date DATETIME DEFAULT NOW(),
@@ -161,7 +161,7 @@ CREATE TABLE payment (
 	pay_method VARCHAR(100),
 	address VARCHAR(400),
 	status VARCHAR(10) DEFAULT 'stand_by',
-	PRIMARY KEY (pay_uid)
+	PRIMARY KEY (merchant_uid)
 );
 
 #수정완료
@@ -265,10 +265,10 @@ REFERENCES customer (
 );
 
 ALTER TABLE orders ADD CONSTRAINT FK_payment_TO_orders_1 FOREIGN KEY (
-	pay_uid
+	merchant_uid
 )
 REFERENCES payment (
-	pay_uid
+	merchant_uid
 );
 
 ALTER TABLE product_review ADD CONSTRAINT FK_customer_TO_product_review_1 FOREIGN KEY (

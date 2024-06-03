@@ -10,7 +10,7 @@ import lombok.*;
 
 public class PaymentDTO {
 
-    private String payUid;
+    private String merchantUid;
     private String customerId;
     private String payDescription;
     private String payDate;
