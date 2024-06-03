@@ -27,6 +27,8 @@ public class CustomerController {
     @PostMapping("/insert")
     public String insert(CustomerVO cvo){
         cvo.setPw(bCryptPasswordEncoder.encode(cvo.getPw()));
+        cvo.setProvider("form");
+        cvo.setProviderId(cvo.getId());
         csv.insert(cvo);
         return "index";
     }
