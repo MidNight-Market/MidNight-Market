@@ -1,7 +1,9 @@
 package com.project.www.service;
 
+import com.project.www.domain.OrdersVO;
 import com.project.www.domain.PaymentDTO;
 import com.project.www.domain.ProductVO;
+import com.project.www.repository.OrdersMapper;
 import com.project.www.repository.PaymentMapper;
 import com.project.www.repository.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ public class PaymentServiceImple implements PaymentService{
 
     private final PaymentMapper paymentMapper;
     private final ProductMapper productMapper;
+    private final OrdersMapper ordersMapper;
 
 
     @Transactional
@@ -32,8 +35,31 @@ public class PaymentServiceImple implements PaymentService{
             return "excess_quantity"+productVO.getTotalQty();
         }
 
-        
+        //UID, customerId, payDescription, payPrice입력
+        //상품설명 저장
+        paymentDTO.setPayDescription(productVO.getName()+paymentDTO.getQty()+" 개");
+        //결제할 가격 저장
+        paymentDTO.setPayPrice( productVO.getDiscountPrice() * paymentDTO.getQty());
 
-        return "성공";
+        OrdersVO ordersVO = new OrdersVO();
+        ordersVO.setMerchantUid(paymentDTO.getMerchantUid());
+        ordersVO.setCustomerId(paymentDTO.getCustomerId());
+        ordersVO.setProductId(paymentDTO.getProductId());
+        ordersVO.setQty(paymentDTO.getQty());
+        ordersVO.setPayPrice(paymentDTO.getQty() * productVO.getDiscountPrice());
+
+        paymentMapper.register(paymentDTO);
+        ordersMapper.register(ordersVO);
+
+        return "success";
+    }
+
+    @Override
+    public PaymentDTO getMyPaymentProduct(String merchantUid) {
+        
+        //주문 정보도 가져와야함
+        PaymentDTO paymentDTO = paymentMapper.getMyPaymentProduct(merchantUid);
+        paymentDTO.setOrdersList(ordersMapper.getMyOrdersProduct(merchantUid));
+        return paymentDTO;
     }
 }

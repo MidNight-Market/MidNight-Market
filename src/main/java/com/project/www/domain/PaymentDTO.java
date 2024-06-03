@@ -2,6 +2,8 @@ package com.project.www.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -21,4 +23,6 @@ public class PaymentDTO {
     //개수 상품아이디는 어떻게 할지? 그냥추가?
     private long productId;
     private long qty;
+    private OrdersVO ordersVO;
+    private List<OrdersVO> ordersList;
 }

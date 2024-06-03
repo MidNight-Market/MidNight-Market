@@ -5,6 +5,15 @@
 <mapper namespace="com.project.www.repository.PaymentMapper">
 
     <insert id="register">
+        INSERT INTO payment (merchant_uid, customer_id, pay_description, pay_price)
+        VALUES
+        (#{merchantUid}, #{customerId}, #{payDescription}, #{payPrice})
     </insert>
+
+    <select id="getMyPaymentProduct" resultType="com.project.www.domain.PaymentDTO">
+        SELECT * FROM payment
+        WHERE
+        merchant_uid = #{merchantUid}
+    </select>
 
 </mapper>
