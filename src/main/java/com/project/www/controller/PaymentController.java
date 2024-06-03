@@ -7,12 +7,10 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.Payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.http.POST;
 
 import java.io.IOException;
 
@@ -34,12 +32,8 @@ public class PaymentController {
         return psv.post(paymentDTO);
     }
 
-    @GetMapping("/receipt")
-    public String receipt(){
-        return "product/receipt";
-    }
 
-    @PostMapping("/order")
+    @PostMapping("/orders")
     public String order(@RequestParam("merchantUid") String merchantUid, Model model){
         log.info("주문페이지 잘 오나 확인>>>>{}",merchantUid);
 
@@ -47,15 +41,25 @@ public class PaymentController {
         PaymentDTO paymentDTO = psv.getMyPaymentProduct(merchantUid);
 
         model.addAttribute("paymentDTO",paymentDTO);
-        return "product/order";
+        return "payment/orders";
     }
 
     //사전검증
     @ResponseBody
     @PostMapping("/prepare")
-    public void prepare(@RequestBody PaymentDTO paymentDTO)
-    throws IamportResponseException, IOException {
+    public void prepare(@RequestBody PaymentDTO paymentDTO) throws IamportResponseException, IOException {
         log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
         importService.postPrepare(paymentDTO);
     }
+    
+    //사후검증
+    @ResponseBody
+    @PostMapping("/validate")
+    public Payment validatePayment(@RequestBody PaymentDTO paymentDTO) throws IamportResponseException, IOException {
+        return importService.validatePaymnet(paymentDTO);
+    }
+
+    @GetMapping("/success")
+    public void success(Model model){}
+
 }

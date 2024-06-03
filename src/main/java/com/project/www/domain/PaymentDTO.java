@@ -12,6 +12,7 @@ import java.util.List;
 
 public class PaymentDTO {
 
+    private String impUid;
     private String merchantUid;
     private String customerId;
     private String payDescription;

@@ -34,7 +34,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
         pay_method: 'card',
         merchant_uid: paymentDTO.merchantUid,
         name: paymentDTO.payDescription,
-        amount: 190,
+        amount: paymentDTO.payPrice,
         buyer_email: paymentDTO.customerId,
         buyer_name: 'nick_name',
         buyer_tel: '010-1234-5678',
@@ -43,20 +43,20 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
     }, function(rsp) {
         console.log(rsp);
         if (rsp.success) {
-
-            // $.ajax({
-            //     type : 'POST',
-            //     url : '/productBuy/register',
-            //     contentType : 'application/json',
-            //     data : JSON.stringify(data),
-            //     success: function (response){
-            //         console.log("하이항");
-            //     }
-            // });
-
-            alert('결제가 완료되었습니다.');
-            window.location.href = '/';
-            // 결제 성공 후 처리
+            $.ajax({
+                url: '/payment/validate',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    impUid: rsp.imp_uid,
+                    merchantUid: rsp.merchant_uid,
+                }),
+            }).done(function (data){
+                //사후 검증 완료 후 
+                //성공하면 DB데이터 세부사항 저장해야 한다 : 주소,전화번호, 결제방식 등등 업데이트
+                alert('결제가 성공적으로 완료되었습니다');
+                location.href = '/payment/success'
+            })
         } else {
             alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
             // 결제 실패 후 처리
