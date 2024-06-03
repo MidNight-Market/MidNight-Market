@@ -14,4 +14,8 @@ public interface BasketMapper {
     int productDuplicationUpdate(BasketVO basketVO);
 
     List<BasketVO> getMyBasket(String email);
+
+    int delete(BasketVO bvo);
+
+    int update(BasketVO basketVO);
 }
