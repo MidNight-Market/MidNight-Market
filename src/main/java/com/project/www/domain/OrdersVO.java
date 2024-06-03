@@ -7,13 +7,16 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductBuyDTO {
+public class OrdersVO {
 
-    private String merchentUid;
+    private String merchantUid;
     private String customerId;
     private long productId;
+    private long qty;
     private long payPrice;
-    private String buyDate;
-    private String address;
+    private String ordersDate;
     private String status;
+    private ProductVO productVO;
+
+
 }

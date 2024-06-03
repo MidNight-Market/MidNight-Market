@@ -1,14 +1,25 @@
+$(document).ready(function () {
+console.log('사전검증 함수');
+    $.ajax({
+        url: "/payment/prepare",
+        method: "post",
+        contentType: "application/json",
+        data: JSON.stringify({
+            merchantUid: paymentDTO.merchantUid, // 가맹점 주문번호
+            payPrice: paymentDTO.payPrice // 결제 예정금액
+        })
+    });
+});
 
-document.getElementById('purchaseButton').addEventListener('click', ()=> {
+document.getElementById('purchaseButton').addEventListener('click', (e)=> {
+
+    e.preventDefault(); //이벤트 취소
+    console.log('결제 버튼 클릭');
 
     const data = {
 
-     merchentUid : 'merchent_uid' + new Date().getTime(),
-     amount : Number(
-        `${document.getElementById('productPrice')
-            .innerText.replace(/[,원]/g,"")}`),
-     productId : Number(`${productDTO.productVO.id}`),
-        customerId : 'oco0217@gmail.com',
+     merchantUid : paymentDTO.merchantUid,
+     amount : paymentDTO.payPrice,
      tel : '010-1234-5678',
      address : '경기도 인천시 제주도구'
     }
@@ -21,27 +32,27 @@ document.getElementById('purchaseButton').addEventListener('click', ()=> {
     IMP.request_pay({
         pg: 'html5_inicis',
         pay_method: 'card',
-        merchant_uid: data.mercant_uid,
-        name: `${productDTO.productVO.name}`,
-        amount:Number(`${document.getElementById('productPrice').innerText.replace(/[,원]/g,"")}`),
-        buyer_email: data.customerId,
+        merchant_uid: paymentDTO.merchantUid,
+        name: paymentDTO.payDescription,
+        amount: 190,
+        buyer_email: paymentDTO.customerId,
         buyer_name: 'nick_name',
-        buyer_tel: data.tel,
-        buyer_addr: data.address,
+        buyer_tel: '010-1234-5678',
+        buyer_addr: '인천시 제주도 광역시',
         buyer_postcode: '123-456'
     }, function(rsp) {
         console.log(rsp);
         if (rsp.success) {
 
-            $.ajax({
-                type : 'POST',
-                url : '/productBuy/register',
-                contentType : 'application/json',
-                data : JSON.stringify(data),
-                success: function (response){
-                    console.log("하이항");
-                }
-            });
+            // $.ajax({
+            //     type : 'POST',
+            //     url : '/productBuy/register',
+            //     contentType : 'application/json',
+            //     data : JSON.stringify(data),
+            //     success: function (response){
+            //         console.log("하이항");
+            //     }
+            // });
 
             alert('결제가 완료되었습니다.');
             window.location.href = '/';
