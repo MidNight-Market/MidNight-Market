@@ -18,19 +18,6 @@
     <label for="id"></label>아이디
     <input type="text" name="id" id="id"><br>
     <button type="button" id="findId">이메일전송</button>
-    </div>
-    <div>
-    <form action="/customer/resetPw" method="post">
-        <p class="ft">비밀번호 재설정</p>
-        <label for="pw"></label>새 비밀번호
-        <input type="text" name="pw" id="pw"><br>
-        <label for="checkPw"></label>재 입력
-        <input type="text" name="checkPw" id="checkPw"><br>
-        <input type="hidden" name="idSend">
-        <button type="submit" id="changePw">변경</button>
-    </form>
-    </div>
-
 </section>
 
 </body>
@@ -40,8 +27,7 @@
         checkId(id).then(result =>{
             if(result === "1"){
                 alert("이메일 전송이 완료되었습니다. 로그인 후 비밀번호를 변경해주세요. ")
-                document.getElementById('idSend').value = id;
-                document.getElementById('mainDiv').style.display = "none";
+                window.location.href = '/';
             }else{
                 alert("해당하는 정보가 없습니다. 다시 입력해주세요. ")
             }

@@ -16,7 +16,7 @@ public interface CustomerMapper {
 
     int findId(String id);
 
-    void updateDefaultPw(String id);
+    void updateDefaultPw(String id, String pw);
 
     void updatePw(String id, String pw);
 

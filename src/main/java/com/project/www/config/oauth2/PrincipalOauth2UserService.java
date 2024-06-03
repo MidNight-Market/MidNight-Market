@@ -16,8 +16,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,26 +30,17 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String provider = userRequest.getClientRegistration().getRegistrationId();
         OAuth2UserInfo oAuth2UserInfo = null;
         if(provider.equals("google")){
-            log.info("구글 로그인");
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
-
         } else if (provider.equals("kakao")) {
-            log.info("카카오 로그인");
             oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
         } else if (provider.equals("naver")) {
-            log.info("네이버 로그인");
             oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
         }
         String providerId = oAuth2UserInfo.getProviderId();
         String id = oAuth2UserInfo.getEmail();
         String nickName= oAuth2UserInfo.getName();
         String role = "ROLE_USER";
-        log.info("provider {}", provider);
-        log.info("providerId {}", providerId);
-        log.info("nickName {}", nickName);
-        log.info("id {}", id);
         CustomerVO existingCustomer = customerMapper.findByUserName(providerId);
-
         if (existingCustomer == null) {
             log.info("New user, creating account");
             CustomerVO newCustomer = new CustomerVO();

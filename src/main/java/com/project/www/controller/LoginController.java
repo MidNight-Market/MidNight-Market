@@ -16,4 +16,7 @@ public class LoginController {
     public String login(){
         return "/login/login";
     }
+
+    @GetMapping("/reset")
+    public void reset(){}
 }

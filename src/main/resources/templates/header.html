@@ -25,13 +25,15 @@
                         <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
+                            <p th:if="${id}" style="display: none" id="idValue">[[${id}]]</p>
                             <a th:if="${name}">
                                 [[${name}]]님 환영합니다.
                             </a>
                             <a href="/logout" id="logoutBtn" class="logout" >로그아웃</a>
+                            <th:block th:if="${pwReset == 1}">
+                                <p style="display:none;" id="isReset"></p>
+                            </th:block>
                         </th:block>
-
-                    </div>
                 </div>
                 <div class="mypage-part">
                     <a href="#" id="mypageBtn">
@@ -165,6 +167,57 @@
         </form>
     </header>
     </body>
+    <script>
+        if(document.getElementById("isReset")!= null){
+            const width = 600;
+            const height = 600;
+
+            // 화면의 크기를 가져옴
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+
+            // 팝업 창의 위치를 계산
+            const left = (screenWidth / 2) - (width / 2);
+            const top = (screenHeight / 2) - (height / 2);
+            alert("비밀번호가 초기화되었습니다. 다시 설정해주세요. ")
+            openPop = window.open('/login/reset', '비밀번호변경', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
+
+            let id = document.getElementById('idValue').innerText;
+            openPop.onload = function (){
+                openPop.document.getElementById('id').value = id;
+            }
+            const popupInterval = setInterval(function() {
+                if (openPop.closed) {
+                    clearInterval(popupInterval);
+                    logout().then(result=>{
+                        console.log(result);
+                        location.reload();
+                    })
+                }
+            }, 500);
+        }
+        async function logout() {
+            try {
+                const url = '/logout';
+                const config = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                };
+                const response = await fetch(url, config);
+
+                if (response.ok) {
+                    window.location.href = '/login'; // 로그인 페이지로 리디렉션
+                } else {
+                    console.error('로그아웃 실패:', response.statusText);
+                }
+            } catch (error) {
+                console.error('로그아웃 중 오류 발생:', error);
+            }
+        }
+
+    </script>
 </th:block>
 </html>
 <!-- pr 테스트 수정 주석  -->
