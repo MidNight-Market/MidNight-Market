@@ -1,11 +1,9 @@
 package com.project.www.controller;
 
-import com.mysql.cj.Session;
 import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.CustomerVO;
 import com.project.www.service.CustomerService;
 import com.project.www.service.MailService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

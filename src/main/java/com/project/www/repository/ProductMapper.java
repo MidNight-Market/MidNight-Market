@@ -1,5 +1,6 @@
 package com.project.www.repository;
 
+import com.project.www.domain.OrdersVO;
 import com.project.www.domain.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,6 @@ public interface ProductMapper {
     List<ProductVO> getHeavySoldList();
 
     List<ProductVO> getDiscountProductList();
+
+    void orderUpdate(OrdersVO ordersVO);
 }

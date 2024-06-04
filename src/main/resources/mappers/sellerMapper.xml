@@ -8,6 +8,13 @@
         INSERT INTO seller(id,pw,shop_name)
         VALUES (#{id}, #{pw}, #{shopName})
     </insert>
+    <select id="checkId" resultType="int">
+        select count(id) from seller where id = #{id}
+    </select>
+    <select id="checkShopName" resultType="int">
+        select count(shop_name) from seller where shop_name = #{shopName}
+    </select>
+
 
     
 </mapper>

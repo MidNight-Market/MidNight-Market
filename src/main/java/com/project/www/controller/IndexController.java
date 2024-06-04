@@ -1,22 +1,16 @@
 package com.project.www.controller;
 
 import com.project.www.config.oauth2.PrincipalDetails;
-import com.project.www.config.oauth2.PrincipalDetailsService;
-import com.project.www.domain.CustomerVO;
 import com.project.www.domain.ProductVO;
 import com.project.www.service.IndexService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,6 +23,11 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
+        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getName());
+        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getDetails());
+        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getCredentials());
         List<ProductVO> newProductList = isv.getNewProductList();
         List<ProductVO> heavySoldList = isv.getHeavySoldList();
         List<ProductVO> discountProductList = isv.getDiscountProductList();

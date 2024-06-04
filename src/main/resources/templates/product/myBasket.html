@@ -26,7 +26,7 @@
         <div class="basket9">
             <ul id="basketList">
 
-
+                <li>등록되어있는 상품이 존재하지 않습니다.</li>
 
             </ul>
         </div>
@@ -59,7 +59,7 @@
         <div class="basket7">
 
         </div>
-        <a href="">
+        <a href="#" id="orders-button">
             <div class="basket6">
                 <span class="text9">주문하기</span>
             </div>
@@ -71,10 +71,16 @@
     </div>
 </div>
 
+<form action="/payment/orders" id="orderMoveForm" method="post">
+    <input type="hidden" name="merchantUid" id="merchantUid">
+</form>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">const myBasket = [[${myBasket}]];</script>
 <script th:src="@{/js/myBasket.js}"></script>
-<script th:inline="javascript">spreadMyBasketList([[${myBasket[0].customerId}]]);</script>
+<script th:inline="javascript" th:if="${myBasket != null and myBasket.size() > 0}">
+    spreadMyBasketList([[${myBasket[0].customerId}]]);
+</script>
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
