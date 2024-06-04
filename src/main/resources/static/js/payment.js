@@ -1,13 +1,3 @@
-//사용자가 주문서 페이지를 벗어나려 할 경우
-window.addEventListener('beforeunload', function (event) {
-    // 확인 메시지를 설정합니다.
-    const confirmationMessage = '정말로 이 페이지를 떠나시겠습니까?';
-
-    // 이벤트에 설정합니다.
-    event.returnValue = confirmationMessage;
-
-    return confirmationMessage;
-});
 
 
 $(document).ready(function () {
@@ -66,8 +56,29 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
             }).done(function (data){
                 //사후 검증 완료 후 
                 //성공하면 DB데이터 세부사항 저장해야 한다 : 주소,전화번호, 결제방식 등등 업데이트
-                alert('결제가 성공적으로 완료되었습니다');
-                location.href = '/payment/success'
+                $.ajax({
+                    url: '/payment/successUpdate',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        merchantUid: rsp.merchant_uid,
+                        payMethod: rsp.pay_method
+                        // 주소와 전화번호와 같은 정보 기입
+                    }),
+                    success: function(response) {
+                        alert('결제가 성공적으로 완료되었습니다');
+                        location.href = '/payment/success'
+                    },
+                    error: function(xhr, status, error) {
+                        // 요청이 실패했을 때 실행되는 코드
+                        console.error("걸제가 실패하였습니다. :", status, error);
+                    },
+                    complete: function(xhr, status) {
+                        // 요청이 완료되었을 때 (성공 또는 실패 모두 포함) 실행되는 코드
+                        console.log("요청 완료:", status);
+                    }
+                });
+
             })
         } else {
             alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);

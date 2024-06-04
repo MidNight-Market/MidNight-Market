@@ -1,8 +1,29 @@
 let productQty = document.getElementById('productQty');
 let productPrice = document.getElementById('productPrice');
 
+//수량이 1일 경우
+if (1 === productDTO.productVO.totalQty) {
+    document.getElementById('+').disabled = true;
+    document.getElementById('max-quantity-notice').innerText = '최대수량입니다.'
+    document.querySelector('.total-sum').innerText = '';
+}
+
+//받아왔을때 재고가 아예 없을 경우 두개의 버튼 버튼 비활성화
+if(productDTO.productVO.totalQty === 0){
+    document.getElementById('+').disabled = true;
+    document.getElementById('-').disabled = true;
+    document.getElementById('max-quantity-notice').innerText = '품절입니다.';
+    document.querySelector('.total-sum').innerText = '';
+    productQty.innerText = '0';
+}
+
 // + 또는 - 를 눌렀을 경우 가격 계산 
 document.addEventListener('click', (e) => {
+    
+    //품절일 경우 이벤트 리턴
+    if(productDTO.productVO.totalQty === 0){
+        return;
+    }
 
     //수량 추가 버튼
     if (e.target.id == '+') {
@@ -25,7 +46,7 @@ document.addEventListener('click', (e) => {
 
 
     //현재 주문할 수량이 잔여수량보다 크다면 + 비활성화
-    if (Number(productQty.innerText) != productDTO.productVO.totalQty) {
+    if (Number(productQty.innerText) !== productDTO.productVO.totalQty) {
         document.getElementById('+').disabled = true;
         document.getElementById('max-quantity-notice').innerText = '최대 수량입니다.'
     }
@@ -38,7 +59,7 @@ document.addEventListener('click', (e) => {
     }
 
     //주문개수가 잔여개수랑 같아질때 버튼 비활성화
-    if (Number(productQty.innerText) != productDTO.productVO.totalQty) {
+    if (Number(productQty.innerText) !== productDTO.productVO.totalQty) {
         document.getElementById('+').disabled = false;
         document.getElementById('max-quantity-notice').innerText = ''
     } else {
@@ -51,6 +72,12 @@ document.addEventListener('click', (e) => {
 
 //장바쿠니 버튼을 클릭했을 경우
 document.getElementById('basketButton').addEventListener('click', () => {
+
+    //재고가 0일경우 상품 주문 불가
+    if(productDTO.productVO.totalQty === 0){
+        alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
+        return;
+    }
 
     productData = {
         customerId: 'oco0217@gmail.com', //고객이메일
@@ -70,26 +97,39 @@ document.getElementById('basketButton').addEventListener('click', () => {
             const message = rsp.replace(/\d+$/, '');
             const number = rsp.replace(/\D/g, '');
 
+            //재고가 없을 경우
+            if(number === '0'){
+                alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
+                document.getElementById('+').disabled = true;
+                document.getElementById('-').disabled = true;
+                document.getElementById('max-quantity-notice').innerText = '품절입니다.';
+                document.querySelector('.total-sum').innerText = '';
+                productQty.innerText = '0';
+                return;
+            }
+
             //장바구니에 넣을 때 수량이 초과일 경우
-            if (message == 'excess_quantity') {
+            if (message === 'excess_quantity') {
                 if (confirm(`${productDTO.productVO.name} 상품은 최대 주문 수량이 ${number} 개 입니다. \n장바구니 페이지로 이동하시겠습니까?`)) {
                     location.href = '/basket/myBasket';
                 }
             }
 
             //장바구니를 추가했을경우
-            if (rsp == 'register_success') {
+            if (rsp === 'register_success') {
                 if (confirm(`${productDTO.productVO.name}` + `를 장바구니에 저장했습니다. \n 장바구니 페이지로 이동하시겠습니까?`)) {
                     location.href = '/basket/myBasket';
                 }
             }
 
             //더 담아넣을 경우
-            if (message == 'update_success') {
+            if (message === 'update_success') {
                 if (confirm(`한번더 담으셨네요! \n수량이 ${number} 개가 추가되었습니다. \n장바구니 페이지로 이동하시겠습니까?`)) {
                     location.href = '/basket/myBasket';
                 }
             }
+
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("에러: " + textStatus + ", " + errorThrown);
@@ -194,7 +234,7 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
            
            //재고 없을 시
             if(message == 'quantity_exhaustion'){
-                alert('재고 부족');
+                alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
             }
             
             //DB저장에 성공했을 시
@@ -233,9 +273,4 @@ async function postPaymentToServer(payData){
     } catch (error) {
         console.log(error);
     }
-}
-
-function openWindow () {
-    const options = 'width=600, height=600, top=50, left=50, scrollbars=yes'
-    window.open('/product/detailPopup', '_blank', options);
 }

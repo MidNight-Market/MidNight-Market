@@ -10,4 +10,6 @@ public interface OrdersMapper {
     void register(OrdersVO ordersVO);
 
     List<OrdersVO> getMyOrdersProduct(String merchantUid);
+
+    void paySuccessUpdate(String merchantUid);
 }

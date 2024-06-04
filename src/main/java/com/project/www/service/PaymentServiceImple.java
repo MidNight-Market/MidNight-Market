@@ -55,13 +55,16 @@ public class PaymentServiceImple implements PaymentService {
         ordersVO.setProductId(paymentDTO.getProductId());
         ordersVO.setQty(paymentDTO.getQty());
         ordersVO.setPayPrice(paymentDTO.getQty() * productVO.getDiscountPrice());
-
+        
         paymentMapper.register(paymentDTO);
         ordersMapper.register(ordersVO);
+        //상품의 quantity 도 주문한 갯수만큼 수정
+        productMapper.orderUpdate(ordersVO);
 
         return "success";
     }
 
+    @Transactional
     @Override
     public PaymentDTO getMyPaymentProduct(String merchantUid) {
 
@@ -140,9 +143,24 @@ public class PaymentServiceImple implements PaymentService {
                 basketVO.setCustomerId(ordersVO.getCustomerId());
                 basketVO.setProductId(ordersVO.getProductId());
                 basketMapper.delete(basketVO);
+                //상품의 quantity 도 주문한 갯수만큼 수정
+                productMapper.orderUpdate(ordersVO);
             }
         }
 
         return "post_success";
+    }
+
+    @Transactional
+    @Override
+    public int paySuccessUpdate(PaymentDTO paymentDTO) {
+        int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
+
+        if(isOk > 0){
+            ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());
+            return 1;
+        }
+
+        return 0;
     }
 }

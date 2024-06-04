@@ -10,4 +10,6 @@ public interface PaymentService {
     PaymentDTO getMyPaymentProduct(String merchantUid);
 
     String basketPost(PaymentDTO paymentDTO);
+
+    int paySuccessUpdate(PaymentDTO paymentDTO);
 }

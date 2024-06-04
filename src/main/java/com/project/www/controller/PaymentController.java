@@ -67,6 +67,17 @@ public class PaymentController {
         return importService.validatePaymnet(paymentDTO);
     }
 
+    @ResponseBody
+    @PostMapping("/successUpdate")
+    public String successUpdatePayment(@RequestBody PaymentDTO paymentDTO){
+
+        log.info("결제 성공했을시 merchantUid 잘들어오나 확인>>>{}",paymentDTO.getMerchantUid());
+        int isOk = psv.paySuccessUpdate(paymentDTO);
+        return isOk > 0 ? "paySuccessUpdate" : "payUpdateFail";
+    }
+
+
+    //결제 성공시 성공페이지 이동
     @GetMapping("/success")
     public void success(Model model){}
 

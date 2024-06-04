@@ -8,4 +8,6 @@ public interface PaymentMapper {
     void register(PaymentDTO paymentDTO);
 
     PaymentDTO getMyPaymentProduct(String merchantUid);
+
+    int paySuccessUpdate(PaymentDTO paymentDTO);
 }
