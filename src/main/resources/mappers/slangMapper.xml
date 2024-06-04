@@ -20,5 +20,11 @@
         WHERE
         customer_id = #{customerId} and product_id = #{productId};
     </delete>
+    
+    <select id="getMySlangProductList" resultType="com.project.www.domain.SlangVO">
+        SELECT * FROM slang
+        WHERE
+        customer_id = #{customerId}
+    </select>
 
 </mapper>

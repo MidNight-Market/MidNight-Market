@@ -76,10 +76,10 @@
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script th:inline="javascript">const myBasket = [[${myBasket}]];</script>
+<script th:inline="javascript">const customerId = 'oco0217@gmail.com' //프린시팔로 고객 아이디 받아와서 넣으면 됌;</script>
 <script th:src="@{/js/myBasket.js}"></script>
-<script th:inline="javascript" th:if="${myBasket != null and myBasket.size() > 0}">
-    spreadMyBasketList([[${myBasket[0].customerId}]]);
+<script th:inline="javascript" th:if="customerId != null">
+    spreadMyBasketList(customerId);
 </script>
 </body>
 

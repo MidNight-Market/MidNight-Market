@@ -1,7 +1,10 @@
 package com.project.www.service;
 
 import com.project.www.domain.ProductDTO;
+import com.project.www.domain.ProductVO;
 import com.project.www.domain.SlangVO;
+
+import java.util.List;
 
 public interface ProductService {
     int insert(ProductDTO productDTO);
@@ -14,4 +17,6 @@ public interface ProductService {
     int slangPost(SlangVO slangVO);
 
     int slangDelete(SlangVO slangVO);
+
+    List<ProductVO> getMySlangProduct(String customerId);
 }

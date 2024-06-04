@@ -112,5 +112,14 @@ public class ProductController {
         return "product/detailPopup"; //
     }
 
+    @GetMapping("/mySlang")
+    public void mySlang(){}
+
+    @ResponseBody
+    @GetMapping("/getMySlangProduct/{customerId}")
+    public List<ProductVO> getMySlangProduct(@PathVariable("customerId")String customerId){
+        log.info(">>>>내가찜한품목 고객아이디 확인>>>{}",customerId);
+        return psv.getMySlangProduct(customerId);
+    }
 
 }
