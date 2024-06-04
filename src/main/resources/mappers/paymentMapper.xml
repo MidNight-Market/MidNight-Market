@@ -16,4 +16,14 @@
         merchant_uid = #{merchantUid}
     </select>
 
+    <update id="paySuccessUpdate">
+        UPDATE payment
+        SET
+        status = 'success',
+        pay_method = #{payMethod},
+        pay_date = now()
+        WHERE
+        merchant_uid = #{merchantUid}
+    </update>
+
 </mapper>

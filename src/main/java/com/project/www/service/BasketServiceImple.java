@@ -37,8 +37,15 @@ public class BasketServiceImple implements BasketService{
 
         List<BasketVO> myBasket = basketMapper.getMyBasket(email);
 
+
         for(BasketVO bvo : myBasket){
             bvo.setProductVO(productMapper.getDetail(bvo.getProductId()));
+            
+            //현재 수량이 잔여수량보다 많을 경우 최대 잔여수량으로 수정
+            if(bvo.getQty() > bvo.getProductVO().getTotalQty() ){
+                bvo.setQty(bvo.getProductVO().getTotalQty()); //최대 잔여수량으로 넣기
+                basketMapper.update(bvo);
+            }
         }
 
         return myBasket;

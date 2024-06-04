@@ -59,7 +59,8 @@ public class BasketController {
 
         List<BasketVO> myBasket = bsv.getMyBasket(email);
 
-        log.info("내 장바구니 리스트 가져온거 : {}",myBasket);
+        //log.info("내 장바구니 리스트 가져온거 : {}",myBasket);
+
         model.addAttribute("myBasket",myBasket);
 
         return "/product/myBasket";

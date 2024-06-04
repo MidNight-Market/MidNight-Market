@@ -17,8 +17,7 @@ CREATE TABLE seller (
 	id VARCHAR(150) NOT NULL,
 	pw VARCHAR(160) NOT NULL,
 	shop_name VARCHAR(40) NOT NULL,
-	provider VARCHAR(30),
-    provider_id VARCHAR(150),
+    tel VARCHAR(100) NOT NULL,
     role VARCHAR(20) DEFAULT 'role_seller',
 	PRIMARY KEY (id)
 );
@@ -60,30 +59,28 @@ CREATE TABLE address (
 );
 
 #수정완료
-CREATE TABLE product_review (
+CREATE TABLE review (
 	id bigint NOT NULL AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	content VARCHAR(4000) NOT NULL,
-	image VARCHAR(100),
 	star bigint NOT NULL,
 	register_date DATETIME DEFAULT NOW(),
-	reply VARCHAR(4000),
-	reply_date DATETIME DEFAULT NOW(),
-	product_name VARCHAR(200) NOT NULL,
-	rev_count bigint DEFAULT 0,
 	rev_up_count bigint DEFAULT 0,
-	rev_view_count bigint DEFAULT 0,
 	customer_id VARCHAR(150) NOT NULL,
 	product_id bigint NOT NULL,
 	PRIMARY KEY (id)
 );
 
-#수정완료
-CREATE TABLE admin (
-	id VARCHAR(100) NOT NULL,
-	pw VARCHAR(100) NOT NULL,
-	role VARCHAR(20) DEFAULT 'ROLE_ADMIN',
-	PRIMARY KEY (id)
+#리뷰이미지
+CREATE TABLE review_image(
+    review_id bigint NOT NULL,
+    review_image VARCHAR(256) NOT NULL
+);
+
+#리뷰좋아요
+CREATE TABLE review_like(
+    review_id bigint NOT NULL,
+    customer_id VARCHAR(150) NOT NULL
 );
 
 #수정완료
@@ -189,7 +186,6 @@ CREATE TABLE notice (
 	id bigint NOT NULL AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	register_date DATETIME DEFAULT NOW(),
-	admin_id VARCHAR(100) NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -207,13 +203,6 @@ CREATE TABLE help(
 	mod_at datetime default now(),
 	PRIMARY KEY(hno));
 
-#수정완료(찜코드를 어떻게하면...)
-CREATE TABLE seller_pick (
-	id bigint NOT NULL,
-	seller_id VARCHAR(50) NOT NULL,
-	customer_id VARCHAR(150) NOT NULL,
-	PRIMARY KEY (id)
-);
 
 #수정완료
 CREATE TABLE product_detail_image (
@@ -272,7 +261,7 @@ REFERENCES payment (
 	merchant_uid
 );
 
-ALTER TABLE product_review ADD CONSTRAINT FK_customer_TO_product_review_1 FOREIGN KEY (
+ALTER TABLE review ADD CONSTRAINT FK_customer_TO_review_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
@@ -345,12 +334,6 @@ REFERENCES customer (
 	id
 );
 
-ALTER TABLE notice ADD CONSTRAINT FK_admin_TO_notice_1 FOREIGN KEY (
-	admin_id
-)
-REFERENCES admin (
-	id
-);
 
 ALTER TABLE help ADD CONSTRAINT FK_customer_TO_help_1 FOREIGN KEY (
 	customer_id
@@ -359,19 +342,6 @@ REFERENCES customer (
 	id
 );
 
-ALTER TABLE seller_pick ADD CONSTRAINT FK_seller_TO_seller_pick_1 FOREIGN KEY (
-	seller_id
-)
-REFERENCES seller (
-	id
-);
-
-ALTER TABLE seller_pick ADD CONSTRAINT FK_customer_TO_seller_pick_1 FOREIGN KEY (
-	customer_id
-)
-REFERENCES customer (
-	id
-);
 
 ALTER TABLE product_detail_image ADD CONSTRAINT FK_product_TO_product_detail_image_1 FOREIGN KEY (
 	product_id
@@ -388,12 +358,36 @@ REFERENCES customer (
 );
 
 #상품 <-> 상품리뷰
-ALTER TABLE `product_review` ADD CONSTRAINT `FK_product_TO_product_review_1` FOREIGN KEY (
-	`product_id`
+ALTER TABLE review ADD CONSTRAINT FK_product_TO_review_1 FOREIGN KEY (
+	product_id
 )
-REFERENCES `product` (
-	`id`
+REFERENCES product (
+	id
 );
+
+#상품이미지 연결
+ALTER TABLE review_image ADD CONSTRAINT FK_review_TO_review_image_1 FOREIGN KEY (
+	review_id
+)
+REFERENCES review (
+	id
+);
+
+#상품 좋아요 연결
+ALTER TABLE review_like ADD CONSTRAINT FK_review_TO_review_like_1 FOREIGN KEY (
+	review_id
+)
+REFERENCES review (
+	id
+);
+
+ALTER TABLE review_like ADD CONSTRAINT FK_customer_TO_review_like_1 FOREIGN KEY (
+	customer_id
+)
+REFERENCES customer (
+	id
+);
+
 
 #찜하기 연결
 ALTER TABLE slang ADD CONSTRAINT FK_customer_TO_slang_1 FOREIGN KEY (
@@ -464,3 +458,7 @@ INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (39, "죽/스프/카레", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (40, "양념/액젓/장류", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (41, "햄/통조림/병조림", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (42, "밀키트", 9);
+
+
+INSERT INTO customer(id, pw, nick_name, role)
+VALUES ('admin', 'admin', 'admin', 'role_admin');
