@@ -10,19 +10,22 @@
     </head>
     <body>
     <header class="header">
-        <form action="">
+        <form action="" class="menuForm">
             <div class="inner top">
                 <div class="top_part">
-                    <a href="/">
-                        <img th:src="@{/dist/icon/logo_icon.png}" alt="로고없음" style="width: 120px" height="120px">
-                    </a>
+                    <div class="logo_part">
+                        <a href="/">
+                            <img th:src="@{/dist/icon/logo_watermark.png}" alt="" style="width: 150px" height="70px">
+                        </a>
+                    </div>
                     <div class="search_part">
                         <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">
+                        <button type="submit"><img th:src="@{/dist/icon/search.svg}"></button>
                     </div>
-                    <div class="inner sectionBox">
+                    <div class="inner loginBox">
                         <th:block sec:authorize="isAnonymous()">
-                        <a href="/customer/registerSelect" id="joinBtn">회원가입</a>
-                        <a href="/login/form" class="login">로그인</a>
+                            <a href="/customer/registerSelect" id="joinBtn">회원가입</a>
+                            <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
                             <p th:if="${id}" style="display: none" id="idValue">[[${id}]]</p>
@@ -34,25 +37,18 @@
                                 <p style="display:none;" id="isReset"></p>
                             </th:block>
                         </th:block>
+                    </div>
                 </div>
-                <div class="mypage-part">
-                    <a href="#" id="mypageBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                        </svg>
+
+                <div class="etc-part">
+                    <a href="#" id="bellBtn">
+                        <img th:src="@{/dist/icon/bell.svg}">
                     </a>
                     <a href="#" id="cartBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
-                            <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                        </svg>
+                        <img th:src="@{/dist/icon/cart.svg}">
                     </a>
                 </div>
             </div>
-            </div>
-            <!--            <h1 class="logo-img">-->
-            <!--                <a href="/"><img th:src="@{/dist/icon/logo_icon.png}" alt="로고없음"></a>-->
-            <!--            </h1>-->
 
             <div class="inner menu">
                 <nav class="navbar">
@@ -160,6 +156,14 @@
                         </li>
                         <li>
                             <a href="/help/desk" id="helpBtn" class="bar">고객센터</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="#">공지사항</a>
+                                </li>
+                                <li>
+                                    <a href="/help/detail">1:1문의</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
