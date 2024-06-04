@@ -112,9 +112,9 @@
                                 <input type="checkbox">
                                 <span style="margin-right: 15px;">아이디저장</span>
                             </label>
-                            <a href="/customer/findId"><span>아이디 찾기 |</span></a>
-                            <a href="/customer/changePw"><span>비밀번호 재설정 |</span></a>
-                            <a href="/customer/insert"><span>회원가입</span></a>
+                            <a href="/customer/findId" id="cusOnly1"><span>아이디 찾기 |</span></a>
+                            <a href="/customer/changePw" id="cusOnly2"><span>비밀번호 재설정 |</span></a>
+                            <a href="/customer/insert" id="cusOnly3"><span>회원가입</span></a>
                         </div>
                         <button type="submit" class="box-size form-box">로그인</button>
                         <div class="social-icon">
@@ -157,8 +157,12 @@
                             if(e.target.id == 'customer'){
                                 console.log('고객일 경우');
                                 let form = document.getElementById('select-change');
-                                form.action = "/customer/고객의 주소.";
+                                form.action = "/customer/form";
                                 console.log(form);
+                                document.querySelector('.social-icon').style.display = '';
+                                document.getElementById('cusOnly1').style.display = '';
+                                document.getElementById('cusOnly2').style.display = '';
+                                document.getElementById('cusOnly3').innerText = '회원가입';
                             }
 
                             // 판매자일 경우
@@ -167,6 +171,10 @@
                                 let form = document.getElementById('select-change');
                                 form.action = "/판매자의 로그인으로 이동할 주소 넣으면 됍니다.";
                                 console.log(form);
+                                document.querySelector('.social-icon').style.display = 'none';
+                                document.getElementById('cusOnly1').style.display = 'none';
+                                document.getElementById('cusOnly2').style.display = 'none';
+                                document.getElementById('cusOnly3').innerText = '관리자에게 문의해주세요. ';
                             }
                         });
                     });
