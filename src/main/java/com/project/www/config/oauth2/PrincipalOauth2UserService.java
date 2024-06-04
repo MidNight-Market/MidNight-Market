@@ -36,6 +36,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else if (provider.equals("naver")) {
             oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
         }
+        provider = oAuth2UserInfo.getProvider();
         String providerId = oAuth2UserInfo.getProviderId();
         String id = oAuth2UserInfo.getEmail();
         String nickName= oAuth2UserInfo.getName();
@@ -44,7 +45,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         if (existingCustomer == null) {
             log.info("New user, creating account");
             CustomerVO newCustomer = new CustomerVO();
-            newCustomer.setId(id);
+            newCustomer.setId("("+provider+")"+id);
             newCustomer.setNickName(nickName);
             newCustomer.setProvider(provider);
             newCustomer.setProviderId(providerId);

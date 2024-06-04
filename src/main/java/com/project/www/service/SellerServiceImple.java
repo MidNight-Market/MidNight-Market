@@ -34,5 +34,17 @@ public class SellerServiceImple implements SellerService{
         return productMapper.productQtyUpdate(productVO);
     }
 
+    @Override
+    public int checkId(String id) {
+       int count = sellerMapper.checkId(id);
+       return count;
+    }
+
+    @Override
+    public int checkShopName(String shopName) {
+        int count = sellerMapper.checkShopName(shopName);
+        return count;
+    }
+
 
 }
