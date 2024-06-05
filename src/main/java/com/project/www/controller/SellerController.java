@@ -33,12 +33,11 @@ public class SellerController {
     public String register(SellerVO sellerVO){
         log.info("셀러객체 {}", sellerVO);
         //Password 암호화
-//        sellerVO.setPw(bCryptPasswordEncoder.encode(sellerVO.getPw()));
-//
-//        int isOk = ssv.register(sellerVO);
-//
-//        return "/index";
-        return null;
+        sellerVO.setPw(bCryptPasswordEncoder.encode(sellerVO.getPw()));
+
+        int isOk = ssv.register(sellerVO);
+
+        return "/index";
     }
 
     @GetMapping("/myRegisteredProduct")

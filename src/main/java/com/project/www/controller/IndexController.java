@@ -3,6 +3,8 @@ package com.project.www.controller;
 import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.ProductVO;
 import com.project.www.service.IndexService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,18 +24,17 @@ public class IndexController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
-    public String index(Model model, @AuthenticationPrincipal PrincipalDetails principal) {
-        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getName());
-        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getDetails());
-        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-        log.info("로그인 세션 정보{} ", SecurityContextHolder.getContext().getAuthentication().getCredentials());
+    public String index(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
+
         List<ProductVO> newProductList = isv.getNewProductList();
         List<ProductVO> heavySoldList = isv.getHeavySoldList();
         List<ProductVO> discountProductList = isv.getDiscountProductList();
         if (principal != null) {
-            model.addAttribute("name", principal.getNickName());
-            model.addAttribute("id",principal.getUsername());
+//            model.addAttribute("name", principal.getNickName());
+//            model.addAttribute("id",principal.getUsername());
+            HttpSession ses = request.getSession();
+            ses.setAttribute("name", principal.getNickName());
+            ses.setAttribute("id", principal.getUsername());
             if(principal.getPassword() != null){
                 if(bCryptPasswordEncoder.matches("resetPw",principal.getPassword())){
                     model.addAttribute("pwReset", 1);

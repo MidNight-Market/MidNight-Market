@@ -7,6 +7,9 @@
         <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
         <link rel="stylesheet" th:href="@{/dist/css/header.css}">
         <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
     <header class="header">
@@ -19,7 +22,7 @@
                         </a>
                     </div>
                     <div class="search_part">
-                        <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!"
+                        <input type="text" class="search_bar" id="autoComplete" placeholder="찾고 싶은 상품을 검색해보세요!"
                                onfocus="this.placeholder=''" onblur='this.placeholder="찾고 싶은 상품을 검색해보세요!"'>
                         <button type="submit"><img th:src="@{/dist/icon/search.gif}"></button>
                     </div>
@@ -29,9 +32,9 @@
                             <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
-                            <p th:if="${id}" style="display: none" id="idValue">[[${id}]]</p>
-                            <a th:if="${name}" th:href="@{/customer/myPage}">
-                                [[${name}]] 님
+                            <p th:if="${session.id}" style="display: none" id="idValue">[[${id}]]</p>
+                            <a th:if="${session.name}" th:href="@{/customer/myPage}">
+                                [[${session.name}]] 님
                             </a>
                             <a href="/logout" id="logoutBtn" class="logout" >로그아웃</a>
                             <th:block th:if="${pwReset == 1}">
@@ -214,6 +217,43 @@
             }
         }
 
+    </script>
+    <script>
+        $('#autoComplete').autocomplete({
+            source : function(request, response) { //source: 입력시 보일 목록
+                $.ajax({
+                    url : "/ajax/autocomplete.do"
+                    , type : "POST"
+                    , dataType: "JSON"
+                    , data : {value: request.term}	// 검색 키워드
+                    , success : function(data){ 	// 성공
+                        response(
+                            $.map(data.resultList, function(item) {
+                                return {
+                                    label : item.SEARCH_WORD    	// 목록에 표시되는 값
+                                    , value : item.SEARCH_WORD 		// 선택 시 input창에 표시되는 값
+                                    , idx : item.SEQ // index
+                                };
+                            })
+                        );    //response
+                    }
+                    ,error : function(){ //실패
+                        alert("오류가 발생했습니다.");
+                    }
+                });
+            }
+            ,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌
+                return false;
+            }
+            ,minLength: 1// 최소 글자수
+            ,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
+            ,delay: 100	//autocomplete 딜레이 시간(ms)
+            ,select : function(evt, ui) {
+                // 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
+                console.log(ui.item.label);
+                console.log(ui.item.idx);
+            }
+        });
     </script>
 </th:block>
 </html>
