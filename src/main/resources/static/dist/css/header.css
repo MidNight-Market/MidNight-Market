@@ -173,9 +173,7 @@
 }
 
 .loginBox > a:hover {
-    text-decoration-line: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: white;
+    color: white;
 }
 
 .etc-part {
@@ -183,7 +181,7 @@
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -30px;
+    margin-left: -40px;
     animation: fadeIn 3s ease-in-out;
 }
 
@@ -198,12 +196,16 @@
     height: 25px;
 }
 
-.etc-part > a:first-child > img:hover {
+.etc-part > #bellBtn > img:hover {
     content: url("/dist/icon/bell.gif");
 }
 
-.etc-part > a:last-child > img:hover {
-    content: url("/dist/icon/cart(B).png");
+.etc-part > #cartBtn > img:hover {
+    content: url("/dist/icon/cart.gif");
+}
+
+.etc-part > #heartBtn > img:hover {
+    content: url("/dist/icon/heart.gif");
 }
 
 .menu {
@@ -259,8 +261,8 @@
 .menu_part ul {
     display: none;
     position: absolute;
-    transform: translateY(8px);
     background-color: white;
+    margin: 0;
     padding: 0;
     list-style: none;
     min-width: 200px;
