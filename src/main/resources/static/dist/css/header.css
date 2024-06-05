@@ -91,11 +91,17 @@
     justify-content: space-between;
 }
 
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .logo_part {
     width: 300px;
     height: 100%;
     display: flex;
     justify-content: flex-end;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .logo_part > a {
@@ -108,6 +114,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .search_part > input {
@@ -131,7 +138,6 @@
     width: 400px;
     height: 45px;
     border: 2px solid orange;
-    border-radius: 20px;
     padding: 0 15px;
 }
 
@@ -154,6 +160,7 @@
     width: 200px;
     display: flex;
     justify-content: flex-start;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .loginBox > a {
@@ -176,7 +183,8 @@
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -40px;
+    margin-left: -30px;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .etc-part > a {
@@ -240,7 +248,12 @@
 }
 
 .menu_part > li > a:hover {
-    background-color: orange;
+    text-shadow: 1px 5px 15px white;
+}
+
+.menu_part > li > ul > li > a:hover,
+.menu_part > li > ul > li > ul > li > a:hover {
+    color: orange;
 }
 
 .menu_part ul {
@@ -276,7 +289,6 @@
 
 .menu_part ul li a:hover {
     background-color: #f1f1f1;
-    color: darkorange;
     z-index: 100;
 }
 
