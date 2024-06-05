@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,22 +21,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/seller/*")
 @Controller
-
 public class SellerController {
 
     private final SellerService ssv;
-    //private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/register")
     public void register(){}
 
     @PostMapping("/register")
     public String register(SellerVO sellerVO){
-
-        //log.info(">>>>>셀러브이오>>>{}",sellerVO);
-
+        log.info("셀러객체 {}", sellerVO);
         //Password 암호화
-        //sellerVO.setPw(passwordEncoder.encode(sellerVO.getPw()));
+        sellerVO.setPw(bCryptPasswordEncoder.encode(sellerVO.getPw()));
 
         int isOk = ssv.register(sellerVO);
 
@@ -63,6 +61,26 @@ public class SellerController {
 
         return isOk > 0 ? new ResponseEntity<String>("true", HttpStatus.OK) :
             new ResponseEntity<String>("false",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ResponseBody
+    @GetMapping("/checkId/{id}")
+    public String checkId(@PathVariable("id") String id){
+        log.info("아이디 값{}", id);
+        int isOk = ssv.checkId(id);
+        if(isOk > 0){
+            return "0";
+        }
+        return "1";
+    }
+    @ResponseBody
+    @GetMapping("/checkShopName/{shopName}")
+    public String checkShopName(@PathVariable("shopName") String shopName){
+        int isOk = ssv.checkShopName(shopName);
+        if(isOk > 0){
+            return "0";
+        }
+        return "1";
     }
 
 

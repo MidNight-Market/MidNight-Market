@@ -20,7 +20,7 @@
         SET
         qty = qty + #{qty}
         WHERE
-        customer_id = #{customerId}
+        customer_id = #{customerId} and product_id = #{productId};
     </update>
 
     <select id="getMyBasket" resultType="com.project.www.domain.BasketVO">
@@ -29,4 +29,16 @@
         customer_id = #{email}
     </select>
 
+    <delete id="delete">
+        DELETE FROM basket
+        WHERE
+        customer_id = #{customerId} and product_id = #{productId};
+    </delete>
+
+    <update id="update">
+        UPDATE basket set
+        qty = #{qty}
+        WHERE
+        customer_id = #{customerId} and product_id = #{productId};
+    </update>
 </mapper>

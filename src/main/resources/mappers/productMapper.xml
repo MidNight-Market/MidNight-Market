@@ -52,5 +52,14 @@
         limit 0,4
     </select>
 
+    <update id="orderUpdate">
+        UPDATE product
+        SET
+        total_qty = total_qty - #{qty},
+        total_sold_qty = total_sold_qty + #{qty}
+        WHERE
+        id = #{productId}
+    </update>
+
 
 </mapper>

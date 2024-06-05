@@ -9,4 +9,10 @@
         ORDER BY id
     </select>
 
+    <select id="getMyCategoryDetail" resultType="com.project.www.domain.ProductCategoryDetailVO">
+        SELECT * FROM product_category_detail
+        WHERE
+        id = #{productCategoryDetailId}
+    </select>
+
 </mapper>

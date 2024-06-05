@@ -3,6 +3,7 @@ package com.project.www.domain;
 
 import lombok.*;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

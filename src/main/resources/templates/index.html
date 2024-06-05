@@ -18,19 +18,22 @@
         <div class="slide">
             <div class="slideImgInner">
                 <div class="slideImg">
-                    <img th:src="@{/dist/image/banner_ad1.jpg}">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad1.jpg}">
                 </div>
                 <div class="slideImg">
-                    <img th:src="@{/dist/image/banner_ad2.jpg}">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad2.jpg}">
                 </div>
                 <div class="slideImg">
-                    <img th:src="@{/dist/image/banner_ad3.jpg}">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad3.jpg}">
                 </div>
                 <div class="slideImg">
-                    <img th:src="@{/dist/image/banner_ad4.jpg}">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad4.jpg}">
                 </div>
                 <div class="slideImg">
-                    <img th:src="@{/dist/image/banner_ad5.jpg}">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad5.png}">
+                </div>
+                <div class="slideImg">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad6.jpg}">
                 </div>
             </div>
         </div>
@@ -60,7 +63,7 @@
                     <span th:text="${#numbers.formatDecimal(newProductList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
                 <div class="product">
-                    <span>리뷰수</span>
+                    <span><img th:src="@{/dist/icon/review.png}" style="width: 15px" height="15px">리뷰수</span>
                 </div>
                 </a>
             </li>
@@ -86,7 +89,7 @@
                     <span th:text="${#numbers.formatDecimal(heavySoldList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
                 <div class="product">
-                    <span>리뷰수</span>
+                    <span><img th:src="@{/dist/icon/review.png}" style="width: 15px" height="15px">리뷰수</span>
                 </div>
             </a>
             </li>
@@ -116,7 +119,7 @@
                     <span th:text="${#numbers.formatDecimal(discountProductList.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                 </div>
                 <div class="product">
-                    <span>리뷰수</span>
+                    <span><img th:src="@{/dist/icon/review.png}" style="width: 15px" height="15px">리뷰수</span>
                 </div>
             </a>
             </li>

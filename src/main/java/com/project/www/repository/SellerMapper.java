@@ -10,4 +10,7 @@ import java.util.List;
 public interface SellerMapper {
     int register(SellerVO sellerVO);
 
+    int checkId(String id);
+
+    int checkShopName(String shopName);
 }

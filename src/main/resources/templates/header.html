@@ -7,45 +7,58 @@
         <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
         <link rel="stylesheet" th:href="@{/dist/css/header.css}">
         <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
     <header class="header">
-        <form action="">
+        <form action="" class="menuForm">
             <div class="inner top">
                 <div class="top_part">
-                    <a href="/">
-                        <img th:src="@{/dist/icon/logo_icon.png}" alt="로고없음" style="width: 120px" height="120px">
-                    </a>
-                    <div class="search_part">
-                        <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">
+                    <div class="logo_part">
+                        <a href="/">
+                            <img th:src="@{/dist/icon/logo_watermark.png}" alt="" style="width: 160px" height="90px">
+                        </a>
                     </div>
-                    <div class="inner sectionBox">
-                        <a href="/customer/registerSelect" id="joinBtn">회원가입</a>
-                        <a href="#" id="login-popup" class="login">로그인</a>
-                        <a href="#" id="logoutBtn" class="logout" >로그아웃</a>
+                    <div class="search_part">
+                        <input type="text" class="search_bar" id="autoComplete" placeholder="찾고 싶은 상품을 검색해보세요!"
+                               onfocus="this.placeholder=''" onblur='this.placeholder="찾고 싶은 상품을 검색해보세요!"'>
+                        <button type="submit"><img th:src="@{/dist/icon/search.gif}"></button>
+                    </div>
+                    <div class="inner loginBox">
+                        <th:block sec:authorize="isAnonymous()">
+                            <a href="/customer/registerSelect" id="joinBtn">회원가입</a>
+                            <a href="/login/form" class="login">로그인</a>
+                        </th:block>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <p th:if="${session.id}" style="display: none" id="idValue">[[${id}]]</p>
+                            <a th:if="${session.name}" th:href="@{/customer/myPage}">
+                                [[${session.name}]] 님
+                            </a>
+                            <a href="/logout" id="logoutBtn" class="logout" >로그아웃</a>
+                            <th:block th:if="${pwReset == 1}">
+                                <p style="display:none;" id="isReset"></p>
+                            </th:block>
+                        </th:block>
                     </div>
                 </div>
-                <div class="mypage-part">
-                    <a href="#" id="mypageBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                        </svg>
+
+                <div class="etc-part">
+                    <a href="#" id="bellBtn">
+                        <img th:src="@{/dist/icon/bell.png}">
                     </a>
                     <a href="#" id="cartBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
-                            <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                        </svg>
+                        <img th:src="@{/dist/icon/cart.png}">
+                    </a>
+                    <a href="#" id="heartBtn">
+                        <img th:src="@{/dist/icon/heart.png}">
                     </a>
                 </div>
             </div>
-            </div>
-            <!--            <h1 class="logo-img">-->
-            <!--                <a href="/"><img th:src="@{/dist/icon/logo_icon.png}" alt="로고없음"></a>-->
-            <!--            </h1>-->
 
             <div class="inner menu">
-                <nav class="navbar">
+                <nav class="navbar" style="padding: 0">
                     <ul class="menu_part">
                         <li>
                             <a href="#" class="bar">카테고리</a>
@@ -154,31 +167,11 @@
                     </ul>
                 </nav>
             </div>
-
-                <!--                <div class="search-part">-->
-                <!--                    <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">-->
-                <!--                    <img src="" alt="">-->
-                <!--                </div>-->
-                <!--                <div class="mypage-part">-->
-                <!--                    <a href="#" id="mypageBtn">-->
-                <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">-->
-                <!--                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>-->
-                <!--                        </svg>-->
-                <!--                    </a>-->
-                <!--                    <a href="#" id="cartBtn">-->
-                <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">-->
-                <!--                            <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>-->
-                <!--                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
-                <!--                        </svg>-->
-                <!--                    </a>-->
-                <!--                </div>-->
         </form>
     </header>
+    </body>
     <script>
-        document.getElementById('login-popup').addEventListener('click', (event) => {
-            event.preventDefault(); // 링크의 기본 동작을 막기
-            console.log('잘클릭됌');
-
+        if(document.getElementById("isReset")!= null){
             const width = 600;
             const height = 600;
 
@@ -189,12 +182,79 @@
             // 팝업 창의 위치를 계산
             const left = (screenWidth / 2) - (width / 2);
             const top = (screenHeight / 2) - (height / 2);
+            alert("비밀번호가 초기화되었습니다. 다시 설정해주세요. ")
+            openPop = window.open('/login/reset', '비밀번호변경', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
 
+            let id = document.getElementById('idValue').innerText;
+            openPop.onload = function (){
+                openPop.document.getElementById('id').value = id;
+            }
+            const popupInterval = setInterval(function() {
+                if (openPop.closed) {
+                    clearInterval(popupInterval);
+                    logout().then(result=>{
+                        console.log(result);
+                        location.reload();
+                    })
+                }
+            }, 500);
+        }
+        async function logout() {
+            try {
+                const url = '/logout';
+                const config = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                };
+                const response = await fetch(url, config);
 
-            window.open('/loginPopup', '로그인팝업', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
+                if (response.ok) {
+                    window.location.href = '/login'; // 로그인 페이지로 리디렉션
+                } else {
+                    console.error('로그아웃 실패:', response.statusText);
+                }
+            } catch (error) {
+                console.error('로그아웃 중 오류 발생:', error);
+            }
+        }
+
+    </script>
+    <script>
+        $('#autoComplete').autocomplete({
+            source : function(request, response) { //source: 입력시 보일 목록
+                $.ajax({
+                    url : "/ajax/autocomplete.do"
+                    , type : "POST"
+                    , dataType: "JSON"
+                    , data : {value: request.term}	// 검색 키워드
+                    , success : function(data){ 	// 성공
+                        response(
+                            $.map(data.resultList, function(item) {
+                                return {
+                                    label : item.name    	// 목록에 표시되는 값
+                                    , value : item.name		// 선택 시 input창에 표시되는 값
+                                };
+                            })
+                        );    //response
+                    }
+                    ,error : function(){ //실패
+                        alert("오류가 발생했습니다.");
+                    }
+                });
+            }
+            ,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌
+                return false;
+            }
+            ,minLength: 1// 최소 글자수
+            ,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
+            ,delay: 100	//autocomplete 딜레이 시간(ms)
+            ,select : function(evt, ui) {
+                // 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
+                console.log(ui.item.label);
+            }
         });
     </script>
-    </body>
 </th:block>
 </html>
-<!-- pr 테스트 수정 주석  -->
