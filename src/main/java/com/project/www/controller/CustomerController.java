@@ -102,4 +102,7 @@ public class CustomerController {
 
         return principalDetails.getUsername();
     }
+
+    @GetMapping("/myPage")
+    public void myPage() {}
 }

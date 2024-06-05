@@ -1,7 +1,6 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <th:block th:replace="~{header :: header}"></th:block>
-
 <head>
 
     <title>myPage</title>
@@ -15,7 +14,12 @@
 }
 
 .mypage0 {
-  padding: 2% 7%;
+  /*padding: 2% 7%;*/
+    width: 940px;
+    margin: 100px auto;
+    height: 800px;
+    min-width: 1200px;
+    background-color: rgba(255, 166, 0, 0.034);
 }
 
 .mypage1 {
@@ -428,9 +432,14 @@ li {
     </div>
 </div>
 
+
 <script>
     document.getElementById('mypage1').addEventListener('click', (e) => {
-        if(1<=e.target.id<9){
+
+        console.log(typeof(e.target.id));
+        const target = Number(e.target.id)
+        if(target >= 1 && target <= 8){
+            console.log(typeof(target));
             document.getElementById("d1").style.display = 'none';
             document.getElementById("d2").style.display = 'none';
             document.getElementById("d3").style.display = 'none';
@@ -439,17 +448,13 @@ li {
             document.getElementById("d6").style.display = 'none';
             document.getElementById("d7").style.display = 'none';
             document.getElementById("d8").style.display = 'none';
-            if (e.target.id == 1 || e.target.id == 2 || e.target.id == 3 || e.target.id == 4 ||
-                e.target.id == 5 || e.target.id == 6 || e.target.id == 7 || e.target.id == 8) {
-                document.getElementById('d' + e.target.id).style.display = '';
-            }else{
+            document.getElementById('d' + e.target.id).style.display = '';
 
-            }
 
         }
     })
 
 </script>
+<th:block th:replace="~{footer :: footer}"></th:block>
 </body>
 
-<th:block th:replace="~{footer :: footer}"></th:block>

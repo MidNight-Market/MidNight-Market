@@ -40,7 +40,9 @@
             margin-right: 20px;
         }
         .product-info {
-            flex: 1;
+            width: 300px;
+            height: 120px;
+            border: 1px solid black;
         }
         .product:hover {
             background-color: #f9f9f9;
@@ -205,7 +207,7 @@
                     str += `<div class="product">`;
                     str += `<img src=${productVO.mainImage} alt="ㅇㅇ" style="border-radius: 5px">`;
                     str += `<div class="product-info" id="myModal">`;
-                    str += `<h3>${productVO.name}</h3>`;
+                    str += `<h3 style="font-weight: 600">${productVO.name}</h3>`;
                     if(1>2){
                     }else{
                     str += `<p>${productVO.price}</p>`;

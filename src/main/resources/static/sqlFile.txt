@@ -171,7 +171,7 @@ CREATE TABLE notification (
 );
 
 #수정완료
-CREATE TABLE member_point (
+CREATE TABLE customer_point (
 	id bigint NOT NULL AUTO_INCREMENT,
 	customer_id VARCHAR(150) NOT NULL,
 	save_date DATETIME DEFAULT NOW(),
@@ -328,7 +328,7 @@ REFERENCES customer (
 	id
 );
 
-ALTER TABLE member_point ADD CONSTRAINT FK_customer_TO_member_point_1 FOREIGN KEY (
+ALTER TABLE customer_point ADD CONSTRAINT FK_customer_TO_customer_point_1 FOREIGN KEY (
 	customer_id
 )
 REFERENCES customer (
