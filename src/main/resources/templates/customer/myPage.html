@@ -1,236 +1,240 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{header :: header}"></th:block>
-<link rel="stylesheet" th:href="@{/dist/css/myPage.css}">
 <head>
-
     <title>myPage</title>
 
     <style>
-        body {
-  width: 100%;
-  height: auto;
-  min-width: 1200px;
-  background-color: rgba(255, 166, 0, 0.034);
-}
 
-.mypage0 {
-  /*padding: 2% 7%;*/
-    width: 940px;
-    margin: 100px auto;
-    height: 800px;
-    min-width: 1200px;
-    background-color: rgba(255, 166, 0, 0.034);
-}
+        .mypage0 {
+            width: 1050px;
+            margin: 100px auto;
+            /*height: 800px;*/
+            /*min-width: 1200px;*/
+            min-height: 800px;
+            display: flex;
+            justify-content: flex-start;
+            /*background-color: rgba(128, 128, 128, 0.27);*/
+        }
 
-.mypage1 {
-  width: 30%;
-  height: auto;
-  background-color: white;
-  float: left;
-  padding: 20px;
-  margin-bottom: 30px;
-}
+        .mypage1 {
+            width: 30%;
+            height: 800px;
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            margin-right: 20px;
+            border: 2px solid gray;
+            border-radius: 5px;
+        }
 
-.mypage1-1 {
-  display: flex;
-}
+        .mypage1-1 {
+            display: flex;
+        }
 
-.circle1 {
-  width: 50px;
-  height: 50px;
-  border: 1px solid rgb(148, 146, 150);
-  border-radius: 100%;
-  text-align: center;
-  margin-right: 20px;
-}
+        .circle1 {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgb(148, 146, 150);
+            border-radius: 100%;
+            text-align: center;
+            margin-right: 20px;
+        }
 
-.circle1_text {
-  line-height: 50px;
-  font-size: 13px;
-}
+        .circle1_text {
+            line-height: 50px;
+            font-size: 13px;
+        }
 
-.mypage2 {
-  width: 60%;
-  height: auto;
-  /* background-color: aqua; */
-  float: right;
-  padding: 20px;
-}
+        .mypage2 {
+            width: 70%;
+            min-height: 800px;
+            padding: 20px;
+            background-color: rgba(255, 166, 0, 0.034);
+            border: 2px solid gray;
+            border-radius: 5px;
+        }
 
-.mypage_text1 {
-  line-height: 50px;
-  font-size: 20px;
-  font-weight: 550;
-}
+        .mypage_text1 {
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: 550;
+        }
 
-.mypage3 {
-  width: 100%;
-  height: 100px;
-  /* background-color: aqua; */
-  margin-top: 20px;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  display: flex;
-}
+        .mypage3 {
+            width: 100%;
+            height: 100px;
+            /* background-color: aqua; */
+            margin-top: 20px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            display: flex;
+        }
 
-.mypage_box1 {
-  width: calc(100% / 2);
-  /* background-color: aqua; */
-}
+        .mypage_box1 {
+            width: calc(100% / 2);
+            /* background-color: aqua; */
+        }
 
-.hr1 {
-  border: 1px solid rgba(211, 211, 211, 0.495);
-}
+        .hr1 {
+            border: 1px solid rgba(211, 211, 211, 0.495);
+        }
 
-.mypage_box2 {
-  width: calc(100% / 2);
-  /* background-color: yellow; */
-}
+        .mypage_box2 {
+            width: calc(100% / 2);
+            /* background-color: yellow; */
+        }
 
-.mypage_box3 {
-  margin-left: 30px;
-  margin-top: 20px;
-  line-height: 30px;
-}
+        .mypage_box3 {
+            margin-left: 30px;
+            margin-top: 20px;
+            line-height: 30px;
+        }
 
-.mypage_box4 {
-  margin-left: 30px;
-  line-height: 30px;
-}
+        .mypage_box4 {
+            margin-left: 30px;
+            line-height: 30px;
+        }
 
-.mypage_text5 {
-  font-size: 20px;
-  font-weight: 550;
-}
+        .mypage_text5 {
+            font-size: 20px;
+            font-weight: 550;
+        }
 
-.mypage_text3 {
-  color: gray;
-}
+        .mypage_text3 {
+            color: gray;
+        }
 
-.mypage_box5 {
-  width: 100%;
-  height: auto;
-  /* background-color: aqua; */
-  margin-top: 30px;
-}
+        .mypage_box5 {
+            width: 100%;
+            height: auto;
+            /* background-color: aqua; */
+            margin-top: 30px;
+        }
 
-.mypage_box5-1 {
-  line-height: 30px;
-  margin-bottom: 30px;
-}
+        .mypage_box5-1 {
+            line-height: 30px;
+            margin-bottom: 30px;
+        }
 
-.mypage_text7 {
-  color: gray;
-  font-size: 15px;
-  font-weight: 550;
-}
+        .mypage_text7 {
+            color: gray;
+            font-size: 15px;
+            font-weight: 550;
+        }
 
-.mypage_text8 {
-  font-size: 18px;
-  color: black;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
+        .mypage_text8 {
+            font-size: 18px;
+            color: black;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+        }
+        .mypage_text8:hover{
+            background-color: rgba(255, 69, 0, 0.84);
+            color: white;
+            transition: 0.4s;
+        }
 
-.mypage2_text1 {
-  font-size: 20px;
-  font-weight: 550;
-}
+        .mypage2_text1 {
+            font-size: 20px;
+            font-weight: 550;
+        }
 
-.mypage2_text2 {
-  font-size: 13px;
-  color: gray;
-}
+        .mypage2_text2 {
+            font-size: 13px;
+            color: gray;
+        }
 
-.mypage2_text3 {
-  float: right;
-  color: black;
-}
+        .mypage2_text3 {
+            float: right;
+            color: black;
+        }
 
-.hr2 {
-  border: 1px solid black;
-}
+        .hr2 {
+            border: 1px solid black;
+        }
 
-/* input 초기화 */
-input[type="checkbox"] {
-  display: none;
-}
+        /* input 초기화 */
+        input[type="checkbox"] {
+            display: none;
+        }
 
-/* (체크박스, 텍스트) 정렬 맞추기 */
-.checkbox_label {
-  display: flex;
-  align-items: center;
-}
+        /* (체크박스, 텍스트) 정렬 맞추기 */
+        .checkbox_label {
+            display: flex;
+            align-items: center;
+        }
 
-/* 체크박스 디자인 */
-.checkbox_icon::before {
-  content: "";
-  display: block;
-  margin-right: 5px;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: transparent;
-  border: 1px solid #9da3a5;
-  box-sizing: border-box;
-  position: relative;
-  cursor: pointer;
-}
+        /* 체크박스 디자인 */
+        .checkbox_icon::before {
+            content: "";
+            display: block;
+            margin-right: 5px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+            border: 1px solid #9da3a5;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+        }
 
-/* checked */
-.checkbox_label input:checked + .checkbox_icon::before {
-  /*   transition: all 0.15s ease; */
-  background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) orange
-    no-repeat center;
-  border: none;
-}
+        /* checked */
+        .checkbox_label input:checked + .checkbox_icon::before {
+            /*   transition: all 0.15s ease; */
+            background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) orange no-repeat center;
+            border: none;
+        }
 
-.mypage2_box2 {
-  margin: 30px 0 20px 10px;
-  display: flex;
-}
+        .mypage2_box2 {
+            margin: 30px 0 20px 10px;
+            display: flex;
+        }
 
-li {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
+        li {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
 
-.mypage2_text4 {
-  margin: 0 20px;
-  padding: 5px;
-  font-size: 12px;
-  border: 1px solid lightgray;
-  background-color: rgba(211, 211, 211, 0.247);
-  border-radius: 15%;
-}
+        .mypage2_text4 {
+            margin: 0 20px;
+            padding: 5px;
+            font-size: 12px;
+            border: 1px solid lightgray;
+            background-color: rgba(211, 211, 211, 0.247);
+            border-radius: 15%;
+        }
 
-.mypage_text9 {
-  color: orange;
-  font-weight: 550;
-}
+        .mypage_text9 {
+            color: orange;
+            font-weight: 550;
+        }
 
-.mypage2_box2-1 {
-  width: 100%;
-  display: flex;
-}
+        .mypage2_box2-1 {
+            width: 100%;
+            display: flex;
+        }
 
-.mypage2_box2-3 {
-  width: 30%;
-  height: 50px;
-  border: 1px solid black;
-  /* float: left; */
-}
+        .mypage2_box2-3 {
+            width: 30%;
+            height: 50px;
+            border: 1px solid black;
+            /* float: left; */
+        }
 
-.mypage2_box2-4 {
-  width: 30%;
-  height: 50px;
-  border: 1px solid black;
-  /* float: right; */
-}
+        .mypage2_box2-4 {
+            width: 30%;
+            height: 50px;
+            border: 1px solid black;
+            /* float: right; */
+        }
     </style>
-
+    <link rel="stylesheet" th:href="@{/dist/css/myPage/slang.css}">
 </head>
 
 <body>
@@ -435,14 +439,14 @@ li {
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
 </script>
-<script th:src="@{/js/myPage.js}"></script>
+<script th:src="@{/js/myPage/slang.js}"></script>
 <script>
     document.getElementById('mypage1').addEventListener('click', (e) => {
 
-        console.log(typeof(e.target.id));
+        console.log(typeof (e.target.id));
         const target = Number(e.target.id)
-        if(target >= 1 && target <= 8){
-            console.log(typeof(target));
+        if (target >= 1 && target <= 8) {
+            console.log(typeof (target));
             document.getElementById("d1").style.display = 'none';
             document.getElementById("d2").style.display = 'none';
             document.getElementById("d3").style.display = 'none';
@@ -454,7 +458,11 @@ li {
             document.getElementById('d' + e.target.id).style.display = '';
 
 
+            if (target === 3) {
+                spreadMySlangProductList(customerId);
+            }
         }
+
     })
 </script>
 
