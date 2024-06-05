@@ -6,19 +6,82 @@
     font-family: 'NanumSquareEB';
     src: url(../font/nanum-square/NanumSquareEB.ttf);
 }
+@font-face {
+    font-family: 'NanumSquareRoundB';
+    src: url(../font/nanum-square-round/NanumSquareRoundB.ttf);
+}
+@font-face {
+    font-family: 'NanumSquareRoundEB';
+    src: url(../font/nanum-square-round/NanumSquareRoundEB.ttf);
+}
+@font-face {
+    font-family: 'NanumSquareRoundL';
+    src: url(../font/nanum-square-round/NanumSquareRoundL.ttf);
+}
+@font-face {
+    font-family: 'April16thTTF';
+    src: url(../font/April16th/April16thTTF-Life.ttf);
+}
+@font-face {
+    font-family: 'DNFForgedBlade-B';
+    src: url(../font/DNFForgedBlade/DNFForgedBlade-Bold.ttf);
+}
+@font-face {
+    font-family: 'DNFForgedBlade-L';
+    src: url(../font/DNFForgedBlade/DNFForgedBlade-Light.ttf);
+}
+@font-face {
+    font-family: 'Giants-I';
+    src: url(../font/Giants/Giants-Inline.ttf);
+}
+@font-face {
+    font-family: 'Giants-B';
+    src: url(../font/Giants/Giants-Bold.ttf);
+}
+@font-face {
+    font-family: 'Giants-R';
+    src: url(../font/Giants/Giants-Regular.ttf);
+}
+@font-face {
+    font-family: 'Dovemayo';
+    src: url(../font/Dovemayo/Dovemayo_gothic.ttf);
+}
+@font-face {
+    font-family: 'Puradak';
+    src: url(../font/Puradak_Gentle/Puradak_Gentle_Gothic.ttf);
+}
+@font-face {
+    font-family: 'Cafe24Supermagic-B';
+    src: url(../font/Cafe24Supermagic/Cafe24Supermagic-B.ttf);
+}
+@font-face {
+    font-family: 'Cafe24Supermagic-R';
+    src: url(../font/Cafe24Supermagic/Cafe24Supermagic-R.ttf);
+}
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url(../font/Cafe24Ssurround/Cafe24Ssurround.ttf);
+}
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url(../font/Cafe24Ssurround/Cafe24SsurroundAir.ttf);
+}
+
 
 .header {
-    margin: 0;
-    border-bottom: 1px solid lightgray;
-    font-family: 'NanumSquareB';
+    height: 200px;
+    margin-bottom: 30px;
+    border : none;
 }
 
 .top {
-    height: 100%;
+    top: 0;
+    height: 120px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    background-color: orange;
 }
 
 .top_part {
@@ -36,7 +99,7 @@
 }
 
 .logo_part > a {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .search_part {
@@ -47,6 +110,12 @@
     align-items: center;
 }
 
+.search_part > input {
+    font-family: 'NanumSquareRoundL';
+    font-size: 15px;
+    font-style: italic;
+}
+
 .search_part > button {
     border: none;
     background-color: transparent;
@@ -54,22 +123,22 @@
 }
 
 .search_part > button > img {
-    margin-top: 5px;
-    width: 21px;
-    height: 22px;
-    filter: invert(40%) sepia(20%) saturate(500%) hue-rotate(400deg) brightness(100%) contrast(100%);
+    width: 25px;
+    height: 25px;
 }
 
 .search_bar {
     width: 400px;
     height: 45px;
     border: 2px solid orange;
-    border-radius: 5px;
-    padding-left: 10px;
+    border-radius: 20px;
+    padding: 0 15px;
 }
 
 .search_bar::placeholder {
     text-align: center;
+    color: black;
+    opacity: 0.9;
 }
 
 .search_bar:focus {
@@ -88,10 +157,18 @@
 }
 
 .loginBox > a {
-    width: 70px;
-    font-size: 15px;
-    color: darkorange;
+    width: 60px;
+    font-size: 13px;
+    color: black;
     text-align: center;
+    font-family: 'NanumSquareRoundL';
+    font-weight: bold;
+}
+
+.loginBox > a:hover {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: white;
 }
 
 .etc-part {
@@ -99,7 +176,7 @@
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -30px;
+    margin-left: -40px;
 }
 
 .etc-part > a {
@@ -111,7 +188,14 @@
 .etc-part > a > img {
     width: 25px;
     height: 25px;
-    filter: invert(40%) sepia(20%) saturate(500%) hue-rotate(400deg) brightness(100%) contrast(100%);
+}
+
+.etc-part > a:first-child > img:hover {
+    content: url("/dist/icon/bell.gif");
+}
+
+.etc-part > a:last-child > img:hover {
+    content: url("/dist/icon/cart(B).png");
 }
 
 .menu {
@@ -122,6 +206,7 @@
     position: sticky;
     background-color: orange;
     z-index: 100;
+    /*border-top: 1px solid darkorange;*/
 }
 
 .menu_part {
@@ -137,19 +222,21 @@
 }
 
 .menu_part > li > .bar {
-    font-size: 19px;
-    font-family: 'NanumSquareEB';
+    font-size: 20px;
+    font-width: bold;
 }
 
 .menu_part > li > a {
     display: block;
     width: 200px;
-    padding: 20px 0 20px 0;
+    padding: 20px 0;
     color: white;
     text-decoration: none;
     font-weight: bold;
     text-align: center;
     position: relative;
+    font-family: 'NanumSquareRoundL';
+    letter-spacing: 2px;
 }
 
 .menu_part > li > a:hover {
@@ -165,37 +252,31 @@
     list-style: none;
     min-width: 200px;
     z-index: 100;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
-    border: 3px solid brown;
 }
 
 .menu_part ul.subsubmenu {
     top: 0;
     left: 100%;
-    border: 3px solid blue;
     max-width: 300px;
-    height: 328px;
+    height: 324px;
     z-index: 100;
-}
-
-.menu_part ul.subsubmenu > li {
-    max-width: 300px;
-    max-height: 600px;
-    z-index: 100;
+    transform: translateY(0px);
 }
 
 .menu_part ul li a {
-    padding: 10px 15px;
+    padding: 10px;
     color: black;
     text-decoration: none;
     display: block;
     z-index: 100;
+    text-align: center;
+    font-family: 'NanumSquareRoundL';
+    font-weight: bold;
 }
 
 .menu_part ul li a:hover {
     background-color: #f1f1f1;
+    color: darkorange;
     z-index: 100;
 }
 
@@ -204,8 +285,6 @@
     opacity: 1;
     visibility: visible;
     z-index: 100;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-
 }
 
 /*모달창 라인*/
@@ -221,14 +300,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*border: 1px solid black;*/
-
 }
+
 .input-box{
     margin: 10px auto;
     width: 90%;
     height: 90px;
-    /*border: 1px solid black;*/
     display: flex;
     flex-direction: column;
     justify-content: space-around;

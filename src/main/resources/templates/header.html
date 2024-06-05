@@ -15,12 +15,13 @@
                 <div class="top_part">
                     <div class="logo_part">
                         <a href="/">
-                            <img th:src="@{/dist/icon/logo_watermark.png}" alt="" style="width: 150px" height="70px">
+                            <img th:src="@{/dist/icon/logo_watermark.png}" alt="" style="width: 160px" height="90px">
                         </a>
                     </div>
                     <div class="search_part">
-                        <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!">
-                        <button type="submit"><img th:src="@{/dist/icon/search.svg}"></button>
+                        <input type="text" class="search_bar" placeholder="찾고 싶은 상품을 검색해보세요!"
+                               onfocus="this.placeholder=''" onblur='this.placeholder="찾고 싶은 상품을 검색해보세요!"'>
+                        <button type="submit"><img th:src="@{/dist/icon/search.gif}"></button>
                     </div>
                     <div class="inner loginBox">
                         <th:block sec:authorize="isAnonymous()">
@@ -42,10 +43,10 @@
 
                 <div class="etc-part">
                     <a href="#" id="bellBtn">
-                        <img th:src="@{/dist/icon/bell.svg}">
+                        <img th:src="@{/dist/icon/bell.png}">
                     </a>
                     <a href="#" id="cartBtn">
-                        <img th:src="@{/dist/icon/cart.svg}">
+                        <img th:src="@{/dist/icon/cart.png}">
                     </a>
                 </div>
             </div>
