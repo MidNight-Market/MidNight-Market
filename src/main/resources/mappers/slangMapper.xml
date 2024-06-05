@@ -11,7 +11,7 @@
     </select>
     
     <insert id="slangPost">
-        INSERT INTO slang
+        INSERT INTO slang (customer_id, product_id)
         VALUES (#{customerId}, #{productId})
     </insert>
 
@@ -20,5 +20,11 @@
         WHERE
         customer_id = #{customerId} and product_id = #{productId};
     </delete>
+    
+    <select id="getMySlangProductList" resultType="com.project.www.domain.SlangVO">
+        SELECT * FROM slang
+        WHERE
+        customer_id = #{customerId}
+    </select>
 
 </mapper>

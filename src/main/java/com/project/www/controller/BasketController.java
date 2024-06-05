@@ -52,17 +52,7 @@ public class BasketController {
     }
 
     @GetMapping("/myBasket")
-    public String myBasket(Model model){
-
-        //현재 로그인한 이메일을 가져와야함
-        String email = "oco0217@gmail.com";
-
-        List<BasketVO> myBasket = bsv.getMyBasket(email);
-
-        //log.info("내 장바구니 리스트 가져온거 : {}",myBasket);
-
-        model.addAttribute("myBasket",myBasket);
-
+    public String myBasket(){
         return "/product/myBasket";
     }
 

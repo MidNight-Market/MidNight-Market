@@ -85,7 +85,7 @@ public class ProductController {
     @PostMapping("/slang/{customerId}/{productId}")
     public String slangPost(@PathVariable("customerId")String customerId, @PathVariable("productId")long productId){
 
-        //log.info("찜하기 테스트 잘 연결됌");
+        log.info("찜하기 테스트 잘 연결됌{} , {}", productId,customerId);
         int isOk = psv.slangPost(new SlangVO(customerId, productId));
         return isOk > 0 ? "post_success" : "post_fail";
     }
@@ -112,5 +112,14 @@ public class ProductController {
         return "product/detailPopup"; //
     }
 
+    @GetMapping("/mySlang")
+    public void mySlang(){}
+
+    @ResponseBody
+    @GetMapping("/getMySlangProduct/{customerId}")
+    public List<ProductVO> getMySlangProduct(@PathVariable("customerId")String customerId){
+        log.info(">>>>내가찜한품목 고객아이디 확인>>>{}",customerId);
+        return psv.getMySlangProduct(customerId);
+    }
 
 }

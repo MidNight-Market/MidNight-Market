@@ -1,6 +1,4 @@
-
-//현재 myBasket
-let basketListLength
+let myBasket;
 
 // 비동기로 불러오기 전에 체크된 체크박스 저장
 let checkedCheckboxes = [];
@@ -39,7 +37,7 @@ $('#select-delete').click(function (event) {
 
     let checkedValues = [];
     $('.basketCheckbox:checked').each(function () {
-        checkedValues.push({customerId: `${myBasket[0].customerId}`, productId: $(this).val()});
+        checkedValues.push({customerId: customerId, productId: $(this).val()});
     });
 
     $.ajax({
@@ -50,7 +48,7 @@ $('#select-delete').click(function (event) {
         success: function (response) {
             console.log(response);
             // 리스트 뿌리기
-            spreadMyBasketList(`${myBasket[0].customerId}`);
+            spreadMyBasketList(customerId);
         }
     });
 });
@@ -61,7 +59,7 @@ $(document).on('click', '.box1 button', function () {
     const qty = $(this).data('qty');
 
     const data = {
-        customerId: `${myBasket[0].customerId}`,
+        customerId: customerId,
         productId: productId,
         qty: qty
     };
@@ -74,24 +72,27 @@ $(document).on('click', '.box1 button', function () {
         success: function (response) {
             console.log(response);
             // 리스트 뿌리기
-            spreadMyBasketList(`${myBasket[0].customerId}`);
+            spreadMyBasketList(customerId);
         }
     });
 });
 
 // 리스트 뿌리기
-function spreadMyBasketList(email) {
+function spreadMyBasketList(customerId) {
 
     $.ajax({
         type: 'GET',
         url: '/basket/myBasketList',
         contentType: 'application/json',
         data: {
-            customerId: email
+            customerId: customerId
         },
         success: function (response) {
+
+            myBasket = response;
+            console.log(myBasket);
+
             myBasketList(response);
-            console.log(response);
             // 체크되어 있는 상품들을 다시 체크 처리
             $('.basketCheckbox').each(function () {
                 if (checkedCheckboxes.includes($(this).val())) {
@@ -182,9 +183,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
         let soldOutQuantity = myBasket.filter(item => item.qty === 0);
 
         //주문할 상품이 하나인데 품절 상품일 경우 취소
-        console.log(myBasket.length);
-        console.log(myBasket[0].qty);
-        if (myBasket.length === 1 && myBasket[0].qty === 1) {
+        if (myBasket.length === 1 && myBasket[0].qty === 0) {
             alert('품절된 상품입니다.')
             return;
         }
@@ -202,7 +201,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
 
         const payData = {
             merchantUid: merchant_uid,
-            customerId: `${myBasket[0].customerId}`
+            customerId: customerId
         };
 
         $.ajax({

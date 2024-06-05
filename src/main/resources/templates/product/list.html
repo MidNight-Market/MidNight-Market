@@ -21,7 +21,7 @@
 
 }
 
-.navbar {
+.listNavbar {
     height: 30px;
     /* background-color: aqua; */
 
@@ -32,27 +32,27 @@
     margin-bottom: 30px;
 }
 
-.navbar>a {
+.listNavbar>a {
     font-size: 20px;
     font-weight: 700;
     line-height: 60px;
     color: black;
 }
 
-.navbar>ul {
+.listNavbar>ul {
     display: flex;
     justify-content: space-around;
 }
 
-.navbar>ul>li {
+.listNavbar>ul>li {
     margin: auto 10px;
 }
 
-.navbar>ul>li>a {
+.listNavbar>ul>li>a {
     color: black;
 }
 
-.navbar>ul>li>a:hover {
+.listNavbar>ul>li>a:hover {
     color: rgb(163, 153, 141);
 }
 
@@ -68,13 +68,13 @@
    margin-top: 5px;
 }
 
-.category-menu{
+.category-listMenu{
     /* background-color: aqua; */
     float: left;
     margin-left: 100px;
 }
 
-.menu {
+.listMenu {
     /* width: 100px; */
     overflow: hidden;
     /* margin: 150px auto; */
@@ -82,7 +82,7 @@
 
     }
 
-  .menu > li {
+  .listMenu > li {
     width: 100%;
     text-align: center;
     line-height: 40px;
@@ -90,46 +90,46 @@
     border-bottom: 1px solid lightgray;
   }
 
-  .menu a {
+  .listMenu a {
     color: black;
   }
 
-  .submenu > li {
+  .sublistMenu > li {
     line-height: 50px;
     /* background-color: #94a9ff; */
   }
 
-  .submenu {
+  .sublistMenu {
     height: 0; /*ul의 높이를 안보이게 처리*/
     overflow: hidden;
   }
 
-  .menu > li:hover {
+  .listMenu > li:hover {
     /* background-color: lightgray; */
     transition-duration: 0.5s;
   }
 
-  .menu > li:hover .submenu.submenu01{
+  .listMenu > li:hover .sublistMenu.sublistMenu01{
     height: 450px; /*서브메뉴 li한개의 높이 50*5*/
     transition-duration: 1s;
   }
 
-  .menu > li:hover .submenu.submenu02{
+  .listMenu > li:hover .sublistMenu.sublistMenu02{
     height: 150px; /*서브메뉴 li한개의 높이 50*5*/
     transition-duration: 1s;
   }
 
-  .menu > li:hover .submenu.submenu03{
+  .listMenu > li:hover .sublistMenu.sublistMenu03{
     height: 250px; /*서브메뉴 li한개의 높이 50*5*/
     transition-duration: 1s;
   }
 
-  .menu > li:hover .submenu.submenu04{
+  .listMenu > li:hover .sublistMenu.sublistMenu04{
     height: 100px; /*서브메뉴 li한개의 높이 50*5*/
     transition-duration: 1s;
   }
 
-  .menu > li:hover .submenu.submenu05{
+  .listMenu > li:hover .sublistMenu.sublistMenu05{
     height: 150px; /*서브메뉴 li한개의 높이 50*5*/
     transition-duration: 1s;
   }
@@ -142,7 +142,7 @@
     position: relative;
 }
 
-.navbar>a {
+.listNavbar>a {
     font-size: 20px;
     font-weight: 700;
     line-height: 60px;
@@ -274,7 +274,7 @@
 <div class="title">
     상품 리스트
 </div>
-<div class="navbar">
+<div class="listNavbar">
     <span class="count"></span>
     <ul>
         <li><a href="">신상품순</a></li>
@@ -284,11 +284,11 @@
         <li><a href="">낮은 가격순</a></li>
     </ul>
 </div>
-<div class="category-menu">
-    <ul class="menu">
+<div class="category-listMenu">
+    <ul class="listMenu">
         <li>
             <a href="#">카테고리</a>
-            <ul class="submenu submenu01">
+            <ul class="sublistMenu sublistMenu01">
                 <li><a href="#">채소</a></li>
                 <li><a href="#">과일/견과/쌀</a></li>
                 <li><a href="#">수산/해산/건어물</a></li>
@@ -302,7 +302,7 @@
         </li>
         <li>
             <a href="#">배송</a>
-            <ul class="submenu submenu02">
+            <ul class="sublistMenu sublistMenu02">
                 <li><a href="#">로켓 배송</a></li>
                 <li><a href="#">일반 배송</a></li>
                 <li><a href="#">판매자 직접 배송</a></li>
@@ -310,7 +310,7 @@
         </li>
         <li>
             <a href="#">가격</a>
-            <ul class="submenu submenu03">
+            <ul class="sublistMenu sublistMenu03">
                 <li><a href="#">9,900원 미만</a></li>
                 <li><a href="#">9,900원 ~ 19,900원</a></li>
                 <li><a href="#">19,900원 ~ 29,900원</a></li>
@@ -320,14 +320,14 @@
         </li>
         <li>
             <a href="#">유형</a>
-            <ul class="submenu submenu04">
+            <ul class="sublistMenu sublistMenu04">
                 <li><a href="#">Ezen Only</a></li>
                 <li><a href="#">희소가치 프로젝트</a></li>
             </ul>
         </li>
         <li>
             <a href="#">혜택</a>
-            <ul class="submenu submenu05">
+            <ul class="sublistMenu sublistMenu05">
                 <li><a href="#">할인 상품</a></li>
                 <li><a href="#">한정 수량</a></li>
                 <li><a href="#">단독 특가</a></li>

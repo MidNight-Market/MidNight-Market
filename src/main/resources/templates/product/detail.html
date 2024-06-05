@@ -155,7 +155,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">
     const productDTO = [[${productDTO}]];
-    const customerId = [[${customerId}]];
+    const customerId = [[${session.id}]];
     const productId = [[${productId}]];
     console.log(productDTO);
     console.log(customerId);

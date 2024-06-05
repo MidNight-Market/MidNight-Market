@@ -141,6 +141,10 @@ document.getElementById('basketButton').addEventListener('click', () => {
 document.getElementById('slangBtn').addEventListener('click', (e) => {
     const targetButton = e.target.closest('.like-button'); // 클릭된 요소가 like-button 클래스를 가진 버튼인지 확인
     if (targetButton) {
+        //로그인을 안했을 시
+        if(customerId == null){
+            return;
+        }
         if (targetButton.dataset.type === 'post') {
             slangInfoChange(customerId, productId, 'POST');
         }

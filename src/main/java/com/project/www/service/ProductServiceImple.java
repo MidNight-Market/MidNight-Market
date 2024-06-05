@@ -2,12 +2,16 @@ package com.project.www.service;
 
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductDetailImageVO;
+import com.project.www.domain.ProductVO;
 import com.project.www.domain.SlangVO;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -77,6 +81,20 @@ public class ProductServiceImple implements ProductService{
     @Override
     public int slangDelete(SlangVO slangVO) {
         return slangMapper.slangDelete(slangVO);
+    }
+
+    @Override
+    public List<ProductVO> getMySlangProduct(String customerId) {
+
+        List<SlangVO> slangVOS = slangMapper.getMySlangProductList(customerId);
+
+        List<ProductVO> productVOS = new ArrayList<>();
+
+        for(SlangVO svo : slangVOS){
+            productVOS.add(productMapper.getDetail(svo.getProductId()));
+        }
+
+        return productVOS;
     }
 
 
