@@ -652,13 +652,13 @@ input[type="checkbox"] {
                 <span>보내는 분</span>
             </div>
             <div class="order_box2">
-                <span>[[${paymentDTO.customerId}]]</span>
+                <span th:if="${session.id}">[[${session.name}]]</span>
             </div>
             <div class="order_box1">
                 <span>휴대폰</span>
             </div>
             <div class="order_box2">
-                <span>넣을지 말지 결정</span>
+                <span>[[${session.tel}]]</span>
             </div>
             <div class="order_box1">
                 <span>이메일</span>

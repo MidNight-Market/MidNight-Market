@@ -7,6 +7,7 @@
     <title>mySlang</title>
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -144,7 +145,7 @@
     </div>
 </div>
 
-<script th:inline="javascript">const customerId = 'oco0217@gmail.com' //프린시팔로 고객 아이디 받아와서 넣으면 됌;</script>
+<script th:inline="javascript">const customerId = [[${session.id}]]; //프린시팔로 고객 아이디 받아와서 넣으면 됌;</script>
 
 <script>
     //가정: 사용자가 찜한 상품 목록
@@ -207,10 +208,15 @@
                     str += `<div class="product">`;
                     str += `<img src=${productVO.mainImage} alt="ㅇㅇ" style="border-radius: 5px">`;
                     str += `<div class="product-info" id="myModal">`;
-                    str += `<h3 style="font-weight: 600">${productVO.name}</h3>`;
-                    if(1>2){
+                    str += `<h3 style="font-weight: 600; margin-bottom: 10px">${productVO.name}</h3>`;
+                    //할인을 안할경우
+                    if(productVO.discountRate === 0){
+                    str += `잘되는지 확인`;
+                    str += `<span>${productVO.price}</span>`;
+                    //할인을 할 경우
                     }else{
-                    str += `<p>${productVO.price}</p>`;
+                        str += `<span style="color: orangered; font-weight: 600; margin-right: 7px">${productVO.discountRate}%</span>`;
+                        str += `<span>${productVO.discountPrice}</span>`;
                     }
                     str += `</div>`;
                     str += `<button class="delete-button" onclick="deleteProduct(${productVO.id})">삭제하기</button>`;

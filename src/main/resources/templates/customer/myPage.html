@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{header :: header}"></th:block>
+<link rel="stylesheet" th:href="@{/dist/css/myPage.css}">
 <head>
 
     <title>myPage</title>
@@ -239,7 +240,7 @@ li {
             <div class="circle1">
                 <span class="circle1_text">등급</span>
             </div>
-            <span class="mypage_text1">xxx님</span>
+            <span class="mypage_text1">[[${session.name}]]님</span>
         </div>
         <div class="mypage3">
             <div class="mypage_box1">
@@ -336,7 +337,7 @@ li {
                 <span class="mypage2_text2">찜한 상품은 최대 200개까지 저장됩니다.</span>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2">
+            <div class="mypage2_box2" id="slangPage">
                 <ul>
                     <li>
                         <div class="mypage2_box2-1">
@@ -432,7 +433,10 @@ li {
     </div>
 </div>
 
-
+<script th:inline="javascript">
+    const customerId = [[${session.id}]];
+</script>
+<script th:src="@{/js/myPage.js}"></script>
 <script>
     document.getElementById('mypage1').addEventListener('click', (e) => {
 
@@ -453,8 +457,8 @@ li {
 
         }
     })
-
 </script>
+
 <th:block th:replace="~{footer :: footer}"></th:block>
 </body>
 
