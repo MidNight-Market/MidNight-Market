@@ -30,8 +30,8 @@
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
                             <p th:if="${id}" style="display: none" id="idValue">[[${id}]]</p>
-                            <a th:if="${name}">
-                                [[${name}]]님 환영합니다.
+                            <a th:if="${name}" th:href="@{/customer/myPage}">
+                                [[${name}]] 님
                             </a>
                             <a href="/logout" id="logoutBtn" class="logout" >로그아웃</a>
                             <th:block th:if="${pwReset == 1}">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="inner menu">
-                <nav class="navbar">
+                <nav class="navbar" style="padding: 0">
                     <ul class="menu_part">
                         <li>
                             <a href="#" class="bar">카테고리</a>
@@ -157,14 +157,6 @@
                         </li>
                         <li>
                             <a href="/help/desk" id="helpBtn" class="bar">고객센터</a>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="#">공지사항</a>
-                                </li>
-                                <li>
-                                    <a href="/help/detail">1:1문의</a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </nav>
