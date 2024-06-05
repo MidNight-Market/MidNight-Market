@@ -186,6 +186,7 @@ CREATE TABLE notice (
 	id bigint NOT NULL AUTO_INCREMENT,
 	title VARCHAR(100) NOT NULL,
 	register_date DATETIME DEFAULT NOW(),
+	content text not null,
 	PRIMARY KEY (id)
 );
 

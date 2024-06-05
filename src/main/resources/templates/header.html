@@ -51,6 +51,9 @@
                     <a href="#" id="cartBtn">
                         <img th:src="@{/dist/icon/cart.png}">
                     </a>
+                    <a href="#" id="heartBtn">
+                        <img th:src="@{/dist/icon/heart.png}">
+                    </a>
                 </div>
             </div>
 
@@ -230,9 +233,8 @@
                         response(
                             $.map(data.resultList, function(item) {
                                 return {
-                                    label : item.SEARCH_WORD    	// 목록에 표시되는 값
-                                    , value : item.SEARCH_WORD 		// 선택 시 input창에 표시되는 값
-                                    , idx : item.SEQ // index
+                                    label : item.name    	// 목록에 표시되는 값
+                                    , value : item.name		// 선택 시 input창에 표시되는 값
                                 };
                             })
                         );    //response
@@ -251,10 +253,8 @@
             ,select : function(evt, ui) {
                 // 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
                 console.log(ui.item.label);
-                console.log(ui.item.idx);
             }
         });
     </script>
 </th:block>
 </html>
-<!-- pr 테스트 수정 주석  -->

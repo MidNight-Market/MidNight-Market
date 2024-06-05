@@ -67,9 +67,10 @@
     src: url(../font/Cafe24Ssurround/Cafe24SsurroundAir.ttf);
 }
 
+
 .header {
     height: 200px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     border : none;
 }
 
@@ -90,11 +91,17 @@
     justify-content: space-between;
 }
 
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 .logo_part {
     width: 300px;
     height: 100%;
     display: flex;
     justify-content: flex-end;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .logo_part > a {
@@ -107,6 +114,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .search_part > input {
@@ -130,7 +138,6 @@
     width: 400px;
     height: 45px;
     border: 2px solid orange;
-    border-radius: 20px;
     padding: 0 15px;
 }
 
@@ -153,10 +160,11 @@
     width: 200px;
     display: flex;
     justify-content: flex-start;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .loginBox > a {
-    width: 70px;
+    width: 60px;
     font-size: 13px;
     color: black;
     text-align: center;
@@ -165,22 +173,22 @@
 }
 
 .loginBox > a:hover {
-    text-decoration-line: underline;
-    text-decoration-color: white;
+    color: white;
 }
 
 .etc-part {
-    width: 120px;
+    width: 100px;
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -30px;
+    margin-left: -40px;
+    animation: fadeIn 3s ease-in-out;
 }
 
 .etc-part > a {
     margin-top: 45%;
     text-align: center;
-    margin-left: -80px;
+    margin-left: -70px;
 }
 
 .etc-part > a > img {
@@ -188,12 +196,16 @@
     height: 25px;
 }
 
-.etc-part > a:first-child > img:hover {
+.etc-part > #bellBtn > img:hover {
     content: url("/dist/icon/bell.gif");
 }
 
-.etc-part > a:last-child > img:hover {
-    content: url("/dist/icon/cart(B).png");
+.etc-part > #cartBtn > img:hover {
+    content: url("/dist/icon/cart.gif");
+}
+
+.etc-part > #heartBtn > img:hover {
+    content: url("/dist/icon/heart.gif");
 }
 
 .menu {
@@ -238,7 +250,12 @@
 }
 
 .menu_part > li > a:hover {
-    background-color: orange;
+    text-shadow: 1px 5px 15px white;
+}
+
+.menu_part > li > ul > li > a:hover,
+.menu_part > li > ul > li > ul > li > a:hover {
+    color: orange;
 }
 
 .menu_part ul {
@@ -272,9 +289,8 @@
     font-weight: bold;
 }
 
-.menu_part ul li:hover {
+.menu_part ul li a:hover {
     background-color: #f1f1f1;
-    color: darkorange;
     z-index: 100;
 }
 
