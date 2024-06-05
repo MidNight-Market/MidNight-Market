@@ -67,10 +67,9 @@
     src: url(../font/Cafe24Ssurround/Cafe24SsurroundAir.ttf);
 }
 
-
 .header {
     height: 200px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     border : none;
 }
 
@@ -157,7 +156,7 @@
 }
 
 .loginBox > a {
-    width: 60px;
+    width: 70px;
     font-size: 13px;
     color: black;
     text-align: center;
@@ -167,22 +166,21 @@
 
 .loginBox > a:hover {
     text-decoration-line: underline;
-    text-decoration-style: wavy;
     text-decoration-color: white;
 }
 
 .etc-part {
-    width: 100px;
+    width: 120px;
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -40px;
+    margin-left: -30px;
 }
 
 .etc-part > a {
     margin-top: 45%;
     text-align: center;
-    margin-left: -70px;
+    margin-left: -80px;
 }
 
 .etc-part > a > img {
@@ -246,8 +244,8 @@
 .menu_part ul {
     display: none;
     position: absolute;
-    transform: translateY(8px);
     background-color: white;
+    margin: 0;
     padding: 0;
     list-style: none;
     min-width: 200px;
@@ -274,7 +272,7 @@
     font-weight: bold;
 }
 
-.menu_part ul li a:hover {
+.menu_part ul li:hover {
     background-color: #f1f1f1;
     color: darkorange;
     z-index: 100;
