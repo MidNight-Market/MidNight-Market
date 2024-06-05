@@ -214,7 +214,8 @@ CREATE TABLE product_detail_image (
 #찜하기 추가
 CREATE TABLE slang (
     customer_id VARCHAR(30) NOT NULL,
-    product_id bigint NOT NULL
+    product_id bigint NOT NULL,
+    register_date DATETIME DEFAULT NOW()
 );
 
 
@@ -462,3 +463,24 @@ INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (42, "밀키트", 9);
 
 INSERT INTO customer(id, pw, nick_name, role)
 VALUES ('admin', 'admin', 'admin', 'role_admin');
+
+#TEST DATA
+INSERT INTO customer(id,pw,nick_name)
+VALUES ('oco0217@gmail.com', 'cksdnd12', '고객');
+
+INSERT INTO seller(id,pw,shop_name,tel)
+VALUES ('dbscksdnd','cksdnd12','이젠마켓','010-6374-6951');
+
+INSERT INTO product(name, price, product_category_detail_id, description, total_qty, total_sold_qty, main_image, thumb_image, seller_id)
+VALUES('길고 긴 바나나', 150, 15, '너무맛잇어서 문제', 7, 0,
+'/upload/2024\\06\\03/3a514557-d3e8-4f03-b0bb-7ec45c360032_바나나메인.jpg',
+'/upload/2024\\06\\03/3a514557-d3e8-4f03-b0bb-7ec45c360032_th_바나나메인.jpg',
+'dbscksdnd'),
+('토마토', 250, 2, '엄청맛잇음', 24, 0,
+'/upload/2024\\06\\03/f25071f1-957b-4751-afd9-0398837be89c_토마토메인.jpg',
+'/upload/2024\\06\\03/f25071f1-957b-4751-afd9-0398837be89c_th_토마토메인.jpg',
+'dbscksdnd'),
+('사과', 750, 8, '엄청맛잇음', 12, 0,
+'/upload/2024\\06\\03/795f4f2f-f273-4c9d-9c86-f61c9e733cc3_사과메인.jpeg',
+'/upload/2024\\06\\03/795f4f2f-f273-4c9d-9c86-f61c9e733cc3_th_사과메인.jpeg',
+'dbscksdnd');

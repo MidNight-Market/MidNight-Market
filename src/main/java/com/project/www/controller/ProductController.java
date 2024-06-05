@@ -85,7 +85,7 @@ public class ProductController {
     @PostMapping("/slang/{customerId}/{productId}")
     public String slangPost(@PathVariable("customerId")String customerId, @PathVariable("productId")long productId){
 
-        //log.info("찜하기 테스트 잘 연결됌");
+        log.info("찜하기 테스트 잘 연결됌{} , {}", productId,customerId);
         int isOk = psv.slangPost(new SlangVO(customerId, productId));
         return isOk > 0 ? "post_success" : "post_fail";
     }
