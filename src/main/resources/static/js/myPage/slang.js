@@ -1,11 +1,9 @@
-console.log(customerId);
+
 //상품찜 뿌리기 함수
-
-
 async function getMySlangProductListFromServer(customerId) {
 
     try {
-        const response = await fetch('/product/getMySlangProduct/' + customerId);
+        const response = await fetch('/product/getMySlangProductList/' + customerId);
         const result = await response.json();
         return result;
     } catch (e) {
