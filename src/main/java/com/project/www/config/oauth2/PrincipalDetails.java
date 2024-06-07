@@ -82,7 +82,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public String getName() {
         return null;
     }
-    public String getRole(){
+    public String getAuth(){
         return cvo.getRole();
     }
 }
