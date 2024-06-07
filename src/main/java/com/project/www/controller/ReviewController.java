@@ -17,8 +17,9 @@ public class ReviewController {
 
     @ResponseBody
     @PostMapping("/register")
-    public String register(@RequestBody ReviewVO reviewVO){
+    public String register(@ModelAttribute ReviewVO reviewVO,@RequestPart("files") MultipartFile[] files){
         log.info(">>>>리뷰객체 확인>>>{}",reviewVO);
+        log.info("파일 온거 확인>>>>{}",files);
         int isOk = rsv.register(reviewVO);
         return isOk > 0 ? "register_success" : "register_fail";
     }

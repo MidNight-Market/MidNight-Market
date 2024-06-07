@@ -91,7 +91,7 @@ document.addEventListener('click', (e) => {
         document.getElementById('fileList').innerHTML = '';
         productId = purchasedData[dataIndex].productId;
         ordersId = purchasedData[dataIndex].id;
-        
+
     }
 });
 
@@ -147,7 +147,7 @@ document.getElementById('register-button').addEventListener('click', () => {
     }
 
     //내용 200자 초과 시
-    if(content.length > 200){
+    if (content.length > 200) {
         alert('내용이 200글자를 초과합니다.');
         return;
     }
@@ -158,18 +158,28 @@ document.getElementById('register-button').addEventListener('click', () => {
         starRating = checkedRating.value; //별점수
     }
 
-    const data = {
-        content: content.value,
-        star: starRating,
-        customerId: customerId,
-        productId: productId,
-        ordersId: ordersId
+    const data = new FormData();
+    data.append('content', content.value);
+    data.append('star', starRating);
+    data.append('customerId', customerId);
+    data.append('productId', productId);
+    data.append('ordersId', ordersId);
+
+    // 파일 추가
+    const files = document.getElementById('files').files;
+    if (files.length !== 0) {
+        for (let i = 0; i < files.length; i++) {
+            data.append('files', files[i]);
+        }
     }
-    sendReviewRegisterFromServer(data).then(result=>{
-        if(result === 'register_success'){
+
+    console.log(data);
+
+    sendReviewRegisterFromServer(data).then(result => {
+        if (result === 'register_success') {
             alert('리뷰를 달아주셔서 감사합니다. 100만포인트 증정해드립니다.');
             spreadMyPurchasedProductList(customerId);
-        }else{
+        } else {
             alert('리뷰 등록 실패');
         }
 
