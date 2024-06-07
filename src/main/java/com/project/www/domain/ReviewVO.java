@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ReviewVO {
 
-    private long rno;
+    private long id;
     private String content;
     private long star;
     private String registerDate;

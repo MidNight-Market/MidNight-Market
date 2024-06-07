@@ -77,7 +77,8 @@ CREATE TABLE review (
 #리뷰이미지
 CREATE TABLE review_image(
     review_id bigint NOT NULL,
-    review_image VARCHAR(256) NOT NULL
+    review_image VARCHAR(256) NOT NULL,
+    review_thumb_image VARCHAR(256) NOT NULL
 );
 
 #리뷰좋아요
@@ -465,8 +466,8 @@ INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (41, "햄/통조림/병조림", 8);
 INSERT INTO PRODUCT_CATEGORY_DETAIL VALUES (42, "밀키트", 9);
 
 
-INSERT INTO customer(id, pw, nick_name, role)
-VALUES ('admin', 'admin', 'admin', 'role_admin');
+INSERT INTO customer(id, pw, nick_name, provider, provider_id, role)
+VALUES ('admin', '$2a$10$bYu2jPdVKXbYf.x7/hpzEeft1gW8j9eguBjp4ICp5ij4.RUt4R1Oy', 'admin', 'form', 'admin', 'role_admin');
 
 #TEST DATA
 INSERT INTO customer(id,pw,nick_name)

@@ -197,10 +197,7 @@ async function sendReviewRegisterFromServer(data) {
         const url = '/review/register';
         const config = {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify(data)
+            body: data
         }
 
         const response = await fetch(url, config);
