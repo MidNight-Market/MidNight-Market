@@ -3,7 +3,6 @@
 <th:block th:replace="~{header :: header}"></th:block>
 <head>
     <title>myPage</title>
-
     <style>
 
         .mypage0 {
@@ -446,7 +445,8 @@
 
                     <div class="modal-product-info-box">
                         <div class="modal-info">
-                        <img id="modal-image" src="" alt="" width="100%" height="100%" style="border-radius: 5px"></div>
+                            <img id="modal-image" src="" alt="" width="100%" height="100%" style="border-radius: 5px">
+                        </div>
                         <div class="modal-info">
                             <p id="modal-product-name" style="margin: 30px 0; font-size: 22px; font-weight: 570"></p>
                             <p id="modal-product-description"></p>
@@ -507,7 +507,8 @@
 
                     <input type="file" multiple="multiple" hidden="hidden" id="files" accept="image/*">
                     <div id="photo-upload">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                             class="bi bi-camera-fill" viewBox="0 0 16 16">
                             <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                             <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0"/>
                         </svg>
@@ -518,8 +519,8 @@
             </div>
             <div class="modal-footer">
                 <div class="footer-button-box">
-                <button type="button" id="register-button">등록</button>
-                <button type="button" data-bs-dismiss="modal" id="cancel-button">취소</button>
+                    <button type="button" data-bs-dismiss="modal" id="cancel-button">취소</button>
+                    <button type="button" id="register-button">등록</button>
                 </div>
             </div>
         </div>
@@ -534,6 +535,18 @@
 <script th:src="@{/js/myPage/purchasedProduct.js}"></script>
 <script th:src="@{/js/myPage/review.js}"></script>
 <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // 마이페이지 진입시 주문내역 버튼 자동으로 클릭;
+        const select_button = document.querySelectorAll('.mypage_text8');
+
+        // 페이지 로드 시 첫 번째 버튼 클릭
+        if (select_button.length > 0) {
+            select_button[0].click();
+        }
+    });
+
+
     document.getElementById('mypage1').addEventListener('click', (e) => {
 
         const target = Number(e.target.id)
@@ -575,7 +588,8 @@
             }
         }
 
-    })
+    });
+
 </script>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
