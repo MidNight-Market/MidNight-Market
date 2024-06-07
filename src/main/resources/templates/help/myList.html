@@ -14,7 +14,7 @@
 <button type="button" class="helpBtn" id="hb">문의하기</button>
 <!--<a href="/help/register"><button type="button" class="helpBtn" id="helpBtn" th:if="${session.name == null}" style="display: none">문의하기</button></a>-->
 <div class="input-group mb-3" style="width: 940px;">
-    <table class="table table-striped">
+    <table class="table table-striped" id="resultTable">
         <thead>
         <tr>
             <th>No</th>
@@ -24,7 +24,7 @@
             <th>답변상태</th>
         </tr>
         </thead>
-        <tbody th:each="hvo:${list}">
+        <tbody th:each="hvo:${myList}">
         <tr>
             <td>[[${hvo.hno}]]</td>
             <td>
@@ -67,7 +67,6 @@
                     <span aria-hidden="true">≫</span>
                 </a>
             </li>
-            <a href="/help/myList"><button type="button" id="myHelpBtn" th:if="${session.name != null}">내 문의글</button></a>
         </ul>
     </nav>
 </div>
