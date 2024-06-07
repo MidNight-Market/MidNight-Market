@@ -47,6 +47,7 @@ for(let i=0; i<adminReply.length; i++){
         console.log(secretCheck, replyCheck);
 
         if(sesName != writer && secretCheck== "Y" && role != "role_admin"){
+        // if((sesName != writer && secretCheck== "Y") || (role != "role_admin" && secretCheck== "Y")){
             alert("비밀글은 본인과 관리자만 확인 가능합니다.");
         }else{
             window.location.href = "/help/replyAns?hno="+hno;
