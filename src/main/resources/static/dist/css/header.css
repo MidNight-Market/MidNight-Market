@@ -67,11 +67,15 @@
     src: url(../font/Cafe24Ssurround/Cafe24SsurroundAir.ttf);
 }
 
+body {
+    width: 100%;
+    min-width: 1280px;
+    min-height: 600px;
+}
 
 .header {
     height: 200px;
-    margin-bottom: 30px;
-    border : none;
+    margin-bottom: 20px;
 }
 
 .top {
@@ -105,7 +109,7 @@
 }
 
 .logo_part > a {
-    margin-top: 15px;
+    margin: 15px -15px 0 0;
 }
 
 .search_part {
@@ -115,6 +119,7 @@
     justify-content: center;
     align-items: center;
     animation: fadeIn 3s ease-in-out;
+    margin-top: 10px;
 }
 
 .search_part > input {
@@ -233,7 +238,6 @@
 
 .menu_part > li > .bar {
     font-size: 20px;
-    font-width: bold;
 }
 
 .menu_part > li > a {
@@ -242,15 +246,14 @@
     padding: 20px 0;
     color: white;
     text-decoration: none;
-    font-weight: bold;
     text-align: center;
     position: relative;
-    font-family: 'NanumSquareRoundL';
+    font-family: 'NanumSquareEB';
     letter-spacing: 2px;
 }
 
 .menu_part > li > a:hover {
-    text-shadow: 1px 5px 15px white;
+    text-shadow: 3px 10px 10px darkorange;
 }
 
 .menu_part > li > ul > li > a:hover,
