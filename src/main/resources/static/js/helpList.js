@@ -32,7 +32,7 @@ for(let i = 0; i<secret.length; i++){
     });
 }
 
-console.log(isAdmin);
+console.log(role);
 
 // 관리자 답글은 비밀글일 경우 관리자랑 본인만 볼 수 있게
 let adminReply = document.querySelectorAll('.adminReply');
@@ -46,13 +46,7 @@ for(let i=0; i<adminReply.length; i++){
         let replyCheck = e.currentTarget.closest("[data-replyCheck]").getAttribute("data-replyCheck")
         console.log(secretCheck, replyCheck);
 
-        if("관리자인지 확인하는 방법?"){
-            isAdmin = true;
-        }else{
-            isAdmin = false;
-        }
-
-        if(sesName != writer && secretCheck== "Y" || isAdmin == "false" && secretCheck== "Y"){ //@@@@@@@@2관리자 부분 추가 필
+        if(sesName != writer && secretCheck== "Y" && role != "role_admin"){
             alert("비밀글은 본인과 관리자만 확인 가능합니다.");
         }else{
             window.location.href = "/help/replyAns?hno="+hno;

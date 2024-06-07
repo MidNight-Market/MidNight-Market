@@ -38,6 +38,7 @@
                             <a th:if="${session.name}" th:href="@{/customer/myPage}">
                                 [[${session.name}]] 님
                             </a>
+                            <p th:if="${session.role}" style="display:none;">[[${role}]]</p>
                             <a href="/logout" id="logoutBtn" class="logout" >로그아웃</a>
                             <th:block th:if="${pwReset == 1}">
                                 <p style="display:none;" id="isReset"></p>
