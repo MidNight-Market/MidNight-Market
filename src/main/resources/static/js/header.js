@@ -1,6 +1,4 @@
-console.log("test");
-
-if(document.getElementById("isReset")!= null){
+if (document.getElementById("isReset") != null) {
     const width = 600;
     const height = 600;
 
@@ -11,23 +9,24 @@ if(document.getElementById("isReset")!= null){
     // 팝업 창의 위치를 계산
     const left = (screenWidth / 2) - (width / 2);
     const top = (screenHeight / 2) - (height / 2);
-    alert("비밀번호가 초기화되었습니다. 다시 설정해주세요. ")
+    alert("비밀번호가 초기화되었습니다. 다시 설정해주세요.");
     openPop = window.open('/login/reset', '비밀번호변경', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
 
     let id = document.getElementById('idValue').innerText;
-    openPop.onload = function (){
+    openPop.onload = function() {
         openPop.document.getElementById('id').value = id;
     }
     const popupInterval = setInterval(function() {
         if (openPop.closed) {
             clearInterval(popupInterval);
-            logout().then(result=>{
+            logout().then(result => {
                 console.log(result);
                 location.reload();
             })
         }
     }, 500);
 }
+
 async function logout() {
     try {
         const url = '/logout';
@@ -49,63 +48,95 @@ async function logout() {
     }
 }
 
-
 $('#autoComplete').autocomplete({
-    source : function(request, response) { //source: 입력시 보일 목록
+    source: function(request, response) {
         $.ajax({
-            url : "/ajax/autocomplete.do"
-            , type : "POST"
-            , dataType: "JSON"
-            , data : {value: request.term}	// 검색 키워드
-            , success : function(data){ 	// 성공
+            url: "/ajax/autocomplete.do",
+            type: "POST",
+            dataType: "JSON",
+            data: { value: request.term },
+            success: function(data) {
                 response(
                     $.map(data.resultList, function(item) {
                         return {
-                            label : item.name    	// 목록에 표시되는 값
-                            , value : item.name		// 선택 시 input창에 표시되는 값
+                            label: item.name,
+                            value: item.name
                         };
                     })
-                );    //response
-            }
-            ,error : function(){ //실패
+                );
+            },
+            error: function() {
                 alert("오류가 발생했습니다.");
             }
         });
-    }
-    ,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌
+    },
+    focus: function(event, ui) {
         return false;
-    }
-    ,minLength: 1// 최소 글자수
-    ,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
-    ,delay: 100	//autocomplete 딜레이 시간(ms)
-    ,select : function(evt, ui) {
-        // 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
+    },
+    minLength: 1,
+    autoFocus: true,
+    delay: 100,
+    select: function(evt, ui) {
         console.log(ui.item.label);
+    },
+    open: function() {
+        $('#recentSearch').hide();
     }
 });
 
-document.getElementById('autoComplete').addEventListener('focus', ()=>{
+document.getElementById('autoComplete').addEventListener('focus', () => {
     document.getElementById('recentSearch').style.display = 'block';
     let searchHistory = window.localStorage.getItem("searchHistory");
     let parseData = JSON.parse(searchHistory);
-    for(let i=0; i<parseData.length; i++){
-       document.getElementById('recentSearch').innerHTML += '<a href="#">'+parseData[i]+'</a>'+"<br>";
+    let count = 1;
+    document.getElementById('recentSearch').innerHTML = ''; // Clear previous entries
+    for (let i = 0; i < parseData.length; i++) {
+        document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=${parseData[i]}" style="color: black">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
+        count++;
     }
 });
-document.getElementById('autoComplete').addEventListener('blur', ()=>{
-    document.getElementById('recentSearch').innerText = '';
-    document.getElementById('recentSearch').style.display = 'none';
-});
-document.getElementById('searchButton').addEventListener('click', ()=>{
+
+document.getElementById('searchButton').addEventListener('click', () => {
     let searchVal = document.getElementById('autoComplete').value;
     let prevData = window.localStorage.getItem("searchHistory");
-    if(prevData == null){
+    if (prevData == null) {
         let saveHistoryArr = [];
         saveHistoryArr.push(searchVal);
-        window.localStorage.setItem("searchHistory",JSON.stringify(saveHistoryArr));
-    }else{
+        window.localStorage.setItem("searchHistory", JSON.stringify(saveHistoryArr));
+    } else {
         let prevArr = JSON.parse(prevData);
         prevArr.push(searchVal);
         window.localStorage.setItem("searchHistory", JSON.stringify(prevArr));
     }
 });
+
+document.getElementById('recentSearch').addEventListener('click', (e) => {
+    let str = e.target.id;
+    if (str.includes('delBtn')) {
+        console.log("test");
+        let id = e.target.id;
+        let num = parseInt(id.replace('delBtn', '')); // Parse button number
+        let storage = window.localStorage.getItem("searchHistory");
+        let parseData = JSON.parse(storage);
+
+        // num-1 위치의 요소를 제거
+        parseData.splice(num - 1, 1);
+
+        // 수정된 배열을 다시 JSON 문자열로 변환하여 저장
+        let stringifyArr = JSON.stringify(parseData);
+        window.localStorage.setItem("searchHistory", stringifyArr);
+
+        // 최근 검색어 목록 업데이트
+        document.getElementById('recentSearch').innerHTML = '';
+        let count = 1;
+        for (let i = 0; i < parseData.length; i++) {
+            document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=${parseData[i]}">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
+            count++;
+        }
+    }
+});
+
+// document.getElementById('autoComplete').addEventListener('blur', () => {
+//     document.getElementById('recentSearch').innerText = '';
+//     document.getElementById('recentSearch').style.display = 'none';
+// });
