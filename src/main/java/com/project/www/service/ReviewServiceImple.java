@@ -3,6 +3,7 @@ package com.project.www.service;
 import com.project.www.domain.ReviewDTO;
 import com.project.www.domain.ReviewImageVO;
 import com.project.www.repository.OrdersMapper;
+import com.project.www.repository.ProductMapper;
 import com.project.www.repository.ReviewImageMapper;
 import com.project.www.repository.ReviewMapper;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class ReviewServiceImple implements ReviewService{
     private final ReviewMapper reviewMapper;
     private final OrdersMapper ordersMapper;
     private final ReviewImageMapper reviewImageMapper;
+    private final ProductMapper productMapper;
 
     @Transactional
     @Override
@@ -36,7 +38,7 @@ public class ReviewServiceImple implements ReviewService{
             }
 
             reviewImageMapper.register(reviewDTO.getReviewImageVOList());
-
+            productMapper.reviewCountUpdate(reviewDTO.getReviewVO().getProductId());
             }
 
             return ordersMapper.isReviewCommentUpdate(reviewDTO.getReviewVO());

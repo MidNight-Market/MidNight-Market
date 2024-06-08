@@ -105,7 +105,10 @@ public class ProductController {
 
         //상품 리스트 페이지
     @GetMapping("/list")
-    public void list(Model model){
+    public void list(Model model, @RequestParam("type")String type){
+        log.info("타입명 : {}",type);
+
+        model.addAttribute("list",psv.getProductList(type));
 
     }
 

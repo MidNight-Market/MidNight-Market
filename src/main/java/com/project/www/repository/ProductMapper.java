@@ -19,11 +19,15 @@ public interface ProductMapper {
 
     int productQtyUpdate(ProductVO productVO);
 
-    List<ProductVO> getNewProductList();
+    List<ProductVO> getIndexNewProductList();
 
-    List<ProductVO> getHeavySoldList();
+    List<ProductVO> getIndexHeavySoldList();
 
-    List<ProductVO> getDiscountProductList();
+    List<ProductVO> getIndexDiscountProductList();
 
     void orderUpdate(OrdersVO ordersVO);
+
+    void reviewCountUpdate(String productId);
+
+    List<ProductVO> getHeavySoldList();
 }

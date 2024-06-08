@@ -174,8 +174,9 @@
 }
 
 .product>a>div>img {
-    width: 230px;
-    height: 230px;
+    width: 210px;
+    height: auto;
+    border-radius: 4px;
 }
 
 .product ul {
@@ -339,9 +340,10 @@
     <!-- 상품 상세 -->
     <div class="product">
         <!-- 상품 정보 3*3 -->
+        <th:block th:each="list:${list}">
         <a href="">
             <div>
-                <img src="" alt="">
+                <img th:src="${list.mainImage}" alt="">
                 <div class="text">세일 상품</div>
             </div>
             <button class="cart">
@@ -367,387 +369,388 @@
                     <span class="text6"></span></li>
             </ul>
         </a>
+        </th:block>
         <!-- 복사 -->
-        <a href="">
-            <div>
-                <img src="" alt="">
-                <div class="text">세일 상품</div>
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-                <div class="text">세일 상품</div>
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
-        <a href="">
-            <div>
-                <img src="" alt="">
-            </div>
-            <button class="cart">
-                    <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                         class="bi bi-cart" viewBox="0 0 16 16">
-                        <path
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>
-                    </span>담기
-            </button>
-            <ul>
-                <li><span class="text1"></span></li>
-                <li><span class="text2"></span></li>
-                <li><span class="text3"></span></li>
-                <li><span class="text4"></span><span class="text5"></span></li>
-                <li><span class="chat">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                          </svg>
-                    </span>
-                    <span class="text6"></span></li>
-            </ul>
-        </a>
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--                <div class="text">세일 상품</div>-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--                <div class="text">세일 상품</div>-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
+<!--        <a href="">-->
+<!--            <div>-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <button class="cart">-->
+<!--                    <span>-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"-->
+<!--                         class="bi bi-cart" viewBox="0 0 16 16">-->
+<!--                        <path-->
+<!--                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />-->
+<!--                    </svg>-->
+<!--                    </span>담기-->
+<!--            </button>-->
+<!--            <ul>-->
+<!--                <li><span class="text1"></span></li>-->
+<!--                <li><span class="text2"></span></li>-->
+<!--                <li><span class="text3"></span></li>-->
+<!--                <li><span class="text4"></span><span class="text5"></span></li>-->
+<!--                <li><span class="chat">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">-->
+<!--                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                            <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>-->
+<!--                          </svg>-->
+<!--                    </span>-->
+<!--                    <span class="text6"></span></li>-->
+<!--            </ul>-->
+<!--        </a>-->
 
     </div>
 </body>

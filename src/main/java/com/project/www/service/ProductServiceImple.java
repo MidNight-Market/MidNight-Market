@@ -97,5 +97,15 @@ public class ProductServiceImple implements ProductService{
         return productVOS;
     }
 
+    @Override
+    public List<ProductVO> getProductList(String type) {
+
+        if(type.equals("best")){
+            return productMapper.getHeavySoldList();
+        }
+
+        return List.of();
+    }
+
 
 }

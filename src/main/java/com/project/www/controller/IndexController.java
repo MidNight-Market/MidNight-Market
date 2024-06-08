@@ -26,9 +26,9 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
 
-        List<ProductVO> newProductList = isv.getNewProductList();
-        List<ProductVO> heavySoldList = isv.getHeavySoldList();
-        List<ProductVO> discountProductList = isv.getDiscountProductList();
+        List<ProductVO> newProductList = isv.getIndexNewProductList();
+        List<ProductVO> heavySoldList = isv.getIndexHeavySoldList();
+        List<ProductVO> discountProductList = isv.getIndexDiscountProductList();
         if (principal != null) {
 //            model.addAttribute("name", principal.getNickName());
 //            model.addAttribute("id",principal.getUsername());

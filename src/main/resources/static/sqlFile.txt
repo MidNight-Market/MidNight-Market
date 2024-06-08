@@ -38,6 +38,7 @@ CREATE TABLE product (
 	thumb_image VARCHAR(256),
 	seller_id VARCHAR(50) NOT NULL,
 	is_del VARCHAR(5) DEFAULT "N",
+	review_count bigint default 0,
 	PRIMARY KEY (id)
 );
 

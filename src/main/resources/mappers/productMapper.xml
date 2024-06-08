@@ -34,19 +34,19 @@
         id = #{id}
     </update>
 
-    <select id="getNewProductList" resultType="com.project.www.domain.ProductVO">
+    <select id="getIndexNewProductList" resultType="com.project.www.domain.ProductVO">
         SELECT * from product
         ORDER BY register_date DESC
         limit 0,4
     </select>
 
-    <select id="getHeavySoldList" resultType="com.project.www.domain.ProductVO">
+    <select id="getIndexHeavySoldList" resultType="com.project.www.domain.ProductVO">
         SELECT * from product
         ORDER BY total_sold_qty DESC
         limit 0,4
     </select>
 
-    <select id="getDiscountProductList" resultType="com.project.www.domain.ProductVO">
+    <select id="getIndexDiscountProductList" resultType="com.project.www.domain.ProductVO">
         SELECT * from product
         ORDER BY discount_rate DESC
         limit 0,4
@@ -60,6 +60,19 @@
         WHERE
         id = #{productId}
     </update>
+    
+    <update id="reviewCountUpdate">
+        UPDATE product
+        SET
+        review_count = review_count + 1
+        WHERE
+        id = #{productId}
+    </update>
+
+    <select id="getHeavySoldList" resultType="com.project.www.domain.ProductVO">
+        SELECT * from product
+        ORDER BY total_sold_qty DESC
+    </select>
 
 
 </mapper>

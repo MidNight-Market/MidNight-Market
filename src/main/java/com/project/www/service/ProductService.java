@@ -19,4 +19,6 @@ public interface ProductService {
     int slangDelete(SlangVO slangVO);
 
     List<ProductVO> getMySlangProduct(String customerId);
+
+    List<ProductVO> getProductList(String type);
 }
