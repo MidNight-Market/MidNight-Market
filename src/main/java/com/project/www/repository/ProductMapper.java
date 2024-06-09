@@ -1,5 +1,6 @@
 package com.project.www.repository;
 
+import com.project.www.domain.ListPagingVO;
 import com.project.www.domain.OrdersVO;
 import com.project.www.domain.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,5 +30,7 @@ public interface ProductMapper {
 
     void reviewCountUpdate(String productId);
 
-    List<ProductVO> getHeavySoldList();
+    List<ProductVO> getList(ListPagingVO pgvo);
+
+    int getTotalCount(ListPagingVO pgvo);
 }

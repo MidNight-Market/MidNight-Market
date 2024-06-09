@@ -38,9 +38,11 @@ public class ReviewServiceImple implements ReviewService{
             }
 
             reviewImageMapper.register(reviewDTO.getReviewImageVOList());
-            productMapper.reviewCountUpdate(reviewDTO.getReviewVO().getProductId());
             }
 
+            //리뷰 카운트 추가
+            productMapper.reviewCountUpdate(reviewDTO.getReviewVO().getProductId());
+            
             return ordersMapper.isReviewCommentUpdate(reviewDTO.getReviewVO());
         }
 

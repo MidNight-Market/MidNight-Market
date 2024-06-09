@@ -1,10 +1,8 @@
 package com.project.www.controller;
 
-import com.project.www.domain.BasketVO;
-import com.project.www.domain.ProductDTO;
-import com.project.www.domain.ProductVO;
-import com.project.www.domain.SlangVO;
+import com.project.www.domain.*;
 import com.project.www.handler.FileHandler;
+import com.project.www.handler.ListPagingHandler;
 import com.project.www.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -105,10 +103,18 @@ public class ProductController {
 
         //상품 리스트 페이지
     @GetMapping("/list")
-    public void list(Model model, @RequestParam("type")String type){
-        log.info("타입명 : {}",type);
+    public void list(Model model, ListPagingVO pgvo){
 
-        model.addAttribute("list",psv.getProductList(type));
+        int totalCount = psv.getTotalCount(pgvo);
+        log.info("pgvo확인>>>{}",pgvo);
+
+        log.info("토탈카운트 확인: >>{}",totalCount);
+
+        List<ProductVO> list = psv.getProductList(pgvo);
+        ListPagingHandler ph = new ListPagingHandler(pgvo,totalCount);
+
+        model.addAttribute("list", list);
+        model.addAttribute("ph",ph);
 
     }
 

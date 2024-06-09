@@ -37,11 +37,11 @@ class ProjectApplicationTests {
 	void productInsert(){
 		for(int i=0; i<100; i++){
 			ProductVO productVO = ProductVO.builder()
-					.name("물건"+i)
+					.name("[어보그로서리] 기장 연화리 가마솥 전복죽 230g (냉동)"+i)
 					.price(10000)
 					.discountPrice(10000)
 					.productCategoryDetailId(3)
-					.description("설명"+i)
+					.description("녹진하고 고소한 죽"+i)
 					.totalQty(7)
 					.mainImage("/upload/2024\\06\\08/71783d88-8214-4519-8930-961656041572_main.jpg")
 					.thumbImage("/upload/2024\\06\\08/71783d88-8214-4519-8930-961656041572_th_main.jpg")
