@@ -19,7 +19,7 @@ if(productDTO.productVO.totalQty === 0){
 
 // + 또는 - 를 눌렀을 경우 가격 계산 
 document.addEventListener('click', (e) => {
-    
+
     //품절일 경우 이벤트 리턴
     if(productDTO.productVO.totalQty === 0){
         return;
@@ -220,34 +220,34 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
         };
 
         postPaymentToServer(payData).then(result=>{
-           console.log(result);
+            console.log(result);
 
             const message = result.replace(/\d+$/, '');
             const number = result.replace(/\D/g, '');
 
-           //잔여수량 보다 주문수량이 많을 시
-           if(message == 'excess_quantity'){
+            //잔여수량 보다 주문수량이 많을 시
+            if(message == 'excess_quantity'){
 
-               productQty.innerText = number;
+                productQty.innerText = number;
 
-               if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
-                   postPaymentToServer(payData);
-               }
-                   document.getElementById('+').disabled = true;
-           }
-           
-           //재고 없을 시
+                if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
+                    postPaymentToServer(payData);
+                }
+                document.getElementById('+').disabled = true;
+            }
+
+            //재고 없을 시
             if(message == 'quantity_exhaustion'){
                 alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
             }
-            
+
             //DB저장에 성공했을 시
             if(result == 'success'){
                 alert('주문서 페이지로 이동합니다.');
                 //form데이터 merchantUid를 order페이지에 보낸다
                 document.getElementById('merchantUid').value = merchant_uid;
                 document.getElementById('orderMoveForm').submit();
-                
+
             }
 
         });
@@ -280,39 +280,97 @@ async function postPaymentToServer(payData){
 }
 
 // 리뷰 도움돼요 버튼
-let countValue = 0;
-let status = false; //현재 도움돼요 버튼 증가 여부
+const likeBtn = document.querySelectorAll('.likeBtn');
 
-let count = document.getElementById('count');
-document.getElementById('goodBtn').addEventListener('click', ()=>{
+likeBtn.forEach(button =>{
+    button.addEventListener('click', (e)=>{
+        if(customerId == null){
+            alert("로그인 후 클릭 가능합니다.");
+        }else{
+            let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
+            let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
+            console.log(dataType);
+            console.log(reviewId);
+            const data = {
+                customerId : customerId,
+                reviewId : reviewId
+            }
+            reviewLikeUpdateFromServer(dataType,data).then(result=>{
+                if(result === "등록성공"){
+                    //버튼 바뀌게 추가 + count 1증가
+                    document.getElementById('likeBtn').style.backgroundColor="red";
+                }else{
+                    document.getElementById('likeBtn').style.backgroundColor="blue";
+                }
 
-    if(customerId == null){
-        alert("로그인 후 클릭 가능합니다.");
-    }else{
-       if(status){
-           countValue--;
-           status = false;
-       } else {
-         countValue++;
-         status = true;
-       }
-       count.innerText = countValue;
-    }
+            });
+        }
+    });
 });
 
-// // 도움돼요 버튼 count 값 db 저장
-// async function goodCountUpdateServer(customerId, productId, reviewId){
-//     try {
-//         const response = await fetch('/product/detail?customerId=${customerId}&productId=${productId}&reviewId=${reviewId}', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//         });
-//         const result = await response.text();
-//         return result;
-//     }catch (error){
-//         console.log("error");
+
+async function reviewLikeUpdateFromServer(type, data){
+    try {
+        const url = "/product/reviewLikeRegister";
+        const config = {
+            method : type,
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }
+        const resp = await fetch(url, config);
+        const result = resp.text();
+        return result;
+    }catch (e){
+        console.log(e);
+    }
+}
+
+// // 리뷰 도움돼요 버튼
+// const likeBtn = document.querySelectorAll('.likeBtn');
+//
+// likeBtn.forEach(button =>{
+//     let countValue = 0;
+//     let status = false; //현재 도움돼요 버튼 증가 여부
+//     let likeCount = button.querySelector('.count');
+//
+//     button.addEventListener('click', ()=>{
+//
+//         if(customerId == null){
+//             alert("로그인 후 클릭 가능합니다.");
+//         }else{
+//            if(status){
+//                countValue--;
+//            } else {
+//              countValue++;
+//            }
+//             likeCount.innerText = countValue;
+//            status = !status; //현재 상태에서 반전시키기
+//         }
+//     });
+// });
+
+// // 포토리뷰 리스트 뿌리기(최대 6장)
+// let cnt = 0;
+// let reviewImg = document.querySelector('.reviewImg');
+//
+// for(let i=0; i<rvoList.length; i++){
+//     if(rvoList[i].reviewImageVOList != null){
+//         let imgCnt = 0;
+//         for(let j=0; j<rvoList[i].reviewImageVOList.length; j++){
+//             let imgList = rvoList[i].reviewImageVOList[j];
+//             if(imgList.length>0 && imgCnt<1){ // 해당 번지에서 이미지가 있고 이미지 카운트가 1 이하인 경우만
+//                 let img = imgList[0]; //각 번지에서 첫번째 사진만 가져옴(사진3개있어도 1개만)
+//                 let imgSetting = `<img src="${img.reviewImage}" alt="">`;
+//                 cnt++; //전체 이미지 cnt증가
+//                 imgCnt++; //해당 번지 이미지 cnt증가
+//
+//                 reviewImg.innerHTML += imgSetting;
+//             }
+//         }
+//     }
+//     if(cnt >= 6){ //화면에 최대 6개까지만 뿌릴거임
+//         break;
 //     }
 // }
-

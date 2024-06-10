@@ -21,7 +21,8 @@ public class ProductServiceImple implements ProductService{
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
     private final SlangMapper slangMapper;
     private final ReviewMapper reviewMapper;
-    private final CustomerMapper customerMapper;
+    private final ReviewImageMapper reviewImageMapper;
+    private final ReviewLikeMapper reviewLikeMapper;
 
     @Transactional
     @Override
@@ -38,7 +39,7 @@ public class ProductServiceImple implements ProductService{
             for(ProductDetailImageVO image : productDTO.getImageList()){
                 image.setProductId(productId);
 
-        log.info(">>>>세부이미지 리스트>>>>>{}",image);
+                log.info(">>>>세부이미지 리스트>>>>>{}",image);
 
                 productDetailImageMapper.insert(image);
             }
@@ -98,26 +99,15 @@ public class ProductServiceImple implements ProductService{
 
     @Override
     public List<ReviewVO> getReview(long id) {
-        return reviewMapper.getReview(id);
+        List<ReviewVO> rvo = reviewMapper.getReview(id);
+
+        for(ReviewVO review : rvo){
+            review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
+            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
+        }
+        log.info("rvo >> {}", rvo);
+        return rvo;
     }
 
-    @Override
-    public CustomerVO getNickName(String customerId) {
-        CustomerVO cvo = reviewMapper.getNickName(customerId);
-        log.info("service cvo check >>{}",cvo);
-        return cvo;
-    }
 
-//    @Override
-//    public ReviewImageVO getReviewImg(long review_id) {
-//        return reviewMapper.getReviewImg(review_id);
-//    }
-
-    public List<ProductVO> getProductList(ListPagingVO pgvo) {
-            return productMapper.getList(pgvo);
-    }
-    @Override
-    public int getTotalCount(ListPagingVO pgvo) {
-        return productMapper.getTotalCount(pgvo);
-    }
 }
