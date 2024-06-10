@@ -8,8 +8,7 @@ public interface ProductService {
     int insert(ProductDTO productDTO);
 
     ProductDTO getDetail(String customerId, long id);
-
-
+    
     ProductDTO getProductCategoryList();
 
     int slangPost(SlangVO slangVO);
@@ -20,4 +19,7 @@ public interface ProductService {
 
     List<ReviewVO> getReview(long id);
 
+    int getTotalCount(ListPagingVO pgvo);
+
+    List<ProductVO> getProductList(ListPagingVO pgvo);
 }

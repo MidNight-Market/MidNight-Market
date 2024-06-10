@@ -5,6 +5,18 @@
     <title>myPage</title>
     <style>
 
+        @font-face {
+            font-family: 'NotoSans KR';
+            src: url("/dist/font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
+        }
+
+        #myPageBody{
+            font-family: 'NotoSans KR', serif ;
+            color: black;
+            background-color: rgb(247, 247, 247);
+            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
+        }
+
         .mypage0 {
             width: 1050px;
             margin: 100px auto;
@@ -23,7 +35,7 @@
             padding: 20px;
             margin-bottom: 30px;
             margin-right: 20px;
-            border: 2px solid gray;
+            /*border: 2px solid gray;*/
             border-radius: 5px;
         }
 
@@ -195,11 +207,11 @@
             display: flex;
         }
 
-        li {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
+        /*li {*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    position: relative;*/
+        /*}*/
 
         .mypage2_text4 {
             margin: 0 20px;
@@ -239,7 +251,7 @@
     <link rel="stylesheet" th:href="@{/dist/css/myPage/review.css}">
 </head>
 
-<body>
+<body id="myPageBody">
 <div class="mypage0">
     <div id="mypage1" class="mypage1">
         <div class="mypage1-1">
