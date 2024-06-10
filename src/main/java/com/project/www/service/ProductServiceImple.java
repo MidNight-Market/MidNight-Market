@@ -113,5 +113,11 @@ public class ProductServiceImple implements ProductService{
 //        return reviewMapper.getReviewImg(review_id);
 //    }
 
-
+    public List<ProductVO> getProductList(ListPagingVO pgvo) {
+            return productMapper.getList(pgvo);
+    }
+    @Override
+    public int getTotalCount(ListPagingVO pgvo) {
+        return productMapper.getTotalCount(pgvo);
+    }
 }

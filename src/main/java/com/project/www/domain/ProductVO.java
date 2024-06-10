@@ -2,6 +2,7 @@ package com.project.www.domain;
 
 import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @ToString
@@ -22,6 +23,7 @@ public class ProductVO {
     private String mainImage;
     private String thumbImage;
     private String sellerId;
+    private long reviewCount;
 
 
 }

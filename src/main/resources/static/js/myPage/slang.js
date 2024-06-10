@@ -16,7 +16,7 @@ function spreadMySlangProductList(customerId) {
         console.log(result);
         let div = document.getElementById('slangPage');
         div.innerHTML = '';
-        let str = `<span style="font-weight: bold; margin-bottom: 10px">전체 ${result.length}개</span> `;
+        let str = `<span style="font-weight: 700; font-size: 18px; margin-bottom: 26px">전체 ${result.length}개</span> `;
         if (result.length > 0) {
             result.forEach((productVO) => {
 
@@ -29,7 +29,7 @@ function spreadMySlangProductList(customerId) {
                 str += `</a>`;
                 str += `<div class="description-box">`;
                 str += `<div class="product-info">`;
-                str += `<a style="font-weight: 520; color: inherit; margin-bottom: 10px; display: block;" href="/product/detail?id=${productVO.id}">${productVO.name}</a>`;
+                str += `<a style="font-weight: 500; font-size: 14px; color: inherit; margin-bottom: 10px; display: block;" href="/product/detail?id=${productVO.id}">${productVO.name}</a>`;
                 if(productVO.discountRate === 0){
                 str += `<span class="price-text">${price}</span>`;
                 }else{

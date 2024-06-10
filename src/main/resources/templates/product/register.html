@@ -1,67 +1,182 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <th:block th:replace="~{header :: header}"></th:block>
 
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 <style>
-  .container{
-    border: 1px solid black;
+  @font-face {
+    font-family: 'NotoSans KR';
+    src: url("/dist/font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
+  }
+
+  /* 폰트 깨짐 방지 */
+  p, a, h1, h2, h3, h4, h5, h6, ul, li, tr, td, input, select, textarea, button, figure, blockquote{
+    transform: skew(-0.1deg);
+  }
+  #register-body{
+    font-family: "NotoSans KR",serif;
+  }
+
+
+  .product-register-container{
     margin: auto;
-    width: 500px;
+    width: 940px;
     height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .standard-info-box{
+    width: 940px;
+    height: 50px;
+    background-color: lightgrey;
+    margin: 24px auto 35px;
+    font-size: 23px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 50px;
+  }
+
+
+  .register-box{
+    /*background-color: skyblue;*/
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .right-box{
+    width: 15%;
+    height: 50px;
+    /*background-color: rebeccapurple;*/
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgrey;
+  }
+  .right-box span{
+    margin-left: 17px;
+  }
+  .left-box{
+    width: 343px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid lightgrey;
   }
 </style>
+</head>
 
+<body id="register-body">
+
+<div class="standard-info-box"> <h1>기본정보</h1></div>
 
   <form href="/product/register" method="post" enctype="multipart/form-data">
-<div class="container">
+<div class="product-register-container">
 
-  <h1>상품등록 페이지</h1>
-
-  <div>
-    <!-- 로그인하면 로그인에 user명 붙여주면 될듯 -->
-    판매자명 : <input type="text" value="dbscksdnd" name="sellerId"  readonly>
-
-  </div>
-  <div>
-    상품명 : <input type="text" name="name">
+  <div class="register-box">
+    <div class="right-box">
+      <span>상품코드</span>
+    </div>
+    <div class="left-box">
+      <span>자동증가</span>
+    </div>
   </div>
 
-  <div style="display: flex">
-    상품 카테고리 :
-    <select class="form-select" aria-label="Default select example" id="categorySelect" onchange="updateCategoryOptions()">
-      <option selected>---------</option>
-
-      <th:block th:each="productCategory:${productDTO.pcList}" >
-        <option th:value="${productCategory.id}">[[${productCategory.name}]]</option>
-      </th:block>
-
-    </select>
-    세부 카테고리 :
-    <select class="form-select" aria-label="Default select example" id="categoryDetailSelect" name="productCategoryDetailId">
-      <option selected>---------</option>
-    </select>
+  <div class="register-box">
+    <div class="right-box">
+      <span>판매자명</span>
+    </div>
+    <div class="left-box">
+      <label>
+        <input type="text" value="dbscksdnd" name="sellerId"  readonly>
+      </label>
+    </div>
   </div>
+
+  <div class="register-box">
+    <div class="right-box">
+      <span>상품명</span>
+    </div>
+    <div class="left-box">
+      <label>
+        <input type="text" name="name"> <span>(</span><span>0</span><span>/45)</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="register-box">
+    <div class="right-box">
+      <span>상품요약설명</span>
+    </div>
+    <div class="left-box">
+      <label>
+        <input type="text" name="description">
+      </label>
+    </div>
+  </div>
+
+  <div class="register-box">
+    <div class="right-box">
+      <span>가격</span>
+    </div>
+    <div class="left-box">
+      <label>
+        <input type="text" name="price">
+      </label>
+    </div>
+  </div>
+
+  <div class="register-box">
+    <div class="right-box">
+      <span>수량</span>
+    </div>
+    <div class="left-box">
+      <label>
+        <input type="text" name="totalQty">
+      </label>
+    </div>
+  </div>
+
+  <div class="register-box">
+    <div class="right-box">
+      <span>카테고리</span>
+    </div>
+    <div class="left-box">
+      <select class="form-select" aria-label="Default select example" id="categorySelect" onchange="updateCategoryOptions()">
+        <option selected>---------</option>
+        <th:block th:each="productCategory:${productDTO.pcList}" >
+          <option th:value="${productCategory.id}">[[${productCategory.name}]]</option>
+        </th:block>
+      </select>
+    </div>
+  </div>
+
+  <div class="register-box">
+    <div class="right-box">
+      <span>세부카테고리</span>
+    </div>
+    <div class="left-box">
+      <select class="form-select" aria-label="Default select example" id="categoryDetailSelect" name="productCategoryDetailId">
+        <option selected>---------</option>
+      </select>
+    </div>
+  </div>
+
+
+
 
   <div>
     상품 대표 이미지 (1개) : <input type="file" name="file">
   </div>
 
-  <div>
-    상품 설명 : <input type="text" name="description">
-  </div>
-
-  <div>
-    상품개수 : <input type="number" name="totalQty">
-    <!-- 품절일 경우 알림기능 추가, 상품 수정페이지에 상품 개수 추가 설정 -->
-  </div>
-
-  <div>
-    상품 가격 : <input type="number" name="price">
-  </div>
 
 
   <div>
@@ -90,5 +205,5 @@
 </script>
 
 <script th:src="@{/js/productRegister.js}"></script>
-
+</body>
 <th:block th:replace="~{footer :: footer}"></th:block>
