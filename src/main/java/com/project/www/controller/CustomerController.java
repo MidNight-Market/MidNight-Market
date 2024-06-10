@@ -27,11 +27,15 @@ public class CustomerController {
 
     @PostMapping("/insert")
     public String insert(CustomerVO cvo) {
+        log.info("cvo 값 확인 {}", cvo);
         cvo.setPw(bCryptPasswordEncoder.encode(cvo.getPw()));
         cvo.setProvider("form");
         cvo.setProviderId(cvo.getId());
         cvo.setRole("ROLE_USER");
-        csv.insert(cvo);
+        int isOk = csv.insert(cvo);
+        if(isOk > 0){
+            return "/customer/success";
+        }
         return "index";
     }
 
@@ -60,7 +64,6 @@ public class CustomerController {
 
     @GetMapping("/changePw")
     public void changePw() {
-        log.info("test");
     }
 
     @GetMapping("/findId")

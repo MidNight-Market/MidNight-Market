@@ -2,10 +2,9 @@ package com.project.www.service;
 
 import com.project.www.domain.ReviewDTO;
 import com.project.www.domain.ReviewImageVO;
-import com.project.www.domain.ReviewLikeVO;
 import com.project.www.repository.OrdersMapper;
+import com.project.www.repository.ProductMapper;
 import com.project.www.repository.ReviewImageMapper;
-import com.project.www.repository.ReviewLikeMapper;
 import com.project.www.repository.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ public class ReviewServiceImple implements ReviewService{
     private final ReviewMapper reviewMapper;
     private final OrdersMapper ordersMapper;
     private final ReviewImageMapper reviewImageMapper;
-    private final ReviewLikeMapper reviewLikeMapper;
+    private final ProductMapper productMapper;
 
     @Transactional
     @Override
@@ -39,19 +38,14 @@ public class ReviewServiceImple implements ReviewService{
             }
 
             reviewImageMapper.register(reviewDTO.getReviewImageVOList());
-
             }
 
+            //리뷰 카운트 추가
+            productMapper.reviewCountUpdate(reviewDTO.getReviewVO().getProductId());
+            
             return ordersMapper.isReviewCommentUpdate(reviewDTO.getReviewVO());
         }
 
         return 0;
     }
-
-    @Override
-    public String registerLike(ReviewLikeVO reviewLikeVO) {
-        int isOK = reviewLikeMapper.registerLike(reviewLikeVO);
-        return isOK>0 ? "등록성공":"등록실패";
-    }
-
 }

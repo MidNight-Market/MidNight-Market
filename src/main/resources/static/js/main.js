@@ -55,3 +55,5 @@ startAutoSlide();
 
 slideImgInner.addEventListener('mouseover', stopAutoSlide);
 slideImgInner.addEventListener('mouseout', startAutoSlide);
+
+

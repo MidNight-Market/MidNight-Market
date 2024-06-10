@@ -1,6 +1,7 @@
 package com.project.www.controller;
 
 import com.project.www.config.oauth2.PrincipalDetails;
+import com.project.www.config.oauth2.SellerPrincipalDetails;
 import com.project.www.domain.ProductVO;
 import com.project.www.service.IndexService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,14 +25,17 @@ public class IndexController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
-    public String index(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
+    public String index(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal, @AuthenticationPrincipal SellerPrincipalDetails sellerPrincipalDetails) {
 
-        List<ProductVO> newProductList = isv.getNewProductList();
-        List<ProductVO> heavySoldList = isv.getHeavySoldList();
-        List<ProductVO> discountProductList = isv.getDiscountProductList();
+        List<ProductVO> newProductList = isv.getIndexNewProductList();
+        List<ProductVO> heavySoldList = isv.getIndexHeavySoldList();
+        List<ProductVO> discountProductList = isv.getIndexDiscountProductList();
+        if(sellerPrincipalDetails != null){
+            HttpSession ses = request.getSession();
+            ses.setAttribute("name", sellerPrincipalDetails.getShopName());
+            ses.setAttribute("id", sellerPrincipalDetails.getUsername());
+        }
         if (principal != null) {
-//            model.addAttribute("name", principal.getNickName());
-//            model.addAttribute("id",principal.getUsername());
             HttpSession ses = request.getSession();
             ses.setAttribute("name", principal.getNickName());
             ses.setAttribute("id", principal.getUsername());

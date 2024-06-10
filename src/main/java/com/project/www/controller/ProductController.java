@@ -2,6 +2,7 @@ package com.project.www.controller;
 
 import com.project.www.domain.*;
 import com.project.www.handler.FileHandler;
+import com.project.www.handler.ListPagingHandler;
 import com.project.www.service.ProductService;
     import com.project.www.service.ReviewService;
 import jakarta.servlet.http.HttpSession;
@@ -107,7 +108,18 @@ public class ProductController {
 
         //상품 리스트 페이지
     @GetMapping("/list")
-    public void list(Model model){
+    public void list(Model model, ListPagingVO pgvo){
+
+        int totalCount = psv.getTotalCount(pgvo);
+        log.info("pgvo확인>>>{}",pgvo);
+
+        log.info("토탈카운트 확인: >>{}",totalCount);
+
+        List<ProductVO> list = psv.getProductList(pgvo);
+        ListPagingHandler ph = new ListPagingHandler(pgvo,totalCount);
+
+        model.addAttribute("list", list);
+        model.addAttribute("ph",ph);
 
     }
 

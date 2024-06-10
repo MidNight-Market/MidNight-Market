@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @GetMapping("/form")
-    public String login(){
+    public String customerLoginForm() {
+        return "/login/login";
+    }
+
+    @GetMapping("/seller/form")
+    public String sellerLoginForm() {
         return "/login/login";
     }
 
