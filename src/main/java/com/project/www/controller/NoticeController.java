@@ -1,6 +1,8 @@
 package com.project.www.controller;
 
 import com.project.www.domain.NoticeVO;
+import com.project.www.domain.PagingVO;
+import com.project.www.handler.PagingHandler;
 import com.project.www.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +34,17 @@ public class NoticeController {
     }
 
     @GetMapping("/notice")
-    public void notice(Model m){
-        List<NoticeVO> list = nsv.getList();
+    public void notice(Model m, PagingVO pgvo){
+        List<NoticeVO> list = nsv.getList(pgvo);
+        int totalCount = nsv.getTotal(pgvo);
+
+        PagingHandler ph = new PagingHandler(pgvo, totalCount);
+
+        log.info("totalCount{}", totalCount);
+        log.info("ph{}", ph);
+
         m.addAttribute("list",list);
+        m.addAttribute("ph", ph);
     }
 
     @GetMapping("/detail")
