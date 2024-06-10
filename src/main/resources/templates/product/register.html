@@ -4,193 +4,300 @@
 <th:block th:replace="~{header :: header}"></th:block>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-<style>
-  @font-face {
-    font-family: 'NotoSans KR';
-    src: url("/dist/font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'NotoSans KR';
+            src: url("/dist/font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
+        }
 
-  /* 폰트 깨짐 방지 */
-  p, a, h1, h2, h3, h4, h5, h6, ul, li, tr, td, input, select, textarea, button, figure, blockquote{
-    transform: skew(-0.1deg);
-  }
-  #register-body{
-    font-family: "NotoSans KR",serif;
-  }
+        /* 폰트 깨짐 방지 */
+        p, a, h1, h2, h3, h4, h5, h6, ul, li, tr, td, input, select, textarea, button, figure, blockquote {
+            transform: skew(-0.1deg);
+        }
 
-
-  .product-register-container{
-    margin: auto;
-    width: 940px;
-    height: 700px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 15px;
-    font-weight: 400;
-  }
-  .standard-info-box{
-    width: 940px;
-    height: 50px;
-    background-color: lightgrey;
-    margin: 24px auto 35px;
-    font-size: 23px;
-    font-weight: 600;
-    text-align: center;
-    line-height: 50px;
-  }
+        #register-body {
+            font-family: "NotoSans KR", serif;
+        }
 
 
-  .register-box{
-    /*background-color: skyblue;*/
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-  }
-  .right-box{
-    width: 15%;
-    height: 50px;
-    /*background-color: rebeccapurple;*/
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid lightgrey;
-  }
-  .right-box span{
-    margin-left: 17px;
-  }
-  .left-box{
-    width: 343px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid lightgrey;
-  }
-</style>
+        .product-register-container {
+            margin: 74px auto 0;
+            width: 940px;
+            min-height: 874px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .standard-info-box {
+            width: 940px;
+            height: 50px;
+            background-color: lightgrey;
+            margin: 24px auto 35px;
+            font-size: 23px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 50px;
+        }
+
+
+        .register-box {
+            /*background-color: skyblue;*/
+            width: 940px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .image-register-box {
+            width: 940px;
+            height: 167px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .right-box {
+            width: 368px;
+            height: 50px;
+            /*background-color: rebeccapurple;*/
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .right-box span {
+            margin-left: 17px;
+        }
+
+        .left-box {
+            width: 343px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .image-right-box {
+            width: 368px;
+            height: 167px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .image-left-box {
+            width: 343px;
+            height: 167px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
+        }
+        .desc-image-register-box {
+            width: 940px;
+            height: 274px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .desc-image-left-box {
+            width: 343px;
+            height: 274px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .desc-image-right-box {
+            width: 368px;
+            height: 274px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        input {
+            height: 27px;
+        }
+
+        .input-width {
+            width: 274px;
+        }
+
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            width: 112px;
+        }
+
+        .button-box{
+            margin-top: 56px;
+            width: 400px;
+            height: 47px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .selectOne-button{
+            width: 178px;
+            height: 47px;
+            background-color: white;
+            border: 1px solid lightgray;
+            font-weight: 500;
+        }
+        .selectOne-button:last-child{
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
 </head>
 
 <body id="register-body">
 
-<div class="standard-info-box"> <h1>기본정보</h1></div>
+<div class="standard-info-box"><h1>상품 등록</h1></div>
 
-  <form href="/product/register" method="post" enctype="multipart/form-data">
-<div class="product-register-container">
+<form href="/product/register" method="post" enctype="multipart/form-data">
+    <div class="product-register-container">
 
-  <div class="register-box">
-    <div class="right-box">
-      <span>상품코드</span>
+        <div class="register-box">
+            <div class="right-box">
+                <span>판매자명</span>
+            </div>
+            <div class="left-box">
+                <label>
+                    <input type="text" value="dbscksdnd" name="sellerId" readonly>
+                </label>
+            </div>
+        </div>
+
+        <div class="register-box">
+            <div class="right-box">
+                <span>상품명</span>
+            </div>
+            <div class="left-box">
+                <label>
+                    <input id="product-name-input" class="input-width" type="text" name="name"> &nbsp;
+                    <span>(</span><span id="product-name-length">0</span><span>/25)</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="register-box">
+            <div class="right-box">
+                <span>상품요약설명</span>
+            </div>
+            <div id="product-description-input" class="left-box">
+                <label>
+                    <input class="input-width" type="text" name="description"> &nbsp; <span>(</span><span
+                        id="product-description-length">0</span><span>/45)</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="register-box">
+            <div class="right-box">
+                <span>가격</span>
+            </div>
+            <div class="left-box">
+                <label>
+                    <input type="number" name="price"> &nbsp; <span>원</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="register-box">
+            <div class="right-box">
+                <span>수량</span>
+            </div>
+            <div class="left-box">
+                <label>
+                    <input type="number" name="totalQty"> &nbsp; <span>개</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="register-box">
+            <div class="right-box">
+                <span>카테고리</span>
+            </div>
+            <div class="left-box">
+                <select class="form-select" aria-label="Default select example" id="categorySelect"
+                        onchange="updateCategoryOptions()">
+                    <option selected>---------</option>
+                    <th:block th:each="productCategory:${productDTO.pcList}">
+                        <option th:value="${productCategory.id}">[[${productCategory.name}]]</option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+
+        <div class="register-box">
+            <div class="right-box">
+                <span>세부카테고리</span>
+            </div>
+            <div class="left-box">
+                <select class="form-select" aria-label="Default select example" id="categoryDetailSelect"
+                        name="productCategoryDetailId">
+                    <option selected>---------</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="image-register-box">
+            <div class="image-right-box">
+                <div>
+                    <p style="margin-bottom: 27px">상품 대표 이미지</p>
+                    <p style="margin-bottom: 6px; font-size: 12px;">505 * 708 Size 권장</p>
+                    <p style="margin-bottom: 16px; font-size: 12px">(최대 1개 등록 가능)</p>
+                    <input type="file" name="file" id="file" accept="image/*">
+                </div>
+            </div>
+            <div class="image-left-box">
+                <div id="fileList" style="margin: 10px auto"></div>
+            </div>
+        </div>
+
+        <div class="desc-image-register-box">
+            <div class="desc-image-right-box">
+                <div>
+                    <p style="margin-bottom: 27px">상품 상세 이미지</p>
+                    <p style="margin-bottom: 16px; font-size: 12px">(최대 3개 등록 가능)</p>
+                    <input type="file" name="files" id="files" multiple="multiple" accept="image/*" style="margin-bottom: 16px">
+
+                    <div>
+                        <p style="font-size: 13px; margin-bottom: 5px;">상품이미지 표시 순서를 위해</p>
+                        <p style="font-size: 13px; margin-bottom: 5px;">이미지 마지막에 순서를 붙여주세요.</p>
+                        <p style="font-size: 13px; margin-bottom: 5px;">ex)image1.jpg, image2.jpg</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="desc-image-left-box">
+                <div id="filesList" style="margin: 10px auto;" ></div>
+            </div>
+        </div>
+
+        <div class="button-box">
+        <button class="selectOne-button" id="cancel-button" href="/"  type="button">취소</button>
+        <button class="selectOne-button" type="submit">상품등록</button>
+        </div>
+
     </div>
-    <div class="left-box">
-      <span>자동증가</span>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>판매자명</span>
-    </div>
-    <div class="left-box">
-      <label>
-        <input type="text" value="dbscksdnd" name="sellerId"  readonly>
-      </label>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>상품명</span>
-    </div>
-    <div class="left-box">
-      <label>
-        <input type="text" name="name"> <span>(</span><span>0</span><span>/45)</span>
-      </label>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>상품요약설명</span>
-    </div>
-    <div class="left-box">
-      <label>
-        <input type="text" name="description">
-      </label>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>가격</span>
-    </div>
-    <div class="left-box">
-      <label>
-        <input type="text" name="price">
-      </label>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>수량</span>
-    </div>
-    <div class="left-box">
-      <label>
-        <input type="text" name="totalQty">
-      </label>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>카테고리</span>
-    </div>
-    <div class="left-box">
-      <select class="form-select" aria-label="Default select example" id="categorySelect" onchange="updateCategoryOptions()">
-        <option selected>---------</option>
-        <th:block th:each="productCategory:${productDTO.pcList}" >
-          <option th:value="${productCategory.id}">[[${productCategory.name}]]</option>
-        </th:block>
-      </select>
-    </div>
-  </div>
-
-  <div class="register-box">
-    <div class="right-box">
-      <span>세부카테고리</span>
-    </div>
-    <div class="left-box">
-      <select class="form-select" aria-label="Default select example" id="categoryDetailSelect" name="productCategoryDetailId">
-        <option selected>---------</option>
-      </select>
-    </div>
-  </div>
-
-
-
-
-  <div>
-    상품 대표 이미지 (1개) : <input type="file" name="file">
-  </div>
-
-
-
-  <div>
-    (상품이미지 표시 순서를 위해 이미지 마지막에 순서를 붙여주세요. => 1부터 시작 ex)image1.jpg, image2.jpg)
-    <div>
-
-    </div>
-    상품정보이미지(여러개) : <input type="file" name="files" multiple="multiple">
-  </div>
-
-  <button type="submit">상품등록</button>
-
-</div>
-  </form>
+</form>
 
 <!--
 메인이미지 안넣을 경우 버튼 비활성화
@@ -201,7 +308,7 @@
 
 
 <script th:inline="javascript">
-  const productDTO = [[${productDTO}]];
+    const productDTO = [[${productDTO}]];
 </script>
 
 <script th:src="@{/js/productRegister.js}"></script>

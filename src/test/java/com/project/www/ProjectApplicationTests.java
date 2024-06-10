@@ -41,10 +41,10 @@ class ProjectApplicationTests {
 					.price(10000)
 					.discountPrice(10000)
 					.productCategoryDetailId(3)
-					.description("녹진하고 고소한 죽"+i)
+					.description("석류 착즙주스 1L"+i)
 					.totalQty(7)
-					.mainImage("/upload/2024\\06\\08/71783d88-8214-4519-8930-961656041572_main.jpg")
-					.thumbImage("/upload/2024\\06\\08/71783d88-8214-4519-8930-961656041572_th_main.jpg")
+					.mainImage("/upload/2024\\06\\10/686f498b-5122-4681-81b0-75ad543281a5_main.jpg")
+					.thumbImage("/upload/2024\\06\\10/686f498b-5122-4681-81b0-75ad543281a5_th_main.jpg")
 					.sellerId("dbscksdnd")
 					.build();
 
