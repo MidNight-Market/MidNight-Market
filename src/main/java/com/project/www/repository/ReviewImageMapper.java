@@ -9,4 +9,6 @@ import java.util.List;
 public interface ReviewImageMapper {
 
     void register(List<ReviewImageVO> reviewImageVOList);
+
+    List<ReviewImageVO> getReviewImgList(long id);
 }

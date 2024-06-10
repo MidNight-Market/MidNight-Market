@@ -164,6 +164,7 @@ document.getElementById('register-button').addEventListener('click', () => {
     data.append('customerId', customerId);
     data.append('productId', productId);
     data.append('ordersId', ordersId);
+    data.append('nickName', nickName);
 
     // 파일 추가
     const files = document.getElementById('files').files;
