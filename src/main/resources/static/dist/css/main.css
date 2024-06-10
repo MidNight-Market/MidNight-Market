@@ -12,10 +12,6 @@
     src: url("../font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
 }
 
-/* 폰트 깨짐 방지 */
-p, a, h1, h2, h3, h4, h5, h6, ul, li, tr, td, input, select, textarea, button, figure, blockquote{
-    transform: skew(-0.1deg);
-}
 
 .mainBox{
     font-family: 'NotoSans KR', serif ;

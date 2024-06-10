@@ -1,4 +1,14 @@
 
+@font-face {
+    font-family: 'NotoSans KR';
+    src: url("../font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
+}
+
+
+#help-body{
+    font-family: 'NotoSans KR', serif ;
+    color: black;
+}
 
 .con{
     margin: 0 0 150px;
