@@ -89,10 +89,19 @@
     </div>
     <form action="/customer/insert" method="post">
         <div class="mb-3" id="mail_input" name="mail_input">
-            <label for="customerEmail" class="form-label">이메일</label>
-            <input type="email" name="id" id="customerEmail" placeholder="이메일 입력" class="form-control">
-            <button type="button" id="checkBtn" class="btn btn-primary">중복체크</button>
-            <button type="button" id="sendBtn" name="sendBtn" class="btn btn-primary" style="display: none">인증번호</button>
+            아이디 : <input type="text" id="idF"> @ <input type="text" id="idB">
+            <select name="emailDomain" id="emailDomain" onchange="changeVal()">
+                <option name="emailDomain" value="">직접입력</option>
+                <option name="emailDomain" value="gmail.com">gmail.com</option>
+                <option name="emailDomain" value="naver.com">naver.com</option>
+                <option name="emailDomain" value="kakao.com">kakao.com</option>
+                <option name="emailDomain" value="daum.net">daum.net</option>
+                <option name="emailDomain" value="hanmail.net">hanmail.net</option>
+                <option name="emailDomain" value="hotmail.com">hotmail.com</option>
+            </select>
+            <input type="hidden" name="id" id="customerEmail">
+            <button type="button" id="checkBtn">중복체크</button>
+            <button type="button" id="sendBtn" name="sendBtn" style="display: none">인증번호</button>
         </div>
         <br>
         <div id="mail_number" name="mail_number" style="display: none">
@@ -115,7 +124,7 @@
         <div class="mb-3">
             <label for="n" class="form-label">닉네임</label>
             <input type="text" class="form-control" name="nickName" id="n" placeholder="닉네임을 입력해주세요.">
-            <button class="btn btn-primary" id="checkNick" type="button">중복확인</button>
+            <button id="checkNick" type="button">중복확인</button>
         </div>
         <hr>
         <div class="signupCheck">

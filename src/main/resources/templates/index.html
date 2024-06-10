@@ -175,6 +175,8 @@
 </main>
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
+    const role = [[${session.role}]];
+    console.log(role);
 </script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>

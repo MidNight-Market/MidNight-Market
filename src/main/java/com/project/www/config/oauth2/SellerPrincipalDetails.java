@@ -1,35 +1,18 @@
 package com.project.www.config.oauth2;
 
-import com.project.www.domain.CustomerVO;
-import lombok.extern.slf4j.Slf4j;
+import com.project.www.domain.SellerVO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
-@Slf4j
-public class PrincipalDetails implements UserDetails, OAuth2User {
+public class SellerPrincipalDetails implements UserDetails {
 
-    private final CustomerVO cvo;
-    private Map<String, Object> attributes;
+    private final SellerVO svo;
 
-    //일반로그인
-    public PrincipalDetails(CustomerVO cvo){
-        this.cvo = cvo;
-    }
-    //OAuth 로그인
-    public PrincipalDetails(CustomerVO cvo, Map<String, Object> attributes){
-        this.cvo = cvo;
-        this.attributes = attributes;
-    }
-
-
-    @Override
-    public Map<String, Object> getAttributes() {
-        return attributes;
+    public SellerPrincipalDetails(SellerVO svo) {
+        this.svo = svo;
     }
 
     @Override
@@ -38,7 +21,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         collect.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return cvo.getRole();
+                return svo.getRole();
             }
         });
         return collect;
@@ -46,16 +29,15 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getPassword() {
-        return cvo.getPw();
+        return svo.getPw();
     }
 
     @Override
     public String getUsername() {
-        return cvo.getId();
+        return svo.getId();
     }
-
-    public String getNickName(){
-        return cvo.getNickName();
+    public String getShopName(){
+        return svo.getShopName();
     }
 
     @Override
@@ -76,14 +58,5 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    public String getAuth(){
-        return cvo.getRole();
     }
 }
