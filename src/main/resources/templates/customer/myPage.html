@@ -530,6 +530,8 @@
 
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
+    const nickName = [[${session.name}]];
+    console.log(nickName);
 </script>
 <script th:src="@{/js/myPage/slang.js}"></script>
 <script th:src="@{/js/myPage/purchasedProduct.js}"></script>

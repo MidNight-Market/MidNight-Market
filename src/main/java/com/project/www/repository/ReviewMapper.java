@@ -1,7 +1,5 @@
 package com.project.www.repository;
 
-import com.project.www.domain.CustomerVO;
-import com.project.www.domain.ReviewImageVO;
 import com.project.www.domain.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,7 +11,4 @@ public interface ReviewMapper {
 
     List<ReviewVO> getReview(long id);
 
-    CustomerVO getNickName(String customerId);
-
-//    ReviewImageVO getReviewImg(long review_id);
 }

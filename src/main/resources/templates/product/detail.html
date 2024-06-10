@@ -62,17 +62,20 @@
                     </div>
 
                     <div class="buy-or-pick-box">
-                        <button class="like-button" id="slangBtn" th:attr="data-type=${productDTO.slangVO == null ? 'post' : 'delete'}"}>
+                        <button class="like-button" id="slangBtn"
+                                th:attr="data-type=${productDTO.slangVO == null ? 'post' : 'delete'}" }>
                             <th:block th:if="${productDTO.slangVO == null}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
-                                 class="bi bi-suit-heart" viewBox="0 0 16 16">
-                                <path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
-                            </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                     class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                    <path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
+                                </svg>
                             </th:block>
                             <th:block th:if="${productDTO.slangVO != null}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgba(255, 0, 0, 0.685)"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="rgba(255, 0, 0, 0.685)"
                                      class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                    <path fill-rule="evenodd"
+                                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                 </svg>
                             </th:block>
                         </button>
@@ -109,7 +112,7 @@
             <p>상품후기</p>
             <div class="review">
                 <p>포토리뷰</p>
-                <button type="button" class="imgDetailBtn" onclick="openWindow()">더보기 ></button>
+                <button type="button" class="imgDetailBtn">더보기 ></button>
             </div>
 
             <div class="detailReviewBox">
@@ -119,30 +122,99 @@
                 </div>
 
                 <div class="reviewImg">
-                    <a href="#"><img src="" alt=""></a>
+                    <img src="" alt="">
                 </div>
 
+                <!--별점-->
                 <div class="review" th:each="rev : ${rvo}">
                     <div>
-                        <p>작성자닉네임</p>
+                        <p>[[${rev.nickName}]]</p>
                     </div>
                     <div th:switch="${rev.star}">
-                        <span th:case="10">⭐</span>
-                        <span th:case="20">⭐⭐</span>
-                        <span th:case="30">⭐⭐⭐</span>
-                        <span th:case="40">⭐⭐⭐⭐</span>
-                        <span th:case="50">⭐⭐⭐⭐⭐</span>
+                         <span th:case="5">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="10">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="15">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="20">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="25">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="30">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="35">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="40">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="45">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                        </span>
+                        <span th:case="50">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                        </span>
                     </div>
 
                     <p>상품명</p>
                     <p class="reviewContent">[[${rev.content}]]</p>
                     <div class="reviewImgDatail">
-                        <img src="" alt="">
+                        <th:block th:each="img : ${rev.reviewImageVOList}">
+                            <img th:src="${img.reviewImage}" alt="">
+                        </th:block>
                     </div>
                     <div class="date">[[${rev.registerDate}]]
-                        <button type="button" id="goodBtn">도움돼요
+                        <button type="button" id="likeBtn" class="likeBtn"
+                                th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">도움돼요
                             <img src="/dist/icon/good.png" style="width: 35px; height: 32px;">
-                            <p id="count">0</p>
+                            <p class="count">0</p>
                         </button>
                     </div>
                 </div>
@@ -156,15 +228,16 @@
 </div>
 
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">
     const productDTO = [[${productDTO}]];
     const customerId = [[${session.id}]];
     const productId = [[${productId}]];
+    const rvoList = [[${rvo}]]
     console.log(productDTO);
     console.log(customerId);
     console.log(productId);
+    console.log(rvoList);
 </script>
 <script th:src="@{/js/productDetail.js}"></script>
 </body>

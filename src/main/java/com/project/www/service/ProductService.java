@@ -20,7 +20,4 @@ public interface ProductService {
 
     List<ReviewVO> getReview(long id);
 
-    CustomerVO getNickName(String customerId);
-
-//    ReviewImageVO getReviewImg(long review_id);
 }

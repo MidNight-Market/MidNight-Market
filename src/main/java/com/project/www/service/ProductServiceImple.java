@@ -21,7 +21,8 @@ public class ProductServiceImple implements ProductService{
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
     private final SlangMapper slangMapper;
     private final ReviewMapper reviewMapper;
-    private final CustomerMapper customerMapper;
+    private final ReviewImageMapper reviewImageMapper;
+    private final ReviewLikeMapper reviewLikeMapper;
 
     @Transactional
     @Override
@@ -98,20 +99,15 @@ public class ProductServiceImple implements ProductService{
 
     @Override
     public List<ReviewVO> getReview(long id) {
-        return reviewMapper.getReview(id);
-    }
+        List<ReviewVO> rvo = reviewMapper.getReview(id);
 
-    @Override
-    public CustomerVO getNickName(String customerId) {
-        CustomerVO cvo = reviewMapper.getNickName(customerId);
-        log.info("service cvo check >>{}",cvo);
-        return cvo;
+        for(ReviewVO review : rvo){
+            review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
+            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
+        }
+        log.info("rvo >> {}", rvo);
+        return rvo;
     }
-
-//    @Override
-//    public ReviewImageVO getReviewImg(long review_id) {
-//        return reviewMapper.getReviewImg(review_id);
-//    }
 
 
 }

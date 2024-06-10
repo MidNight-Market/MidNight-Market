@@ -2,6 +2,8 @@ package com.project.www.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -17,4 +19,6 @@ public class ReviewVO {
     private String productId;
     private long ordersId;
     private String nickName;
+    private List<ReviewImageVO> reviewImageVOList;
+    private ReviewLikeVO reviewLikeVO;
 }

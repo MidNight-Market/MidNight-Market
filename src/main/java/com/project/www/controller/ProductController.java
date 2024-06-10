@@ -3,6 +3,7 @@ package com.project.www.controller;
 import com.project.www.domain.*;
 import com.project.www.handler.FileHandler;
 import com.project.www.service.ProductService;
+    import com.project.www.service.ReviewService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class ProductController {
 
     private final ProductService psv;
     private final FileHandler fileHandler;
+    private final ReviewService rsv;
 
     //상품 등록 페이지 이동
     @GetMapping("/register")
@@ -68,27 +70,20 @@ public class ProductController {
         //프린시팔로 현재 사용중인 아이디 받아야 한다
         String customerId = (String)httpSession.getAttribute("id");
         log.info("프린시팔 아이디 확인>>>{}",customerId);
-        
         log.info(">>>>Product Detail Id 확인>>>>{}",id);
-        ProductDTO productDTO = psv.getDetail(customerId ,id);
 
+        ProductDTO productDTO = psv.getDetail(customerId ,id);
         log.info(">>>DTO확인>>>>{}",productDTO);
 
         List<ReviewVO> rvo = psv.getReview(id);
-        CustomerVO cvo = psv.getNickName(customerId);
-//        ReviewImageVO rivo = psv.getReviewImg(review_id);
-        log.info(">>ReviewVo확인@@@@@@@@@>>{}",rvo);
-        log.info(">>CustomerVO확인@@@@@@@@@>>{}",cvo);
-//        log.info(">>ReviewImageVO확인@@@@@@@@@>>{}",rivo);
+        log.info(">>ReviewVO확인@@@@@@@@@>>{}",rvo);
+        model.addAttribute("rvo",rvo);
 
         model.addAttribute("productDTO",productDTO);
-
         model.addAttribute("customerId",customerId);
         model.addAttribute("productId",id);
 
-        model.addAttribute("rvo",rvo);
-        model.addAttribute("cvo",cvo);
-//        model.addAttribute("rivo",rivo);
+
     }
 
     @ResponseBody
@@ -132,4 +127,11 @@ public class ProductController {
         return psv.getMySlangProduct(customerId);
     }
 
+    @ResponseBody
+    @PostMapping("/reviewLikeRegister")
+    public String reviewRegister(@RequestBody ReviewLikeVO reviewLikeVO){
+        log.info("reviewLikeVO 확인 @@ {}",reviewLikeVO);
+
+        return rsv.registerLike(reviewLikeVO);
+    }
 }
