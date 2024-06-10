@@ -19,7 +19,7 @@ if(productDTO.productVO.totalQty === 0){
 
 // + 또는 - 를 눌렀을 경우 가격 계산 
 document.addEventListener('click', (e) => {
-    
+
     //품절일 경우 이벤트 리턴
     if(productDTO.productVO.totalQty === 0){
         return;
@@ -220,34 +220,34 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
         };
 
         postPaymentToServer(payData).then(result=>{
-           console.log(result);
+            console.log(result);
 
             const message = result.replace(/\d+$/, '');
             const number = result.replace(/\D/g, '');
 
-           //잔여수량 보다 주문수량이 많을 시
-           if(message == 'excess_quantity'){
+            //잔여수량 보다 주문수량이 많을 시
+            if(message == 'excess_quantity'){
 
-               productQty.innerText = number;
+                productQty.innerText = number;
 
-               if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
-                   postPaymentToServer(payData);
-               }
-                   document.getElementById('+').disabled = true;
-           }
-           
-           //재고 없을 시
+                if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
+                    postPaymentToServer(payData);
+                }
+                document.getElementById('+').disabled = true;
+            }
+
+            //재고 없을 시
             if(message == 'quantity_exhaustion'){
                 alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
             }
-            
+
             //DB저장에 성공했을 시
             if(result == 'success'){
                 alert('주문서 페이지로 이동합니다.');
                 //form데이터 merchantUid를 order페이지에 보낸다
                 document.getElementById('merchantUid').value = merchant_uid;
                 document.getElementById('orderMoveForm').submit();
-                
+
             }
 
         });
@@ -311,17 +311,17 @@ likeBtn.forEach(button =>{
 
 async function reviewLikeUpdateFromServer(type, data){
     try {
-    const url = "/product/reviewLikeRegister";
-    const config = {
-        method : type,
-        headers : {
-            'Content-Type': 'application/json'
-        },
-        body : JSON.stringify(data)
-    }
-    const resp = await fetch(url, config);
-    const result = resp.text();
-    return result;
+        const url = "/product/reviewLikeRegister";
+        const config = {
+            method : type,
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }
+        const resp = await fetch(url, config);
+        const result = resp.text();
+        return result;
     }catch (e){
         console.log(e);
     }
