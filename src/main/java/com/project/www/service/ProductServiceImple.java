@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class ProductServiceImple implements ProductService{
+public class ProductServiceImple implements ProductService {
 
     private final ProductMapper productMapper;
     private final ProductDetailImageMapper productDetailImageMapper;
@@ -33,13 +33,13 @@ public class ProductServiceImple implements ProductService{
 
         long productId = productMapper.getProductId();
 
-        log.info(">>>>>상품번호 마지막 가져오기>>>>>{}",productId);
+        log.info(">>>>>상품번호 마지막 가져오기>>>>>{}", productId);
 
-        if(isOK > 0){
-            for(ProductDetailImageVO image : productDTO.getImageList()){
+        if (isOK > 0) {
+            for (ProductDetailImageVO image : productDTO.getImageList()) {
                 image.setProductId(productId);
 
-                log.info(">>>>세부이미지 리스트>>>>>{}",image);
+                log.info(">>>>세부이미지 리스트>>>>>{}", image);
 
                 productDetailImageMapper.insert(image);
             }
@@ -90,7 +90,7 @@ public class ProductServiceImple implements ProductService{
 
         List<ProductVO> productVOS = new ArrayList<>();
 
-        for(SlangVO svo : slangVOS){
+        for (SlangVO svo : slangVOS) {
             productVOS.add(productMapper.getDetail(svo.getProductId()));
         }
 
@@ -101,7 +101,7 @@ public class ProductServiceImple implements ProductService{
     public List<ReviewVO> getReview(long id) {
         List<ReviewVO> rvo = reviewMapper.getReview(id);
 
-        for(ReviewVO review : rvo){
+        for (ReviewVO review : rvo) {
             review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
             review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
         }
@@ -109,5 +109,14 @@ public class ProductServiceImple implements ProductService{
         return rvo;
     }
 
+    @Override
+    public int getTotalCount(ListPagingVO pgvo) {
+        return productMapper.getTotalCount(pgvo);
+    }
 
+    @Override
+    public List<ProductVO> getProductList(ListPagingVO pgvo) {
+        return productMapper.getList(pgvo);
+
+    }
 }
