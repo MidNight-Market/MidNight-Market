@@ -1,9 +1,6 @@
 package com.project.www.service;
 
-import com.project.www.domain.ProductDTO;
-import com.project.www.domain.ProductDetailImageVO;
-import com.project.www.domain.ProductVO;
-import com.project.www.domain.SlangVO;
+import com.project.www.domain.*;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +20,8 @@ public class ProductServiceImple implements ProductService{
     private final ProductCategoryMapper productCategoryMapper;
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
     private final SlangMapper slangMapper;
+    private final ReviewMapper reviewMapper;
+    private final CustomerMapper customerMapper;
 
     @Transactional
     @Override
@@ -96,6 +95,23 @@ public class ProductServiceImple implements ProductService{
 
         return productVOS;
     }
+
+    @Override
+    public List<ReviewVO> getReview(long id) {
+        return reviewMapper.getReview(id);
+    }
+
+    @Override
+    public CustomerVO getNickName(String customerId) {
+        CustomerVO cvo = reviewMapper.getNickName(customerId);
+        log.info("service cvo check >>{}",cvo);
+        return cvo;
+    }
+
+//    @Override
+//    public ReviewImageVO getReviewImg(long review_id) {
+//        return reviewMapper.getReviewImg(review_id);
+//    }
 
 
 }

@@ -1,8 +1,6 @@
 package com.project.www.service;
 
-import com.project.www.domain.ProductDTO;
-import com.project.www.domain.ProductVO;
-import com.project.www.domain.SlangVO;
+import com.project.www.domain.*;
 
 import java.util.List;
 
@@ -19,4 +17,10 @@ public interface ProductService {
     int slangDelete(SlangVO slangVO);
 
     List<ProductVO> getMySlangProduct(String customerId);
+
+    List<ReviewVO> getReview(long id);
+
+    CustomerVO getNickName(String customerId);
+
+//    ReviewImageVO getReviewImg(long review_id);
 }

@@ -1,9 +1,6 @@
 package com.project.www.controller;
 
-import com.project.www.domain.BasketVO;
-import com.project.www.domain.ProductDTO;
-import com.project.www.domain.ProductVO;
-import com.project.www.domain.SlangVO;
+import com.project.www.domain.*;
 import com.project.www.handler.FileHandler;
 import com.project.www.service.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -77,11 +74,21 @@ public class ProductController {
 
         log.info(">>>DTO확인>>>>{}",productDTO);
 
+        List<ReviewVO> rvo = psv.getReview(id);
+        CustomerVO cvo = psv.getNickName(customerId);
+//        ReviewImageVO rivo = psv.getReviewImg(review_id);
+        log.info(">>ReviewVo확인@@@@@@@@@>>{}",rvo);
+        log.info(">>CustomerVO확인@@@@@@@@@>>{}",cvo);
+//        log.info(">>ReviewImageVO확인@@@@@@@@@>>{}",rivo);
+
         model.addAttribute("productDTO",productDTO);
 
         model.addAttribute("customerId",customerId);
         model.addAttribute("productId",id);
 
+        model.addAttribute("rvo",rvo);
+        model.addAttribute("cvo",cvo);
+//        model.addAttribute("rivo",rivo);
     }
 
     @ResponseBody

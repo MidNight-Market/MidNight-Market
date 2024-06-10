@@ -119,28 +119,33 @@
                 </div>
 
                 <div class="reviewImg">
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
+                    <a href="#"><img src="" alt=""></a>
                 </div>
 
-                <div class="review">
+                <div class="review" th:each="rev : ${rvo}">
                     <div>
-                        <p>등급 작성자</p>
+                        <p>작성자닉네임</p>
                     </div>
-                    <p>별점</p>
-                    <p>상품명</p>
-                    <p class="reviewContent">리뷰내용</p>
-                    <div class="reviewImgDatail">
-                        <img src="/dist/image/product_thumbnail/고구마.jpg" alt="">
-                        <img src="/dist/image/product_thumbnail/고구마.jpg" alt="">
+                    <div th:switch="${rev.star}">
+                        <span th:case="10">⭐</span>
+                        <span th:case="20">⭐⭐</span>
+                        <span th:case="30">⭐⭐⭐</span>
+                        <span th:case="40">⭐⭐⭐⭐</span>
+                        <span th:case="50">⭐⭐⭐⭐⭐</span>
                     </div>
-                    <p>날짜<button type="button">도움돼요<img src="/dist/icon/hand-thumbs-up-fill.svg"></button></p>
-                </div>
 
+                    <p>상품명</p>
+                    <p class="reviewContent">[[${rev.content}]]</p>
+                    <div class="reviewImgDatail">
+                        <img src="" alt="">
+                    </div>
+                    <div class="date">[[${rev.registerDate}]]
+                        <button type="button" id="goodBtn">도움돼요
+                            <img src="/dist/icon/good.png" style="width: 35px; height: 32px;">
+                            <p id="count">0</p>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <p>상품문의</p>

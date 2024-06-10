@@ -278,3 +278,41 @@ async function postPaymentToServer(payData){
         console.log(error);
     }
 }
+
+// 리뷰 도움돼요 버튼
+let countValue = 0;
+let status = false; //현재 도움돼요 버튼 증가 여부
+
+let count = document.getElementById('count');
+document.getElementById('goodBtn').addEventListener('click', ()=>{
+
+    if(customerId == null){
+        alert("로그인 후 클릭 가능합니다.");
+    }else{
+       if(status){
+           countValue--;
+           status = false;
+       } else {
+         countValue++;
+         status = true;
+       }
+       count.innerText = countValue;
+    }
+});
+
+// // 도움돼요 버튼 count 값 db 저장
+// async function goodCountUpdateServer(customerId, productId, reviewId){
+//     try {
+//         const response = await fetch('/product/detail?customerId=${customerId}&productId=${productId}&reviewId=${reviewId}', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//         });
+//         const result = await response.text();
+//         return result;
+//     }catch (error){
+//         console.log("error");
+//     }
+// }
+
