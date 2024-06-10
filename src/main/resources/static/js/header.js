@@ -91,10 +91,11 @@ document.getElementById('autoComplete').addEventListener('focus', () => {
     let count = 1;
     document.getElementById('recentSearch').innerHTML = ''; // Clear previous entries
     for (let i = 0; i < parseData.length; i++) {
-        document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=${parseData[i]}" style="color: black">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
+        document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=product&search=${parseData[i]}" style="color: black">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
         count++;
     }
 });
+
 
 document.getElementById('searchButton').addEventListener('click', () => {
     let searchVal = document.getElementById('autoComplete').value;
@@ -108,6 +109,9 @@ document.getElementById('searchButton').addEventListener('click', () => {
         prevArr.push(searchVal);
         window.localStorage.setItem("searchHistory", JSON.stringify(prevArr));
     }
+    
+    //요기 수정
+    window.location.href= `/product/list?type=product&search=${searchVal}`;
 });
 
 document.getElementById('recentSearch').addEventListener('click', (e) => {
@@ -130,7 +134,7 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
         document.getElementById('recentSearch').innerHTML = '';
         let count = 1;
         for (let i = 0; i < parseData.length; i++) {
-            document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=${parseData[i]}">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
+            document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=product&search=${parseData[i]}">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
             count++;
         }
     }

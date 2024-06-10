@@ -1,5 +1,6 @@
 package com.project.www.service;
 
+import com.project.www.domain.ListPagingVO;
 import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductVO;
 import com.project.www.domain.SlangVO;
@@ -19,4 +20,8 @@ public interface ProductService {
     int slangDelete(SlangVO slangVO);
 
     List<ProductVO> getMySlangProduct(String customerId);
+
+    List<ProductVO> getProductList(ListPagingVO pgvo);
+
+    int getTotalCount(ListPagingVO pgvo);
 }

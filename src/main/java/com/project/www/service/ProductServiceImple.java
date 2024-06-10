@@ -1,9 +1,6 @@
 package com.project.www.service;
 
-import com.project.www.domain.ProductDTO;
-import com.project.www.domain.ProductDetailImageVO;
-import com.project.www.domain.ProductVO;
-import com.project.www.domain.SlangVO;
+import com.project.www.domain.*;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -95,6 +92,19 @@ public class ProductServiceImple implements ProductService{
         }
 
         return productVOS;
+    }
+
+    @Override
+    public List<ProductVO> getProductList(ListPagingVO pgvo) {
+
+
+            return productMapper.getList(pgvo);
+
+    }
+
+    @Override
+    public int getTotalCount(ListPagingVO pgvo) {
+        return productMapper.getTotalCount(pgvo);
     }
 
 

@@ -5,18 +5,13 @@
 
 .product-box {
     /*border: 1px solid black;*/
-    width: 100%;
-    height: 150px;
+    width: 610px;
+    height: 137px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 40px;
-    border-bottom: 1px solid lightgray;
-    border-radius: 5px;
-}
-.product-box:hover{
-    background-color: rgba(0, 0, 0, 0.1);
-    transition: 0.7s;
+    margin-bottom: 13px;
+    margin-left: 47px;
 }
 
 .product-image-box {
@@ -41,7 +36,7 @@
     height: 48px;
 }
 .button-box{
-    width: 500px;
+    width: 400px;
     height: 40px;
     /*background-color: #0a58ca;*/
     display: flex;
@@ -49,7 +44,7 @@
     align-items: end;
 }
 .select-button{
-    width: 245px;
+    width: 194px;
     height: 35px;
     border-radius: 5px;
 }
