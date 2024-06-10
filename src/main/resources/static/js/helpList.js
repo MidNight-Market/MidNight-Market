@@ -21,7 +21,7 @@ for(let i = 0; i<secret.length; i++){
             console.log("비밀글")
             console.log(sesId); /*[[${session.id}]] -> 현재 로그인 한 사람의 id(우리는 email형식으로 했음)*/
             console.log(sesName); /*[[${session.name}]] -> 현재 로그인 한 사람의 nickName*/
-            if(sesName == writer){
+            if(sesName == writer || role=="role_admin"){
                 window.location.href = "/help/detail?hno="+hno;
             }else if(sesName != writer){
                 alert("비밀글은 관리자와 작성자만 확인할 수 있습니다.")  //@@@@@@@@@@관리자 부분 추가 필
@@ -45,12 +45,14 @@ for(let i=0; i<adminReply.length; i++){
         let secretCheck = e.currentTarget.closest("[data-secretCheck]").getAttribute("data-secretCheck")
         let replyCheck = e.currentTarget.closest("[data-replyCheck]").getAttribute("data-replyCheck")
         console.log(secretCheck, replyCheck);
-
-        if(sesName != writer && secretCheck== "Y" && role != "role_admin"){
-        // if((sesName != writer && secretCheck== "Y") || (role != "role_admin" && secretCheck== "Y")){
-            alert("비밀글은 본인과 관리자만 확인 가능합니다.");
-        }else{
+        if(role == "role_admin"){
             window.location.href = "/help/replyAns?hno="+hno;
+        }else if(secretCheck == "Y" && sesName == writer){
+            window.location.href = "/help/replyAns?hno="+hno;
+        }else if(secretCheck == "N" || sesName != writer ){
+            window.location.href = "/help/replyAns?hno="+hno;
+        }else{
+            alert("비밀글은 본인과 관리자만 확인 가능합니다.");
         }
     });
 }

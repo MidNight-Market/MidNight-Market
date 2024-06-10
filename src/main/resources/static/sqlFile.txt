@@ -70,6 +70,7 @@ CREATE TABLE review (
 	register_date DATETIME DEFAULT NOW(),
 	rev_up_count bigint DEFAULT 0,
 	customer_id VARCHAR(150) NOT NULL,
+	nick_name VARCHAR(30) NOT NULL,
 	product_id bigint NOT NULL,
 	orders_id bigint NOT NULL,
 	PRIMARY KEY (id)

@@ -9,4 +9,19 @@
         (#{content}, #{star}, #{customerId}, #{productId}, #{ordersId})
     </insert>
 
+    <select id="getReview" resultType="com.project.www.domain.ReviewVO">
+        select * from review
+        where product_id = #{productID}
+    </select>
+
+    <select id="getNickName" resultType="com.project.www.domain.CustomerVO">
+        SELECT nick_name FROM customer
+        WHERE id = #{customerId}
+    </select>
+
+<!--    <select id="getReviewImg" resultType="com.project.www.domain.ReviewImageVO">-->
+<!--        SELECT reviewImage FROM customer-->
+<!--        WHERE review_id = #{reviewId}-->
+<!--    </select>-->
+
 </mapper>

@@ -16,4 +16,5 @@ public class ReviewVO {
     private String customerId;
     private String productId;
     private long ordersId;
+    private String nickName;
 }

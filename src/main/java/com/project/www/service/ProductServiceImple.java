@@ -20,6 +20,8 @@ public class ProductServiceImple implements ProductService{
     private final ProductCategoryMapper productCategoryMapper;
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
     private final SlangMapper slangMapper;
+    private final ReviewMapper reviewMapper;
+    private final CustomerMapper customerMapper;
 
     @Transactional
     @Override
@@ -95,17 +97,27 @@ public class ProductServiceImple implements ProductService{
     }
 
     @Override
-    public List<ProductVO> getProductList(ListPagingVO pgvo) {
-
-
-            return productMapper.getList(pgvo);
-
+    public List<ReviewVO> getReview(long id) {
+        return reviewMapper.getReview(id);
     }
 
+    @Override
+    public CustomerVO getNickName(String customerId) {
+        CustomerVO cvo = reviewMapper.getNickName(customerId);
+        log.info("service cvo check >>{}",cvo);
+        return cvo;
+    }
+
+//    @Override
+//    public ReviewImageVO getReviewImg(long review_id) {
+//        return reviewMapper.getReviewImg(review_id);
+//    }
+
+    public List<ProductVO> getProductList(ListPagingVO pgvo) {
+            return productMapper.getList(pgvo);
+    }
     @Override
     public int getTotalCount(ListPagingVO pgvo) {
         return productMapper.getTotalCount(pgvo);
     }
-
-
 }
