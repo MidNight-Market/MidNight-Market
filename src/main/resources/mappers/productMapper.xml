@@ -85,6 +85,14 @@
         <include refid="search"/>
     </select>
 
+    <update id="rollbackRefundQuantity">
+        UPDATE product
+        SET
+        total_qty = total_qty + #{totalQty},
+        total_sold_qty = total_sold_qty - #{totalQty}
+        WHERE
+        id = #{id}
+    </update>
 
     <sql id="category">
         <if test="category != null and category != ''">

@@ -10,4 +10,6 @@ public interface PaymentMapper {
     PaymentDTO getMyPaymentProduct(String merchantUid);
 
     int paySuccessUpdate(PaymentDTO paymentDTO);
+
+    void refundUpdate(PaymentDTO paymentDTO);
 }

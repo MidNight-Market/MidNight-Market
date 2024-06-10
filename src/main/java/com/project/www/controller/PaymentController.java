@@ -1,5 +1,6 @@
 package com.project.www.controller;
 
+import com.project.www.domain.OrdersVO;
 import com.project.www.domain.PaymentDTO;
 import com.project.www.service.ImportService;
 import com.project.www.service.PaymentService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,5 +82,16 @@ public class PaymentController {
     //결제 성공시 성공페이지 이동
     @GetMapping("/success")
     public void success(Model model){}
+
+    //환불
+    @Transactional
+    @ResponseBody
+    @PostMapping("/refund")
+    public String refund(@RequestBody OrdersVO ordersVO){
+        log.info(">>>주문아이디확인>>>{}",ordersVO);
+
+        return psv.refundUpdate(ordersVO);
+    }
+
 
 }

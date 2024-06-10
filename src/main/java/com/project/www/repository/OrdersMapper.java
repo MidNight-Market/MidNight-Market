@@ -17,4 +17,8 @@ public interface OrdersMapper {
     List<OrdersVO> getMyPurchasedProductList(String customerId);
 
     int isReviewCommentUpdate(ReviewVO reviewVO);
+
+    OrdersVO selectOne(long id);
+
+    void refundUpdate(OrdersVO ordersVO);
 }
