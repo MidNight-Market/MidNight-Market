@@ -13,8 +13,9 @@ public class CustomerServiceImpl implements CustomerService{
     private final CustomerMapper customerMapper;
 
     @Override
-    public void insert(CustomerVO cvo) {
-        customerMapper.insert(cvo);
+    public int insert(CustomerVO cvo) {
+        int isOk = customerMapper.insert(cvo);
+        return isOk;
     }
 
     @Override
