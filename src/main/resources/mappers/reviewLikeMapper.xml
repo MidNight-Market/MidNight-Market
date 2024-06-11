@@ -20,5 +20,10 @@
         and
         review_id = #{reviewId}
     </delete>
+    <select id="isExist" resultType="Boolean">
+        SELECT    IF(COUNT(*) = 1, 1, 0)
+        FROM    review_like
+        WHERE   review_id = #{reviewId} and customer_id = #{customerId}
+    </select>
 
 </mapper>

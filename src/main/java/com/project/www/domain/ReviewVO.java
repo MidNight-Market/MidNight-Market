@@ -18,7 +18,8 @@ public class ReviewVO {
     private String customerId;
     private String productId;
     private long ordersId;
+    private long revUpCount;
     private String nickName;
     private List<ReviewImageVO> reviewImageVOList;
-    private ReviewLikeVO reviewLikeVO;
+    private List<ReviewLikeVO> reviewLikeVO;
 }

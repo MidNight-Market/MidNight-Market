@@ -98,18 +98,19 @@
     <div class="second-content">
         <div class="detailMenuBar">
             <ul>
-                <li><a href="">상품상세정보</a></li>
-                <li><a href="">상품후기</a></li>
-                <li><a href="">문의</a></li>
-                <li><a href="">배송/교환/반품안내</a></li>
+                <li id="product-detail">상품상세정보</li>
+                <li id="product-review">상품후기</li>
+                <li id="product-qna">문의</li>
+                <li id="product-info">배송/교환/반품안내</li>
             </ul>
         </div>
 
         <div class="detailMenu">
+            <p class="product-detail" style="overflow: hidden"></p>
             <th:block th:each="i:${productDTO.imageList}">
-                <img th:src="${i.detailImage}">
+                <img th:src="${i.detailImage}" class="detailImage">
             </th:block>
-            <p>상품후기</p>
+            <p class="product-review">상품후기</p>
             <div class="review">
                 <p>포토리뷰</p>
                 <button type="button" class="imgDetailBtn">더보기 ></button>
@@ -214,14 +215,15 @@
                         <button type="button" id="likeBtn" class="likeBtn"
                                 th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">도움돼요
                             <img src="/dist/icon/good.png" style="width: 35px; height: 32px;">
-                            <p class="count">0</p>
+                            <p class="count" th:id="count+${rev.id}">[[${rev.revUpCount}]]</p>
+                            <p id="reviewId" style="display: none">[[${rev.id}]]</p>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <p>상품문의</p>
-            <p>배송안내</p>
+            <p class="product-qna">상품문의</p>
+            <p class="product-info">배송안내</p>
             <p>교환/반품 안내</p>
         </div>
     </div>
@@ -233,11 +235,10 @@
     const productDTO = [[${productDTO}]];
     const customerId = [[${session.id}]];
     const productId = [[${productId}]];
-    const rvoList = [[${rvo}]]
     console.log(productDTO);
     console.log(customerId);
     console.log(productId);
-    console.log(rvoList);
+
 </script>
 <script th:src="@{/js/productDetail.js}"></script>
 </body>
