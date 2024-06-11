@@ -142,8 +142,20 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/reviewLikeRegister")
     public String reviewRegister(@RequestBody ReviewLikeVO reviewLikeVO){
-        log.info("reviewLikeVO 확인 @@ {}",reviewLikeVO);
+        log.info("reviewLikeVO 확인 @register@ {}",reviewLikeVO);
 
         return rsv.registerLike(reviewLikeVO);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/product/reviewLikeRegister")
+    public String reviewLikeRegister(@RequestBody  ReviewLikeVO reviewLikeVO) {
+        log.info("reviewLikeVO 확인 @delete@ {}",reviewLikeVO);
+        int isOK = rsv.deleteLike(reviewLikeVO);
+        if (isOK == 1) {
+            return "삭제성공";
+        } else {
+            return "등록성공";
+        }
     }
 }

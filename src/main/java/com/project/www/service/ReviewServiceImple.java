@@ -53,4 +53,10 @@ public class ReviewServiceImple implements ReviewService{
         return isOK>0 ? "등록성공":"등록실패";
     }
 
+    @Override
+    public int deleteLike(ReviewLikeVO reviewLikeVO) {
+        return reviewLikeMapper.deleteLike(reviewLikeVO);
+    }
+
+
 }
