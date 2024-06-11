@@ -312,43 +312,8 @@ likeBtn.forEach(button =>{
                 }
             });
         }
-// // 리뷰 도움돼요 버튼
-// const likeBtn = document.querySelectorAll('.likeBtn');
-// likeBtn.forEach(button =>{
-//     button.addEventListener('click', (e)=>{
-//         if(customerId == null){
-//             alert("로그인 후 클릭 가능합니다.");
-//         }else{
-//             let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
-//             let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
-//             console.log("dataType : ",dataType);
-//             console.log("reviewId : ",reviewId);
-//             const data = {
-//                 customerId : customerId,
-//                 reviewId : reviewId
-//             }
-//
-//             reviewLikeUpdateFromServer(dataType,data).then(result=>{
-//                 if(result === "등록성공"){
-//                     //버튼 바뀌게 추가 + count 1증가
-//                     dataType = "delete";
-//                     button.dataset.type = dataType;
-//                     button.style.backgroundColor = "red";
-//                     console.log("등록성공");
-//                     console.log("등록 성공 후 dataType : ",dataType);
-//                 }else if(result == "삭제성공"){
-//                     dataType = "post";
-//                     button.dataset.type = dataType;
-//                     button.style.backgroundColor = "blue";
-//                     console.log("삭제성공");
-//                     console.log("삭제 성공 후 dataType : ",dataType);
-//                 }else {
-//                     console.log("등록실패");
-//                 }
-//             });
-//         }
-//     });
-// });
+    });
+});
 
 async function isExist(data){
     try {
