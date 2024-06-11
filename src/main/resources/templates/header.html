@@ -34,10 +34,11 @@
                             <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
+                            <p th:if="${session.mstatus}" th:text="${session.mStatus} ? '멤버쉽' : '일반회원'"></p>
                             <p th:if="${session.id}" style="display: none" id="idValue">[[${id}]]</p>
-                            <a th:if="${session.name}" th:href="@{/customer/myPage}">
-                                [[${session.name}]] 님
-                            </a>
+                                <a th:if="${session.name}" th:href="@{/customer/myPage}">
+                                    [[${session.name}]] 님
+                                </a>
                             <a href="/logout" id="logoutBtn" class="logout" >로그아웃</a>
                             <th:block th:if="${pwReset == 1}">
                                 <p style="display:none;" id="isReset"></p>
@@ -47,7 +48,7 @@
                 </div>
 
                 <div class="etc-part">
-                    <a href="#" id="bellBtn">
+                    <a id="notificationButton">
                         <img th:src="@{/dist/icon/bell.png}">
                     </a>
                     <a href="#" id="cartBtn">

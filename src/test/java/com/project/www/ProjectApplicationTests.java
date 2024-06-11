@@ -1,8 +1,10 @@
 package com.project.www;
 
 import com.project.www.domain.HelpVO;
+import com.project.www.domain.NoticeVO;
 import com.project.www.domain.ProductVO;
 import com.project.www.repository.HelpMapper;
+import com.project.www.repository.NoticeMapper;
 import com.project.www.repository.ProductMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,9 @@ class ProjectApplicationTests {
 
 	@Autowired
 	private ProductMapper productMapper;
+
+	@Autowired
+	private NoticeMapper noticeMapper;
 
 	@Test
 	void contextLoads() {
@@ -49,6 +54,18 @@ class ProjectApplicationTests {
 					.build();
 
 			productMapper.insert(productVO);
+		}
+	}
+
+	@Test
+	void insert() {
+		for(int i=0; i<100; i++){
+			NoticeVO nvo= NoticeVO.builder()
+					.title("제목입니다"+i)
+					.content("내용입니다"+i)
+					.build();
+
+			noticeMapper.register(nvo);
 		}
 	}
 

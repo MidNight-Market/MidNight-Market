@@ -6,11 +6,28 @@
     <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
     <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/dist/css/main.css}">
+    <link rel="stylesheet" th:href="@{dist/css/popup.css}">
     <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
 </head>
 <th:block th:replace="~{header :: header}"></th:block>
 
 <body class="index-body">
+
+<!-- 팝업창 -->
+<form name="notice_form">
+    <div id="divpop1" class="divpop">
+        <a href="">
+            <img th:src="@{/dist/image/3000원 할인쿠폰.jpg}" width="100%" alt="이미지 없음" class="popupImg">
+        </a>
+        <div class="button_area">
+            <div class="button_area1">
+                <input type='checkbox' name='chkbox' id='todaycloseyn' value='Y'>
+                <label for="todaycloseyn" class="button_area3">오늘 하루 안 보기</label>
+            </div>
+            <a href='#' onclick="javascript:closeWin(1);" class="button_area2">닫기</a>
+        </div>
+    </div>
+</form>
 
 <section>
     <!--광고배너(자동슬라이드&버튼)-->
@@ -186,5 +203,6 @@
 </script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
+<script th:src="@{/js/popup.js}"></script>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>
