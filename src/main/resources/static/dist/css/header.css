@@ -164,6 +164,9 @@ body {
     width: 200px;
     display: flex;
     justify-content: flex-start;
+    font-size: 13px;
+    font-family: 'NanumSquareRoundL';
+    font-weight: bold;
 }
 
 .loginBox > a {
@@ -369,10 +372,30 @@ body {
 }
 #recentSearch {
     position: absolute;
+    color: black;
     top: 85px;
     left: 775px;
     width: 400px;
     border: 1px solid orange;
     z-index: 9999;
     background-color: white;
+}
+.notification {
+    position: absolute;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+}
+.notification::after {
+    content: '';
+    position: absolute;
+    top: -10px; /* 삼각형이 알림창의 꼭대기에서 살짝 위로 나옴 */
+    right: 20px; /* 삼각형의 위치 조정 */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f0f0f0;
 }

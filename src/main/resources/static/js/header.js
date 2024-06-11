@@ -111,7 +111,8 @@ document.getElementById('searchButton').addEventListener('click', () => {
     }
     
     //요기 수정
-    window.location.href= `/product/list?type=product&search=${searchVal}`;
+    let search = encodeURI(searchVal);
+    window.location.href= `/product/list?type=product&search=${search}`;
 });
 
 document.getElementById('recentSearch').addEventListener('click', (e) => {
@@ -134,13 +135,49 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
         document.getElementById('recentSearch').innerHTML = '';
         let count = 1;
         for (let i = 0; i < parseData.length; i++) {
-            document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=product&search=${parseData[i]}">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
+            document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=product&search=${parseData[i]}" style="color: black">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
             count++;
         }
     }
 });
 
-// document.getElementById('autoComplete').addEventListener('blur', () => {
-//     document.getElementById('recentSearch').innerText = '';
-//     document.getElementById('recentSearch').style.display = 'none';
-// });
+let notificationDiv = null;
+
+function showNotification(event) {
+    // 알림창이 이미 열려 있는지 확인
+    if (notificationDiv) {
+        document.body.removeChild(notificationDiv);
+        notificationDiv = null;
+        return;
+    }
+
+    // 클릭된 버튼의 위치를 계산
+    var button = event.target;
+    var rect = button.getBoundingClientRect();
+
+    // 새로운 div 요소 생성
+    notificationDiv = document.createElement('div');
+    notificationDiv.className = 'notification';
+
+    var notificationText = document.createElement('p');
+    notificationText.textContent = 'This is a notification!';
+
+    var closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.onclick = function() {
+        document.body.removeChild(notificationDiv);
+        notificationDiv = null;
+    };
+
+    // 요소들을 조립
+    notificationDiv.appendChild(notificationText);
+    notificationDiv.appendChild(closeButton);
+    document.body.appendChild(notificationDiv);
+
+    // div 요소의 위치 설정
+    notificationDiv.style.top = (rect.bottom + window.scrollY)+15 + 'px';
+    notificationDiv.style.left = (rect.right + window.scrollX)+20 - notificationDiv.offsetWidth + 'px';
+}
+
+// 버튼 클릭 이벤트 핸들러 등록
+document.getElementById('notificationButton').onclick = showNotification;

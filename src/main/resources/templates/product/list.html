@@ -187,12 +187,20 @@
             justify-content: center;
             /*background-color: #0a58ca;*/
         }
+        #searchValPrint{
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+            margin-top: 50px;
+            margin-bottom: 100px;
+        }
 
 
     </style>
 </head>
 
 <body id="list-body">
+<div id="searchValPrint" style="display: none"></div>
 <div class="title">
     상품 리스트
 </div>
@@ -273,6 +281,18 @@
             </li>
         </ul>
     </nav>
+<script>
+    let url = location.href;
+    let decode = decodeURI(url);
+    const queryString = decode.split('?')[1];
+    const params = new URLSearchParams(queryString);
+    let searchVal = params.get('search');
+    if (searchVal != null || searchVal.length != 0) {
+        let searchResultElement = document.getElementById('searchValPrint');
+        searchResultElement.style.display = '';
+        searchResultElement.innerHTML = `"<span style="color: #f57700;">${searchVal}</span>"에 대한 검색결과`;
+    }
+</script>
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
     const subType = [[${ph.pgvo.subType}]];
@@ -280,6 +300,7 @@
     document.getElementById(subType).style.color = 'black';
 
 </script>
+
 <script th:src="@{/js/commonBasket.js}"></script>
 </body>
 
