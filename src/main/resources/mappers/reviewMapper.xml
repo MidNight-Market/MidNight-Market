@@ -14,4 +14,18 @@
         where product_id = #{id}
     </select>
 
+    <update id="update">
+        update review set
+        rev_up_count = rev_up_count+1
+        where id = #{reviewId}
+    </update>
+
+    <update id="delete">
+        update review set
+        rev_up_count = rev_up_count-1
+        where id = #{reviewId}
+    </update>
+    <select id="getCount" resultType="int">
+        select rev_up_count from review where id = #{reviewId}
+    </select>
 </mapper>

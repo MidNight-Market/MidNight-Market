@@ -47,15 +47,38 @@ public class ReviewServiceImple implements ReviewService{
         return 0;
     }
 
+    @Transactional
     @Override
-    public String registerLike(ReviewLikeVO reviewLikeVO) {
+    public int registerLike(ReviewLikeVO reviewLikeVO) {
         int isOK = reviewLikeMapper.registerLike(reviewLikeVO);
-        return isOK>0 ? "등록성공":"등록실패";
+        return isOK;
+    }
+
+    @Transactional
+    @Override
+    public int deleteLike(ReviewLikeVO reviewLikeVO) {
+        int isOK = reviewLikeMapper.deleteLike(reviewLikeVO);
+        return isOK;
     }
 
     @Override
-    public int deleteLike(ReviewLikeVO reviewLikeVO) {
-        return reviewLikeMapper.deleteLike(reviewLikeVO);
+    public int getCount(String reviewId) {
+       return reviewMapper.getCount(reviewId);
+    }
+
+    @Override
+    public void update(ReviewLikeVO reviewLikeVO) {
+        reviewMapper.update(reviewLikeVO);
+    }
+
+    @Override
+    public void delete(ReviewLikeVO reviewLikeVO) {
+        reviewMapper.delete(reviewLikeVO);
+    }
+
+    @Override
+    public Boolean isExist(ReviewLikeVO reviewLikeVO) {
+        return reviewLikeMapper.isExist(reviewLikeVO);
     }
 
 

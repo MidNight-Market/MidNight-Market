@@ -1,5 +1,6 @@
 package com.project.www.repository;
 
+import com.project.www.domain.ReviewLikeVO;
 import com.project.www.domain.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,9 @@ public interface ReviewMapper {
 
     List<ReviewVO> getReview(long id);
 
+    void update(ReviewLikeVO reviewLikeVO);
+
+    void delete(ReviewLikeVO reviewLikeVO);
+
+    int getCount(String reviewId);
 }

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -77,7 +78,6 @@ public class ProductController {
         log.info(">>>DTO확인>>>>{}",productDTO);
 
         List<ReviewVO> rvo = psv.getReview(id);
-        log.info(">>ReviewVO확인@@@@@@@@@>>{}",rvo);
         model.addAttribute("rvo",rvo);
 
         model.addAttribute("productDTO",productDTO);
@@ -140,22 +140,49 @@ public class ProductController {
     }
 
     @ResponseBody
+    @PostMapping("/isExist")
+    public String isExist(@RequestBody ReviewLikeVO reviewLikeVO){
+        Boolean isExist = rsv.isExist(reviewLikeVO);
+        log.info("isExist값 {}",isExist);
+        if(isExist){
+            return "있음";
+        }
+        return "없음";
+    }
+
+
+    @ResponseBody
     @PostMapping("/reviewLikeRegister")
     public String reviewRegister(@RequestBody ReviewLikeVO reviewLikeVO){
         log.info("reviewLikeVO 확인 @register@ {}",reviewLikeVO);
-
-        return rsv.registerLike(reviewLikeVO);
+        int isOK = rsv.registerLike(reviewLikeVO);
+        String id = String.valueOf(reviewLikeVO.getReviewId());
+        if (isOK > 0) {
+            log.info("Test1");
+            rsv.update(reviewLikeVO);
+            int count = rsv.getCount(id);
+            return "등록성공/"+count;
+        } else {
+            log.info("Test2");
+            int count = rsv.getCount(id);
+            return "등록실패/"+count;
+        }
     }
-
     @ResponseBody
-    @DeleteMapping("/product/reviewLikeRegister")
+    @DeleteMapping("/reviewLikeRegister")
     public String reviewLikeRegister(@RequestBody  ReviewLikeVO reviewLikeVO) {
         log.info("reviewLikeVO 확인 @delete@ {}",reviewLikeVO);
         int isOK = rsv.deleteLike(reviewLikeVO);
-        if (isOK == 1) {
-            return "삭제성공";
+        String id = String.valueOf(reviewLikeVO.getReviewId());
+        if (isOK > 0) {
+            log.info("Test3");
+            rsv.delete(reviewLikeVO);
+            int count = rsv.getCount(id);
+            return "삭제성공/"+count;
         } else {
-            return "등록성공";
+            log.info("Test4");
+            int count = rsv.getCount(id);
+            return "삭제실패/"+count;
         }
     }
 }
