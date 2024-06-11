@@ -22,7 +22,7 @@
             margin: 50px auto;
             /*height: 800px;*/
             /*min-width: 1200px;*/
-            min-height: 800px;
+            min-height: 300px;
             display: flex;
             justify-content: center;
             /*background-color: rgba(128, 128, 128, 0.27);*/
@@ -59,7 +59,7 @@
 
         .mypage2 {
             width: 65%;
-            min-height: 800px;
+            min-height: 200px;
             padding: 20px;
             background-color: white;
             border-radius: 5px;
@@ -82,7 +82,11 @@
         }
 
         .mypage_box1 {
-            width: calc(100% / 2);
+            width: calc(100% / 4);
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin-left: 18px;
             /* background-color: aqua; */
         }
 
@@ -226,7 +230,7 @@
         .page-info-box {
             margin: 77px auto;
             width: 90%;
-            min-height: 754px;
+            min-height: 300px;
             /*background-color: forestgreen;*/
             z-index: 9999999999999999999;
         }
@@ -250,21 +254,16 @@
         <div class="mypage3">
             <div class="mypage_box1">
                 <div class="mypage_box3">
-                    <span class="mypage_text3">적립금</span>
+                    <span class="mypage_text3">Point</span>
                 </div>
-                <div class="mypage_box4">
-                    <span class="mypage_text5">0</span>
-                    <span class="mypage_text6">원</span>
-                </div>
+
             </div>
-            <hr class="hr1">
             <div class="mypage_box2">
                 <div class="mypage_box3">
-                    <span class="mypage_text3">이젠 캐시</span>
+                    <span class="mypage_text5">94,000</span>
+                    <span class="mypage_text6">p</span>
                 </div>
                 <div class="mypage_box4">
-                    <span class="mypage_text5">0</span>
-                    <span class="mypage_text6">원</span>
                 </div>
             </div>
         </div>
@@ -312,6 +311,27 @@
             <hr class="hr2">
             <div class="page-info-box" id="purchasedPage">
                 <!--  주문내역   -->
+                <div class="purchased-date-box">
+                    <span>2024년 09월 24일</span>
+                </div>
+                <div class="purchased-box">
+                    <div class="purchased-image-box">
+                        <img src="/dist/image/testImage.jpg" alt="사진없음">
+                    </div>
+                    <div class="purchased-product-info-box">
+                        <p>상품명</p>
+                        <span>5,200원(결제가격)</span>
+                        <s>원래가격에 할인받을격우</s>
+                        <span>x개 구매</span>
+                    </div>
+                    <div class="purchased-status">
+                        <span>주문완료</span>
+                    </div>
+                    <div class="purchases-select-button-box">
+                        <button>주문확정</button>
+                        <button>환불하기</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="d2" style="display: none;">
@@ -330,7 +350,7 @@
                 <span class="mypage2_text2">찜한 상품은 최대 200개까지 저장됩니다.</span>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2" id="slangPage">
+            <div class="page-info-box" id="slangPage">
                 <div class="mypage2_box2-1">
                     <span class="mypage2_text5">찜한 상품이 없습니다.</span>
                 </div>
@@ -520,7 +540,7 @@
 
         // 페이지 로드 시 첫 번째 버튼 클릭
         if (select_button.length > 0) {
-            select_button[2].click();
+            select_button[0].click();
         }
     });
 

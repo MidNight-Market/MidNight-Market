@@ -191,6 +191,7 @@ public class PaymentServiceImple implements PaymentService {
             paymentDTO.setPayPrice(paymentDTO.getPayPrice() - ordersVO.getPayPrice()); //결제하고 남은금액
             ordersVO.setPayPrice(amount); //결제한 금액
             paymentMapper.refundUpdate(paymentDTO);
+            log.info("orderVO확인하기 >>>>{}",ordersVO);
             ordersMapper.refundUpdate(ordersVO);
             productMapper.rollbackRefundQuantity(productVO);
             return "Refund successful";

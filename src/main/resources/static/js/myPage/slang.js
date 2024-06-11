@@ -16,7 +16,7 @@ function spreadMySlangProductList(customerId) {
         console.log(result);
         let div = document.getElementById('slangPage');
         div.innerHTML = '';
-        let str = `<span style="font-weight: 700; font-size: 27px; margin: 50px 0">전체 ${result.length}개</span> `;
+        let str = `<span style="font-weight: 600; font-size: 23px; margin-bottom:50px">전체 ${result.length}개</span> `;
         if (result.length > 0) {
             result.forEach((productVO) => {
 
@@ -48,7 +48,7 @@ function spreadMySlangProductList(customerId) {
             });
             div.innerHTML += str;
         }else{
-            div.innerText = '찜한 상품이 없습니다.';
+            div.innerHTML = '<h1 style="font-size: 32px;  font-weight: 700; display: block">찜한 상품이 존재하지 않습니다.</h1>';
         }
 
     })
