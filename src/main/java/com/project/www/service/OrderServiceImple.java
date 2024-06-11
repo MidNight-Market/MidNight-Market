@@ -27,4 +27,16 @@ public class OrderServiceImple implements OrdersService {
         }
         return ordersVOList;
     }
+
+    @Transactional
+    @Override
+    public List<OrdersVO> getMyFrequentPurchasesList(String customerId) {
+        List<OrdersVO> ordersVOList = ordersMapper.getMyFrequentPurchasesList(customerId);
+
+        for(OrdersVO ordersVO : ordersVOList){
+            ordersVO.setProductVO(productMapper.getDetail(ordersVO.getProductId()));
+        }
+
+        return ordersVOList;
+    }
 }

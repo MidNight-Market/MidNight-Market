@@ -16,7 +16,7 @@ function spreadMySlangProductList(customerId) {
         console.log(result);
         let div = document.getElementById('slangPage');
         div.innerHTML = '';
-        let str = `<span style="font-weight: 700; font-size: 18px; margin-bottom: 26px">전체 ${result.length}개</span> `;
+        let str = `<span style="font-weight: 700; font-size: 27px; margin: 50px 0">전체 ${result.length}개</span> `;
         if (result.length > 0) {
             result.forEach((productVO) => {
 
@@ -29,9 +29,10 @@ function spreadMySlangProductList(customerId) {
                 str += `</a>`;
                 str += `<div class="description-box">`;
                 str += `<div class="product-info">`;
-                str += `<a style="font-weight: 500; font-size: 14px; color: inherit; margin-bottom: 10px; display: block;" href="/product/detail?id=${productVO.id}">${productVO.name}</a>`;
+                str += `<a style="font-weight: 500; font-size: 18px; color: inherit; margin-bottom: 10px; display: block;" href="/product/detail?id=${productVO.id}">${productVO.name}</a>`;
+                str += `<span style="display: block;margin-bottom: 16px; font-size: 15px; font-weight: 400">${productVO.description}</span>`;
                 if(productVO.discountRate === 0){
-                str += `<span class="price-text">${price}</span>`;
+                str += `<p class="price-text">${price}</p>`;
                 }else{
                     str += `<span style="color: orangered; font-weight: bold; margin-right: 5px">${productVO.discountRate}%</span>`
                     str += `<span class="price-text">${price}</span>`;
