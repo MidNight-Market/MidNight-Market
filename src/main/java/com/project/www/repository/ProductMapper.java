@@ -33,4 +33,6 @@ public interface ProductMapper {
     List<ProductVO> getList(ListPagingVO pgvo);
 
     int getTotalCount(ListPagingVO pgvo);
+
+    void rollbackRefundQuantity(ProductVO productVO);
 }

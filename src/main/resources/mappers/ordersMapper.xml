@@ -40,4 +40,18 @@
         id = #{ordersId}
     </update>
 
+    <select id="selectOne" resultType="com.project.www.domain.OrdersVO">
+        SELECT * FROM orders
+        WHERE
+        id = #{id}
+    </select>
+
+    <update id="refundUpdate">
+        UPDATE orders
+        SET
+        status = 'refund'
+        WHERE
+        id = id
+    </update>
+
 </mapper>
