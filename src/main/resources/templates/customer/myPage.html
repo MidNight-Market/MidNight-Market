@@ -10,26 +10,26 @@
             src: url("/dist/font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
         }
 
-        #myPageBody{
-            font-family: 'NotoSans KR', serif ;
+        #myPageBody {
+            font-family: 'NotoSans KR', serif;
             color: black;
             background-color: rgb(247, 247, 247);
             box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5);
         }
 
         .mypage0 {
-            width: 1050px;
-            margin: 100px auto;
+            width: 1500px;
+            margin: 50px auto;
             /*height: 800px;*/
             /*min-width: 1200px;*/
             min-height: 800px;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             /*background-color: rgba(128, 128, 128, 0.27);*/
         }
 
         .mypage1 {
-            width: 30%;
+            width: 20%;
             height: 800px;
             background-color: white;
             padding: 20px;
@@ -58,11 +58,10 @@
         }
 
         .mypage2 {
-            width: 70%;
+            width: 65%;
             min-height: 800px;
             padding: 20px;
-            background-color: rgba(255, 166, 0, 0.034);
-            border: 2px solid gray;
+            background-color: white;
             border-radius: 5px;
         }
 
@@ -203,15 +202,11 @@
         }
 
         .mypage2_box2 {
+            width: 25%;
             margin: 30px 0 20px 10px;
             display: flex;
         }
 
-        /*li {*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    position: relative;*/
-        /*}*/
 
         .mypage2_text4 {
             margin: 0 20px;
@@ -222,32 +217,24 @@
             border-radius: 15%;
         }
 
-        .mypage_text9 {
-            color: orange;
-            font-weight: 550;
-        }
-
         .mypage2_box2-1 {
             width: 100%;
             display: flex;
         }
 
-        .mypage2_box2-3 {
-            width: 30%;
-            height: 50px;
-            border: 1px solid black;
-            /* float: left; */
+        /*페이지 정보 박스 */
+        .page-info-box {
+            margin: 77px auto;
+            width: 90%;
+            min-height: 754px;
+            /*background-color: forestgreen;*/
+            z-index: 9999999999999999999;
         }
 
-        .mypage2_box2-4 {
-            width: 30%;
-            height: 50px;
-            border: 1px solid black;
-            /* float: right; */
-        }
     </style>
     <link rel="stylesheet" th:href="@{/dist/css/myPage/slang.css}">
     <link rel="stylesheet" th:href="@{/dist/css/myPage/purchasedProduct.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/myPage/frequentPurchases.css}">
     <link rel="stylesheet" th:href="@{/dist/css/myPage/review.css}">
 </head>
 
@@ -323,8 +310,8 @@
                 <span class="mypage2_text2">최대 지난 3년간의 주문내역까지 확인할 수 있어요.</span>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2" id="purchasedPage">
-                <!--    Purchased Product Line      -->
+            <div class="page-info-box" id="purchasedPage">
+                <!--  주문내역   -->
             </div>
         </div>
         <div id="d2" style="display: none;">
@@ -333,14 +320,8 @@
                 <a href=""><span class="mypage2_text3">+ 쿠폰 등록</span></a>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2">
-                <ul>
-                    <li>
-                        <div class="mypage2_box2-1">
-                            <span class="mypage2_text5">쿠폰 내역이 존재하지 않습니다.</span>
-                        </div>
-                    </li>
-                </ul>
+            <div class="page-info-box">
+                <!--  쿠폰   -->
             </div>
         </div>
         <div id="d3" style="display: none;">
@@ -360,14 +341,8 @@
                 <span class="mypage2_text1">자주 구매한 상품</span>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2">
-                <ul>
-                    <li>
-                        <div class="mypage2_box2-1">
-                            <span class="mypage2_text5">구매한 상품이 없습니다.</span>
-                        </div>
-                    </li>
-                </ul>
+            <div class="page-info-box" id="frequentPurchases">
+
             </div>
         </div>
         <div id="d5" style="display: none;">
@@ -375,14 +350,8 @@
                 <span class="mypage2_text1">상품 후기</span>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2">
-                <ul>
-                    <li>
-                        <div class="mypage2_box2-1">
-                            <span class="mypage2_text5">작성한 후기가 없습니다.</span>
-                        </div>
-                    </li>
-                </ul>
+            <div class="page-info-box">
+
             </div>
         </div>
         <div id="d6" style="display: none;">
@@ -390,14 +359,8 @@
                 <span class="mypage2_text1">상품 문의</span>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2">
-                <ul>
-                    <li>
-                        <div class="mypage2_box2-1">
-                            <span class="mypage2_text5">작성한 문의가 없습니다.</span>
-                        </div>
-                    </li>
-                </ul>
+            <div class="page-info-box">
+
             </div>
         </div>
         <div id="d7" style="display: none;">
@@ -547,6 +510,7 @@
 </script>
 <script th:src="@{/js/myPage/slang.js}"></script>
 <script th:src="@{/js/myPage/purchasedProduct.js}"></script>
+<script th:src="@{/js/myPage/frequentPurchases.js}"></script>
 <script th:src="@{/js/myPage/review.js}"></script>
 <script>
 
@@ -556,7 +520,7 @@
 
         // 페이지 로드 시 첫 번째 버튼 클릭
         if (select_button.length > 0) {
-            select_button[0].click();
+            select_button[2].click();
         }
     });
 
@@ -594,18 +558,25 @@
             //주문 내역
             if (target === 1) {
                 spreadMyPurchasedProductList(customerId);
+                return;
             }
 
             //찜한상품
             if (target === 3) {
                 spreadMySlangProductList(customerId);
+                return;
             }
+            if(target === 4){
+                spreadMyFrequentPurchasesList(customerId);
+                return;
+            }
+            console.log('등등');
         }
 
     });
 
 </script>
 
-<th:block th:replace="~{footer :: footer}"></th:block>
 </body>
+<th:block th:replace="~{footer :: footer}"></th:block>
 

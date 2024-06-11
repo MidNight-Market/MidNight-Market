@@ -53,5 +53,13 @@
         WHERE
         id = id
     </update>
+    
+    <select id="getMyFrequentPurchasesList" resultType="com.project.www.domain.OrdersVO">
+        SELECT customer_id, product_id, COUNT(*) as qty
+        FROM orders
+        GROUP BY customer_id, product_id
+        ORDER BY qty DESC
+        LIMIT 5;
+    </select>
 
 </mapper>
