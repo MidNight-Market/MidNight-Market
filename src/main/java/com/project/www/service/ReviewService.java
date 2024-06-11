@@ -7,4 +7,6 @@ public interface ReviewService {
     int register(ReviewDTO reviewDTO);
 
     String registerLike(ReviewLikeVO reviewLikeVO);
+
+    int deleteLike(ReviewLikeVO reviewLikeVO);
 }

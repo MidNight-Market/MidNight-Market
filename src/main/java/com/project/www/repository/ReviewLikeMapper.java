@@ -9,4 +9,6 @@ public interface ReviewLikeMapper {
     ReviewLikeVO getReviewLike(long id);
 
     int registerLike(ReviewLikeVO reviewLikeVO);
+
+    int deleteLike(ReviewLikeVO reviewLikeVO);
 }

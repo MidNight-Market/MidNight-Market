@@ -279,32 +279,94 @@ async function postPaymentToServer(payData){
     }
 }
 
-// 리뷰 도움돼요 버튼
-const likeBtn = document.querySelectorAll('.likeBtn');
+// // 리뷰 도움돼요 버튼
+// const likeBtn = document.querySelectorAll('.likeBtn');
+// likeBtn.forEach(button =>{
+//     button.addEventListener('click', (e)=>{
+//         if(customerId == null){
+//             alert("로그인 후 클릭 가능합니다.");
+//         }else{
+//             let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
+//             let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
+//             console.log("dataType : ",dataType);
+//             console.log("reviewId : ",reviewId);
+//             const data = {
+//                 customerId : customerId,
+//                 reviewId : reviewId
+//             }
+//
+//             reviewLikeUpdateFromServer(dataType,data).then(result=>{
+//                 if(result === "등록성공"){
+//                     //버튼 바뀌게 추가 + count 1증가
+//                     dataType = "delete";
+//                     button.dataset.type = dataType;
+//                     button.style.backgroundColor = "red";
+//                     console.log("등록성공");
+//                     console.log("등록 성공 후 dataType : ",dataType);
+//                 }else if(result == "삭제성공"){
+//                     dataType = "post";
+//                     button.dataset.type = dataType;
+//                     button.style.backgroundColor = "blue";
+//                     console.log("삭제성공");
+//                     console.log("삭제 성공 후 dataType : ",dataType);
+//                 }else {
+//                     console.log("등록실패");
+//                 }
+//             });
+//         }
+//     });
+// });
 
-likeBtn.forEach(button =>{
-    button.addEventListener('click', (e)=>{
-        if(customerId == null){
-            alert("로그인 후 클릭 가능합니다.");
-        }else{
-            let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
-            let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
-            console.log(dataType);
-            console.log(reviewId);
-            const data = {
-                customerId : customerId,
-                reviewId : reviewId
-            }
-            reviewLikeUpdateFromServer(dataType,data).then(result=>{
-                if(result === "등록성공"){
-                    //버튼 바뀌게 추가 + count 1증가
-                    document.getElementById('likeBtn').style.backgroundColor="red";
-                }else{
-                    document.getElementById('likeBtn').style.backgroundColor="blue";
+// JavaScript
+document.addEventListener("DOMContentLoaded", () => {
+    const likeBtns = document.querySelectorAll('.likeBtn');
+    likeBtns.forEach(button => {
+            let countValue = 0;
+        button.addEventListener('click', async (e) => {
+            let likeCount = button.querySelector('.count');
+            if (!customerId) {
+                alert("로그인 후 클릭 가능합니다.");
+                return;
+            } else {
+                let dataType = e.currentTarget.getAttribute("data-type");
+                let reviewId = e.currentTarget.getAttribute("data-reviewid");
+
+                console.log("dataType : ", dataType);
+                console.log("reviewId : ", reviewId);
+
+                const data = {
+                    customerId: customerId,
+                    reviewId: reviewId
+                };
+
+                try {
+                    const result = await reviewLikeUpdateFromServer(dataType, data);
+
+                    if (result === "등록성공") {
+                        // 버튼 배경색 변경 및 data-type 업데이트
+                        button.dataset.type = "delete";
+                        button.style.backgroundColor = "red";
+                        console.log("등록성공");
+                        countValue++;
+                    } else if (result === "삭제성공") {
+                        // 버튼 배경색 변경 및 data-type 업데이트
+                        button.dataset.type = "post";
+                        button.style.backgroundColor = "blue";
+                        console.log("삭제성공");
+                        countValue--;
+                    } else {
+                        console.log("등록실패");
+                    }
+                    // 데이터 속성과 스타일이 올바르게 변경되었는지 확인
+                    console.log("변경 후 data-type: ", button.dataset.type);
+                    console.log("변경 후 background-color: ", button.style.backgroundColor);
+
+                    likeCount.innerText = countValue;
+                } catch (error) {
+                    console.error("Error:", error);
                 }
-
-            });
-        }
+            }
+        });
     });
 });
 
@@ -320,7 +382,7 @@ async function reviewLikeUpdateFromServer(type, data){
             body : JSON.stringify(data)
         }
         const resp = await fetch(url, config);
-        const result = resp.text();
+        const result = await resp.text();
         return result;
     }catch (e){
         console.log(e);

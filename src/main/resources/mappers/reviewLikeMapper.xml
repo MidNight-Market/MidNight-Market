@@ -14,4 +14,11 @@
         values (#{reviewId},#{customerId})
     </insert>
 
+    <delete id="deleteLike">
+        delete from review_like
+        where customer_id = #{customerId}
+        and
+        review_id = #{reviewId}
+    </delete>
+
 </mapper>
