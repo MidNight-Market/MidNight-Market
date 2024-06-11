@@ -16,8 +16,11 @@ public class CustomerVO {
     private String provider;
     private String providerId;
     private String registerDate;
-    private String cClass;
     private String address;
     private String role;
+    private boolean mStaus;
+    private String mRegDate;
+    private long point;
+
 
 }

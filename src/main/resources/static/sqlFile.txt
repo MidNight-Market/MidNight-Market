@@ -6,9 +6,11 @@ CREATE TABLE customer (
 	provider VARCHAR(256),
 	provider_id VARCHAR(256),
 	register_date DATETIME DEFAULT NOW(),
-	class VARCHAR(50) DEFAULT 'BRONZE',
 	address VARCHAR(400),
 	role VARCHAR(20) DEFAULT 'role_user',
+	m_status tinyint default 0,
+	m_reg_date datetime default now(),
+	point bigint default 0,
 	PRIMARY KEY (id)
 );
 
