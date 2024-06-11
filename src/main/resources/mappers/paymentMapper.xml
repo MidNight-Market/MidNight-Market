@@ -26,4 +26,14 @@
         merchant_uid = #{merchantUid}
     </update>
 
+    <update id="refundUpdate">
+        UPDATE payment
+        SET
+        pay_price = #{payPrice},
+        status = 'refund'
+        WHERE
+        merchant_uid = #{merchantUid}
+    </update>
+
+
 </mapper>

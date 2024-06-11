@@ -61,4 +61,11 @@ public class ImportService {
     public CancelData cancelPayment(IamportResponse<Payment> response){
         return new CancelData(response.getResponse().getImpUid(), true);
     }
+
+    //merchantUid 환불 api
+    public IamportResponse<Payment> refundPaymentByMerchantUid(String merchantUid, long amount, BigDecimal checksum) throws IOException, IamportResponseException{
+        CancelData cancelData = new CancelData(merchantUid, false, BigDecimal.valueOf(amount));
+        return api.cancelPaymentByImpUid(cancelData);
+    }
+
 }

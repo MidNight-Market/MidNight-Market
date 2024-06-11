@@ -20,21 +20,36 @@
 
 document.getElementById('product-name-input').addEventListener('input',(e)=>{
     const nameLength = e.target.value.length;
+    const nameError = document.getElementById('product-name-error');
+    if(nameLength < 5){
+        nameError.innerText = '상품명을 5글자 이상 입력해주세요.';
+    }else{
+        nameError.innerText = '';
+    }
+
     if(nameLength > 25){
         e.target.value = e.target.value.slice(0,25);
         return;
     }
+
+
     document.getElementById('product-name-length').innerText = nameLength;
 
 });
 
     document.getElementById('product-description-input').addEventListener('input',(e)=>{
-        const nameLength = e.target.value.length;
-        if(nameLength > 45){
+        const descLength = e.target.value.length;
+        const descError = document.getElementById('product-desc-error');
+        if(descLength < 5){
+            descError.innerText = '상품설명을 5글자 이상 입력해주세요.';
+        }else{
+            descError.innerText = '';
+        }
+        if(descLength > 45){
             e.target.value = e.target.value.slice(0,45);
             return;
         }
-        document.getElementById('product-description-length').innerText = nameLength;
+        document.getElementById('product-description-length').innerText = descLength;
     });
 
 
@@ -108,7 +123,48 @@ document.getElementById('product-name-input').addEventListener('input',(e)=>{
         }
     });
 
+    //취소버튼 클릭
     document.getElementById('cancel-button').addEventListener('click',()=>{
-        location
+        if(confirm('상품등록을 취소하시겠습니까?')){
+        location.href = '/';
+        }
+    });
+
+    //등록버튼 클릭 Validation
+    document.getElementById('register-button').addEventListener('click', (e) => {
+
+
+        document.getElementById('register-button').addEventListener('click', (e) => {
+
+            e.preventDefault();
+
+            const productNameInput = document.getElementById('product-name-input');
+            const productName = productNameInput.value.trim();
+            const productDescInput = document.getElementById('product-description-input');
+            const productDesc = productDescInput.value.trim();
+            const productNameError = document.getElementById('product-name-error');
+            const productDescError = document.getElementById('product-desc-error');
+
+            // 초기화
+            productNameError.innerText = '';
+            productDescError.innerText = '';
+
+            // 상품이름
+            if (productName.length < 5) {
+                productNameInput.focus();
+                productNameError.innerText = '상품명을 5글자 이상 입력해주세요.';
+                productNameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // 상품설명
+            if (productDesc.length < 5) {
+                productDescInput.focus();
+                productDescError.innerText = '상품설명을 5글자 이상 입력해주세요.';
+                productDescInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+        });
+
     });
 

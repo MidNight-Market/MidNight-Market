@@ -47,12 +47,11 @@
 
 
         .register-box {
-            /*background-color: skyblue;*/
             width: 940px;
             height: 50px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: start;
             margin-bottom: 8px;
         }
 
@@ -66,12 +65,12 @@
         }
 
         .right-box {
-            width: 368px;
+            width: 120px;
             height: 50px;
-            /*background-color: rebeccapurple;*/
             display: flex;
             align-items: center;
-            border-bottom: 1px solid lightgrey;
+            /*border: 1px solid black;*/
+            margin-left: 100px;
         }
 
         .right-box span {
@@ -83,7 +82,6 @@
             height: 50px;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid lightgrey;
         }
 
         .image-right-box {
@@ -163,6 +161,14 @@
             background-color: #0d6efd;
             color: white;
         }
+
+        .error-message{
+            margin-top: 8px;
+            font-weight: 500;
+            display: block;
+            font-size: 12px;
+            color: red;
+        }
     </style>
 </head>
 
@@ -170,7 +176,7 @@
 
 <div class="standard-info-box"><h1>상품 등록</h1></div>
 
-<form href="/product/register" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data">
     <div class="product-register-container">
 
         <div class="register-box">
@@ -192,6 +198,7 @@
                 <label>
                     <input id="product-name-input" class="input-width" type="text" name="name"> &nbsp;
                     <span>(</span><span id="product-name-length">0</span><span>/25)</span>
+                    <span class="error-message" id="product-name-error"></span>
                 </label>
             </div>
         </div>
@@ -200,10 +207,11 @@
             <div class="right-box">
                 <span>상품요약설명</span>
             </div>
-            <div id="product-description-input" class="left-box">
+            <div class="left-box">
                 <label>
-                    <input class="input-width" type="text" name="description"> &nbsp; <span>(</span><span
+                    <input class="input-width" type="text" name="description" id="product-description-input"> &nbsp; <span>(</span><span
                         id="product-description-length">0</span><span>/45)</span>
+                    <span class="error-message" id="product-desc-error"></span>
                 </label>
             </div>
         </div>
@@ -293,7 +301,7 @@
 
         <div class="button-box">
         <button class="selectOne-button" id="cancel-button" href="/"  type="button">취소</button>
-        <button class="selectOne-button" type="submit">상품등록</button>
+        <button class="selectOne-button" id="register-button" type="button">상품등록</button>
         </div>
 
     </div>

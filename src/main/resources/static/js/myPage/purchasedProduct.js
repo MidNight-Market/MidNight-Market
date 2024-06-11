@@ -43,7 +43,7 @@ function spreadMyPurchasedProductList(customerId) {
                 str += `<td>${ordersVO.productVO.name}</td>`;
                 str += `<td>${price}</td>`;
                 str += `<td>${ordersVO.qty}</td>`;
-                str += `<td> <p>${ordersVO.status}</p> <button>환불하기</button> </td>`;
+                str += `<td> <p>${ordersVO.status}</p> <button class="refundButton" data-id="${ordersVO.id}">환불하기</button> </td>`;
                 if (ordersVO.reviewComment) {
                     str += `<td><span style="color: #0f5132; font-weight: 650" >작성완료</span></td>`;
                 } else {
@@ -54,6 +54,36 @@ function spreadMyPurchasedProductList(customerId) {
             str += `</tbody>`;
             str += `</table>`;
             div.innerHTML += str;
+
+            //환불버튼
+            const refundButtons = document.querySelectorAll('.refundButton');
+            refundButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.dataset.id;
+                    console.log(id);
+
+                    // POST 요청 보내기
+                    fetch('/payment/refund', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: id })
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            console.log('Success:', data);
+                            // 서버 응답 처리
+                            alert(data);
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+
+
+
         } else {
             div.innerText = '주문하신 상품이 없습니다.';
         }
