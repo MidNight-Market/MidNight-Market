@@ -10,7 +10,6 @@
 <body>
 
 <div class="product-container">
-
     <div class="first-content">
         <div class="main-image-box"><img th:src="${productDTO.productVO.mainImage}" style="width: 100%; height: 100%; border-radius: 5px">
         </div>
@@ -111,19 +110,10 @@
                 <img th:src="${i.detailImage}" class="detailImage">
             </th:block>
             <p class="product-review">상품후기</p>
-            <div class="review">
-                <p>포토리뷰</p>
-                <button type="button" class="imgDetailBtn">더보기 ></button>
-            </div>
-
             <div class="detailReviewBox">
                 <div class="reviewList">
                     <p class="after">추천순</p>
                     <p>최신순</p>
-                </div>
-
-                <div class="reviewImg">
-                    <img src="" alt="">
                 </div>
 
                 <!--별점-->
@@ -204,7 +194,7 @@
                         </span>
                     </div>
 
-                    <p>상품명</p>
+                    <p class="productName">상품명</p>
                     <p class="reviewContent">[[${rev.content}]]</p>
                     <div class="reviewImgDatail">
                         <th:block th:each="img : ${rev.reviewImageVOList}">
@@ -213,15 +203,15 @@
                     </div>
                     <div class="date">[[${rev.registerDate}]]
                         <button type="button" id="likeBtn" class="likeBtn"
-                                th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">도움돼요
-                            <img src="/dist/icon/good.png" style="width: 35px; height: 32px;">
+                                th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">
+                            <img src="/dist/icon/good.png" style="width: 26px; height: 26px;" th:id="likeIcon+${rev.id}"> 도움돼요
                             <p class="count" th:id="count+${rev.id}">[[${rev.revUpCount}]]</p>
                             <p id="reviewId" style="display: none">[[${rev.id}]]</p>
                         </button>
                     </div>
+                    <hr>
                 </div>
             </div>
-
             <p class="product-qna">상품문의</p>
             <p class="product-info">배송안내</p>
             <p>교환/반품 안내</p>
@@ -229,15 +219,40 @@
     </div>
 </div>
 
+<!--양쪽 배너-->
+<div class="memberShip">
+    <a href="#">
+        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
+    </a>
+</div>
+<div class="rigthBanner">
+    <a th:href="@{/basket/myBasket}">
+        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
+    </a>
+    <hr>
+    <a th:href="@{/product/mySlang}">
+        <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;">찜
+    </a>
+    <hr>
+    <div class="RecentlyViewed">
+        <p>최근 본 상품</p>
+        <ul>
+            <p></p>
+        </ul>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">
     const productDTO = [[${productDTO}]];
     const customerId = [[${session.id}]];
     const productId = [[${productId}]];
+    const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
     console.log(productDTO);
     console.log(customerId);
     console.log(productId);
+    console.log(List);
+
 
 </script>
 <script th:src="@{/js/productDetail.js}"></script>
