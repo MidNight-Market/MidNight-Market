@@ -34,7 +34,7 @@
                             <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
-                            <p th:if="${session.mstatus}" th:text="${session.mStatus} ? '멤버쉽' : '일반회원'"></p>
+                            <p th:text="${session.mStatus} ? '멤버쉽' : '일반회원'"></p>
                             <p th:if="${session.id}" style="display: none" id="idValue">[[${id}]]</p>
                                 <a th:if="${session.name}" th:href="@{/customer/myPage}">
                                     [[${session.name}]] 님
@@ -173,6 +173,9 @@
         </form>
     </header>
     </body>
+    <script th:inline="javascript">
+        let notificationList = /*[[${session.notificationList}]]*/ [];
+    </script>
     <script src="/js/header.js"></script>
 </th:block>
 </html>
