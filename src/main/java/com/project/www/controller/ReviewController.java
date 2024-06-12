@@ -30,4 +30,5 @@ public class ReviewController {
         return isOk > 0 ? "register_success" : "register_fail";
     }
 
+
 }

@@ -18,7 +18,7 @@ reviewButtons.forEach(button => {
 
         //상품후기 작성 클릭시
         if(e.target.id === 'write-review-button'){
-        spreadMyWriteReviewList(customerId);
+        // spreadMyWriteReviewList(customerId);
         return;
         }
         
@@ -42,6 +42,7 @@ async function getMyWriteReviewListFromServer(customerId) {
     }
 }
 
+//리뷰등록 비동기
 function spreadMyWriteReviewList(customerId) {
     getMyWriteReviewListFromServer(customerId).then(result => {
         reviewWriteData = result;
@@ -80,6 +81,64 @@ function spreadMyWriteReviewList(customerId) {
         }
     });
 }
+
+
+
+
+
+
+
+//내가등록한 리뷰 가져오기
+async function getMyWriteCompletedReviewListFromServer(customerId) {
+
+    try {
+        const response = await fetch('/orders/getMyWriteCompletedReviewList/' + customerId);
+        const result = await response.json();
+        return result;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function spreadMyWriteCompletedReviewList(customerId) {
+    getMyWriteCompletedReviewListFromServer(customerId).then(result => {
+        reviewWriteData = result;
+        console.log(result);
+        let div = document.getElementById('write-reviewPage');
+        div.innerHTML = '';
+        let str = '';
+        if(result.length > 0){
+            result.forEach((value,index) => {
+
+                const [year, month, day,hour, minute] = value.ordersDate.match(/\d+/g);
+
+                str += `<div class="purchased-date-box">`;
+                str += `<span>${year}.${month}.${day} (${hour}시 ${minute}분)</span>`;
+                str += `</div>`;
+                str += `<div class="purchased-box">`;
+                str += `<div class="purchased-image-box">`;
+                str += `<img src="${value.productVO.mainImage}" alt="사진없음">`;
+                str += `</div>`;
+                str += `<div class="purchased-product-info-box">`;
+                str += `<p>${value.productVO.name}</p>`;
+                str += `<span class="purchased-price">${value.payPrice.toLocaleString()}원</span>`;
+                str += `<span class="purchased-quantity">${value.qty}개 구매</span>`;
+                str += `</div>`;
+                str += `<div class="purchased-status">`;
+                str += `<span style="color: forestgreen; font-weight: 500">${value.status}</span>`;
+                str += `</div>`;
+                str += `<div class="purchases-select-button-box">`;
+                str += `<button class="review-button" data-index="${index}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">후기작성</button>`;
+                str += `</div>`;
+                str += `</div>`;
+            });
+            div.innerHTML = str;
+        }else{
+            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">적을 수 있는 후기가 존재하지 않습니다.</h1>';
+        }
+    });
+}
+
 
 
 
