@@ -8,17 +8,23 @@ import com.project.www.repository.BasketMapper;
 import com.project.www.repository.OrdersMapper;
 import com.project.www.repository.PaymentMapper;
 import com.project.www.repository.ProductMapper;
+import com.siot.IamportRestClient.exception.IamportResponseException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PaymentServiceImple implements PaymentService {
 
+    private final ImportService importService;
     private final PaymentMapper paymentMapper;
     private final ProductMapper productMapper;
     private final OrdersMapper ordersMapper;
@@ -162,5 +168,37 @@ public class PaymentServiceImple implements PaymentService {
         }
 
         return 0;
+    }
+
+    @Transactional
+    @Override
+    public String refundUpdate(OrdersVO ordersVO) {
+
+        ordersVO = ordersMapper.selectOne(ordersVO.getId());
+        PaymentDTO paymentDTO = paymentMapper.getMyPaymentProduct(ordersVO.getMerchantUid());
+        ProductVO productVO  = ProductVO.builder()
+                .totalQty(ordersVO.getQty())
+                .id(ordersVO.getProductId())
+                .build();
+
+        String merchantUid = paymentDTO.getMerchantUid(); //고유 uid
+        long amount = ordersVO.getPayPrice(); //환불가격
+        BigDecimal checksum = BigDecimal.valueOf(paymentDTO.getPayPrice() - ordersVO.getPayPrice()); //환불하고 남은금액
+
+        try {
+            importService.refundPaymentByMerchantUid(merchantUid, amount, checksum);
+            //환불시 결제 DB 업데이트
+            paymentDTO.setPayPrice(paymentDTO.getPayPrice() - ordersVO.getPayPrice()); //결제하고 남은금액
+            ordersVO.setPayPrice(amount); //결제한 금액
+            paymentMapper.refundUpdate(paymentDTO);
+            log.info("orderVO확인하기 >>>>{}",ordersVO);
+            ordersMapper.refundUpdate(ordersVO);
+            productMapper.rollbackRefundQuantity(productVO);
+            return "Refund successful";
+        }catch (IamportResponseException | IOException e){
+            log.error("환불실패 : {}",e.getMessage());
+            return "Refund failed :" + e.getMessage();
+        }
+
     }
 }

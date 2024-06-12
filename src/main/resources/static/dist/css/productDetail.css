@@ -27,8 +27,8 @@ body{
     justify-content: space-between;
 }
 .main-image-box{
-    width: 450px;
-    height: 450px;
+    width: 400px;
+    height: 470px;
 }
 .right-content-box{
     width: 450px;
@@ -43,10 +43,11 @@ body{
     flex-direction: column;
     justify-content: space-evenly;
 }
+
 .product-description-box{
     border: 1px solid gold;
     width: 100%;
-    height: 10%;
+    height: 20%;
     display: flex;
     /*border-bottom: 1px solid lightgrey;*/
     border-radius: 2px;
@@ -171,9 +172,8 @@ body{
 
 .second-content {
     width: 940px;
-    height: 8000px;
+    height:8000px;
     font-family: NanumSquareB;
-    border: 3px solid red;
 }
 
 .second-content > .detailMenuBar {
@@ -188,21 +188,24 @@ body{
     background-color: #bfd1ec;
 }
 
+.second-content > .detailMenuBar > ul > li:hover {
+    cursor: pointer;
+}
+
 .second-content > .detailMenuBar > ul > li > a {
     font-size: 18px;
 }
 
 .second-content > .detailMenu {
-    margin: 0 22px 0 22px;
+    width: 940px;
+    margin: 0 auto;
 }
 
-.second-content > .detailMenu > img:first-child {
+.second-content > .detailMenu > .detailImage {
     width: 100%;
-    height: 5800px;
-}
-
-.second-content > .detailMenu > p {
-    margin: 30px 0 30px 0;
+    height: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .second-content > .detailMenu > .review {
@@ -217,84 +220,127 @@ body{
     outline: none;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .reviewList {
+.reviewList {
     display: flex;
     justify-content: flex-end;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .reviewList  > p {
+.reviewList > p {
     margin: 15px 0 10px 0;
     font-size: small;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .reviewImg {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid blue;
-}
-
-.second-content > .detailMenu > .detailReviewBox > .reviewImg > a > img {
-    width: 142px;
-    height: 130px;
-    margin: 10px 0 10px 0;
-}
-
-.second-content > .detailMenu > .detailReviewBox > .review {
+.review {
     width: 100%;
-    height: 320px;
-    border: 1px solid #d63384;
+    height: 250px;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > div:first-child {
+.review > div:first-child {
     float: left;
     width: 30%;
-    height: 320px;
-    background-color: #bfd1ec;
+    height: 100%;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > div:first-child > p {
+.review > div:first-child > p {
     text-align: center;
-    line-height: 320px;
+    line-height: 250px;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > .reviewImgDatail{
+.reviewImgDatail{
     width: 100%;
     height: 120px;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > .reviewImgDatail > img {
+.reviewImgDatail > img {
     width: 120px;
     height: 120px;
     line-height: 120px;
     margin-right: 5px;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > .reviewContent {
+.reviewContent {
     width: 100%;
-    height: 90px;
-    border: 1px solid #d63384;
+    height: auto;
+    padding: 5px 0;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > p {
-    background-color: #a3cfbb;
-}
-
-.second-content > .detailMenu > .detailReviewBox > .review > p:last-child {
+.date {
     display: flex;
     justify-content: space-between;
+    line-height: 30px;
+    font-size: small;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > p:last-child > button {
+.date > button {
     outline: none;
     border: 1px solid lightgray;
     border-radius: 20px;
     background-color: transparent;
     font-size: small;
-    padding: 5px 10px 5px 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    line-height: 30px;
+    margin: 0 10px;
 }
 
-.second-content > .detailMenu > .detailReviewBox > .review > p,
-.second-content > .detailMenu > .detailReviewBox > .review > div > p {
-    margin: 10px 0 10px 0;
+.date > button > img {
+    margin: 0 5px;
+}
+
+.date > button > p {
+    line-height: 30px;
+    margin: 0 5px;
+}
+
+.date > button:hover {
+    color: darkorange;
+}
+
+.review > p {
+    margin: 5px auto;
     font-size: small;
+}
+
+.memberShip {
+    position: fixed;
+    top: 50%;
+    left: 65px;
+    transform: translateY(-50%);
+}
+
+.memberShip > a > img {
+    width: 140px;
+    height: 480px;
+}
+
+.rigthBanner {
+    position: fixed;
+    top: 50%;
+    right: 65px;
+    transform: translateY(-50%);
+    border: 1px solid lightgray;
+    width: 100px;
+    height: 350px;
+    text-align: center;
+    font-family: 'NanumSquareRoundL';
+    font-size: small;
+}
+
+.rigthBanner hr {
+    margin: 5px 0;
+}
+
+.rigthBanner > a:visited {
+    color: black;
+}
+
+.rigthBanner > a > img {
+    display: block;
+    margin: 5px auto;
+}
+
+.RecentlyViewed > p {
+    margin: 10px auto;
 }

@@ -10,9 +10,8 @@
 <body>
 
 <div class="product-container">
-
     <div class="first-content">
-        <div class="main-image-box"><img th:src="${productDTO.productVO.mainImage}" style="width: 100%; height: 100%">
+        <div class="main-image-box"><img th:src="${productDTO.productVO.mainImage}" style="width: 100%; height: 100%; border-radius: 5px">
         </div>
 
         <div class="right-content-box">
@@ -62,17 +61,20 @@
                     </div>
 
                     <div class="buy-or-pick-box">
-                        <button class="like-button" id="slangBtn" th:attr="data-type=${productDTO.slangVO == null ? 'post' : 'delete'}"}>
+                        <button class="like-button" id="slangBtn"
+                                th:attr="data-type=${productDTO.slangVO == null ? 'post' : 'delete'}" }>
                             <th:block th:if="${productDTO.slangVO == null}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
-                                 class="bi bi-suit-heart" viewBox="0 0 16 16">
-                                <path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
-                            </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                     class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                    <path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
+                                </svg>
                             </th:block>
                             <th:block th:if="${productDTO.slangVO != null}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgba(255, 0, 0, 0.685)"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="rgba(255, 0, 0, 0.685)"
                                      class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                    <path fill-rule="evenodd"
+                                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                 </svg>
                             </th:block>
                         </button>
@@ -95,71 +97,163 @@
     <div class="second-content">
         <div class="detailMenuBar">
             <ul>
-                <li><a href="">상품상세정보</a></li>
-                <li><a href="">상품후기</a></li>
-                <li><a href="">문의</a></li>
-                <li><a href="">배송/교환/반품안내</a></li>
+                <li id="product-detail">상품상세정보</li>
+                <li id="product-review">상품후기</li>
+                <li id="product-qna">문의</li>
+                <li id="product-info">배송/교환/반품안내</li>
             </ul>
         </div>
 
         <div class="detailMenu">
+            <p class="product-detail" style="overflow: hidden"></p>
             <th:block th:each="i:${productDTO.imageList}">
-                <img th:src="${i.detailImage}">
+                <img th:src="${i.detailImage}" class="detailImage">
             </th:block>
-            <p>상품후기</p>
-            <div class="review">
-                <p>포토리뷰</p>
-                <button type="button" class="imgDetailBtn" onclick="openWindow()">더보기 ></button>
-            </div>
-
+            <p class="product-review">상품후기</p>
             <div class="detailReviewBox">
                 <div class="reviewList">
                     <p class="after">추천순</p>
                     <p>최신순</p>
                 </div>
 
-                <div class="reviewImg">
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                    <a href=""><img src="/dist/image/product_thumbnail/고구마.jpg" alt=""></a>
-                </div>
-
-                <div class="review">
+                <!--별점-->
+                <div class="review" th:each="rev : ${rvo}">
                     <div>
-                        <p>등급 작성자</p>
+                        <p>[[${rev.nickName}]]</p>
                     </div>
-                    <p>별점</p>
-                    <p>상품명</p>
-                    <p class="reviewContent">리뷰내용</p>
+                    <div th:switch="${rev.star}">
+                         <span th:case="5">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="10">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="15">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="20">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="25">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="30">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="35">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="40">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="45">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                        </span>
+                        <span th:case="50">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                        </span>
+                    </div>
+
+                    <p class="productName">상품명</p>
+                    <p class="reviewContent">[[${rev.content}]]</p>
                     <div class="reviewImgDatail">
-                        <img src="/dist/image/product_thumbnail/고구마.jpg" alt="">
-                        <img src="/dist/image/product_thumbnail/고구마.jpg" alt="">
+                        <th:block th:each="img : ${rev.reviewImageVOList}">
+                            <img th:src="${img.reviewImage}" alt="">
+                        </th:block>
                     </div>
-                    <p>날짜<button type="button">도움돼요<img src="/dist/icon/hand-thumbs-up-fill.svg"></button></p>
+                    <div class="date">[[${rev.registerDate}]]
+                        <button type="button" id="likeBtn" class="likeBtn"
+                                th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">
+                            <img src="/dist/icon/good.png" style="width: 26px; height: 26px;" th:id="likeIcon+${rev.id}"> 도움돼요
+                            <p class="count" th:id="count+${rev.id}">[[${rev.revUpCount}]]</p>
+                            <p id="reviewId" style="display: none">[[${rev.id}]]</p>
+                        </button>
+                    </div>
+                    <hr>
                 </div>
-
             </div>
-
-            <p>상품문의</p>
-            <p>배송안내</p>
+            <p class="product-qna">상품문의</p>
+            <p class="product-info">배송안내</p>
             <p>교환/반품 안내</p>
         </div>
     </div>
 </div>
 
-
+<!--양쪽 배너-->
+<div class="memberShip">
+    <a href="#">
+        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
+    </a>
+</div>
+<div class="rigthBanner">
+    <a th:href="@{/basket/myBasket}">
+        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
+    </a>
+    <hr>
+    <a th:href="@{/product/mySlang}">
+        <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;">찜
+    </a>
+    <hr>
+    <div class="RecentlyViewed">
+        <p>최근 본 상품</p>
+        <ul>
+            <p></p>
+        </ul>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">
     const productDTO = [[${productDTO}]];
     const customerId = [[${session.id}]];
     const productId = [[${productId}]];
+    const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
     console.log(productDTO);
     console.log(customerId);
     console.log(productId);
+    console.log(List);
+
+
 </script>
 <script th:src="@{/js/productDetail.js}"></script>
 </body>

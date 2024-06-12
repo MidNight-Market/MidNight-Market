@@ -1,4 +1,13 @@
 package com.project.www.service;
 
+import com.project.www.domain.OrdersVO;
+
+import java.util.List;
+
 public interface OrdersService {
+    List<OrdersVO> getMyPurchasedProductList(String customerId);
+
+    List<OrdersVO> getMyFrequentPurchasesList(String customerId);
+
+    List<OrdersVO> getMyWriteReviewList(String customerId);
 }

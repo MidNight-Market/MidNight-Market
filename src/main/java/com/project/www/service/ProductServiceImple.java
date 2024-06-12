@@ -1,9 +1,6 @@
 package com.project.www.service;
 
-import com.project.www.domain.ProductDTO;
-import com.project.www.domain.ProductDetailImageVO;
-import com.project.www.domain.ProductVO;
-import com.project.www.domain.SlangVO;
+import com.project.www.domain.*;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +13,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class ProductServiceImple implements ProductService{
+public class ProductServiceImple implements ProductService {
 
     private final ProductMapper productMapper;
     private final ProductDetailImageMapper productDetailImageMapper;
     private final ProductCategoryMapper productCategoryMapper;
     private final ProductCategoryDetailMapper productCategoryDetailMapper;
     private final SlangMapper slangMapper;
+    private final ReviewMapper reviewMapper;
+    private final ReviewImageMapper reviewImageMapper;
+    private final ReviewLikeMapper reviewLikeMapper;
 
     @Transactional
     @Override
@@ -33,13 +33,13 @@ public class ProductServiceImple implements ProductService{
 
         long productId = productMapper.getProductId();
 
-        log.info(">>>>>상품번호 마지막 가져오기>>>>>{}",productId);
+        log.info(">>>>>상품번호 마지막 가져오기>>>>>{}", productId);
 
-        if(isOK > 0){
-            for(ProductDetailImageVO image : productDTO.getImageList()){
+        if (isOK > 0) {
+            for (ProductDetailImageVO image : productDTO.getImageList()) {
                 image.setProductId(productId);
 
-        log.info(">>>>세부이미지 리스트>>>>>{}",image);
+                log.info(">>>>세부이미지 리스트>>>>>{}", image);
 
                 productDetailImageMapper.insert(image);
             }
@@ -90,12 +90,33 @@ public class ProductServiceImple implements ProductService{
 
         List<ProductVO> productVOS = new ArrayList<>();
 
-        for(SlangVO svo : slangVOS){
+        for (SlangVO svo : slangVOS) {
             productVOS.add(productMapper.getDetail(svo.getProductId()));
         }
 
         return productVOS;
     }
 
+    @Override
+    public List<ReviewVO> getReview(long id) {
+        List<ReviewVO> rvo = reviewMapper.getReview(id);
 
+        for (ReviewVO review : rvo) {
+            review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
+            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
+        }
+        log.info("rvo >> {}", rvo);
+        return rvo;
+    }
+
+    @Override
+    public int getTotalCount(ListPagingVO pgvo) {
+        return productMapper.getTotalCount(pgvo);
+    }
+
+    @Override
+    public List<ProductVO> getProductList(ListPagingVO pgvo) {
+        return productMapper.getList(pgvo);
+
+    }
 }

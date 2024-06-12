@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.www.repository.ReviewMapper">
+    <insert id="register" parameterType="com.project.www.domain.ReviewVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO review (content,star,customer_id,product_id,orders_id, nick_name)
+        VALUES
+        (#{content}, #{star}, #{customerId}, #{productId}, #{ordersId}, #{nickName})
+    </insert>
+
+    <select id="getReview" resultType="com.project.www.domain.ReviewVO">
+        select * from review
+        where product_id = #{id}
+    </select>
+
+    <update id="update">
+        update review set
+        rev_up_count = rev_up_count+1
+        where id = #{reviewId}
+    </update>
+
+    <update id="delete">
+        update review set
+        rev_up_count = rev_up_count-1
+        where id = #{reviewId}
+    </update>
+    <select id="getCount" resultType="int">
+        select rev_up_count from review where id = #{reviewId}
+    </select>
+</mapper>

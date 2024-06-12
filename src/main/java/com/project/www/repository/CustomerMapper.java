@@ -2,11 +2,12 @@ package com.project.www.repository;
 
 import com.project.www.domain.CustomerVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.security.core.userdetails.User;
+
+import java.util.List;
 
 @Mapper
 public interface CustomerMapper {
-    void insert(CustomerVO cvo);
+    int insert(CustomerVO cvo);
 
     int checkEmail(String email);
 
@@ -21,4 +22,6 @@ public interface CustomerMapper {
     void updatePw(String id, String pw);
 
     CustomerVO findByUserName(String providerId);
+
+    List<CustomerVO> getNickName(String customerId);
 }

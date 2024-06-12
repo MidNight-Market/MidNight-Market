@@ -1,3 +1,5 @@
+
+
 let productQty = document.getElementById('productQty');
 let productPrice = document.getElementById('productPrice');
 
@@ -19,7 +21,7 @@ if(productDTO.productVO.totalQty === 0){
 
 // + 또는 - 를 눌렀을 경우 가격 계산 
 document.addEventListener('click', (e) => {
-    
+
     //품절일 경우 이벤트 리턴
     if(productDTO.productVO.totalQty === 0){
         return;
@@ -80,7 +82,7 @@ document.getElementById('basketButton').addEventListener('click', () => {
     }
 
     productData = {
-        customerId: 'oco0217@gmail.com', //고객이메일
+        customerId: customerId, //고객이메일
         productId: Number(`${productDTO.productVO.id}`), //상품고유번호
         qty: Number(document.getElementById('productQty').innerText), //주문할 수량
     };
@@ -220,34 +222,34 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
         };
 
         postPaymentToServer(payData).then(result=>{
-           console.log(result);
+            console.log(result);
 
             const message = result.replace(/\d+$/, '');
             const number = result.replace(/\D/g, '');
 
-           //잔여수량 보다 주문수량이 많을 시
-           if(message == 'excess_quantity'){
+            //잔여수량 보다 주문수량이 많을 시
+            if(message == 'excess_quantity'){
 
-               productQty.innerText = number;
+                productQty.innerText = number;
 
-               if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
-                   postPaymentToServer(payData);
-               }
-                   document.getElementById('+').disabled = true;
-           }
-           
-           //재고 없을 시
+                if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
+                    postPaymentToServer(payData);
+                }
+                document.getElementById('+').disabled = true;
+            }
+
+            //재고 없을 시
             if(message == 'quantity_exhaustion'){
                 alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
             }
-            
+
             //DB저장에 성공했을 시
             if(result == 'success'){
                 alert('주문서 페이지로 이동합니다.');
                 //form데이터 merchantUid를 order페이지에 보낸다
                 document.getElementById('merchantUid').value = merchant_uid;
                 document.getElementById('orderMoveForm').submit();
-                
+
             }
 
         });
@@ -255,12 +257,9 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
 });
 
 
-
-
 async function postPaymentToServer(payData){
 
     try {
-
         const url = '/payment/post';
         const config = {
             method : 'POST',
@@ -277,4 +276,166 @@ async function postPaymentToServer(payData){
     } catch (error) {
         console.log(error);
     }
+}
+
+// 리뷰 도움돼요 버튼
+const likeBtn = document.querySelectorAll('.likeBtn');
+likeBtn.forEach(button =>{
+    button.addEventListener('click', (e)=>{
+        if(customerId == null){
+            alert("로그인 후 클릭 가능합니다.");
+            return;
+        }else{
+            let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
+            let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
+            console.log("dataType : ",dataType);
+            console.log("reviewId : ",reviewId);
+            const data = {
+                customerId : customerId,
+                reviewId : reviewId
+            }
+            isExist(data).then(result=>{
+                console.log(result);
+                if(result.includes("있음")){
+                    dataType = "delete"
+                    button.dataset.type = dataType;
+                    let img = document.getElementById('likeIcon'+data.reviewId);
+                    img.src = '/dist/icon/good.png'; // 버튼 취소했을 때
+                    reviewLikeUpdateFromServer(dataType, data).then(result =>{
+                        let str = result;
+                        let count = str.substring(str.search("/")+1, str.length);
+                        document.getElementById('count'+reviewId).innerText = count;
+                    });
+                }else if(result.includes("없음")){
+                    dataType = "post"
+                    button.dataset.type = dataType;
+                    let img = document.getElementById('likeIcon'+data.reviewId)
+                        img.src = '/dist/icon/good-fill.png'; // 버튼 눌렀을 때
+                    reviewLikeUpdateFromServer(dataType,data).then(result =>{
+                        let str = result;
+                        let count = str.substring(str.search("/")+1, str.length);
+                        document.getElementById('count'+reviewId).innerText = count;
+                    });
+                }
+            });
+        }
+    });
+});
+console.log(List);
+for(let i=0; i<List.length; i++){
+    let data = {
+        customerId : customerId,
+        reviewId : List[i].id
+    }
+    let img = document.getElementById('likeIcon'+List[i].id);
+    isExist(data).then(result =>{
+        if(result.includes("있음")){
+            img.src = '/dist/icon/good-fill.png'; // 좋아요를 눌렀을 때의 이미지
+        }else if(result.includes("없음")){
+            img.src = '/dist/icon/good.png'; // 좋아요를 취소했을 때의 이미지
+        }
+    })
+}
+async function isExist(data){
+    try {
+        const url = "/product/isExist";
+        const config = {
+            method : 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    }catch (e){
+        console.log(e);
+    }
+}
+
+async function reviewLikeUpdateFromServer(type, data){
+    try {
+        const url = "/product/reviewLikeRegister";
+        const config = {
+            method : type,
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    }catch (e){
+        console.log(e);
+    }
+}
+
+// async function reviewCountFromServer(reviewId){
+//     try{
+//         const url = "/product/getCount/"+reviewId;
+//         const config = {
+//             method : 'get'
+//         }
+//         const resp = await fetch(url, config);
+//         const result = await resp.text()
+//         return result;
+//     }catch (e){
+//         console.log(e);
+//     }
+// }
+
+// // 리뷰 도움돼요 버튼
+// const likeBtn = document.querySelectorAll('.likeBtn');
+//
+// likeBtn.forEach(button =>{
+//     let countValue = 0;
+//     let status = false; //현재 도움돼요 버튼 증가 여부
+//     let likeCount = button.querySelector('.count');
+//
+//     button.addEventListener('click', ()=>{
+//
+//         if(customerId == null){
+//             alert("로그인 후 클릭 가능합니다.");
+//         }else{
+//            if(status){
+//                countValue--;
+//            } else {
+//              countValue++;
+//            }
+//             likeCount.innerText = countValue;
+//            status = !status; //현재 상태에서 반전시키기
+//         }
+//     });
+// });
+
+// 디테일 메뉴바 스크롤 적용
+document.getElementById('product-detail').addEventListener('click', () => {
+    let productDetail = document.querySelector('.product-detail');
+    let productDetailOffset = productDetail.offsetTop;
+    scroll(productDetailOffset);
+});
+document.getElementById('product-review').addEventListener('click', () => {
+    let productReview = document.querySelector('.product-review');
+    let productReviewOffset = productReview.offsetTop;
+    scroll(productReviewOffset);
+});
+document.getElementById('product-qna').addEventListener('click', () => {
+    let productQna = document.querySelector('.detailReviewBox');
+    let productQnaOffset = productQna.offsetTop;
+    scroll(productQnaOffset);
+});
+document.getElementById('product-info').addEventListener('click', () => {
+    let productInfo = document.querySelector('.detailReviewBox');
+    let productInfoOffset = productInfo.offsetTop;
+    scroll(productInfoOffset);
+});
+
+// 스크롤 function
+function scroll(offset) {
+    window.scrollTo({
+        top: offset,
+        behavior: 'smooth'
+    });
 }

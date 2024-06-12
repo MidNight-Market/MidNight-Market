@@ -2,8 +2,10 @@ package com.project.www.controller;
 
 import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.CustomerVO;
+import com.project.www.domain.NotificationVO;
 import com.project.www.service.CustomerService;
 import com.project.www.service.MailService;
+import com.project.www.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +22,7 @@ public class CustomerController {
     private final CustomerService csv;
     private final MailService msv;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final NotificationService nsv;
 
     @GetMapping("/insert")
     public void insert() {
@@ -27,11 +30,19 @@ public class CustomerController {
 
     @PostMapping("/insert")
     public String insert(CustomerVO cvo) {
+        log.info("cvo 값 확인 {}", cvo);
         cvo.setPw(bCryptPasswordEncoder.encode(cvo.getPw()));
         cvo.setProvider("form");
         cvo.setProviderId(cvo.getId());
         cvo.setRole("ROLE_USER");
-        csv.insert(cvo);
+        int isOk = csv.insert(cvo);
+        if(isOk > 0){
+            NotificationVO nvo = new NotificationVO();
+            nvo.setCustomerId(cvo.getId());
+            nvo.setNotifyContent("회원가입을 환영합니다. 3천원 쿠폰이 발급되었습니다. ");
+            nsv.insert(nvo);
+            return "/customer/success";
+        }
         return "index";
     }
 
@@ -60,7 +71,6 @@ public class CustomerController {
 
     @GetMapping("/changePw")
     public void changePw() {
-        log.info("test");
     }
 
     @GetMapping("/findId")

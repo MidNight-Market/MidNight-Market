@@ -13,4 +13,6 @@ public interface SellerMapper {
     int checkId(String id);
 
     int checkShopName(String shopName);
+
+    SellerVO findById(String id);
 }

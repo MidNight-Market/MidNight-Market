@@ -1,5 +1,17 @@
+function changeVal(){
+    let result ={};
+    const emailDomain = document.getElementById('emailDomain');
+    result.emailDomain = emailDomain.options[emailDomain.selectedIndex].value;
+    if(result.emailDomain === "직접입력"){
+        document.getElementById('idB').value = "";
+    }
+    document.getElementById('idB').value = result.emailDomain;
+}
+
+
+
 async function sendNumber(){
-    let mail = document.getElementById('customerEmail').value;
+    let mail = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
     try {
         const url = '/mail/mailSend/'+mail;
         const config = {
@@ -15,6 +27,7 @@ async function sendNumber(){
 document.getElementById('sendBtn').addEventListener('click', ()=>{
     sendNumber().then(result =>{
         alert("이메일 전송 완료");
+        document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
         sendAuthNum();
         document.getElementById('mail_number').style.display="";
     });
@@ -41,6 +54,7 @@ document.getElementById('confirmBtn').addEventListener('click', ()=>{
             document.getElementById('mail_number').style.display="none";
             document.getElementById('checkBtn').style.display="none";
             document.getElementById('sendBtn').style.display="none";
+            document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
         }else{
             alert("인증번호가 다릅니다. 다시 입력해주세요.")
         }
@@ -124,46 +138,9 @@ document.getElementById('joinBtn').addEventListener('click',()=>{
     let add2 = document.getElementById('sample6_detailAddress').value;
     document.getElementById('address').value = code+"/"+add1+"/"+add2;
 });
-// 이용약관
-const joinBtn = document.getElementById('joinBtn');
-joinBtn.disabled = 'disabled';
-const pchkBoxes = document.querySelectorAll('input[name="chk"]'); // 필수약관
-const cchkBoxes = document.querySelectorAll('input[name="chk1"]'); // 선택약관
 
-function chkAll(isChecked) {
-    // 모든 체크박스를 루프 돌며 상태를 chkAll과 동일하게 설정
-    pchkBoxes.forEach((checkbox) => {
-        checkbox.checked = isChecked;
-    });
-    cchkBoxes.forEach((checkbox) => {
-        checkbox.checked = isChecked;
-    });
-    // 최소 두 개의 체크박스가 선택되었는지 확인하여 가입하기 버튼을 활성화
-    const checkedCount = Array.from(pchkBoxes).filter((checkbox) => checkbox.checked).length;
-    joinBtn.disabled = checkedCount < 2;
-}
-
-// chkAll 체크박스에 이벤트 리스너 추가
-document.querySelector('#chk').addEventListener('change', function () {
-    chkAll(this.checked);
-});
-
-// 가입하기 버튼을 업데이트하는 개별 체크박스에 이벤트 리스너 추가
-const inCheckboxes = document.querySelectorAll('input[name="chk"]');
-inCheckboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', function () {
-        const checkedCount = Array.from(inCheckboxes).filter((checkbox) => checkbox.checked).length;
-        joinBtn.disabled = checkedCount < 2;
-    });
-});
-function agreement(){
-    alert("이용약관에 동의하셨습니다.")
-}
-function disagreement(){
-    alert("이용약관 필수사항에 동의하시지 않으셨습니다.")
-}
 document.getElementById('checkBtn').addEventListener('click', ()=>{
-    let email = document.getElementById('customerEmail').value;
+    let email = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
     if(validateEmail(email)){
         checkEmail(email).then(result =>{
             if(result === "1"){
@@ -172,6 +149,10 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
             }else{
                 alert("사용가능한 이메일입니다. ");
                 document.getElementById('sendBtn').style.display = '';
+                document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
+                console.log(document.getElementById('customerEmail').value)
+                console.log(document.getElementById('idF').value)
+                console.log(document.getElementById('idB').value)
             }
         })
     }else{
