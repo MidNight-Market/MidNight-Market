@@ -3,16 +3,19 @@ package com.project.www.service;
 import com.project.www.domain.ReviewDTO;
 import com.project.www.domain.ReviewImageVO;
 import com.project.www.domain.ReviewLikeVO;
+import com.project.www.domain.ReviewVO;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ReviewServiceImple implements ReviewService{
+public class ReviewServiceImple implements ReviewService {
 
     private final ReviewMapper reviewMapper;
     private final OrdersMapper ordersMapper;
@@ -27,12 +30,12 @@ public class ReviewServiceImple implements ReviewService{
         log.info("리뷰DTO객체 확인>>>>{}", reviewDTO);
 
         int isOk = reviewMapper.register(reviewDTO.getReviewVO());
-        log.info("아이디값 잘되나 확인>>{}",reviewDTO.getReviewVO().getId());
-        if(isOk > 0){
+        log.info("아이디값 잘되나 확인>>{}", reviewDTO.getReviewVO().getId());
+        if (isOk > 0) {
 
             //파일이 있을 경우
-            if(reviewDTO.getReviewImageVOList() != null){
-                for(ReviewImageVO reviewImageVO : reviewDTO.getReviewImageVOList()){
+            if (reviewDTO.getReviewImageVOList() != null) {
+                for (ReviewImageVO reviewImageVO : reviewDTO.getReviewImageVOList()) {
                     reviewImageVO.setReviewId(reviewDTO.getReviewVO().getId());
                 }
 
@@ -63,7 +66,7 @@ public class ReviewServiceImple implements ReviewService{
 
     @Override
     public int getCount(String reviewId) {
-       return reviewMapper.getCount(reviewId);
+        return reviewMapper.getCount(reviewId);
     }
 
     @Override
@@ -79,6 +82,18 @@ public class ReviewServiceImple implements ReviewService{
     @Override
     public Boolean isExist(ReviewLikeVO reviewLikeVO) {
         return reviewLikeMapper.isExist(reviewLikeVO);
+    }
+
+    @Override
+    public List<ReviewVO> getMyWriteCompletedReviewList(String customerId) {
+        List<ReviewVO> reviewVOList = reviewMapper.getMyWriteCompletedReviewList(customerId);
+
+        reviewVOList.forEach(item -> {
+            item.setReviewImageVOList(reviewImageMapper.getReviewImgList(item.getId()));
+            item.setProductVO(productMapper.getDetail(item.getProductId()));
+        });
+
+        return reviewVOList;
     }
 
 

@@ -18,8 +18,14 @@ reviewButtons.forEach(button => {
 
         //상품후기 작성 클릭시
         if(e.target.id === 'write-review-button'){
-        // spreadMyWriteReviewList(customerId);
+        spreadMyWriteReviewList(customerId);
         return;
+        }
+
+        //내가 작성한 상품 후기일 경우
+        if(e.target.id === 'write-review-completed-button'){
+            spreadMyWriteCompletedReviewList(customerId);
+            return;
         }
         
         //내가적은 상품 후기일경우
@@ -30,7 +36,7 @@ reviewButtons.forEach(button => {
 });
 
 
-
+//리뷰등록 비동기
 async function getMyWriteReviewListFromServer(customerId) {
 
     try {
@@ -42,7 +48,6 @@ async function getMyWriteReviewListFromServer(customerId) {
     }
 }
 
-//리뷰등록 비동기
 function spreadMyWriteReviewList(customerId) {
     getMyWriteReviewListFromServer(customerId).then(result => {
         reviewWriteData = result;
@@ -92,7 +97,7 @@ function spreadMyWriteReviewList(customerId) {
 async function getMyWriteCompletedReviewListFromServer(customerId) {
 
     try {
-        const response = await fetch('/orders/getMyWriteCompletedReviewList/' + customerId);
+        const response = await fetch('/review/getMyWriteCompletedReviewList/' + customerId);
         const result = await response.json();
         return result;
     } catch (e) {
@@ -110,37 +115,148 @@ function spreadMyWriteCompletedReviewList(customerId) {
         if(result.length > 0){
             result.forEach((value,index) => {
 
-                const [year, month, day,hour, minute] = value.ordersDate.match(/\d+/g);
 
-                str += `<div class="purchased-date-box">`;
-                str += `<span>${year}.${month}.${day} (${hour}시 ${minute}분)</span>`;
+                const [year, month, day,hour, minute] = value.registerDate.match(/\d+/g);
+                str += `<div id="write-review-completed">`;
+                str += `<div class="write-review-completed-box">`;
+                str += `<div class="review-content-box">`;
+                str += `<div class="review-product-info-box">`;
+                str += `<div class="review-product-info-image">`;
+                str += `<img src="${value.productVO.mainImage}" alt="">`;
                 str += `</div>`;
-                str += `<div class="purchased-box">`;
-                str += `<div class="purchased-image-box">`;
-                str += `<img src="${value.productVO.mainImage}" alt="사진없음">`;
-                str += `</div>`;
-                str += `<div class="purchased-product-info-box">`;
-                str += `<p>${value.productVO.name}</p>`;
-                str += `<span class="purchased-price">${value.payPrice.toLocaleString()}원</span>`;
-                str += `<span class="purchased-quantity">${value.qty}개 구매</span>`;
-                str += `</div>`;
-                str += `<div class="purchased-status">`;
-                str += `<span style="color: forestgreen; font-weight: 500">${value.status}</span>`;
-                str += `</div>`;
-                str += `<div class="purchases-select-button-box">`;
-                str += `<button class="review-button" data-index="${index}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">후기작성</button>`;
+                str += `<div class="review-product-info-desc">`;
+                str += `<span>${value.productVO.name}</span>`;
+                str += `<span>${value.productVO.description}</span>`;
                 str += `</div>`;
                 str += `</div>`;
+                str += `<div class="star-date-box">`;
+                str += `<div class="date-box"><span>${year}.${month}.${day}</span></div>`;
+                str += `<div class="star-box">${starCalculate(String(value.star))}</div>`;
+                str += `</div>`;
+                str += `<div class="review-content">`;
+                str += `<span>${value.content}</span>`;
+                str += `</div>`;
+                str += `</div>`;
+                str += `<div class="review-image-box">`;
+                if(value.reviewImageVOList.length > 0){
+                    value.reviewImageVOList.forEach((value)=>{
+                str += `<img src="${value.reviewImage}" alt="">`;
+                    });
+                }
+                str += `</div>`;
+                str += `</div>`;
+                str += `</div>`;
+
             });
             div.innerHTML = str;
         }else{
-            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">적을 수 있는 후기가 존재하지 않습니다.</h1>';
+            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">작성하신  후기가 존재하지 않습니다.</h1>';
         }
     });
 }
 
 
+//숫자에 따라 별표시 함수
+function starCalculate(starScore) {
+    let result;
 
+    switch (starScore) {
+        case '5':
+            result = `
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '10':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '15':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '20':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '25':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '30':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '35':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '40':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '45':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+        `;
+            break;
+        case '50':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+        `;
+            break;
+        default:
+            result = 'Not Star Score';
+            break;
+    }
+    return result;
+}
 
 
 
