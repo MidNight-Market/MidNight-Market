@@ -312,3 +312,24 @@ body{
     margin: 10px 0 10px 0;
     font-size: small;
 }
+
+/* 상품 문의 */
+.product-qna {
+    margin: 30px 0 10px;
+}
+
+.product_qna1 {
+    width: 100%;
+    height: auto;
+    background-color: aqua;
+}
+
+.product_qna_title_text1 {
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.product_qna_title_text3 {
+    font-weight: 700;
+    color: #f27935;
+}
