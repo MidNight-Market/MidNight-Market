@@ -251,3 +251,45 @@ a p {
     font-size: 13px;
     color: rgb(153, 153, 153);;
 }
+
+.memberShip {
+    position: fixed;
+    top: 50%;
+    left: 65px;
+    transform: translateY(-50%);
+}
+
+.memberShip > a > img {
+    width: 140px;
+    height: 480px;
+}
+
+.rigthBanner {
+    position: fixed;
+    top: 50%;
+    right: 65px;
+    transform: translateY(-50%);
+    border: 1px solid lightgray;
+    width: 100px;
+    height: 350px;
+    text-align: center;
+    font-family: 'NanumSquareRoundL';
+    font-size: small;
+}
+
+.rigthBanner hr {
+    margin: 5px 0;
+}
+
+.rigthBanner > a:visited {
+    color: black;
+}
+
+.rigthBanner > a > img {
+    display: block;
+    margin: 5px auto;
+}
+
+.RecentlyViewed > p {
+    margin: 10px auto;
+}
