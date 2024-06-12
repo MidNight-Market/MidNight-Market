@@ -600,10 +600,23 @@
                 spreadMySlangProductList(customerId);
                 return;
             }
+            //
             if(target === 4){
                 spreadMyFrequentPurchasesList(customerId);
                 return;
             }
+
+            //상품후기
+            if(target === 5){
+
+                const select_button = document.querySelectorAll('.review-select-button');
+                // 페이지 로드 시 첫 번째 버튼 클릭
+                if (select_button.length > 0) {
+                    select_button[0].click();
+                }
+
+            }
+
             console.log('등등');
         }
 

@@ -16,10 +16,16 @@ reviewButtons.forEach(button => {
         clickedButton.style.borderBottom = '2px solid red';
         clickedButton.style.color = 'orangered';
 
-        //
+        //상품후기 작성 클릭시
         if(e.target.id === 'write-review-button'){
         spreadMyWriteReviewList(customerId);
+        return;
         }
+        
+        //내가적은 상품 후기일경우
+        console.log('ddd');
+
+
     });
 });
 
