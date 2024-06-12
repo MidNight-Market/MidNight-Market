@@ -172,9 +172,9 @@ CREATE TABLE payment (
 
 #수정완료
 CREATE TABLE notification (
-	notify_type VARCHAR(100) NOT NULL,
-	notify_content VARCHAR(200) NOT NULL,
+	notify_content VARCHAR(500) NOT NULL,
 	notify_date DATETIME DEFAULT NOW(),
+	is_read tinyint default 0,
 	customer_id VARCHAR(150) NOT NULL
 );
 
