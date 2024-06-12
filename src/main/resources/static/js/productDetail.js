@@ -315,6 +315,7 @@ likeBtn.forEach(button =>{
     });
 });
 
+
 async function isExist(data){
     try {
         const url = "/product/isExist";

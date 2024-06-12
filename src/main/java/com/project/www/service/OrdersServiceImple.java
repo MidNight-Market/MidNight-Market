@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImple implements OrdersService {
+public class OrdersServiceImple implements OrdersService {
 
     private final OrdersMapper ordersMapper;
     private final ProductMapper productMapper;
@@ -37,6 +37,16 @@ public class OrderServiceImple implements OrdersService {
             ordersVO.setProductVO(productMapper.getDetail(ordersVO.getProductId()));
         }
 
+        return ordersVOList;
+    }
+
+    @Override
+    public List<OrdersVO> getMyWriteReviewList(String customerId) {
+        List<OrdersVO> ordersVOList = ordersMapper.getMyWriteReviewList(customerId);
+
+        for(OrdersVO ordersVO : ordersVOList){
+            ordersVO.setProductVO(productMapper.getDetail(ordersVO.getProductId()));
+        }
         return ordersVOList;
     }
 }

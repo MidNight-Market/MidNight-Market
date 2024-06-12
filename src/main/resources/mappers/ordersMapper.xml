@@ -64,4 +64,11 @@
         LIMIT 5;
     </select>
 
+    <select id="getMyWriteReviewList" resultType="com.project.www.domain.OrdersVO">
+        SELECT * FROM orders
+        WHERE
+        customer_id = #{customerId} and status = '배송완료' and is_review_comment = 0
+        ORDER BY orders_date DESC
+    </select>
+
 </mapper>

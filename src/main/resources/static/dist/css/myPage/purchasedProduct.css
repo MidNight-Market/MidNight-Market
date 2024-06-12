@@ -69,5 +69,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    border: 1px solid lightgray;
 }
+.purchases-select-button-box button:hover{
+    filter: brightness(95%);
+}
+
 
