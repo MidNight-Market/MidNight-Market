@@ -134,12 +134,12 @@ hr {
     margin-right: 10px;
 }
 
-li {
-    display: flex;
-    align-items: center;
-    position: relative;
-    /* padding: 20px 0px; */
-}
+/*li {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    position: relative;*/
+/*    !* padding: 20px 0px; *!*/
+/*}*/
 
 .name1 {
     /* background-color: aliceblue; */

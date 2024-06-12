@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     </head>
     <body>
     <header class="header">
@@ -34,7 +33,7 @@
                             <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
-                            <p th:text="${session.mStatus} ? '멤버쉽' : '일반회원'"></p>
+                            <a class="member"><p th:text="${session.mStatus} ? '💚멤버십💚' : '🧡일반🧡'"></p></a>
                             <p th:if="${session.id}" style="display: none" id="idValue">[[${id}]]</p>
                                 <a th:if="${session.name}" th:href="@{/customer/myPage}">
                                     [[${session.name}]] 님
@@ -51,10 +50,13 @@
                     <a id="notificationButton">
                         <img th:src="@{/dist/icon/bell.png}">
                     </a>
-                    <a href="#" id="cartBtn">
-                        <img th:src="@{/dist/icon/cart.png}">
+                    <a th:href="@{/basket/myBasket}" id="cartBtn" class="cartBtnPosition">
+                        <img th:src="@{/dist/icon/cart.png}" class="cart-icon">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="basketBadge">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </a>
-                    <a href="#" id="heartBtn">
+                    <a th:href="@{/product/mySlang}" id="heartBtn">
                         <img th:src="@{/dist/icon/heart.png}">
                     </a>
                 </div>
@@ -166,6 +168,13 @@
                         </li>
                         <li>
                             <a href="/help/desk" id="helpBtn" class="bar">고객센터</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="/notice/notice">공지사항</a>
+                                    <a href="/help/desk">FAQ</a>
+                                    <a href="/help/list">1:1문의</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
