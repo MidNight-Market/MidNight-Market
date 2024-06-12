@@ -143,41 +143,89 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
 
 let notificationDiv = null;
 
-function showNotification(event) {
-    // 알림창이 이미 열려 있는지 확인
+function toggleNotificationContent(event) {
+    const content = event.target;
+    if (content.style.whiteSpace === 'nowrap') {
+        content.style.whiteSpace = 'normal';
+    } else {
+        content.style.whiteSpace = 'nowrap';
+    }
+}
+
+async function fetchNotifications() {
+    try {
+        let response = await fetch('/notification/notifications');
+        if (response.ok) {
+            return await response.json();
+        } else {
+            console.error('Failed to fetch notifications');
+            return [];
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
+async function deleteNotification(content) {
+    try {
+        let response = await fetch(`/notifications/${content}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            console.log('Notification deleted');
+            showNotification();
+        } else {
+            console.error('Failed to delete notification');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function showNotification(event) {
     if (notificationDiv) {
         document.body.removeChild(notificationDiv);
         notificationDiv = null;
         return;
     }
 
-    // 클릭된 버튼의 위치를 계산
     var button = event.target;
     var rect = button.getBoundingClientRect();
 
-    // 새로운 div 요소 생성
     notificationDiv = document.createElement('div');
     notificationDiv.className = 'notification';
 
-    var notificationText = document.createElement('p');
-    notificationText.textContent = 'This is a notification!';
+    let notifications = await fetchNotifications();
+    notifications.forEach(notification => {
+        var notificationItem = document.createElement('div');
+        notificationItem.className = 'notification-item';
 
-    var closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
-    closeButton.onclick = function() {
-        document.body.removeChild(notificationDiv);
-        notificationDiv = null;
-    };
+        var notificationText = document.createElement('div');
+        notificationText.className = 'notification-content';
+        notificationText.textContent = notification.notifyContent;
+        notificationText.onclick = toggleNotificationContent;
 
-    // 요소들을 조립
-    notificationDiv.appendChild(notificationText);
-    notificationDiv.appendChild(closeButton);
+        var notificationTime = document.createElement('div');
+        notificationTime.className = 'notification-time';
+        notificationTime.textContent = notification.notifyDate;
+
+        var deleteBtn = document.createElement('button');
+        deleteBtn.className = 'notification-button';
+        deleteBtn.textContent = "X";
+        deleteBtn.onclick = function() {
+            deleteNotification(notification.content);
+        };
+
+        notificationItem.appendChild(notificationText);
+        notificationItem.appendChild(notificationTime);
+        notificationItem.appendChild(deleteBtn);
+        notificationDiv.appendChild(notificationItem);
+    });
+
     document.body.appendChild(notificationDiv);
-
-    // div 요소의 위치 설정
-    notificationDiv.style.top = (rect.bottom + window.scrollY)+15 + 'px';
-    notificationDiv.style.left = (rect.right + window.scrollX)+20 - notificationDiv.offsetWidth + 'px';
+    notificationDiv.style.top = (rect.bottom + window.scrollY) + 15 + 'px';
+    notificationDiv.style.left = (rect.right + window.scrollX) + 20 - notificationDiv.offsetWidth + 'px';
 }
 
-// 버튼 클릭 이벤트 핸들러 등록
 document.getElementById('notificationButton').onclick = showNotification;
