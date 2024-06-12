@@ -1,3 +1,44 @@
+.review-select-box{
+    width: 100%;
+    height: 78px;
+    background-color: violet;
+    display: flex;
+    margin-bottom: 32px;
+}
+.review-select-button{
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    border: none;
+    font-size: 17px;
+    font-weight: 600;
+    color: darkgray;
+    border-bottom: 3px solid lightgray;
+}
+.review-note-box{
+    margin: 0 auto 24px;
+    width: 95%;
+    height: 100px;
+    background-color: white;
+}
+.review-note-box p{
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 17px;
+}
+.review-note-box ul{
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 4px;
+    color: black;
+}
+.review-note-box ul>li{
+    padding-bottom: 11px;
+    padding-left: 12px;
+}
+
+
+
 .rating {
     float: none;
     width: 200px;

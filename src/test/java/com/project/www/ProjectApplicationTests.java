@@ -48,8 +48,8 @@ class ProjectApplicationTests {
 					.productCategoryDetailId(3)
 					.description("석류 착즙주스 1L"+i)
 					.totalQty(7)
-					.mainImage("/upload/2024\\06\\10/686f498b-5122-4681-81b0-75ad543281a5_main.jpg")
-					.thumbImage("/upload/2024\\06\\10/686f498b-5122-4681-81b0-75ad543281a5_th_main.jpg")
+					.mainImage("/upload/2024\\06\\10/67eef518-e49d-42ed-9550-52ccf03afe53_main.jpg")
+					.thumbImage("/upload/2024\\06\\10/67eef518-e49d-42ed-9550-52ccf03afe53_th_main.jpg")
 					.sellerId("dbscksdnd")
 					.build();
 

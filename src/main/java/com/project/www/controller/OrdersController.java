@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,4 +31,11 @@ public class OrdersController {
         return osv.getMyFrequentPurchasesList(customerId);
     }
 
+
+    @ResponseBody
+    @GetMapping("/getMyWriteReviewList/{customerId}")
+    public List<OrdersVO> getMyWriteReviewList(@PathVariable("customerId") String customerId){
+        log.info("리뷰 작성할 리스트에서 고객아이디 확인>>>{}",customerId);
+        return osv.getMyWriteReviewList(customerId);
+    }
 }

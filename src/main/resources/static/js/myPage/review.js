@@ -1,3 +1,99 @@
+
+let reviewWriteData; //상품정보 저장
+
+const reviewButtons = document.querySelectorAll('.review-select-button');
+
+reviewButtons.forEach(button => {
+    button.addEventListener('click', e => {
+        // 모든 버튼의 스타일을 초기화합니다.
+        reviewButtons.forEach(btn => {
+            btn.style.borderBottom = '2px solid lightgray';
+            btn.style.color = 'darkgray';
+        });
+
+        // 클릭된 버튼의 스타일을 변경합니다.
+        const clickedButton = e.target;
+        clickedButton.style.borderBottom = '2px solid red';
+        clickedButton.style.color = 'orangered';
+
+        //
+        if(e.target.id === 'write-review-button'){
+        spreadMyWriteReviewList(customerId);
+        }
+    });
+});
+
+
+
+async function getMyWriteReviewListFromServer(customerId) {
+
+    try {
+        const response = await fetch('/orders/getMyWriteReviewList/' + customerId);
+        const result = await response.json();
+        return result;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function spreadMyWriteReviewList(customerId) {
+    getMyWriteReviewListFromServer(customerId).then(result => {
+        reviewWriteData = result;
+        console.log(result);
+        let div = document.getElementById('write-reviewPage');
+        div.innerHTML = '';
+        let str = '';
+        if(result.length > 0){
+            result.forEach((value,index) => {
+
+                const [year, month, day,hour, minute] = value.ordersDate.match(/\d+/g);
+
+                str += `<div class="purchased-date-box">`;
+                str += `<span>${year}.${month}.${day} (${hour}시 ${minute}분)</span>`;
+                str += `</div>`;
+                str += `<div class="purchased-box">`;
+                str += `<div class="purchased-image-box">`;
+                str += `<img src="${value.productVO.mainImage}" alt="사진없음">`;
+                str += `</div>`;
+                str += `<div class="purchased-product-info-box">`;
+                str += `<p>${value.productVO.name}</p>`;
+                str += `<span class="purchased-price">${value.payPrice.toLocaleString()}원</span>`;
+                str += `<span class="purchased-quantity">${value.qty}개 구매</span>`;
+                str += `</div>`;
+                str += `<div class="purchased-status">`;
+                str += `<span style="color: forestgreen; font-weight: 500">${value.status}</span>`;
+                str += `</div>`;
+                str += `<div class="purchases-select-button-box">`;
+                str += `<button class="review-button" data-index="${index}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">후기작성</button>`;
+                str += `</div>`;
+                str += `</div>`;
+            });
+            div.innerHTML = str;
+        }else{
+            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">적을 수 있는 후기가 존재하지 않습니다.</h1>';
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const rateWrap = document.querySelectorAll('.rating'),
     label = document.querySelectorAll('.rating .rating__label'),
     input = document.querySelectorAll('.rating .rating__input'),
@@ -85,12 +181,12 @@ document.addEventListener('click', (e) => {
         console.log('버튼이 클릭되었습니다.');
         const dataIndex = e.target.getAttribute('data-index');
         console.log(dataIndex);
-        document.getElementById('modal-image').src = purchasedData[dataIndex].productVO.mainImage;
-        document.getElementById('modal-product-name').innerText = '상품명 :    ' + purchasedData[dataIndex].productVO.name;
-        document.getElementById('modal-product-description').innerText = `설명 :    ` + purchasedData[dataIndex].productVO.description;
+        document.getElementById('modal-image').src = reviewWriteData[dataIndex].productVO.mainImage;
+        document.getElementById('modal-product-name').innerText = reviewWriteData[dataIndex].productVO.name;
+        document.getElementById('modal-product-description').innerText = reviewWriteData[dataIndex].productVO.description;
         document.getElementById('fileList').innerHTML = '';
-        productId = purchasedData[dataIndex].productId;
-        ordersId = purchasedData[dataIndex].id;
+        productId = reviewWriteData[dataIndex].productId;
+        ordersId = reviewWriteData[dataIndex].id;
 
     }
 });
@@ -179,7 +275,7 @@ document.getElementById('register-button').addEventListener('click', () => {
     sendReviewRegisterFromServer(data).then(result => {
         if (result === 'register_success') {
             alert('리뷰를 달아주셔서 감사합니다. 100만포인트 증정해드립니다.');
-            spreadMyPurchasedProductList(customerId);
+            spreadMyWriteReviewList(customerId);
         } else {
             alert('리뷰 등록 실패');
         }

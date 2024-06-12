@@ -19,7 +19,7 @@
     <update id="paySuccessUpdate">
         UPDATE payment
         SET
-        status = 'success',
+        status = '결제성공',
         pay_method = #{payMethod},
         pay_date = now()
         WHERE
@@ -30,7 +30,7 @@
         UPDATE payment
         SET
         pay_price = #{payPrice},
-        status = 'refund'
+        status = '환불처리'
         WHERE
         merchant_uid = #{merchantUid}
     </update>

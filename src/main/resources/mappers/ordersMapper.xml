@@ -20,7 +20,7 @@
     <update id="paySuccessUpdate">
         UPDATE orders
         SET
-        status = 'success',
+        status = '주문완료',
         orders_date = now()
         WHERE
         merchant_uid = #{merchantUid}
@@ -30,6 +30,7 @@
         SELECT * FROM orders
         WHERE
         customer_id = #{customerId}
+        ORDER BY orders_date DESC
     </select>
 
     <update id="isReviewCommentUpdate">
@@ -49,17 +50,25 @@
     <update id="refundUpdate">
         UPDATE orders
         SET
-        status = 'refund'
+        status = '환불처리'
         WHERE
-        id = id
+        id = #{id}
     </update>
     
     <select id="getMyFrequentPurchasesList" resultType="com.project.www.domain.OrdersVO">
         SELECT customer_id, product_id, COUNT(*) as qty
         FROM orders
+        WHERE customer_id = #{customerId}
         GROUP BY customer_id, product_id
         ORDER BY qty DESC
         LIMIT 5;
+    </select>
+
+    <select id="getMyWriteReviewList" resultType="com.project.www.domain.OrdersVO">
+        SELECT * FROM orders
+        WHERE
+        customer_id = #{customerId} and status = '배송완료' and is_review_comment = 0
+        ORDER BY orders_date DESC
     </select>
 
 </mapper>

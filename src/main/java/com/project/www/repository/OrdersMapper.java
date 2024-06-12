@@ -23,4 +23,6 @@ public interface OrdersMapper {
     void refundUpdate(OrdersVO ordersVO);
 
     List<OrdersVO> getMyFrequentPurchasesList(String customerId);
+
+    List<OrdersVO> getMyWriteReviewList(String customerId);
 }
