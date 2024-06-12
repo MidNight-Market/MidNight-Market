@@ -20,8 +20,8 @@ function updateCategoryOptions() {
 document.getElementById('product-name-input').addEventListener('input', (e) => {
     const nameLength = e.target.value.length;
     const nameError = document.getElementById('product-name-error');
-    if (nameLength < 5) {
-        nameError.innerText = '상품명을 5글자 이상 입력해주세요.';
+    if (nameLength < 2) {
+        nameError.innerText = '상품명을 2글자 이상 입력해주세요.';
     } else {
         nameError.innerText = '';
     }
@@ -175,9 +175,9 @@ document.getElementById('register-button').addEventListener('click', (e) => {
     productCategoryError.innerText = '';
 
     // 상품이름
-    if (productName.length < 5) {
+    if (productName.length < 2) {
         productNameInput.focus();
-        productNameError.innerText = '상품명을 5글자 이상 입력해주세요.';
+        productNameError.innerText = '상품명을 2글자 이상 입력해주세요.';
         productNameInput.scrollIntoView({behavior: 'smooth', block: 'center'});
         return;
     }
