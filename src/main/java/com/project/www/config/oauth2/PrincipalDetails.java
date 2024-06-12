@@ -87,6 +87,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         return cvo.getRole();
     }
     public Boolean getMStatus(){
-        return cvo.isMStaus();
+        return cvo.isMStatus();
     }
 }

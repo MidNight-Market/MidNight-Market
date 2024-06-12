@@ -36,7 +36,9 @@ public class SellerController {
         sellerVO.setPw(bCryptPasswordEncoder.encode(sellerVO.getPw()));
 
         int isOk = ssv.register(sellerVO);
-
+        if(isOk > 0){
+            return "/customer/success";
+        }
         return "/index";
     }
 
