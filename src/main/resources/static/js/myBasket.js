@@ -48,6 +48,11 @@ $('#select-delete').click(function (event) {
         success: function (response) {
             console.log(response);
             // 리스트 뿌리기
+            const checkedLength = checkedValues.length;
+            let basketBadge = document.getElementById('basketBadge');
+
+            basketBadge.innerText = String(parseInt(basketBadge.innerText) - checkedLength);
+
             spreadMyBasketList(customerId);
         }
     });
