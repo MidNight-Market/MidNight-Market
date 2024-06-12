@@ -1,3 +1,5 @@
+
+
 let productQty = document.getElementById('productQty');
 let productPrice = document.getElementById('productPrice');
 
@@ -282,6 +284,7 @@ likeBtn.forEach(button =>{
     button.addEventListener('click', (e)=>{
         if(customerId == null){
             alert("로그인 후 클릭 가능합니다.");
+            return;
         }else{
             let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
             let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
@@ -296,7 +299,8 @@ likeBtn.forEach(button =>{
                 if(result.includes("있음")){
                     dataType = "delete"
                     button.dataset.type = dataType;
-                    button.style.backgroundColor = "red";
+                    let img = document.getElementById('likeIcon'+data.reviewId);
+                    img.src = '/dist/icon/good.png'; // 버튼 취소했을 때
                     reviewLikeUpdateFromServer(dataType, data).then(result =>{
                         let str = result;
                         let count = str.substring(str.search("/")+1, str.length);
@@ -304,6 +308,9 @@ likeBtn.forEach(button =>{
                     });
                 }else if(result.includes("없음")){
                     dataType = "post"
+                    button.dataset.type = dataType;
+                    let img = document.getElementById('likeIcon'+data.reviewId)
+                        img.src = '/dist/icon/good-fill.png'; // 버튼 눌렀을 때
                     reviewLikeUpdateFromServer(dataType,data).then(result =>{
                         let str = result;
                         let count = str.substring(str.search("/")+1, str.length);
@@ -314,8 +321,21 @@ likeBtn.forEach(button =>{
         }
     });
 });
-
-
+console.log(List);
+for(let i=0; i<List.length; i++){
+    let data = {
+        customerId : customerId,
+        reviewId : List[i].id
+    }
+    let img = document.getElementById('likeIcon'+List[i].id);
+    isExist(data).then(result =>{
+        if(result.includes("있음")){
+            img.src = '/dist/icon/good-fill.png'; // 좋아요를 눌렀을 때의 이미지
+        }else if(result.includes("없음")){
+            img.src = '/dist/icon/good.png'; // 좋아요를 취소했을 때의 이미지
+        }
+    })
+}
 async function isExist(data){
     try {
         const url = "/product/isExist";
@@ -389,30 +409,6 @@ async function reviewLikeUpdateFromServer(type, data){
 //         }
 //     });
 // });
-
-// // 포토리뷰 리스트 뿌리기(최대 6장)
-// let cnt = 0;
-// let reviewImg = document.querySelector('.reviewImg');
-//
-// for(let i=0; i<rvoList.length; i++){
-//     if(rvoList[i].reviewImageVOList != null){
-//         let imgCnt = 0;
-//         for(let j=0; j<rvoList[i].reviewImageVOList.length; j++){
-//             let imgList = rvoList[i].reviewImageVOList[j];
-//             if(imgList.length>0 && imgCnt<1){ // 해당 번지에서 이미지가 있고 이미지 카운트가 1 이하인 경우만
-//                 let img = imgList[0]; //각 번지에서 첫번째 사진만 가져옴(사진3개있어도 1개만)
-//                 let imgSetting = `<img src="${img.reviewImage}" alt="">`;
-//                 cnt++; //전체 이미지 cnt증가
-//                 imgCnt++; //해당 번지 이미지 cnt증가
-//
-//                 reviewImg.innerHTML += imgSetting;
-//             }
-//         }
-//     }
-//     if(cnt >= 6){ //화면에 최대 6개까지만 뿌릴거임
-//         break;
-//     }
-// }
 
 // 디테일 메뉴바 스크롤 적용
 document.getElementById('product-detail').addEventListener('click', () => {
