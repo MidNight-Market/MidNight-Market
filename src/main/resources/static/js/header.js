@@ -105,9 +105,9 @@ document.getElementById('searchButton').addEventListener('click', () => {
         saveHistoryArr.push(searchVal);
         window.localStorage.setItem("searchHistory", JSON.stringify(saveHistoryArr));
     } else {
-        let prevArr = JSON.parse(prevData);
-        prevArr.push(searchVal);
-        window.localStorage.setItem("searchHistory", JSON.stringify(prevArr));
+        let preletr = JSON.parse(prevData);
+        preletr.push(searchVal);
+        window.localStorage.setItem("searchHistory", JSON.stringify(preletr));
     }
     
     //요기 수정
@@ -184,48 +184,76 @@ async function deleteNotification(content) {
 }
 
 async function showNotification(event) {
-    if (notificationDiv) {
-        document.body.removeChild(notificationDiv);
-        notificationDiv = null;
-        return;
+    if(loginId == null){
+        alert("로그인이 필요한 서비스입니다.");
+        event.preventDefault();
+        window.location.href = "http://localhost:8090/login/form";
+    }else{
+        if (notificationDiv) {
+            document.body.removeChild(notificationDiv);
+            notificationDiv = null;
+            return;
+        }
+
+        let button = event.target;
+        let rect = button.getBoundingClientRect();
+
+        notificationDiv = document.createElement('div');
+        notificationDiv.className = 'notification';
+
+        let notifications = await fetchNotifications();
+        notifications.forEach(notification => {
+            let notificationItem = document.createElement('div');
+            notificationItem.className = 'notification-item';
+
+            let notificationText = document.createElement('div');
+            notificationText.className = 'notification-content';
+            notificationText.textContent = notification.notifyContent;
+            notificationText.onclick = toggleNotificationContent;
+
+            let notificationTime = document.createElement('div');
+            notificationTime.className = 'notification-time';
+            let timeVal = getTimeDiff(notification.notifyDate);
+            notificationTime.textContent = timeVal;
+
+            let deleteBtn = document.createElement('button');
+            deleteBtn.className = 'notification-button';
+            deleteBtn.textContent = "X";
+            deleteBtn.onclick = function() {
+                deleteNotification(notification.content);
+            };
+
+            notificationItem.appendChild(notificationText);
+            notificationItem.appendChild(notificationTime);
+            notificationItem.appendChild(deleteBtn);
+            notificationDiv.appendChild(notificationItem);
+        });
+
+        document.body.appendChild(notificationDiv);
+        notificationDiv.style.top = (rect.bottom + window.scrollY) + 15 + 'px';
+        notificationDiv.style.left = (rect.right + window.scrollX) + 20 - notificationDiv.offsetWidth + 'px';
     }
 
-    var button = event.target;
-    var rect = button.getBoundingClientRect();
-
-    notificationDiv = document.createElement('div');
-    notificationDiv.className = 'notification';
-
-    let notifications = await fetchNotifications();
-    notifications.forEach(notification => {
-        var notificationItem = document.createElement('div');
-        notificationItem.className = 'notification-item';
-
-        var notificationText = document.createElement('div');
-        notificationText.className = 'notification-content';
-        notificationText.textContent = notification.notifyContent;
-        notificationText.onclick = toggleNotificationContent;
-
-        var notificationTime = document.createElement('div');
-        notificationTime.className = 'notification-time';
-        notificationTime.textContent = notification.notifyDate;
-
-        var deleteBtn = document.createElement('button');
-        deleteBtn.className = 'notification-button';
-        deleteBtn.textContent = "X";
-        deleteBtn.onclick = function() {
-            deleteNotification(notification.content);
-        };
-
-        notificationItem.appendChild(notificationText);
-        notificationItem.appendChild(notificationTime);
-        notificationItem.appendChild(deleteBtn);
-        notificationDiv.appendChild(notificationItem);
-    });
-
-    document.body.appendChild(notificationDiv);
-    notificationDiv.style.top = (rect.bottom + window.scrollY) + 15 + 'px';
-    notificationDiv.style.left = (rect.right + window.scrollX) + 20 - notificationDiv.offsetWidth + 'px';
 }
 
 document.getElementById('notificationButton').onclick = showNotification;
+
+function getTimeDiff(notificationDate) {
+    let currentDate = new Date();
+    let notifyDate = new Date(notificationDate);
+    let diffMs = currentDate - notifyDate;
+
+    let diffMinutes = Math.round(diffMs / 60000); // 60000 밀리초(ms) = 1분
+
+    if (diffMinutes < 1) {
+        return "방금 전";
+    } else if (diffMinutes < 60) {
+        return `${diffMinutes}분 전`;
+    } else if (diffMinutes < 1440) {
+        let hours = Math.floor(diffMinutes / 60);
+        return `${hours}시간 전`;
+    } else {
+        let days = Math.floor(diffMinutes / 1440);
+        return `${days}일 전`;
+    }
+}

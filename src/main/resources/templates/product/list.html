@@ -348,8 +348,9 @@
     const queryString = decode.split('?')[1];
     const params = new URLSearchParams(queryString);
     let searchVal = params.get('search');
-    if (searchVal != null || searchVal.length != 0) {
-        let searchResultElement = document.getElementById('searchValPrint');
+    console.log(searchVal);
+    let searchResultElement = document.getElementById('searchValPrint');
+    if (searchVal != null && (searchVal).length !== 0) {
         searchResultElement.style.display = '';
         searchResultElement.innerHTML = `"<span style="color: #f57700;">${searchVal}</span>"에 대한 검색결과`;
     }
@@ -358,7 +359,9 @@
     const customerId = [[${session.id}]];
     const subType = [[${ph.pgvo.subType}]];
     console.log(subType);
-    document.getElementById(subType).style.color = 'black';
+    if(subType != null){
+        document.getElementById(subType).style.color = 'black';
+    }
 </script>
 <script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
