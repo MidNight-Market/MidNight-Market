@@ -227,3 +227,43 @@ async function checkNick(nickName) {
         console.log(error);
     }
 }
+
+// 이용약관
+const joinBtn = document.getElementById('joinBtn1');
+joinBtn.disabled = 'disabled';
+const pchkBoxes = document.querySelectorAll('input[name="chk"]'); // 필수약관
+const cchkBoxes = document.querySelectorAll('input[name="chk1"]'); // 선택약관
+
+function chkAll(isChecked) {
+    // 모든 체크박스를 루프 돌며 상태를 chkAll과 동일하게 설정
+    pchkBoxes.forEach((checkbox) => {
+        checkbox.checked = isChecked;
+    });
+    cchkBoxes.forEach((checkbox) => {
+        checkbox.checked = isChecked;
+    });
+    // 최소 두 개의 체크박스가 선택되었는지 확인하여 가입하기 버튼을 활성화
+    const checkedCount = Array.from(pchkBoxes).filter((checkbox) => checkbox.checked).length;
+    joinBtn1.disabled = checkedCount < 2;
+}
+
+// chkAll 체크박스에 이벤트 리스너 추가
+document.querySelector('#chk').addEventListener('change', function () {
+    chkAll(this.checked);
+});
+
+// 가입하기 버튼을 업데이트하는 개별 체크박스에 이벤트 리스너 추가
+const inCheckboxes = document.querySelectorAll('input[name="chk"]');
+inCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function () {
+        const checkedCount = Array.from(inCheckboxes).filter((checkbox) => checkbox.checked).length;
+        joinBtn.disabled = checkedCount < 2;
+    });
+});
+
+function agreement(){
+    alert("이용약관에 동의하셨습니다.")
+}
+function disagreement(){
+    alert("이용약관 필수사항에 동의하시지 않으셨습니다.")
+}

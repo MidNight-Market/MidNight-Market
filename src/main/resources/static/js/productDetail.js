@@ -439,3 +439,15 @@ function scroll(offset) {
         behavior: 'smooth'
     });
 }
+
+// 댓글 보이기
+function btnClick() {
+        const mydiv = document.getElementById('my-div');
+
+        if(mydiv.style.display == 'block') {
+          mydiv.style.display = 'none';
+        }else {
+          mydiv.style.display = 'block';
+        }
+
+}
