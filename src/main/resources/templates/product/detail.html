@@ -93,7 +93,7 @@
         <input type="hidden" name="merchantUid" id="merchantUid">
     </form>
 
-    <!--여기서부터@@@@-->
+
     <div class="second-content">
         <div class="detailMenuBar">
             <ul>
@@ -106,6 +106,9 @@
 
         <div class="detailMenu">
             <p class="product-detail" style="overflow: hidden"></p>
+            <th:block th:each="i:${productDTO.imageList}">
+                <img th:src="${i.detailImage}" class="detailImage">
+            </th:block>
             <p class="product-review">상품후기</p>
             <div class="detailReviewBox">
                 <div class="reviewList">
@@ -113,100 +116,100 @@
                     <p>최신순</p>
                 </div>
 
+                <!--별점-->
                 <div class="review" th:each="rev : ${rvo}">
-                    <div class="left-side">
+                    <div>
                         <p>[[${rev.nickName}]]</p>
                     </div>
-                    <div class="right-side">
-                        <!--별점-->
-                        <div th:switch="${rev.star}">
-                            <span th:case="5" class="star">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="10">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="15">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="20">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="25">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="30">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="35">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="40">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="45">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                            </span>
-                            <span th:case="50">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                            </span>
-                        </div>
-                        <p class="productName">[[${productDTO.productVO.name}]]</p>
-                        <p class="reviewContent">[[${rev.content}]]</p>
-                        <div class="reviewImgDatail">
-                            <th:block th:each="img : ${rev.reviewImageVOList}">
-                                <img th:src="${img.reviewImage}" alt="">
-                            </th:block>
-                        </div>
-                        <div class="date">[[${rev.registerDate}]]
-                            <button type="button" id="likeBtn" class="likeBtn"
-                                    th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">
-                                <img src="/dist/icon/good.png" style="width: 26px; height: 26px;" th:id="likeIcon+${rev.id}"> 도움돼요
-                                <p class="count" th:id="count+${rev.id}">[[${rev.revUpCount}]]</p>
-                                <p id="reviewId" style="display: none">[[${rev.id}]]</p>
-                            </button>
-                        </div>
+                    <div th:switch="${rev.star}">
+                         <span th:case="5">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="10">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="15">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="20">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="25">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="30">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="35">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="40">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star.svg">
+                        </span>
+                        <span th:case="45">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-half.svg">
+                        </span>
+                        <span th:case="50">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                            <img src="/dist/icon/star-fill.svg">
+                        </span>
                     </div>
+
+                    <p class="productName">상품명</p>
+                    <p class="reviewContent">[[${rev.content}]]</p>
+                    <div class="reviewImgDatail">
+                        <th:block th:each="img : ${rev.reviewImageVOList}">
+                            <img th:src="${img.reviewImage}" alt="">
+                        </th:block>
+                    </div>
+                    <div class="date">[[${rev.registerDate}]]
+                        <button type="button" id="likeBtn" class="likeBtn"
+                                th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">
+                            <img src="/dist/icon/good.png" style="width: 26px; height: 26px;" th:id="likeIcon+${rev.id}"> 도움돼요
+                            <p class="count" th:id="count+${rev.id}">[[${rev.revUpCount}]]</p>
+                            <p id="reviewId" style="display: none">[[${rev.id}]]</p>
+                        </button>
+                    </div>
+                    <hr>
                 </div>
             </div>
 
@@ -269,7 +272,7 @@
             <p>교환/반품 안내</p>
         </div>
     </div>
-    <!--여기까지@@@@-->
+</div>
 
 <!--양쪽 배너-->
 <div class="memberShip">
@@ -277,7 +280,7 @@
         <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
     </a>
 </div>
-<div class="rigthBanner">
+<div class="rightBanner">
     <a th:href="@{/basket/myBasket}">
         <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
     </a>
@@ -286,11 +289,13 @@
         <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;">찜
     </a>
     <hr>
+    <a th:href="@{/customer/myPage}">
+        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
+    </a>
+    <hr>
     <div class="RecentlyViewed">
         <p>최근 본 상품</p>
-        <ul>
-            <p></p>
-        </ul>
+        <div id="recentViewContainer"></div>
     </div>
 </div>
 
@@ -300,14 +305,25 @@
     const customerId = [[${session.id}]];
     const productId = [[${productId}]];
     const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
-    console.log(productDTO);
-    console.log(customerId);
-    console.log(productId);
-    console.log(List);
+    let pThumb = encodeURIComponent([[${productDTO.productVO.thumbImage}]]);
+    let pName = encodeURIComponent([[${productDTO.productVO.name}]]);
+    let pPrice = encodeURIComponent([[${productDTO.productVO.price}]]);
+    let pLink = encodeURIComponent(window.location.href);
 
-
+    let setCookie = function(cookieName, thumb, name, price, link) {
+        let existingCookies = document.cookie.split('; ').find(row => row.startsWith(cookieName + '='));
+        let recentViews = existingCookies ? existingCookies.split('=')[1].split('|') : [];
+        let currentProduct = thumb + "@" + name + "@" + price + "@" + link;
+        recentViews = recentViews.filter(view => !view.includes(name));
+        recentViews.unshift(currentProduct);
+        while (recentViews.length > 3) {
+            recentViews.pop();
+        }
+        document.cookie = cookieName + "=" + recentViews.join('|') + "; path=/";
+    }
+    setCookie("recentView", pThumb, pName, pPrice, pLink);
 </script>
+<script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/productDetail.js}"></script>
 </body>
-
-<th:block th:replace="~{footer :: footer}"></th:block>
+<!--<th:block th:replace="~{footer :: footer}"></th:block>-->

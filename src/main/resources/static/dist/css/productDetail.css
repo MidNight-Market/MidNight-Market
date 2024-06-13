@@ -316,28 +316,31 @@ body{
     height: 480px;
 }
 
-.rigthBanner {
+.rightBanner {
     position: fixed;
     top: 50%;
     right: 65px;
     transform: translateY(-50%);
     border: 1px solid lightgray;
     width: 100px;
-    height: 420px;
     text-align: center;
     font-family: 'NanumSquareRoundL';
+    border-radius: 15px;
+    background-color: white;
     font-size: small;
 }
 
-.rigthBanner hr {
+.rightBanner hr {
     margin: 5px 0;
 }
 
-.rigthBanner > a:visited {
+.rightBanner > a:visited {
     color: black;
 }
-
-.rigthBanner > a > img {
+.rightBanner > a{
+    color: black;
+}
+.rightBanner > a > img {
     display: block;
     margin: 5px auto;
 }
