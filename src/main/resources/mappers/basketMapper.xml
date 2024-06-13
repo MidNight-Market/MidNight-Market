@@ -41,4 +41,10 @@
         WHERE
         customer_id = #{customerId} and product_id = #{productId};
     </update>
+
+    <select id="getBasketTotalCount" resultType="int">
+        select count(*)
+        from basket
+        where customer_id = #{username}
+    </select>
 </mapper>

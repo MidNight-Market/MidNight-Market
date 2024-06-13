@@ -19,4 +19,5 @@ public interface BasketMapper {
 
     int update(BasketVO basketVO);
 
+    int getBasketTotalCount(String username);
 }
