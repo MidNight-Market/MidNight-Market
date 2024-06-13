@@ -26,5 +26,5 @@ public interface OrdersMapper {
 
     List<OrdersVO> getMyWriteReviewList(String customerId);
 
-    void markAsDelivered();
+    int markAsDelivered();
 }

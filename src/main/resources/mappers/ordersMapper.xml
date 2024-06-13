@@ -71,12 +71,11 @@
         ORDER BY orders_date DESC
     </select>
 
+    <!-- 배송 완료로 상태 업데이트하고 업데이트된 고객 ID 리스트 반환하는 쿼리 -->
     <update id="markAsDelivered">
         UPDATE orders
-        SET
-        status = '배송완료'
-        WHERE
-        status IN ('주문완료', '구매확정');
+        SET status = '배송완료'
+        WHERE status IN ('주문완료', '구매확정');
     </update>
 
 </mapper>
