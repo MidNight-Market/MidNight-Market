@@ -206,28 +206,32 @@
             height: 480px;
         }
 
-        .rigthBanner {
+        .rightBanner {
             position: fixed;
             top: 50%;
             right: 65px;
             transform: translateY(-50%);
             border: 1px solid lightgray;
             width: 100px;
-            height: 420px;
+            background-color: white;
             text-align: center;
+            border-radius: 15px;
             font-family: 'NanumSquareRoundL';
             font-size: small;
         }
 
-        .rigthBanner hr {
+        .rightBanner hr {
             margin: 5px 0;
         }
 
-        .rigthBanner > a:visited {
+        .rightBanner > a{
+            color: black;
+        }
+        .rightBanner > a:visited {
             color: black;
         }
 
-        .rigthBanner > a > img {
+        .rightBanner > a > img {
             display: block;
             margin: 5px auto;
         }
@@ -319,7 +323,7 @@
         <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
     </a>
 </div>
-<div class="rigthBanner">
+<div class="rightBanner">
     <a th:href="@{/basket/myBasket}">
         <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
     </a>
@@ -328,15 +332,13 @@
         <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;">찜
     </a>
     <hr>
-    <a href="#">
+    <a th:href="@{/customer/myPage}">
         <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
     </a>
     <hr>
     <div class="RecentlyViewed">
         <p>최근 본 상품</p>
-        <ul>
-            <p></p>
-        </ul>
+        <div id="recentViewContainer"></div>
     </div>
 </div>
 
@@ -358,6 +360,7 @@
     console.log(subType);
     document.getElementById(subType).style.color = 'black';
 </script>
+<script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
 </body>
 
