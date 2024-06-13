@@ -29,7 +29,7 @@
     <select id="getMyPurchasedProductList" resultType="com.project.www.domain.OrdersVO">
         SELECT * FROM orders
         WHERE
-        customer_id = #{customerId}
+        customer_id = #{customerId} AND status != '주문대기'
         ORDER BY orders_date DESC
     </select>
 
@@ -58,7 +58,7 @@
     <select id="getMyFrequentPurchasesList" resultType="com.project.www.domain.OrdersVO">
         SELECT customer_id, product_id, COUNT(*) as qty
         FROM orders
-        WHERE customer_id = #{customerId}
+        WHERE customer_id = #{customerId} AND status != '주문대기'
         GROUP BY customer_id, product_id
         ORDER BY qty DESC
         LIMIT 5;
@@ -70,5 +70,13 @@
         customer_id = #{customerId} and status = '배송완료' and is_review_comment = 0
         ORDER BY orders_date DESC
     </select>
+
+    <update id="markAsDelivered">
+        UPDATE orders
+        SET
+        status = '배송완료'
+        WHERE
+        status IN ('주문완료', '구매확정');
+    </update>
 
 </mapper>

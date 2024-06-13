@@ -35,5 +35,11 @@
         merchant_uid = #{merchantUid}
     </update>
 
+    <delete id="deletePendingPaymentOrders">
+        DELETE FROM payment
+        WHERE
+        status = '결제대기'
+    </delete>
+
 
 </mapper>
