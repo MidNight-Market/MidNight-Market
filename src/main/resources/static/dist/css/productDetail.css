@@ -20,7 +20,7 @@ body{
 }
 .first-content{
     /*border: 1px solid black;*/
-    margin: 20px auto;
+    margin: 0 auto;
     width: 100%;
     height: 600px;
     display: flex;
@@ -172,7 +172,7 @@ body{
 
 .second-content {
     width: 940px;
-    height: 8000px;
+    height: auto;
     font-family: NanumSquareB;
 }
 
@@ -184,16 +184,17 @@ body{
 .detailMenuBar > ul {
     display: flex;
     justify-content: space-around;
-    padding: 20px 0;
-    background-color: #bfd1ec;
+    padding: 25px 0;
+    background-color: orange;
 }
 
 .detailMenuBar > ul > li:hover {
     cursor: pointer;
 }
 
-.detailMenuBar > ul > li > a {
-    font-size: 18px;
+.detailMenuBar > ul > li {
+    font-size: 17px;
+    color: white;
 }
 
 .detailMenu {
@@ -269,7 +270,7 @@ body{
     display: flex;
     justify-content: space-between;
     line-height: 30px;
-    font-size: small;
+    font-size: 14px;
     border-bottom: 1px solid lightgray;
     margin: 0 0 20px 0;
 }
@@ -307,7 +308,7 @@ body{
 .memberShip {
     position: fixed;
     top: 50%;
-    left: 65px;
+    left: 60px;
     transform: translateY(-50%);
 }
 
@@ -319,7 +320,7 @@ body{
 .rightBanner {
     position: fixed;
     top: 50%;
-    right: 65px;
+    right: 100px;
     transform: translateY(-50%);
     border: 1px solid lightgray;
     width: 100px;
@@ -515,4 +516,15 @@ body{
 
 .my_div_inner3 {
     line-height: 70px;
+}
+
+.productDetailInfo {
+    width: 785px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.productDetailInfoImg {
+    width: 100%;
+    height: auto;
 }

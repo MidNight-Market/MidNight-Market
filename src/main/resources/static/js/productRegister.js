@@ -215,13 +215,13 @@ document.getElementById('register-button').addEventListener('click', (e) => {
 
     //상품대표이미지
     if (file.files.length === 0) {
-        alert('상품 대표 이미지를 등록해주세요.');
+        alert('상품 대표이미지를 등록해주세요.');
         return;
     }
     
     //세부이미지
     if(files.files.length === 0){
-        alert('상품 상세이미지를 등록하여 주세요.');
+        alert('상품 상세이미지를 등록해주세요.');
         return;
     }
 

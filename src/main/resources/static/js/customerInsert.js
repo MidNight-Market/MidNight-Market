@@ -56,7 +56,7 @@ document.getElementById('confirmBtn').addEventListener('click', ()=>{
             document.getElementById('sendBtn').style.display="none";
             document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
         }else{
-            alert("인증번호가 다릅니다. 다시 입력해주세요.")
+            alert("인증번호가 다릅니다.\n다시 입력해주세요.")
         }
     })
 })
@@ -144,10 +144,10 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
     if(validateEmail(email)){
         checkEmail(email).then(result =>{
             if(result === "1"){
-                alert("이미 있는 이메일입니다. 다시 입력해주세요. ");
+                alert("이미 있는 이메일입니다.\n다시 입력해주세요.");
                 document.getElementById("customerEmail").value = '';
             }else{
-                alert("사용가능한 이메일입니다. ");
+                alert("사용 가능한 이메일입니다. ");
                 document.getElementById('sendBtn').style.display = '';
                 document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
                 console.log(document.getElementById('customerEmail').value)
@@ -156,7 +156,7 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
             }
         })
     }else{
-        alert("이메일 주소가 올바르지 않습니다. 이메일 주소를 정확하게 입력해주세요.");
+        alert("이메일 주소가 올바르지 않습니다.\n이메일 주소를 정확하게 입력해주세요.");
         document.getElementById("customerEmail").value = '';
     }
 });
@@ -206,7 +206,7 @@ document.getElementById('checkNick').addEventListener('click', ()=>{
     let nickName = document.getElementById('n').value;
     checkNick(nickName).then(result=>{
         if(result === "1"){
-            alert("이미 있는 닉네임입니다. 다시 입력해주세요. ");
+            alert("이미 있는 닉네임입니다.\n다시 입력해주세요. ");
             document.getElementById("n").value = '';
         }else{
             alert("사용가능한 닉네임입니다. ");

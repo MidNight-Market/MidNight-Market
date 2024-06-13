@@ -195,6 +195,8 @@
     </body>
     <script th:inline="javascript">
         let notificationList = /*[[${session.notificationList}]]*/ [];
+        const cartNum = [[${session.basketTotalCount}]];
+        console.log(cartNum);
         let loginId = [[${session.id}]];
         function showAlert(event, id) {
             id = [[${session.id}]];

@@ -9,7 +9,7 @@ if (document.getElementById("isReset") != null) {
     // 팝업 창의 위치를 계산
     const left = (screenWidth / 2) - (width / 2);
     const top = (screenHeight / 2) - (height / 2);
-    alert("비밀번호가 초기화되었습니다. 다시 설정해주세요.");
+    alert("비밀번호가 초기화되었습니다.\n다시 설정해주세요.");
     openPop = window.open('/login/reset', '비밀번호변경', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
 
     let id = document.getElementById('idValue').innerText;

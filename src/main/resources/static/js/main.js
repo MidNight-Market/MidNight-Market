@@ -55,7 +55,3 @@ startAutoSlide();
 
 slideImgInner.addEventListener('mouseover', stopAutoSlide);
 slideImgInner.addEventListener('mouseout', startAutoSlide);
-
-// const ele = document.querySelector('#memberShipImg');
-// const imgRect = ele.getBoundingClientRect();
-// console.log(imgRect);
