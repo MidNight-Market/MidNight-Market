@@ -271,7 +271,10 @@ ALTER TABLE orders ADD CONSTRAINT FK_payment_TO_orders_1 FOREIGN KEY (
 )
 REFERENCES payment (
 	merchant_uid
-);
+)
+#payment가 삭제되면 orders도 같이 삭제
+ON DELETE CASCADE
+;
 
 ALTER TABLE review ADD CONSTRAINT FK_customer_TO_review_1 FOREIGN KEY (
 	customer_id

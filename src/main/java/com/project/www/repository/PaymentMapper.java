@@ -12,4 +12,6 @@ public interface PaymentMapper {
     int paySuccessUpdate(PaymentDTO paymentDTO);
 
     void refundUpdate(PaymentDTO paymentDTO);
+
+    void deletePendingPaymentOrders();
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{header :: header}"></th:block>
 <head>
-    <title>myPage</title>
+    <title>마이페이지</title>
     <style>
 
         @font-face {
@@ -383,33 +383,33 @@
                     </ul>
                 </div>
                 <!--    상품후기 뿌리기 라인    -->
-<!--                <div id="write-review-completed">-->
-<!--                    <div class="write-review-completed-box">-->
-<!--                        <div class="review-content-box">-->
-<!--                        <div class="review-product-info-box">-->
-<!--                            <div class="review-product-info-image">-->
-<!--                                <img src="/dist/image/testImage.jpg" alt="">-->
-<!--                            </div>-->
-<!--                            <div class="review-product-info-desc">-->
-<!--                                <span>상품명</span>-->
-<!--                                <span>상품상세</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                            <div class="star-date-box">-->
-<!--                                <div class="star-box"> <span>⭐⭐⭐⭐⭐</span> </div>-->
-<!--                                <div class="date-box"> <span>2024.06.12</span> </div>-->
-<!--                            </div>-->
-<!--                            <div class="review-content">-->
-<!--                                <span>후기좋아용왕황화이푸ㅏㅇ뤄유ㅘㅇ루</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                            <div class="review-image-box">-->
-<!--                                <img src="/dist/image/testImage.jpg" alt="">-->
-<!--                                <img src="/dist/image/testImage.jpg" alt="">-->
-<!--                                <img src="/dist/image/testImage.jpg" alt="">-->
-<!--                            </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div id="write-review-completed">-->
+                <!--                    <div class="write-review-completed-box">-->
+                <!--                        <div class="review-content-box">-->
+                <!--                        <div class="review-product-info-box">-->
+                <!--                            <div class="review-product-info-image">-->
+                <!--                                <img src="/dist/image/testImage.jpg" alt="">-->
+                <!--                            </div>-->
+                <!--                            <div class="review-product-info-desc">-->
+                <!--                                <span>상품명</span>-->
+                <!--                                <span>상품상세</span>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                            <div class="star-date-box">-->
+                <!--                                <div class="star-box"> <span>⭐⭐⭐⭐⭐</span> </div>-->
+                <!--                                <div class="date-box"> <span>2024.06.12</span> </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="review-content">-->
+                <!--                                <span>후기좋아용왕황화이푸ㅏㅇ뤄유ㅘㅇ루</span>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                            <div class="review-image-box">-->
+                <!--                                <img src="/dist/image/testImage.jpg" alt="">-->
+                <!--                                <img src="/dist/image/testImage.jpg" alt="">-->
+                <!--                                <img src="/dist/image/testImage.jpg" alt="">-->
+                <!--                            </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
 
                 <div id="write-reviewPage">
@@ -577,16 +577,18 @@
 <script th:src="@{/js/myPage/review.js}"></script>
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // 마이페이지 진입시 주문내역 버튼 자동으로 클릭;
+
+    window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const defaultTab = urlParams.get('defaultTab');
         const select_button = document.querySelectorAll('.mypage_text8');
-
-        // 페이지 로드 시 첫 번째 버튼 클릭
-        if (select_button.length > 0) {
-            select_button[4].click();
+        if (defaultTab) {
+            // 기본 탭 선택 로직
+            select_button[2].click();
+        } else {
+            select_button[0].click();
         }
-    });
-
+    }
 
     document.getElementById('mypage1').addEventListener('click', (e) => {
 
@@ -620,7 +622,7 @@
 
             //주문 내역
             if (target === 1) {
-                spreadMyPurchasedProductList(customerId,'purchasedPage');
+                spreadMyPurchasedProductList(customerId, 'purchasedPage');
                 return;
             }
 
@@ -630,13 +632,13 @@
                 return;
             }
             //
-            if(target === 4){
+            if (target === 4) {
                 spreadMyFrequentPurchasesList(customerId);
                 return;
             }
 
             //상품후기
-            if(target === 5){
+            if (target === 5) {
 
                 const select_button = document.querySelectorAll('.review-select-button');
                 // 페이지 로드 시 첫 번째 버튼 클릭

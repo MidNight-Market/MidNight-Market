@@ -25,4 +25,6 @@ public interface OrdersMapper {
     List<OrdersVO> getMyFrequentPurchasesList(String customerId);
 
     List<OrdersVO> getMyWriteReviewList(String customerId);
+
+    int markAsDelivered();
 }
