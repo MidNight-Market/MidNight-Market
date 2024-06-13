@@ -19,7 +19,7 @@
     <update id="paySuccessUpdate">
         UPDATE payment
         SET
-        status = '결제성공',
+        status = '결제완료',
         pay_method = #{payMethod},
         pay_date = now()
         WHERE

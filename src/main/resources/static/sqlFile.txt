@@ -53,7 +53,12 @@ CREATE TABLE orders (
 	qty bigint NOT NULL,
 	pay_price bigint NOT NULL,
 	orders_date DATETIME DEFAULT NOW(),
-	status VARCHAR(10) default 'stand_by',
+	status VARCHAR(10) default '주문대기',
+	#status가 변경될때마다 변경 (삭제하기 위해)
+	status_date DATETIME DEFAULT NOW(),
+	#주문확정 true / false
+	order_confirmed TINYINT default 0,
+
 	is_review_comment tinyint DEFAULT 0,
 	PRIMARY KEY(id)
 );
@@ -166,7 +171,7 @@ CREATE TABLE payment (
 	pay_price bigint NOT NULL,
 	pay_method VARCHAR(100),
 	address VARCHAR(400),
-	status VARCHAR(10) DEFAULT 'stand_by',
+	status VARCHAR(10) DEFAULT '결제대기',
 	PRIMARY KEY (merchant_uid)
 );
 

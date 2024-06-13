@@ -40,26 +40,28 @@
 
 #write-review-completed{
     width: 100%;
-    min-height: 214px;
-    background-color: #20c997;
+    min-height: 203px;
+    /*background-color: #20c997;*/
 }
 .write-review-completed-box{
     width: 100%;
-    height: 214px;
-    background-color: #8bb9fe;
+    height: 203px;
+    /*background-color: #8bb9fe;*/
     margin-bottom: 24px;
     display: flex;
+    border-bottom: 1px solid lightgray;
 }
 .review-product-info-box{
     width: 100%;
-    height: 114px;
-    background-color: red;
+    height: 88px;
+    /*background-color: red;*/
     display: flex;
 }
 .review-product-info-image{
-    width: 98px;
+    width: 66px;
     height: auto;
     margin-right: 20px;
+    border-radius: 4px;
 }
 .review-product-info-image img{
     width: 100%;
@@ -67,43 +69,63 @@
 }
 .review-product-info-desc{
     width: 430px;
-    height: auto;
-    background-color: #ccc2a4;
+    height: 88px;
+    /*background-color: #ccc2a4;*/
     display: flex;
     flex-direction: column;
+}
+.review-product-info-desc span:first-child{
+    margin: 12px 0 9px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.review-product-info-desc span:last-child{
+    font-size: 13px;
+    font-weight: 400;
 }
 .review-content-box{
     width: 65%;
     height: 100%;
-    background-color: yellowgreen;
+    /*background-color: yellowgreen;*/
 }
 .star-date-box{
     width: 100%;
-    height: 40px;
-    background-color: orange;
+    height: 25px;
+    /*background-color: orange;*/
     display: flex;
 }
 .star-box{
-    width: 40%;
+    width: 20%;
     height: 100%;
-    background-color: rosybrown;
+    /*background-color: rosybrown;*/
 }
 .date-box{
-    width: 60%;
+    width: 20%;
     height: 100%;
-    background-color: darksalmon;
+    /*background-color: darksalmon;*/
 }
 .review-content{
     width: 100%;
     height: 60px;
-    background-color: #bfd1ec;
+    /*background-color: #bfd1ec;*/
+    border: 1px solid lightgray;
+    font-size: 15px;
+    font-weight: 400;
 }
 .review-image-box{
     width: 34%;
     height: 100%;
-    background-color: red;
+    /*background-color: red;*/
     margin-left: 10px;
-
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.review-image-box img{
+    width: 88px;
+    height: 124px;
+    border-radius: 4px;
+    margin-right: 14px;
 }
 
 
@@ -129,12 +151,12 @@
     display: block;
     position: relative;
     left: 0;
-    background-image: url("https://velog.velcdn.com/images/jellykelly/post/9957327f-f358-4c25-9989-5bb3dd5755d6/image.svg");
+    background-image: url("/dist/icon/star.svg");
     background-repeat: no-repeat;
     background-size: 40px;
 }
 .rating__label .star-icon.filled {
-    background-image: url(" https://velog.velcdn.com/images/jellykelly/post/10caf033-b0ef-4d58-804b-6e33395e4ea5/image.svg");
+    background-image: url("/dist/icon/star-fill.svg");
     /*border: 1px solid red;*/
 }
 .rating__label--full .star-icon {

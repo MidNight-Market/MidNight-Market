@@ -17,4 +17,6 @@ public interface ReviewMapper {
     void delete(ReviewLikeVO reviewLikeVO);
 
     int getCount(String reviewId);
+
+    List<ReviewVO> getMyWriteCompletedReviewList(String customerId);
 }

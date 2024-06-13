@@ -3,12 +3,14 @@ package com.project.www.controller;
 import com.project.www.domain.ReviewVO;
 import com.project.www.handler.FileHandler;
 import com.project.www.service.ReviewService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 
 @RequestMapping("/review/*")
 @RestController
@@ -28,6 +30,13 @@ public class ReviewController {
 
         int isOk = rsv.register(fileHandler.reviewImageUploadFiles(files,reviewVO));
         return isOk > 0 ? "register_success" : "register_fail";
+    }
+
+    @ResponseBody
+    @GetMapping("/getMyWriteCompletedReviewList/{customerId}")
+    public List<ReviewVO> getMyWriteCompletedReviewList(@PathVariable("customerId")String customerId){
+        log.info("내가작성한 리뷰 메서드 고객아이디 잘 들어오나 확인>>>{}",customerId);
+       return rsv.getMyWriteCompletedReviewList(customerId);
     }
 
 
