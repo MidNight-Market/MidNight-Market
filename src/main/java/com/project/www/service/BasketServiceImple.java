@@ -74,5 +74,10 @@ public class BasketServiceImple implements BasketService{
         return basketMapper.update(basketVO);
     }
 
+    @Override
+    public int getBasketTotalCount(String username) {
+        return basketMapper.getBasketTotalCount(username);
+    }
+
 
 }
