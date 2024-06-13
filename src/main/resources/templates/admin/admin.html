@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>관리자페이지</title>
 </head>
+<style>
+    body {
+        display: flex;
+        justify-content: center; /* Center align horizontally */
+        align-items: center; /* Center align vertically */
+        height: 100vh; /* Full viewport height */
+        margin: 0; /* Remove default margin */
+    }
+    .adminSection {
+        width: 940px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .adminSection > div {
+        border: 1px solid black;
+        text-align: center;
+        padding: 20px;
+        margin: 10px;
+        flex: 1 1 200px;
+    }
+</style>
 <body>
-<h1>ADMIN PAGE</h1>
+<div class="adminSection">
+    <div class="adminCoupon">쿠폰 발행하기</div>
+    <div class="adminCoupon">발급한 쿠폰 리스트</div>
+    <div class="adminReply">1대1 문의 질문</div>
+    <div class="adminOrders">결제 내역</div>
+    <div class="adminSellerList">판매자 리스트 출력</div>
+    <div class="adminMembershipList">멤버쉽 회원 리스트 출력</div>
+</div>
 </body>
 </html>

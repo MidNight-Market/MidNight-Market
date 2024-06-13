@@ -95,13 +95,10 @@ CREATE TABLE review_like(
 
 #수정완료
 CREATE TABLE member_coupon (
-	coupon_id bigint NOT NULL AUTO_INCREMENT,
-	issue_date DATETIME DEFAULT NOW(),
-	end_date DATETIME,
 	use_status BOOLEAN,
 	use_date DATETIME,
 	customer_id VARCHAR(150) NOT NULL,
-	PRIMARY KEY (coupon_id)
+	coupon_id bigint
 );
 
 #수정완료
@@ -109,7 +106,8 @@ CREATE TABLE coupon (
 	id bigint NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	discount_amount bigint,
-	discount_percentage bigint,
+	issue_date DATETIME DEFAULT NOW(),
+    end_date DATETIME,
 	PRIMARY KEY (id)
 );
 
@@ -386,6 +384,13 @@ ALTER TABLE review_image ADD CONSTRAINT FK_review_TO_review_image_1 FOREIGN KEY 
 )
 REFERENCES review (
 	id
+);
+#쿠폰 연결
+ALTER TABLE `member_coupon` ADD CONSTRAINT `FK_coupon_TO_member_coupon_1` FOREIGN KEY (
+	`coupon_id`
+)
+REFERENCES `coupon` (
+	`id`
 );
 
 #상품 좋아요 연결
