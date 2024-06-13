@@ -1,6 +1,7 @@
 package com.project.www.scheduler;
 
 import com.project.www.domain.OrdersVO;
+import com.project.www.repository.CustomerMapper;
 import com.project.www.repository.OrdersMapper;
 import com.project.www.repository.PaymentMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +23,17 @@ public class Scheduler {
     @Autowired
     private OrdersMapper ordersMapper;
 
+    @Autowired
+    private CustomerMapper customerMapper;
+
     //2분마다 주문확정, 또는 주문완료시 상태를 배송완료로 변경하는 스케쥴러
     @Scheduled(fixedRate = 120000) //2분마다
     public void markAsDelivered() {
-       int row = ordersMapper.markAsDelivered();
-       log.info("로우확인>>>{}",row);
+       int deliveredCount = ordersMapper.markAsDelivered();
        //업데이트를하면 업데이트된 개수 받아와서
-        //배송완료 Count Limit 0, low 아이디 값 List로 받아오기
-       
+        // 배송완료 Count Limit 0, low 아이디 값 List로 받아오기
+        List<String> getDeliveredCustomers = ordersMapper.getDeliveredCustomers(deliveredCount);
+       log.info("배송완료된 고객아이디 확인>>>{}",getDeliveredCustomers);
         //배송완료되면 주문자에게 알림 추가
     }
 
