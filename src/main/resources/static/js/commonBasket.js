@@ -10,7 +10,7 @@ basketButtons.forEach(button=>{
         e.preventDefault();
 
         if(customerId == null){
-            alert('로그인 후 진행해주삼');
+            alert('로그인 후 확인 가능합니다.');
             return;
         }
 
@@ -49,6 +49,8 @@ basketButtons.forEach(button=>{
 
                 //장바구니를 추가했을경우
                 if (rsp === 'register_success') {
+                    let basketBadge = document.getElementById('basketBadge');
+                    basketBadge.innerText = String(parseInt(basketBadge.innerText) + 1);
                     if (confirm(`장바구니에 저장했습니다. \n 장바구니 페이지로 이동하시겠습니까?`)) {
                         location.href = '/basket/myBasket';
                     }

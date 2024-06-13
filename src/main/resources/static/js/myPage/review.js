@@ -455,7 +455,7 @@ document.getElementById('register-button').addEventListener('click', () => {
 
     sendReviewRegisterFromServer(data).then(result => {
         if (result === 'register_success') {
-            alert('리뷰를 달아주셔서 감사합니다. 100만포인트 증정해드립니다.');
+            alert('리뷰를 달아주셔서 감사합니다.\n(구매금액의1%,멤버십2%)포인트 증정해드립니다.');
             spreadMyWriteReviewList(customerId);
         } else {
             alert('리뷰 등록 실패');

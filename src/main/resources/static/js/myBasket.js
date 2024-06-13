@@ -50,7 +50,6 @@ $('#select-delete').click(function (event) {
             // 리스트 뿌리기
             const checkedLength = checkedValues.length;
             let basketBadge = document.getElementById('basketBadge');
-
             basketBadge.innerText = String(parseInt(basketBadge.innerText) - checkedLength);
 
             spreadMyBasketList(customerId);
@@ -76,6 +75,7 @@ $(document).on('click', '.box1 button', function () {
         data: JSON.stringify(data),
         success: function (response) {
             console.log(response);
+
             // 리스트 뿌리기
             spreadMyBasketList(customerId);
         }
@@ -172,6 +172,7 @@ function myBasketList(response) {
         $('#product-price-text').text(total_price.toLocaleString('ko-KR') + ' 원');
         $('#product-discount-price-text').text(discount_price.toLocaleString('ko-KR') + ' 원');
         $('#product-total-price-text').text(payment_price.toLocaleString('ko-KR') + ' 원');
+        $('#basketBadge').text(String(response.length));
     }
 }
 
@@ -217,7 +218,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
             success: function (rsp) {
 
                 if (rsp === 'excess_quantity') {
-                    alert('수량이 맞지않습니다. 다시시도해주세요.');
+                    alert('수량이 맞지 않습니다.\n다시 시도해주세요.');
                     location.reload();
                 }
 

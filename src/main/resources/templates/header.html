@@ -185,6 +185,8 @@
     </body>
     <script th:inline="javascript">
         let notificationList = /*[[${session.notificationList}]]*/ [];
+        const cartNum = [[${session.basketTotalCount}]];
+        console.log(cartNum);
     </script>
     <script src="/js/header.js"></script>
 </th:block>

@@ -77,7 +77,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
 
             })
         } else {
-            alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+            alert('결제에 실패하였습니다.\n에러 내용: ' + rsp.error_msg);
             // 결제 실패 후 처리
         }
     });
