@@ -36,12 +36,13 @@ public class IndexController {
             HttpSession ses = request.getSession();
             ses.setAttribute("name", sellerPrincipalDetails.getShopName());
             ses.setAttribute("id", sellerPrincipalDetails.getUsername());
+            ses.setAttribute("role", sellerPrincipalDetails.getAuthorities());
         }
         if (principal != null) {
             HttpSession ses = request.getSession();
             ses.setAttribute("name", principal.getNickName());
             ses.setAttribute("id", principal.getUsername());
-            ses.setAttribute("role", principal.getAuth());
+            ses.setAttribute("role", principal.getAuthorities());
             ses.setAttribute("mStatus", principal.getMStatus());
             int basketTotalCount = bsv.getBasketTotalCount(principal.getUsername());
             ses.setAttribute("basketTotalCount", basketTotalCount);

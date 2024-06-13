@@ -1,7 +1,5 @@
 package com.project.www.config;
 
-import com.project.www.config.oauth2.PrincipalDetails;
-import com.project.www.config.oauth2.PrincipalDetailsService;
 import com.project.www.config.oauth2.PrincipalOauth2UserService;
 import com.project.www.config.oauth2.SellerPrincipalDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +55,7 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
+                        .deleteCookies("recentView")
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/"))
                 .oauth2Login(oauth2 -> oauth2
@@ -84,6 +83,7 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
+                        .deleteCookies("recentView")
                         .deleteCookies("JSESSIONID"));
         http.userDetailsService(sellerPrincipalDetailsService);
 
