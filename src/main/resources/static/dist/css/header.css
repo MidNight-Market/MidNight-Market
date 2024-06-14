@@ -161,7 +161,7 @@ body {
 }
 
 .loginBox {
-    width: 200px;
+    width: 160px;
     display: flex;
     justify-content: flex-start;
     font-size: 13px;
@@ -187,7 +187,6 @@ body {
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -40px;
 }
 
 .etc-part > a {
@@ -335,11 +334,7 @@ body {
 }
 
 .member {
-    margin-right: 12px;
-}
-
-.member > p {
-    width: 72px;
+    margin-right: -12px;
 }
 
 .input-box{

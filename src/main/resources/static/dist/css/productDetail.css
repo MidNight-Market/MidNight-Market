@@ -329,6 +329,7 @@ body{
     border-radius: 15px;
     background-color: white;
     font-size: small;
+    padding-bottom: 10px;
 }
 
 .rightBanner hr {

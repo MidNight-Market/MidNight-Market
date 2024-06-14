@@ -276,6 +276,7 @@ a p {
     background-color: white;
     font-family: 'NanumSquareRoundL';
     font-size: small;
+    padding-bottom: 10px;
 }
 
 .rightBanner hr {
