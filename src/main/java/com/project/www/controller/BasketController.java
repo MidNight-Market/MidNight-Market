@@ -85,6 +85,15 @@ public class BasketController {
         return isOk > 0 ? "success" : "fail";
     }
 
+    @GetMapping("/getBasketQuantity/{customerId}")
+    @ResponseBody
+    public String GetBasketQuantity(@PathVariable("customerId")String customerId){
+        
+        log.info(">>>바스켓 카운트 확인>>>>{}",customerId);
+//        return "바스켓카운트 연결 잘됌";
+        return String.valueOf(bsv.getBasketTotalCount(customerId));
+    }
+
 
 
 }

@@ -86,7 +86,7 @@
                     <p class="product-name-text">[[${newProductList.name}]]</p>
 
                     <th:block th:if="${newProductList.discountRate != 0}">
-                        <p class="no-discount-price" th:text="${#numbers.formatDecimal(newProductList.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+                        <p class="no-discount-price" th:text="${#numbers.formatDecimal(newProductList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
                         <span class="discountRate-text">[[${newProductList.discountRate}]]%</span>
                     </th:block>
 
@@ -130,7 +130,7 @@
                         <p class="product-name-text">[[${heavySoldList.name}]]</p>
 
                         <th:block th:if="${heavySoldList.discountRate != 0}">
-                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(heavySoldList.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(heavySoldList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
                             <span class="discountRate-text">[[${heavySoldList.discountRate}]]%</span>
                         </th:block>
 
@@ -172,7 +172,7 @@
                         <p class="product-name-text">[[${discountProductList.name}]]</p>
 
                         <th:block th:if="${discountProductList.discountRate != 0}">
-                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(discountProductList.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(discountProductList.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
                             <span class="discountRate-text">[[${discountProductList.discountRate}]]%</span>
                         </th:block>
 
@@ -218,6 +218,9 @@
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
     console.log(role);
+
+
+
 </script>
 <script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/main.js}"></script>

@@ -94,6 +94,15 @@
         id = #{id}
     </update>
 
+
+    <update id="updateProductDiscountRate">
+        UPDATE product SET
+        discount_rate = #{discountRate},
+        discount_price = price - (price * #{discountRate} / 100)
+        WHERE id = #{id}
+    </update>
+
+
     <sql id="category">
         <if test="category != null and category != ''">
             <trim prefix="WHERE(" suffix=")">

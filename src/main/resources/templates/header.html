@@ -62,7 +62,7 @@
                     </a>
                     <a th:href="@{/basket/myBasket}" id="cartBtn" class="cartBtnPosition" onclick="showAlert(event, id)">
                         <img th:src="@{/dist/icon/cart.png}" class="cart-icon">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="basketBadge" th:if="${session.id}">[[${session.basketTotalCount}]]
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="basketBadge" th:if="${session.id}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </a>
@@ -195,8 +195,6 @@
     </body>
     <script th:inline="javascript">
         let notificationList = /*[[${session.notificationList}]]*/ [];
-        const cartNum = [[${session.basketTotalCount}]];
-        console.log(cartNum);
         let loginId = [[${session.id}]];
         function showAlert(event, id) {
             id = [[${session.id}]];
@@ -218,5 +216,8 @@
         })
     </script>
     <script src="/js/header.js"></script>
+    <script th:inline="javascript">
+        GetBasketQuantity([[${session.id}]]);
+    </script>
 </th:block>
 </html>

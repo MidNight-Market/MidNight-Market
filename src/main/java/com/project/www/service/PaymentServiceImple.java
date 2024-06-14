@@ -215,7 +215,7 @@ public class PaymentServiceImple implements PaymentService {
             }
 
             return "Refund successful";
-        } catch (IamportResponseException | IOException e) {
+        } catch (IamportResponseException | IOException | RuntimeException e) {
             log.error("환불 실패 : {}", e.getMessage());
             return "Refund failed :" + e.getMessage();
         }
