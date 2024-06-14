@@ -49,4 +49,9 @@ public class OrdersServiceImple implements OrdersService {
         }
         return ordersVOList;
     }
+
+    @Override
+    public List<OrdersVO> getList() {
+        return ordersMapper.getList();
+    }
 }

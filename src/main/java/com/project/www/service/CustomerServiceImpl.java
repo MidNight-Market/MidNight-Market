@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -48,5 +50,10 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public void updatePw(String id, String pw) {
         customerMapper.updatePw(id, pw);
+    }
+
+    @Override
+    public List<CustomerVO> getList() {
+        return customerMapper.getList();
     }
 }

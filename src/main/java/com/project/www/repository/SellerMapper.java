@@ -15,4 +15,6 @@ public interface SellerMapper {
     int checkShopName(String shopName);
 
     SellerVO findById(String id);
+
+    List<SellerVO> getList();
 }

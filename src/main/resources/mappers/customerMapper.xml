@@ -28,4 +28,7 @@
     <select id="findByUserName" resultType="com.project.www.domain.CustomerVO">
         SELECT * FROM customer where provider_id = #{providerId}
     </select>
+    <select id="getList" resultType="com.project.www.domain.CustomerVO">
+        select * from customer where role = "role_user"
+    </select>
 </mapper>

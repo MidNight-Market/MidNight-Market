@@ -88,4 +88,8 @@
         LIMIT 0, #{deliveredCount}
     </select>
 
+    <select id="getList" resultType="com.project.www.domain.OrdersVO">
+        select * from orders
+    </select>
+
 </mapper>

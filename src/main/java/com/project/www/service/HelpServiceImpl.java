@@ -67,4 +67,9 @@ public class HelpServiceImpl implements HelpService {
         return helpMapper.getMyTotal(name);
     }
 
+    @Override
+    public List<HelpVO> getListToAdmin() {
+        return helpMapper.getListToAdmin();
+    }
+
 }
