@@ -17,4 +17,6 @@ public interface SellerService {
     int checkId(String id);
 
     int checkShopName(String shopName);
+
+    List<SellerVO> getList();
 }

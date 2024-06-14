@@ -120,5 +120,11 @@ public class HelpController {
     }
   }
 
+  @ResponseBody
+  @GetMapping("/getList")
+  public List<HelpVO> getListToAdmin(){
+    return hsv.getListToAdmin();
+  }
+
 
 }

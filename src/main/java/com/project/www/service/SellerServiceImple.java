@@ -46,5 +46,10 @@ public class SellerServiceImple implements SellerService{
         return count;
     }
 
+    @Override
+    public List<SellerVO> getList() {
+        return sellerMapper.getList();
+    }
+
 
 }

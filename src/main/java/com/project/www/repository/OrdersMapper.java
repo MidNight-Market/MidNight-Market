@@ -29,4 +29,6 @@ public interface OrdersMapper {
     int markAsDelivered();
 
     List<String> getDeliveredCustomers(int deliveredCount);
+
+    List<OrdersVO> getList();
 }

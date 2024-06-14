@@ -4,6 +4,7 @@ import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductVO;
 import com.project.www.domain.SellerVO;
 import com.project.www.service.SellerService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class SellerController {
 
     private final SellerService ssv;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final HttpSession session;
 
     @GetMapping("/register")
     public void register(){}
@@ -43,16 +45,13 @@ public class SellerController {
     }
 
     @GetMapping("/myRegisteredProduct")
-    public void productList(Model model){
-    //아이디 또는 이메일 a태그 또는 프린시펄로 받아오기
-
-        String id = "dbscksdnd";
-
-        List<ProductVO> list = ssv.getMyRegisteredProduct(id);
-        
-        log.info(">>>>>상품 리스트 출력{}",list);
-
-        model.addAttribute("list",list);
+    public void productList(Model model, @RequestParam(value = "id", required = false) String paramId){
+        String sessionId = session.getAttribute("id") != null ? session.getAttribute("id").toString() : null;
+        String id = paramId != null ? paramId : sessionId;
+        if (id != null) {
+            List<ProductVO> list = ssv.getMyRegisteredProduct(id);
+            model.addAttribute("list", list);
+        }
     }
 
     @PutMapping (value = "/productQtyUpdate", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -85,5 +84,10 @@ public class SellerController {
         return "1";
     }
 
+    @ResponseBody
+    @GetMapping("/getList")
+    public List<SellerVO> getList(){
+        return ssv.getList();
+    }
 
 }

@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -115,4 +117,10 @@ public class CustomerController {
 
     @GetMapping("/myPage")
     public void myPage() {}
+
+    @ResponseBody
+    @GetMapping("/getList")
+    public List<CustomerVO> getList(){
+        return csv.getList();
+    }
 }

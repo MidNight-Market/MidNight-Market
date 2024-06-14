@@ -38,4 +38,10 @@ public class OrdersController {
         log.info("리뷰 작성할 리스트에서 고객아이디 확인>>>{}",customerId);
         return osv.getMyWriteReviewList(customerId);
     }
+
+    @ResponseBody
+    @GetMapping("/getList")
+    public List<OrdersVO> getList(){
+        return osv.getList();
+    }
 }
