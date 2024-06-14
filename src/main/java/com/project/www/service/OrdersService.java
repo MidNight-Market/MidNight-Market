@@ -10,4 +10,6 @@ public interface OrdersService {
     List<OrdersVO> getMyFrequentPurchasesList(String customerId);
 
     List<OrdersVO> getMyWriteReviewList(String customerId);
+
+    List<OrdersVO> getList();
 }

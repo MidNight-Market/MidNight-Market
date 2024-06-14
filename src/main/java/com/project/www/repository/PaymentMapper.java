@@ -5,13 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface PaymentMapper {
-    void register(PaymentDTO paymentDTO);
+    int register(PaymentDTO paymentDTO);
 
     PaymentDTO getMyPaymentProduct(String merchantUid);
 
     int paySuccessUpdate(PaymentDTO paymentDTO);
 
-    void refundUpdate(PaymentDTO paymentDTO);
+    int refundUpdate(PaymentDTO paymentDTO);
 
     void deletePendingPaymentOrders();
 }

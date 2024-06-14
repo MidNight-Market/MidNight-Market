@@ -17,6 +17,9 @@
     <select id="findById" resultType="com.project.www.domain.SellerVO">
         select * from seller where id = #{id}
     </select>
+    <select id="getList" resultType="com.project.www.domain.SellerVO">
+        select * from seller
+    </select>
 
 
     

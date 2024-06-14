@@ -24,4 +24,6 @@ public interface CustomerMapper {
     CustomerVO findByUserName(String providerId);
 
     List<CustomerVO> getNickName(String customerId);
+
+    List<CustomerVO> getList();
 }

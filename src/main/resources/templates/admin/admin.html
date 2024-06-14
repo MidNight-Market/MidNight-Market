@@ -7,33 +7,82 @@
 <style>
     body {
         display: flex;
-        justify-content: center; /* Center align horizontally */
-        align-items: center; /* Center align vertically */
-        height: 100vh; /* Full viewport height */
-        margin: 0; /* Remove default margin */
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
     }
-    .adminSection {
-        width: 940px;
+    .container {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        width: 100%;
     }
-    .adminSection > div {
-        border: 1px solid black;
-        text-align: center;
+    .sidebar {
+        width: 200px;
+        background-color: #f4f4f4;
+        padding: 15px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar ul li {
+        margin-bottom: 20px;
+    }
+    .sidebar ul li:first-child {
+        margin-bottom: 50px;
+    }
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .sidebar ul li a:hover {
+        background-color: #ddd;
+    }
+    .content {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 20px;
-        margin: 10px;
-        flex: 1 1 200px;
+    }
+    .title {
+        font-size: 30px;
+        font-weight: 700;
+    }
+    #contentDisplay {
+        border: 1px solid black;
+        padding: 20px;
+        width: 80%;
+        max-width: 800px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    table{
+        width: 100%;
     }
 </style>
 <body>
-<div class="adminSection">
-    <div class="adminCoupon">쿠폰 발행하기</div>
-    <div class="adminCoupon">발급한 쿠폰 리스트</div>
-    <div class="adminReply">1대1 문의 질문</div>
-    <div class="adminOrders">결제 내역</div>
-    <div class="adminSellerList">판매자 리스트 출력</div>
-    <div class="adminMembershipList">멤버쉽 회원 리스트 출력</div>
+<div class="container">
+    <div class="sidebar">
+        <ul>
+            <li class="title">관리자 페이지</li>
+            <li><a id="couponPublish">쿠폰 발행하기</a></li>
+            <li><a id="couponList">발급한 쿠폰 리스트</a></li>
+            <li><a id="inquiry">1대1 문의 질문</a></li>
+            <li><a id="orders">결제 내역</a></li>
+            <li><a id="sellerList">판매자 리스트 출력</a></li>
+            <li><a id="memberList">회원 리스트 출력</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div id="contentDisplay"></div>
+    </div>
 </div>
+<script src="/js/admin.js">
+</script>
 </body>
 </html>

@@ -55,6 +55,7 @@ function spreadMyPurchasedProductList(customerId) {
 
                     if (!confirm(`정말로 환불을 진행하시겠습니까?`)) {
                         e.preventDefault();
+                        return;
                     }
 
                     const id = e.target.dataset.id;
