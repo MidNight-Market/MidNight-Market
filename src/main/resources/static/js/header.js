@@ -13,10 +13,10 @@ if (document.getElementById("isReset") != null) {
     openPop = window.open('/login/reset', '비밀번호변경', `width=${width},height=${height},scrollbars=yes,left=${left},top=${top}`);
 
     let id = document.getElementById('idValue').innerText;
-    openPop.onload = function() {
+    openPop.onload = function () {
         openPop.document.getElementById('id').value = id;
     }
-    const popupInterval = setInterval(function() {
+    const popupInterval = setInterval(function () {
         if (openPop.closed) {
             clearInterval(popupInterval);
             logout().then(result => {
@@ -49,15 +49,15 @@ async function logout() {
 }
 
 $('#autoComplete').autocomplete({
-    source: function(request, response) {
+    source: function (request, response) {
         $.ajax({
             url: "/ajax/autocomplete.do",
             type: "POST",
             dataType: "JSON",
-            data: { value: request.term },
-            success: function(data) {
+            data: {value: request.term},
+            success: function (data) {
                 response(
-                    $.map(data.resultList, function(item) {
+                    $.map(data.resultList, function (item) {
                         return {
                             label: item.name,
                             value: item.name
@@ -65,21 +65,21 @@ $('#autoComplete').autocomplete({
                     })
                 );
             },
-            error: function() {
+            error: function () {
                 alert("오류가 발생했습니다.");
             }
         });
     },
-    focus: function(event, ui) {
+    focus: function (event, ui) {
         return false;
     },
     minLength: 1,
     autoFocus: true,
     delay: 100,
-    select: function(evt, ui) {
+    select: function (evt, ui) {
         console.log(ui.item.label);
     },
-    open: function() {
+    open: function () {
         $('#recentSearch').hide();
     }
 });
@@ -109,10 +109,10 @@ document.getElementById('searchButton').addEventListener('click', () => {
         preletr.push(searchVal);
         window.localStorage.setItem("searchHistory", JSON.stringify(preletr));
     }
-    
+
     //요기 수정
     let search = encodeURI(searchVal);
-    window.location.href= `/product/list?type=product&search=${search}`;
+    window.location.href = `/product/list?type=product&search=${search}`;
 });
 
 document.getElementById('recentSearch').addEventListener('click', (e) => {
@@ -184,11 +184,11 @@ async function deleteNotification(content) {
 }
 
 async function showNotification(event) {
-    if(loginId == null){
+    if (loginId == null) {
         alert("로그인이 필요한 서비스입니다.");
         event.preventDefault();
         window.location.href = "http://localhost:8090/login/form";
-    }else{
+    } else {
         if (notificationDiv) {
             document.body.removeChild(notificationDiv);
             notificationDiv = null;
@@ -219,7 +219,7 @@ async function showNotification(event) {
             let deleteBtn = document.createElement('button');
             deleteBtn.className = 'notification-button';
             deleteBtn.textContent = "X";
-            deleteBtn.onclick = function() {
+            deleteBtn.onclick = function () {
                 deleteNotification(notification.content);
             };
 
@@ -256,4 +256,81 @@ function getTimeDiff(notificationDate) {
         let days = Math.floor(diffMinutes / 1440);
         return `${days}일 전`;
     }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const navigationButton = document.querySelectorAll('.bar');
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const type = urlParams.get('type'); // 'sale'
+    const category = urlParams.get('category'); // ''
+    const categoryDetail = urlParams.get('categoryDetail'); // ''
+    // const subType = urlParams.get('subType'); // ''
+    const search = urlParams.get('search'); // ''
+
+    const url = new URL(window.location.href);
+    const path = url.pathname;
+
+
+
+    if (search !== null && search !== '') {// 검색을 한 경우
+        return;
+    }
+
+    if (type === 'sale') { //카테고리 또는 카테고리 디테일 클릭경우
+        navigationButton[1].style.color = 'black';
+        navigationButton[1].style.fontSize = '22px';
+        return;
+    }
+
+    if (type === 'best') { //베스트상품일 경우
+        navigationButton[2].style.color = 'black';
+        navigationButton[2].style.fontSize = '22px';
+        return;
+    }
+
+    if (type === 'new') { //신상품일 경우
+        navigationButton[3].style.color = 'black';
+        navigationButton[3].style.fontSize = '22px';
+        return;
+    }
+
+    if (path.includes('help') || path.includes('notice')) {//고객센터를 누르거나 고객센터 서브메뉴를 눌렀을 경우
+        navigationButton[4].style.color = 'black';
+        navigationButton[4].style.fontSize = '22px';
+        return;
+    }
+
+    if (category !== null || categoryDetail !== null || search === '') {//카테고리 또는 카테고리 디테일 클릭경우
+        navigationButton[0].style.color = 'black';
+        navigationButton[0].style.fontSize = '22px';
+    }
+
+});
+
+
+//장바구니 카운트 가져오기
+async function GetBasketQuantity(customerId) {
+
+    if (customerId == null || customerId === '') {
+        console.log('고객이 아님');
+        return;
+    }
+
+    try {
+        const response = await fetch('/basket/getBasketQuantity/' + customerId);
+        const result = await response.text();
+
+        if (result !== null || result !== '') {
+            console.log(result);
+            document.getElementById('basketBadge').innerText = result; //값 집어넣음
+        }
+
+    } catch (e) {
+
+    }
+
 }

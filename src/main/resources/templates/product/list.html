@@ -276,7 +276,7 @@
                         <p class="product-sm-text">[[${list.description}]]</p>
 
                         <th:block th:if="${list.discountRate != 0}">
-                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(list.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(list.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
                             <span class="discountRate-text">[[${list.discountRate}]]%</span>
                         </th:block>
 

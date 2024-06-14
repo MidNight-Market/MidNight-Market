@@ -49,8 +49,8 @@ basketButtons.forEach(button=>{
 
                 //장바구니를 추가했을경우
                 if (rsp === 'register_success') {
-                    let basketBadge = document.getElementById('basketBadge');
-                    basketBadge.innerText = String(parseInt(basketBadge.innerText) + 1);
+                    let basketCount = document.getElementById('basketBadge'); //장바구니 갯수
+                    basketCount.innerText = String(Number(basketCount.innerText) + 1);
                     if (confirm(`장바구니에 저장했습니다. \n 장바구니 페이지로 이동하시겠습니까?`)) {
                         location.href = '/basket/myBasket';
                     }

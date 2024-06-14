@@ -26,8 +26,8 @@ document.getElementById('product-name-input').addEventListener('input', (e) => {
         nameError.innerText = '';
     }
 
-    if (nameLength > 25) {
-        e.target.value = e.target.value.slice(0, 25);
+    if (nameLength > 45) {
+        e.target.value = e.target.value.slice(0, 45);
         return;
     }
 

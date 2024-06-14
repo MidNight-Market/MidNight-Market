@@ -181,7 +181,8 @@
             </div>
             <div class="left-box">
                 <label>
-                    <input type="text" value="dbscksdnd" name="sellerId" readonly>
+                    <input type="text" th:value="${session.shopName}" name="shopName" readonly>
+                    <input type="text" th:value="${session.id}" name="sellerId" hidden="hidden">
                 </label>
             </div>
         </div>
@@ -230,7 +231,7 @@
             </div>
             <div class="left-box">
                 <label>
-                    <input type="number" name="totalQty" id="totalQty"> &nbsp; <span>개</span>
+                    <input type="number" name="totalQty" id="totalQty" value="100"> &nbsp; <span>개</span>
                     <span class="error-message" id="product-total-error"></span>
                 </label>
             </div>

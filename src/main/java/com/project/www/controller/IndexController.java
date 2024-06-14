@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,6 +40,7 @@ public class IndexController {
             ses.setAttribute("name", sellerPrincipalDetails.getShopName());
             ses.setAttribute("id", sellerPrincipalDetails.getUsername());
             ses.setAttribute("role", sellerPrincipalDetails.getAuthorities());
+            ses.setAttribute("shopName", sellerPrincipalDetails.getShopName());
         }
         if (principal != null) {
             HttpSession ses = request.getSession();
@@ -44,8 +48,6 @@ public class IndexController {
             ses.setAttribute("id", principal.getUsername());
             ses.setAttribute("role", principal.getAuthorities());
             ses.setAttribute("mStatus", principal.getMStatus());
-            int basketTotalCount = bsv.getBasketTotalCount(principal.getUsername());
-            ses.setAttribute("basketTotalCount", basketTotalCount);
             if(principal.getPassword() != null){
                 if(bCryptPasswordEncoder.matches("resetPw",principal.getPassword())){
                     model.addAttribute("pwReset", 1);
@@ -57,6 +59,8 @@ public class IndexController {
         model.addAttribute("discountProductList", discountProductList);
         return "index";
     }
+
+
 
 
 }
