@@ -6,7 +6,6 @@ CREATE TABLE customer (
 	provider VARCHAR(256),
 	provider_id VARCHAR(256),
 	register_date DATETIME DEFAULT NOW(),
-	address VARCHAR(400),
 	role VARCHAR(20) DEFAULT 'role_user',
 	m_status tinyint default 0,
 	m_reg_date datetime default now(),
@@ -63,7 +62,8 @@ CREATE TABLE orders (
 #수정완료
 CREATE TABLE address (
 	address VARCHAR(400) NOT NULL,
-	customer_id VARCHAR(150)
+	customer_id VARCHAR(150),
+	isMain tinyint
 );
 
 #수정완료
