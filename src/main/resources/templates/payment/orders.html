@@ -256,6 +256,10 @@
             /* background-color: blue; */
         }
 
+        .addrAddBtn {
+            float: right;
+        }
+
         .order_box1 {
             /* background-color: yellow; */
             width: 200px;
@@ -270,10 +274,10 @@
             float: right;
         }
 
-        .order3 {
+        .orderAddrInfo {
             /* background-color: aqua; */
             width: 100%;
-            height: 250px;
+            height: auto;
         }
 
         .order_text3 {
@@ -347,6 +351,10 @@
             width: 200px;
             height: 120px;
             float: left;
+        }
+
+        .form-control {
+            width: auto;
         }
 
         .order_box4 {
@@ -603,6 +611,108 @@
         .terms_view {
             font-size: 13px;
         }
+
+        /*배송지*/
+        .addrModalContainer {
+            align-items: center;
+        }
+
+        .addrClose {
+            float: right;
+            transform: translateY(-30px);
+        }
+
+        .mb-3 {
+            width: 50%;
+        }
+
+        .addrSpan {
+            font-weight: bold;
+        }
+
+        .addrDivContainer {
+            width: 100%;
+            height: 180px;
+        }
+
+        .addrDivContainerinner {
+            float: left;
+            width: 100%;
+            padding: 0 5px;
+        }
+
+        .addrDivLeft {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .addrDiv {
+            width: 18%;
+            margin-right: 10px;
+            text-align: left;
+            padding: 5px 0;
+        }
+
+        .addrDivInner {
+            width: 82%;
+            display: flex;
+            padding: 5px 0;
+        }
+
+        .selectAddr,
+        .selectAddr:focus,
+        .selectAddr:active {
+            outline: none;
+            width: 280px;
+        }
+
+        .selectAddr {
+            padding: 7px 14px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .selectAddr > option {
+            padding: 20px 14px;
+            margin: 5px 0;
+            background-color: white;
+        }
+
+        .selectAddr option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .select-container {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .addrChange {
+            display: inline-block; /* 버튼 같은 줄에 표시 */
+            margin-left: 20px;
+            font-size: 12px;
+        }
+
+        .addrChange > button {
+            display: inline-block;
+            outline: none;
+            border: none;
+            background: transparent;
+        }
+
+        .addrDivInner span {
+            display: block;
+        }
+
+        .addrDivInner span:first-child {
+            margin-right: 10px;
+        }
+
     </style>
 </head>
 
@@ -630,7 +740,7 @@
             </div>
         </div>
     </div>
-    <div class="order2">
+<!--    <div class="order2">
         <div class="order_text1">
             <span>주문자 정보</span>
         </div>
@@ -642,46 +752,105 @@
             <div class="order_box2">
                 <span th:if="${session.id}">[[${session.name}]]</span>
             </div>
-            <div class="order_box1">
-                <span>휴대폰</span>
-            </div>
-            <div class="order_box2">
-                <span>[[${session.tel}]]</span>
-            </div>
+&lt;!&ndash;            <div class="order_box1">&ndash;&gt;
+&lt;!&ndash;                <span>휴대폰</span>&ndash;&gt;
+&lt;!&ndash;            </div>&ndash;&gt;
+&lt;!&ndash;            <div class="order_box2">&ndash;&gt;
+&lt;!&ndash;                <span>[[${session.tel}]]</span>&ndash;&gt;
+&lt;!&ndash;            </div>&ndash;&gt;
             <div class="order_box1">
                 <span>이메일</span>
             </div>
             <div class="order_box2">
-                <span>[[${paymentDTO.customerId}]]</span>
+                <span id="customerIdWithoutSpan"></span> &lt;!&ndash; // 이메일 앞에 붙은 (kakao),(google),(naver) 뗀 값 출력 &ndash;&gt;
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <div class="order3">
+    <div class="orderAddrInfo">
         <div class="order_text1">
             <span>배송 정보</span>
         </div>
         <span class="order_text3">배송지 변경 안내
-                <button type='button' id="modal_btn1" class="button1">?</button>
-                <div class="black_bg1"></div>
-                <div class="modal_wrap1">
-                    <div class="modal_close1">
-                        <a href="#">close</a>
-                    </div>
-                    <div class="order_text4">장바구니, 마이페이지에서 배송지를 변경할 수 있어요.</div>
+            <button type='button' id="modal_btn1" class="button1">?</button>
+            <div class="black_bg1"></div>
+            <div class="modal_wrap1">
+                <div class="modal_close1">
+                    <a href="#">close</a>
                 </div>
-            </span>
+                <div class="order_text4">장바구니, 마이페이지에서 배송지를 변경할 수 있어요.</div>
+            </div>
+        </span>
         <hr>
-        <div class="order_box">
-            <button type="button">배송지 추가</button>
-            <div class="order_box3">
-                <span>배송지</span>
+        <form>
+            <div class="addrDivContainer">
+                <div class="addrDivContainerinner">
+                    <div class="addrDivLeft">
+                        <div class="addrDiv">
+                            <span class="addrSpan">배송지 정보</span>
+                        </div>
+                        <div class="addrDivInner">
+                            <span>이름</span>
+                            <span>기본주소</span>
+                            <a class="addrChange">
+                                <button type="button">배송지 변경
+                                    <img th:src="@{/dist/icon/right_arrows.png}" style="width: 12px; height: 10px;">
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="addrDivLeft">
+                        <div class="addrDiv">
+                            <span class="addrSpan">배송 요청사항</span>
+                        </div>
+                        <div class="addrDivInner">
+                            <div class="select-container">
+                                <select id="selectAddr" class="selectAddr">
+                                    <option value="">부재 시 경비실에 맡겨주세요</option>
+                                    <option value="">부재 시 문앞에 놓아주세요</option>
+                                    <option value="">직접 받겠습니다.</option>
+                                    <option value="">배송전에 연락주세요.</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="addrDivLeft">
+                        <div class="addrDiv">
+                            <span class="addrSpan">주문자명 / 이메일</span>
+                        </div>
+                        <div class="addrDivInner">
+                            <span th:if="${session.id}">[[${session.name}]] / </span>
+                            <span id="customerIdWithoutSpan"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="order_box4">
-                <span>123</span>
-            </div>
-        </div>
-    </div>
+<!--            <div class="order_box">-->
+<!--                <div class="order_box3">-->
+<!--                    <span>배송지</span>-->
+<!--                </div>-->
+<!--                <div class="order_box4">-->
+<!--                    <span>123</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <button type="button" class="addrAddBtn">배송지 추가</button>-->
+<!--            <div id="addrModal" style="display: none">-->
+<!--                <div class="addrModalContainer">-->
+<!--                    <div class="mb-3">-->
+<!--                        <span class="addrClose">&times;</span> &lt;!&ndash;&times; 는 x버튼&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="a" class="form-label">주소</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="password" class="form-control" name="address" id="a">&ndash;&gt;-->
+<!--                        <input type="text" id="sample6_postcode" placeholder="우편번호">-->
+<!--                        <input type="button" onclick="daumPost()" value="우편번호 찾기"><br>-->
+<!--                        <input type="text" id="sample6_address" placeholder="주소"><br>-->
+<!--                        <input type="text" id="sample6_detailAddress" placeholder="상세주소">-->
+<!--                        <input type="text" name="address" id="address" style="display: none">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </form>
     <div class="basket3">
         <div class="order_text1">
             적립금ㆍ캐시 사용
@@ -1068,7 +1237,16 @@
     </div>
 </div>
 </div>
+</div>
 
+
+    <script th:inline="javascript">
+        const customerIdModify = /*[[${paymentDTO.customerId}]]*/ '';
+
+        const customerIdWithout = customerIdModify.replace(/\([^)]*\)/g, ''); // 이메일 앞에 붙은 (kakao),(google),(naver) 떼기
+
+        document.getElementById('customerIdWithoutSpan').innerText = customerIdWithout;
+    </script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">const nickName = [[${session.name}]];</script>
@@ -1131,6 +1309,9 @@
         }
     };
 </script>
+
+<!--배송지 등록에 필요 script-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script th:inline="javascript">
     const paymentDTO = [[${paymentDTO}]];

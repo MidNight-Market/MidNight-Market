@@ -34,7 +34,7 @@
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
                             <a class="member">
-                                <p th:text="${session.mStatus} ? '💚멤버십💚' : '🧡일반🧡'"></p>
+                                <p th:utext="${session.mStatus} ? '<img src=\'/dist/icon/memberShip.png\' alt=\'이미지\' style=\'width: 20px; height: 20px;\' />' : ''" class="memberIcon"></p>
                             </a>
                             <p th:if="${session.id}" style="display: none" id="idValue">[[${session.id}]]</p>
                             <th:block th:each="auth : ${session.role}">
