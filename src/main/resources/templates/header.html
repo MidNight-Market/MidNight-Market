@@ -33,13 +33,13 @@
                             <a href="/login/form" class="login">로그인</a>
                         </th:block>
                         <th:block sec:authorize="isAuthenticated()">
-                            <a class="member">
-                                <p th:utext="${session.mStatus} ? '<img src=\'/dist/icon/memberShip.png\' alt=\'이미지\' style=\'width: 20px; height: 20px;\' />' : ''" class="memberIcon"></p>
-                            </a>
-                            <p th:if="${session.id}" style="display: none" id="idValue">[[${session.id}]]</p>
                             <th:block th:each="auth : ${session.role}">
+                                <a class="member" th:if="${auth.authority == 'role_user'}">
+                                    <p th:utext="${session.mStatus} ? '<img src=\'/dist/icon/memberShip.png\' alt=\'이미지\' style=\'width: 20px; height: 20px;\' />' : ''" class="memberIcon"></p>
+                                </a>
+                                <p th:if="${session.id}" style="display: none" id="idValue">[[${session.id}]]</p>
                                 <a th:if="${auth.authority == 'role_user'}" th:href="@{/customer/myPage}">
-                                    [[${session.name}]] 님
+                                    [[${#authentication.principal.nickName}]] 님
                                 </a>
                                 <a th:if="${auth.authority == 'role_seller'}" th:href="@{/seller/myRegisteredProduct}">
                                     [[${session.name}]] 님
