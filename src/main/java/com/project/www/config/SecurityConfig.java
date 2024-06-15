@@ -48,7 +48,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(1)
+    @Order(5)
     SecurityFilterChain CustomerFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
