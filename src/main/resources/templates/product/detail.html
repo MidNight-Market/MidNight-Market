@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>상품 상세</title>
@@ -299,10 +299,14 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script sec:authorize="isAuthenticated()">
+    let customerId = `[[${#authentication.name}]]`;
+</script>
 <script th:inline="javascript">
     const productDTO = [[${productDTO}]];
-    const customerId = [[${session.id}]];
     const productId = [[${productId}]];
+    let isAuthenticated = [[${isAuthenticated}]];
+    let sellerCheck = [[${sellerCheck}]];
     const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
     let pThumb = encodeURIComponent([[${productDTO.productVO.thumbImage}]]);
     let pName = encodeURIComponent([[${productDTO.productVO.name}]]);
