@@ -30,6 +30,7 @@ public class SecurityConfig {
     @Autowired
     private SellerPrincipalDetailsService sellerPrincipalDetailsService;
 
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
@@ -50,7 +51,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login/form")
                         .usernameParameter("id")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/")
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         .failureHandler(new CustomAuthenticationFailureHandler()))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -60,7 +61,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/"))
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login/form")
-                        .defaultSuccessUrl("/")
+                        .successHandler(new CustomAuthenticationSuccessHandler())
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(PrincipalDetailsService)));
         http.userDetailsService(principalDetailsService);
