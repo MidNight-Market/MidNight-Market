@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -73,7 +74,13 @@ public class ProductController {
 
         //프린시팔로 현재 사용중인 아이디 받아야 한다
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        log.info("여기확인{}",auth.getPrincipal());
+        boolean sellerCheck;
+        if(auth.getPrincipal().toString().contains("Seller")){
+            sellerCheck = true;
+        }else{
+            sellerCheck = false;
+        }
+        model.addAttribute("sellerCheck",sellerCheck);
         boolean isAuthenticated;
         isAuthenticated = !auth.getPrincipal().equals("anonymousUser");
         model.addAttribute("isAuthenticated", isAuthenticated); // 모델에 추가

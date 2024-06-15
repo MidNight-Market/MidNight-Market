@@ -208,60 +208,63 @@ function slangInfoChange(customerId, productId, type) {
 
 //상품 주문하기 버튼 클릭 시 ->  성공하면 DB에 저장 후 주문페이지로 이동
 document.getElementById('orderButton').addEventListener('click',(e)=>{
-
-    if(isAuthenticated){
-        const targetButton = e.target.closest('#orderButton'); // 클릭된 요소가 like-button 클래스를 가진 버튼인지 확인
-        if(targetButton){
-
-            const merchant_uid = 'merchent_uid' + new Date().getTime();
-            //필요한 정보 : 고객 아이디, 상품아이디, 수량
-            const payData = {
-                merchantUid: merchant_uid,
-                customerId: customerId,
-                productId : productId,
-                qty : parseInt(productQty.innerText)
-            };
-
-            postPaymentToServer(payData).then(result=>{
-                console.log(result);
-
-                const message = result.replace(/\d+$/, '');
-                const number = result.replace(/\D/g, '');
-
-                //잔여수량 보다 주문수량이 많을 시
-                if(message == 'excess_quantity'){
-
-                    productQty.innerText = number;
-
-                    if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
-                        postPaymentToServer(payData);
-                    }
-                    document.getElementById('+').disabled = true;
-                }
-
-                //재고 없을 시
-                if(message == 'quantity_exhaustion'){
-                    alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
-                }
-
-                //DB저장에 성공했을 시
-                if(result == 'success'){
-                    alert('주문서 페이지로 이동합니다.');
-                    //form데이터 merchantUid를 order페이지에 보낸다
-                    document.getElementById('merchantUid').value = merchant_uid;
-                    document.getElementById('orderMoveForm').submit();
-
-                }
-
-            });
-        }
+    console.log(sellerCheck);
+    if(sellerCheck){
+        alert("판매자는 구입불가합니다. 일반고객으로 로그인해주세요")
     }else{
-        if(confirm("로그인이 필요한 서비스입니다. 로그인페이지로 이동하시겠습니까? ")){
+        if(isAuthenticated){
+            const targetButton = e.target.closest('#orderButton'); // 클릭된 요소가 like-button 클래스를 가진 버튼인지 확인
+            if(targetButton){
+
+                const merchant_uid = 'merchent_uid' + new Date().getTime();
+                //필요한 정보 : 고객 아이디, 상품아이디, 수량
+                const payData = {
+                    merchantUid: merchant_uid,
+                    customerId: customerId,
+                    productId : productId,
+                    qty : parseInt(productQty.innerText)
+                };
+
+                postPaymentToServer(payData).then(result=>{
+                    console.log(result);
+
+                    const message = result.replace(/\d+$/, '');
+                    const number = result.replace(/\D/g, '');
+
+                    //잔여수량 보다 주문수량이 많을 시
+                    if(message == 'excess_quantity'){
+
+                        productQty.innerText = number;
+
+                        if(confirm(`${productDTO.productVO.name} 상품은 잔여수량이 ${number}개 남았습니다. \n${number}개로 주문하시겠습니까??`)){
+                            postPaymentToServer(payData);
+                        }
+                        document.getElementById('+').disabled = true;
+                    }
+
+                    //재고 없을 시
+                    if(message == 'quantity_exhaustion'){
+                        alert(productDTO.productVO.name + ' 상품은 품절되었습니다.');
+                    }
+
+                    //DB저장에 성공했을 시
+                    if(result == 'success'){
+                        alert('주문서 페이지로 이동합니다.');
+                        //form데이터 merchantUid를 order페이지에 보낸다
+                        document.getElementById('merchantUid').value = merchant_uid;
+                        document.getElementById('orderMoveForm').submit();
+
+                    }
+
+                });
+            }
+        }else{
+            if(confirm("로그인이 필요한 서비스입니다. 로그인페이지로 이동하시겠습니까? ")){
+
+            }
 
         }
-
     }
-
 });
 
 
