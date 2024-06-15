@@ -20,8 +20,9 @@
     <update id="paySuccessUpdate">
         UPDATE orders
         SET
+        order_date = now(),
         status = '주문완료',
-        orders_date = now()
+        status_date = now()
         WHERE
         merchant_uid = #{merchantUid}
     </update>
@@ -50,7 +51,8 @@
     <update id="refundUpdate">
         UPDATE orders
         SET
-        status = '환불처리'
+        status = '환불처리',
+        status_date = now()
         WHERE
         id = #{id}
     </update>
