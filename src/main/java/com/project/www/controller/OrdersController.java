@@ -44,4 +44,11 @@ public class OrdersController {
     public List<OrdersVO> getList(){
         return osv.getList();
     }
+
+    @ResponseBody
+    @PutMapping("/confirmOrderUpdate")
+    public String confirmOrderUpdate(@RequestBody OrdersVO ordersVO){
+//        log.info("주문 객체 확인>>>>{}",ordersVO);
+        return osv.confirmOrderUpdate(ordersVO);
+    }
 }

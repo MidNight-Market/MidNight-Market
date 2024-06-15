@@ -31,4 +31,6 @@ public interface OrdersMapper {
     List<String> getDeliveredCustomers(int deliveredCount);
 
     List<OrdersVO> getList();
+
+    int confirmOrderUpdate(OrdersVO ordersVO);
 }

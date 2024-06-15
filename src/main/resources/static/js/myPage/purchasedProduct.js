@@ -22,6 +22,7 @@ function spreadMyPurchasedProductList(customerId) {
             result.forEach((value) => {
 
                 const [year, month, day, hour, minute] = value.ordersDate.match(/\d+/g);
+                const [yearS, monthS, dayS, hourS, minuteS] = value.statusDate.match(/\d+/g);
 
                 str += `<div class="purchased-date-box">`;
                 str += `<span>${year}.${month}.${day} (${hour}시 ${minute}분)</span>`;
@@ -36,29 +37,44 @@ function spreadMyPurchasedProductList(customerId) {
                 str += `<span class="purchased-quantity">${value.qty}개 구매</span>`;
                 str += `</div>`;
                 str += `<div class="purchased-status">`;
-                str += `<span style="color: ${displayColorByStatus(value.status)};">${value.status}</span>`;
+                str += `<span style="color: ${displayColorByStatus(value.status)}; text-align: center">${value.status} ${value.confirmed ? '<br>(주문확정)<br>' : ''} <br><br> ${yearS}.${monthS}.${dayS} <br> (${hourS}시 ${minuteS}분)</span>`;
                 str += `</div>`;
                 str += `<div class="purchases-select-button-box">`;
-                if (value.status === '주문완료') {
-                    str += `<button>주문확정</button>`;
-                    str += `<button class="refundButton" data-id="${value.id}">환불하기</button>`;
+
+                if (value.status === '주문완료' && !value.confirmed) {
+                    str += `<button class="orderConfirmed-button" data-id="${value.id}" data-name="${value.productVO.name}" data-price="${value.payPrice}">주문확정</button>`;
+                    str += `<button class="refundButton" data-id="${value.id}" data-name="${value.productVO.name}" data-price="${value.payPrice}">환불하기</button>`;
                 }
+
+                if(value.status === '배송완료' && !value.confirmed){//배송완료되었지만 주문확정을 하지 않았을 경우
+                    str += `<button class="orderConfirmed-button" data-id="${value.id}" data-name="${value.productVO.name}" data-price="${value.payPrice}">주문확정</button>`;
+                }
+
+                if(value.status === '배송완료' && !value.reviewComment && value.confirmed){ //배송완료지만 주문확정을 했을 경우
+                    str += `<button class="review-gogo">리뷰작성</button>`;
+                }
+
                 str += `</div>`;
                 str += `</div>`;
             });
             div.innerHTML = str;
 
-            //환불버튼
+            //환불버튼 클릭시
             const refundButtons = document.querySelectorAll('.refundButton');
             refundButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
 
-                    if (!confirm(`정말로 환불을 진행하시겠습니까?`)) {
+                    const price = Number(e.target.dataset.price).toLocaleString();
+                    const name = e.target.dataset.name;
+                    const id = e.target.dataset.id;
+
+                    const notification = '상품명 : '+ name + '\n가격 : ' + price +'원\n\n정말로 환불을 진행하시겠습니까?';
+
+                    if (!confirm(notification)) {
                         e.preventDefault();
                         return;
                     }
 
-                    const id = e.target.dataset.id;
                     console.log(id);
 
                     // POST 요청 보내기
@@ -82,11 +98,55 @@ function spreadMyPurchasedProductList(customerId) {
                 });
             });
 
+            //주문확정 클릭시
+            const orderConfirmedButton = document.querySelectorAll('.orderConfirmed-button');
+
+            orderConfirmedButton.forEach((button)=>{
+
+                button.addEventListener('click',(e)=>{
+
+                    const id = e.target.dataset.id;
+                    const price = Number(e.target.dataset.price).toLocaleString();
+                    const name = e.target.dataset.name;
+                    console.log(price);
+                    console.log(name);
+
+                    const notification = '상품명 : '+ name + '\n가격 : ' + price +'원\n\n주문확정을 하실 경우 환불이 불가능합니다.\n정말로 주문확정을 진행하시겠습니까?';
+                    if(!confirm(notification)){
+                        e.preventDefault();
+                        return;
+                    }
+
+                    confirmOrderUpdate(id).then(result=>{
+
+                        const parts = result.split('/');
+
+                        if(result === 'fail'){
+                            alert('알수없는 이유로 주문확정에 실패하였습니다.');
+                            return;
+                        }
+
+                        alert(parts[1] + '포인트가 적립되었습니다.');
+                        spreadMyPurchasedProductList(customerId);
+                    });
+                });
+            });
+            
+            //리뷰작성 클릭 시
+            const reviewGo = document.querySelectorAll('.review-gogo');
+            reviewGo.forEach((button)=>{
+                button.addEventListener('click',()=>{
+                    const myPageSelect = document.querySelectorAll('.mypage_text8');
+                    myPageSelect[4].click();
+                });
+            });
+
         } else {
             div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">주문 내역이 존재하지 않습니다.</h1>';
         }
     });
 }
+
 
 function displayColorByStatus(status) {
 
@@ -109,17 +169,22 @@ function displayColorByStatus(status) {
 }
 
 
-// function displayButtonByStatus(status){
-//
-//     let result;
-//     switch (status){
-//         case '주문완료' :
-//             result = `<button>주문확정</button>
-// <button class="refundButton" data-id="${value.id}">환불하기</button>`;
-//             return;
-//         case '배송완료' :
-//             result =
-//     }
-//
-// }
+
+//주문확정시 업데이트
+async function confirmOrderUpdate(id) {
+    const url = '/orders/confirmOrderUpdate';
+    const config = {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            id: id
+        })
+    };
+
+    const response = await fetch(url, config);
+    const result = await response.text();
+    return result;
+}
 

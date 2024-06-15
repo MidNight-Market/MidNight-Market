@@ -26,4 +26,8 @@ public interface CustomerMapper {
     List<CustomerVO> getNickName(String customerId);
 
     List<CustomerVO> getList();
+
+    int confirmOrderUpdate(CustomerVO ordersVO);
+
+    CustomerVO selectOne(String customerId);
 }
