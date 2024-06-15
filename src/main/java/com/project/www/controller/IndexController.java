@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,6 +36,7 @@ public class IndexController {
         List<ProductVO> newProductList = isv.getIndexNewProductList();
         List<ProductVO> heavySoldList = isv.getIndexHeavySoldList();
         List<ProductVO> discountProductList = isv.getIndexDiscountProductList();
+
         if(sellerPrincipalDetails != null){
             HttpSession ses = request.getSession();
             ses.setAttribute("name", sellerPrincipalDetails.getShopName());
