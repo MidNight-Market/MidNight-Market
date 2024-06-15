@@ -9,28 +9,31 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
 import java.io.IOException;
 
-@Component
 @Slf4j
-public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
+@Component
+public class OauthCustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-
-        String header = request.getHeader("Referer");
-        log.info("체크해바{}", header);
-        if (header != null && header.contains("returnUrl=")) {
-            String returnUrl = header.substring(header.indexOf("returnUrl=") + "returnUrl=".length());
-            log.info("주소체크해바{}", returnUrl);
-            if (!returnUrl.isEmpty()) {
-                log.info("여기들어옴");
-                getRedirectStrategy().sendRedirect(request, response, returnUrl);
-                return; // 처리 후 메서드 종료
+        Cookie[] cookies = request.getCookies();
+        String returnUrlFromCookie = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("url")) {
+                    returnUrlFromCookie = cookie.getValue().split("@")[0];
+                    break;
+                }
             }
         }
+        if (returnUrlFromCookie != null && !returnUrlFromCookie.isEmpty()) {
+            getRedirectStrategy().sendRedirect(request, response, returnUrlFromCookie);
+            return; // 처리 후 메서드 종료
+        }
+
+        // 기본 처리
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }
-

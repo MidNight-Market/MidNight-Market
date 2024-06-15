@@ -12,8 +12,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,19 +32,23 @@ public class SecurityConfig {
     @Autowired
     private SellerPrincipalDetailsService sellerPrincipalDetailsService;
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
+    @Autowired
+    private OauthCustomAuthenticationSuccessHandler oauthCustomAuthenticationSuccessHandler;
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws  Exception{
-        return  authenticationConfiguration.getAuthenticationManager();
-    }
-    @Bean
-    @Order(5)
+    @Order(1)
     SecurityFilterChain CustomerFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
@@ -51,7 +57,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login/form")
                         .usernameParameter("id")
                         .passwordParameter("pw")
-                        .successHandler(new CustomAuthenticationSuccessHandler())
+                        .successHandler(customAuthenticationSuccessHandler)
                         .failureHandler(new CustomAuthenticationFailureHandler()))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -61,7 +67,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/"))
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login/form")
-                        .successHandler(new CustomAuthenticationSuccessHandler())
+                        .successHandler(oauthCustomAuthenticationSuccessHandler)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(PrincipalDetailsService)));
         http.userDetailsService(principalDetailsService);

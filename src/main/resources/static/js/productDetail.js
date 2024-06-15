@@ -260,7 +260,9 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
             }
         }else{
             if(confirm("로그인이 필요한 서비스입니다. 로그인페이지로 이동하시겠습니까? ")){
-
+                let returnUrl = encodeURI(window.location.href);
+                window.location.href = "/login/form?returnUrl="+returnUrl;
+                setCookie("url", returnUrl);
             }
 
         }
