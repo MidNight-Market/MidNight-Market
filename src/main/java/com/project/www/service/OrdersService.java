@@ -12,4 +12,6 @@ public interface OrdersService {
     List<OrdersVO> getMyWriteReviewList(String customerId);
 
     List<OrdersVO> getList();
+
+    String confirmOrderUpdate(OrdersVO ordersVO);
 }

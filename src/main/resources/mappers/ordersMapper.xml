@@ -94,4 +94,12 @@
         select * from orders
     </select>
 
+    <update id="confirmOrderUpdate">
+        UPDATE orders
+        SET
+        is_confirmed = 1
+        WHERE
+        id = #{id}
+    </update>
+
 </mapper>

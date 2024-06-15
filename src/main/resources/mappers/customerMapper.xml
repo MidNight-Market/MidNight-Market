@@ -31,4 +31,18 @@
     <select id="getList" resultType="com.project.www.domain.CustomerVO">
         select * from customer where role = "role_user"
     </select>
+
+    <select id="selectOne" resultType="com.project.www.domain.CustomerVO">
+        SELECT * FROM customer
+        WHERE
+        id = #{id}
+    </select>
+    
+    <update id="confirmOrderUpdate">
+        UPDATE customer
+        SET
+        point = #{point}
+        WHERE
+        id = #{id}
+    </update>
 </mapper>
