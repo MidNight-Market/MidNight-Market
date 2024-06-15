@@ -59,6 +59,7 @@ function spreadMyWriteReviewList(customerId) {
             result.forEach((value,index) => {
 
                 const [year, month, day,hour, minute] = value.ordersDate.match(/\d+/g);
+                const [yearS, monthS, dayS, hourS, minuteS] = value.statusDate.match(/\d+/g);
 
                 str += `<div class="purchased-date-box">`;
                 str += `<span>${year}.${month}.${day} (${hour}시 ${minute}분)</span>`;
@@ -73,7 +74,7 @@ function spreadMyWriteReviewList(customerId) {
                 str += `<span class="purchased-quantity">${value.qty}개 구매</span>`;
                 str += `</div>`;
                 str += `<div class="purchased-status">`;
-                str += `<span style="color: forestgreen; font-weight: 500">${value.status}</span>`;
+                str += `<span style="color: forestgreen; font-weight: 500">${value.status} <br><br> ${yearS}.${monthS}.${dayS} <br></span>`;
                 str += `</div>`;
                 str += `<div class="purchases-select-button-box">`;
                 str += `<button class="review-button" data-index="${index}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">후기작성</button>`;

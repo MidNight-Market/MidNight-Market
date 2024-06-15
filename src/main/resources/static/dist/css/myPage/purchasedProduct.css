@@ -47,12 +47,13 @@
     width: 100px;
     height: 100%;
     /*background-color: #3A1D1D;*/
-    font-weight: 600;
+    font-weight: 500;
     font-size: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 37px;
+    text-align: center;
 }
 .purchases-select-button-box{
     width: 190px;

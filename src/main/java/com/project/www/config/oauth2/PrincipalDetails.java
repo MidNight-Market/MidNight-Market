@@ -91,4 +91,10 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public Boolean getMStatus(){
         return cvo.isMStatus();
     }
+
+    public long getPoint(){return  cvo.getPoint();}
+
+    public void updatePoints(long point) {
+        cvo.setPoint(point);
+    }
 }
