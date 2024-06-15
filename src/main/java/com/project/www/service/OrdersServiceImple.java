@@ -1,5 +1,6 @@
 package com.project.www.service;
 
+import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.CustomerVO;
 import com.project.www.domain.OrdersVO;
 import com.project.www.repository.CustomerMapper;
@@ -7,6 +8,8 @@ import com.project.www.repository.OrdersMapper;
 import com.project.www.repository.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,6 +93,14 @@ public class OrdersServiceImple implements OrdersService {
 
             if (ordersUpdateResult == 0 || customerUpdateResult == 0) {
                 throw new RuntimeException("주문확정에 실패하였습니다.");
+            }
+
+            //PrincipalDetails 객체 업데이트
+            //Authentication 객체가 null이 아니고, 인증된 사용자의 principal이 PrincipalDetails 타입일 경우
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //객체생성
+            if(authentication != null && authentication.getPrincipal() instanceof PrincipalDetails){
+                PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal(); //객체 가져옴
+                principalDetails.updatePoints(point + addedPoints); //포인트 업데이트
             }
 
             return "success/"+addedPoints;

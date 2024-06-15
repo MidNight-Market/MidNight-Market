@@ -108,8 +108,7 @@ function spreadMyPurchasedProductList(customerId) {
                     const id = e.target.dataset.id;
                     const price = Number(e.target.dataset.price).toLocaleString();
                     const name = e.target.dataset.name;
-                    console.log(price);
-                    console.log(name);
+                    let point = document.getElementById('point')
 
                     const notification = '상품명 : '+ name + '\n가격 : ' + price +'원\n\n주문확정을 하실 경우 환불이 불가능합니다.\n정말로 주문확정을 진행하시겠습니까?';
                     if(!confirm(notification)){
@@ -127,6 +126,7 @@ function spreadMyPurchasedProductList(customerId) {
                         }
 
                         alert(parts[1] + '포인트가 적립되었습니다.');
+                        point.innerText = String(parseInt(point.innerText) + parseInt(parts[1]));
                         spreadMyPurchasedProductList(customerId);
                     });
                 });
