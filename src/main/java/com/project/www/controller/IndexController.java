@@ -5,7 +5,9 @@ import com.project.www.config.oauth2.SellerPrincipalDetails;
 import com.project.www.domain.ProductVO;
 import com.project.www.service.BasketService;
 import com.project.www.service.IndexService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,11 +33,14 @@ public class IndexController {
     private final BasketService bsv;
 
     @GetMapping("/")
-    public String index(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal, @AuthenticationPrincipal SellerPrincipalDetails sellerPrincipalDetails) {
+    public String index(Model model,HttpServletResponse response, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal, @AuthenticationPrincipal SellerPrincipalDetails sellerPrincipalDetails) {
 
         List<ProductVO> newProductList = isv.getIndexNewProductList();
         List<ProductVO> heavySoldList = isv.getIndexHeavySoldList();
         List<ProductVO> discountProductList = isv.getIndexDiscountProductList();
+        Cookie del = new Cookie("url", null); // choiceCookieName(쿠키 이름)에 대한 값을 null로 지정
+        del.setMaxAge(0); // 유효시간을 0으로 설정
+        response.addCookie(del); // 응답 헤더에 추가해서 없어지도록 함
 
         if(sellerPrincipalDetails != null){
             HttpSession ses = request.getSession();
