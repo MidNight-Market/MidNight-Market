@@ -36,4 +36,6 @@ public interface OrdersMapper {
 
     List<OrdersVO> findExpiredOrders(String merchantUid);
 
+    List<OrdersVO> getMyList(String currentId);
+
 }
