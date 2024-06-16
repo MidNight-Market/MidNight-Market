@@ -34,7 +34,7 @@ basketButtons.forEach(button=>{
                 const number = rsp.replace(/\D/g, '');
 
                 //재고가 없을 경우
-                if(number === '0'){
+                if(message === '품절'){
                     alert('현재 상품은 품절되었습니다.');
                     return;
                 }

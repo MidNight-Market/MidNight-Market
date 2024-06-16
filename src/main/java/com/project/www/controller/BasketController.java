@@ -29,10 +29,9 @@ public class BasketController {
         //상품 잔여수량 검사
         ProductVO productVO = bsv.getProductDetail(basketVO.getProductId());
 
-
-
-        log.info("상품 중복 검사  : {}",productDuplicationVerifyVO);
-        log.info("장바구니 객체 확인>>>>{}",basketVO);
+        if(productVO.getTotalQty() == 0){
+            return "품절";
+        }
 
         int isOk = 0;
 

@@ -1,14 +1,25 @@
-body {
+@font-face {
+    font-family: 'NotoSans KR';
+    src: url("../font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
+}
+
+#myBasketBody {
+    font-family: 'NotoSans KR', serif;
     width: 100%;
+    position: relative;
 }
 
 .basket1 {
-    /* background-color: aqua; */
-    height: 800px;
-    padding: 10px 80px;
+    /*background-color: aqua;*/
+    margin: 40px auto 100px;
+    width: 1400px;
+    min-height: 400px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.basket2 {
+
+.basketTitle {
     text-align: center;
     margin: 50px;
 }
@@ -19,11 +30,10 @@ body {
 }
 
 .basket3 {
-    /* background-color: pink; */
-    width: 70%;
-    height: 500px;
-    float: left;
-    border: 1px solid black;
+    /*background-color: pink;*/
+    width: 62%;
+    min-height: 300px;
+    margin-right: 57px;
 }
 
 a {
@@ -45,18 +55,17 @@ hr {
 
 .basket4 {
     background-color: rgba(211, 211, 211, 0.155);
-    width: 300px;
-    height: 350px;
-    float: right;
+    margin-top: 32px;
+    width: 350px;
+    height: 400px;
     position: sticky;
-    top: 105px;
-    right: 70px;
+    top: 300px;
+    right: 156px;
+    bottom: 0;
 }
 
 .basket5 {
     padding: 20px;
-    /* margin-bottom: 10px; */
-    border: 1px solid lightgray;
     border-radius: 3px;
 }
 
@@ -72,8 +81,9 @@ hr {
 .text6,
 .text8 {
     text-align: right;
-    margin-bottom: 20px;
-    font-size: 12px;
+    /*margin: 45px 0 30px;*/
+    font-size: 13px;
+    font-weight: 400;
 }
 
 .text7 {
@@ -81,13 +91,13 @@ hr {
 }
 
 .basket6 {
-    float: right;
     text-align: center;
     width: 300px;
-    height: 70px;
+    height: 50px;
     background-color: orange;
-    line-height: 70px;
+    line-height: 50px;
     border-radius: 5px;
+    margin: 31px auto 6px;
 }
 
 .basket7 {
@@ -103,7 +113,7 @@ hr {
 
 .accumulate {
     background-color: orange;
-    border-radius: 10px;
+    border-radius: 99px;
     padding: 3px;
     margin-right: 5px;
     color: white;
@@ -111,7 +121,8 @@ hr {
 
 .basket8 {
     /* background-color: aqua; */
-    padding-top: 90px;
+    padding-top: 30px;
+    padding-left: 4px;
 }
 
 .text10,
@@ -120,26 +131,66 @@ hr {
     margin-bottom: 20px;
 }
 
-.basket9 {
+#basketList {
     /*background-color: yellow;*/
-    /* padding: 10px; */
+    width: 100%;
+    min-height: 300px;
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-
-.image1 {
+#basketList > .basketList-li{
+    width: 100%;
+    height: 121px;
+    padding: 20px;
+    /*background-color: violet;*/
+    margin: 0 auto 34px;
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+.product-image-box{
+    width: 11%;
+    height: 100%;
+}
+.product-image-box img{
+    width: 62px;
+    height: auto;
+}
+.product-desc-box{
+    /*background-color: #055160;*/
+    width: 60%;
+    height: 100%;
+}
+.product-desc-box p:first-child{
+    margin-top: 11px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.product-desc-box p:last-child{
+    color: rgb(153, 153, 153);
+    font-size: 14px;
+    margin-top: 8px;
+}
+.calc-box{
     width: 100px;
-    height: 100px;
-    /* background-color: aqua; */
-    border: 1px solid black;
-    margin-left: 10px;
-    margin-right: 10px;
+    height: 30px;
+    margin-top: 25px;
+    margin-right: 20px;
+    /*background-color: #03c75a;*/
+}
+.product-price-box{
+    width: 15%;
+    height: 100%;
+    /*background-color: red;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    /*line-height: 37px;*/
 }
 
-/*li {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    position: relative;*/
-/*    !* padding: 20px 0px; *!*/
-/*}*/
+
 
 .name1 {
     /* background-color: aliceblue; */
@@ -181,6 +232,7 @@ input[type="checkbox"] {
 .checkbox_label {
     display: flex;
     align-items: center;
+    margin-right: 12px;
 }
 
 /* 체크박스 디자인 */
@@ -201,12 +253,11 @@ input[type="checkbox"] {
 /* checked */
 .checkbox_label input:checked + .checkbox_icon::before {
     /*   transition: all 0.15s ease; */
-    background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) #03c75a
-    no-repeat center;
+    background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) #03c75a no-repeat center;
     border: none;
 }
 
-button{
+button {
     border: 1px solid lightgray;
     background-color: rgba(211, 211, 211, 0.174);
     width: 30px;
