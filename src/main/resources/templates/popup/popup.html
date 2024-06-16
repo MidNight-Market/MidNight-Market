@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇</title>
+</head>
+<body>
+    <div style="border: 1px solid black">
+        <div id="firstMessage" class="firstMessage">
+            어떤 도움이 필요하신가요?<br>
+            <button id="first">1. 주문내역조회</button><br>
+            <button id="second">2. 배송문의</button><br>
+            <button id="third">3. 환불/교환문의</button><br>
+            <button id="forth">4. 상담사 연결</button>
+        </div>
+        <div id="firstContent"></div>
+    </div>
+</body>
+<script sec:authorize="isAuthenticated()">
+    let currentId = `[[${#authentication.name}]]`;
+    console.log(currentId);
+    document.body.addEventListener('click',(e)=>{
+        let content = document.getElementById('firstContent');
+        if(e.target.id == "first"){
+            content.innerText = '';
+            let str = "";
+            getOrderList(currentId).then(result =>{
+                str += '<table>';
+                str += '<thead>';
+                str += '<tr>';
+                str += '<th>상품번호</th>';
+                str += '<th>수량</th>';
+                str += '<th>가격</th>';
+                str += '<th>주문날짜</th>';
+                str += '<th>주문상태</th>';
+                str += '</tr>';
+                str += '</thead>';
+                str += '<tbody>';
+                result.forEach(orders => {
+                    str += '<tr>';
+                    str += `<td>${orders.productId}</a></td>`;
+                    str += `<td>${orders.qty}</td>`;
+                    str += `<td>${orders.payPrice}</td>`;
+                    str += `<td>${orders.ordersDate}</td>`;
+                    str += `<td>${orders.status}</td>`;
+                    str += '</tr>';
+                });
+                str += '</tbody>';
+                str += '</table>';
+                content.innerHTML = str;
+            })
+        }
+    })
+    async function getOrderList(currentId){
+        try {
+            const resp = await fetch(`/orders/getList?currentId=${currentId}`); // GET 요청
+            const result = await resp.json();
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
+</html>

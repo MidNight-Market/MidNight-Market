@@ -333,7 +333,7 @@
         <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;">찜
     </a>
     <hr>
-    <a th:href="@{/customer/myPage}">
+    <a onclick="openPopup()">
         <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
     </a>
     <hr>
@@ -344,6 +344,9 @@
 </div>
 
 <script>
+    function openPopup() {
+        window.open('/popup', 'PopupWindow', 'width=500,height=600,scrollbars=yes,left=700,top=280');
+    }
     let url = location.href;
     let decode = decodeURI(url);
     const queryString = decode.split('?')[1];
@@ -366,6 +369,7 @@
 </script>
 <script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
+<script th:src="@{/js/popup.js}"></script>
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
