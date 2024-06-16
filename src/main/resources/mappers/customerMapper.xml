@@ -38,7 +38,7 @@
         id = #{id}
     </select>
     
-    <update id="confirmOrderUpdate">
+    <update id="pointUpdate">
         UPDATE customer
         SET
         point = #{point}

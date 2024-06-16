@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,6 +154,7 @@ public class PaymentServiceImple implements PaymentService {
                             .build();
 
                     isOk *= basketMapper.delete(basketVO);
+                    isOk *= ordersMapper.register(ordersVO); // 주문 정보 등록
                     isOk *= productMapper.orderUpdate(ordersVO); //상품의 quantity 도 주문한 갯수만큼 수정
                 }
             }
@@ -213,8 +215,8 @@ public class PaymentServiceImple implements PaymentService {
             if (isOk == 0) {
                 throw new RuntimeException("환불 처리에 실패했습니다.");
             }
-
-            return "Refund successful";
+            DecimalFormat df = new DecimalFormat("#,###");
+            return df.format(ordersVO.getPayPrice())+"원이 정상적으로 환불되었습니다.";
         } catch (IamportResponseException | IOException | RuntimeException e) {
             log.error("환불 실패 : {}", e.getMessage());
             return "Refund failed :" + e.getMessage();
