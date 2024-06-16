@@ -34,5 +34,4 @@ public interface OrdersMapper {
 
     int confirmOrderUpdate(OrdersVO ordersVO);
 
-    List<OrdersVO> getMyList(String currentId);
 }
