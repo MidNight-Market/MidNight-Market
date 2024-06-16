@@ -27,7 +27,7 @@ public class OrdersController {
     @GetMapping("/getMyFrequentPurchasesList/{customerId}")
     public List<OrdersVO> getMyFrequentPurchasesList(@PathVariable("customerId") String customerId){
 
-        log.info("내가 자주 주문한 리스트에서 고객 아이디 확인>>>{}",customerId);
+        //log.info("내가 자주 주문한 리스트에서 고객 아이디 확인>>>{}",customerId);
         return osv.getMyFrequentPurchasesList(customerId);
     }
 
@@ -35,7 +35,7 @@ public class OrdersController {
     @ResponseBody
     @GetMapping("/getMyWriteReviewList/{customerId}")
     public List<OrdersVO> getMyWriteReviewList(@PathVariable("customerId") String customerId){
-        log.info("리뷰 작성할 리스트에서 고객아이디 확인>>>{}",customerId);
+       //log.info("리뷰 작성할 리스트에서 고객아이디 확인>>>{}",customerId);
         return osv.getMyWriteReviewList(customerId);
     }
 

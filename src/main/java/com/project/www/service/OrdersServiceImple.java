@@ -77,6 +77,8 @@ public class OrdersServiceImple implements OrdersService {
             long point = customerVO.getPoint();
             long payPrice = ordersVO.getPayPrice();
             long addedPoints = 0;
+            String resultInfo = "";
+            boolean mStatus = customerVO.isMStatus();
 
             if(isMembership){ //멤버쉽이 있다면
                 customerVO.setPoint(point + Math.round(payPrice * 0.05));
@@ -89,7 +91,7 @@ public class OrdersServiceImple implements OrdersService {
             }
 
             int ordersUpdateResult = ordersMapper.confirmOrderUpdate(ordersVO);
-            int customerUpdateResult = customerMapper.confirmOrderUpdate(customerVO);
+            int customerUpdateResult = customerMapper.pointUpdate(customerVO);
 
             if (ordersUpdateResult == 0 || customerUpdateResult == 0) {
                 throw new RuntimeException("주문확정에 실패하였습니다.");
@@ -103,7 +105,15 @@ public class OrdersServiceImple implements OrdersService {
                 principalDetails.updatePoints(point + addedPoints); //포인트 업데이트
             }
 
-            return "success/"+addedPoints;
+            if(mStatus){ //멤버쉽 회원일 경우
+                resultInfo = "(멤버쉽 혜택 적용!! 5% 적립)\n"+addedPoints+"포인트가 적립되었습니다/"+addedPoints;
+            }
+
+            if(!mStatus){
+                resultInfo = addedPoints+"포인트가 적립되었습니다/"+addedPoints;
+            }
+
+            return resultInfo;
 
         } catch (RuntimeException e) {
             e.printStackTrace();

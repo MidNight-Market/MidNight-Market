@@ -27,7 +27,7 @@ public interface CustomerMapper {
 
     List<CustomerVO> getList();
 
-    int confirmOrderUpdate(CustomerVO ordersVO);
+    int pointUpdate(CustomerVO ordersVO);
 
     CustomerVO selectOne(String customerId);
 }

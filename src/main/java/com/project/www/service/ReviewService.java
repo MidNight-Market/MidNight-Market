@@ -7,7 +7,7 @@ import com.project.www.domain.ReviewVO;
 import java.util.List;
 
 public interface ReviewService {
-    int register(ReviewDTO reviewDTO);
+    String register(ReviewDTO reviewDTO);
 
     int registerLike(ReviewLikeVO reviewLikeVO);
 
