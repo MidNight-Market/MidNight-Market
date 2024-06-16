@@ -126,7 +126,6 @@ document.body.addEventListener('click',(e)=>{
         })
     }else if(target.id === "memberList"){
         getCustomerList().then(result =>{
-            console.log(result)
             str += '<table>';
             str += '<thead>';
             str += '<tr>';

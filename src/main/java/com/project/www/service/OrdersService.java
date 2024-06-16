@@ -14,4 +14,6 @@ public interface OrdersService {
     List<OrdersVO> getList();
 
     String confirmOrderUpdate(OrdersVO ordersVO);
+
+    List<OrdersVO> getMyList(String currentId);
 }
