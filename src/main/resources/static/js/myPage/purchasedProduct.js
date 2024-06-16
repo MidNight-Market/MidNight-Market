@@ -33,7 +33,7 @@ function spreadMyPurchasedProductList(customerId) {
                 str += `</div>`;
                 str += `<div class="purchased-product-info-box">`;
                 str += `<p>${value.productVO.name}</p>`;
-                str += `<span class="purchased-price">${value.payPrice}원</span>`;
+                str += `<span class="purchased-price">${value.payPrice.toLocaleString()}원</span>`;
                 str += `<span class="purchased-quantity">${value.qty}개 구매</span>`;
                 str += `</div>`;
                 str += `<div class="purchased-status">`;
@@ -75,8 +75,6 @@ function spreadMyPurchasedProductList(customerId) {
                         return;
                     }
 
-                    console.log(id);
-
                     // POST 요청 보내기
                     fetch('/payment/refund', {
                         method: 'POST',
@@ -117,16 +115,10 @@ function spreadMyPurchasedProductList(customerId) {
                     }
 
                     confirmOrderUpdate(id).then(result=>{
-
                         const parts = result.split('/');
-
-                        if(result === 'fail'){
-                            alert('알수없는 이유로 주문확정에 실패하였습니다.');
-                            return;
-                        }
-
-                        alert(parts[1] + '포인트가 적립되었습니다.');
-                        point.innerText = String(parseInt(point.innerText) + parseInt(parts[1]));
+                        alert(parts[0]);
+                        let withoutCommaPoint = parseInt(point.innerText.replace(/,/g, ''), 10);
+                        point.innerText = (withoutCommaPoint + parseInt(parts[1])).toLocaleString();
                         spreadMyPurchasedProductList(customerId);
                     });
                 });
@@ -142,7 +134,7 @@ function spreadMyPurchasedProductList(customerId) {
             });
 
         } else {
-            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">주문 내역이 존재하지 않습니다.</h1>';
+            div.innerHTML = `<div class="nodata-zone"><span>주문 내역이 존재하지 않습니다.</span></div>`;
         }
     });
 }

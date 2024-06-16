@@ -17,6 +17,8 @@ function spreadMyFrequentPurchasesList(customerId) {
         div.innerHTML = '';
         let str = '';
 
+        if(result.length > 0){
+
         result.forEach((value, index)=>{
         str += `<div class="frequent-box">`;
         str += `<div class="frequent-top-box">`;
@@ -34,6 +36,9 @@ function spreadMyFrequentPurchasesList(customerId) {
         str += `</div>`;
         });
         div.innerHTML += str;
+        }else{
+            div.innerHTML = `<div class="nodata-zone"><span>구매한 상품이 존재하지 않습니다.</span></div>`;
+        }
     });
 }
 

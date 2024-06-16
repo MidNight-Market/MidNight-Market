@@ -28,7 +28,7 @@ public interface ProductMapper {
 
     int orderUpdate(OrdersVO ordersVO);
 
-    void reviewCountUpdate(long productId);
+    int reviewCountUpdate(long productId);
 
     List<ProductVO> getList(ListPagingVO pgvo);
 

@@ -1,4 +1,3 @@
-
 let reviewWriteData; //상품정보 저장
 
 const reviewButtons = document.querySelectorAll('.review-select-button');
@@ -17,17 +16,17 @@ reviewButtons.forEach(button => {
         clickedButton.style.color = 'orangered';
 
         //상품후기 작성 클릭시
-        if(e.target.id === 'write-review-button'){
-        spreadMyWriteReviewList(customerId);
-        return;
+        if (e.target.id === 'write-review-button') {
+            spreadMyWriteReviewList(customerId);
+            return;
         }
 
         //내가 작성한 상품 후기일 경우
-        if(e.target.id === 'write-review-completed-button'){
+        if (e.target.id === 'write-review-completed-button') {
             spreadMyWriteCompletedReviewList(customerId);
             return;
         }
-        
+
         //내가적은 상품 후기일경우
         console.log('ddd');
 
@@ -55,10 +54,10 @@ function spreadMyWriteReviewList(customerId) {
         let div = document.getElementById('write-reviewPage');
         div.innerHTML = '';
         let str = '';
-        if(result.length > 0){
-            result.forEach((value,index) => {
+        if (result.length > 0) {
+            result.forEach((value, index) => {
 
-                const [year, month, day,hour, minute] = value.ordersDate.match(/\d+/g);
+                const [year, month, day, hour, minute] = value.ordersDate.match(/\d+/g);
                 const [yearS, monthS, dayS, hourS, minuteS] = value.statusDate.match(/\d+/g);
 
                 str += `<div class="purchased-date-box">`;
@@ -82,16 +81,11 @@ function spreadMyWriteReviewList(customerId) {
                 str += `</div>`;
             });
             div.innerHTML = str;
-        }else{
-            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">적을 수 있는 후기가 존재하지 않습니다.</h1>';
+        } else {
+            div.innerHTML = `<div class="nodata-zone"><span>작성가능한 후기가 존재하지 않습니다.</span></div>`;
         }
     });
 }
-
-
-
-
-
 
 
 //내가등록한 리뷰 가져오기
@@ -113,11 +107,11 @@ function spreadMyWriteCompletedReviewList(customerId) {
         let div = document.getElementById('write-reviewPage');
         div.innerHTML = '';
         let str = '';
-        if(result.length > 0){
-            result.forEach((value,index) => {
+        if (result.length > 0) {
+            result.forEach((value, index) => {
 
 
-                const [year, month, day,hour, minute] = value.registerDate.match(/\d+/g);
+                const [year, month, day, hour, minute] = value.registerDate.match(/\d+/g);
                 str += `<div id="write-review-completed">`;
                 str += `<div class="write-review-completed-box">`;
                 str += `<div class="review-content-box">`;
@@ -139,9 +133,9 @@ function spreadMyWriteCompletedReviewList(customerId) {
                 str += `</div>`;
                 str += `</div>`;
                 str += `<div class="review-image-box">`;
-                if(value.reviewImageVOList.length > 0){
-                    value.reviewImageVOList.forEach((value)=>{
-                str += `<img src="${value.reviewImage}" alt="">`;
+                if (value.reviewImageVOList.length > 0) {
+                    value.reviewImageVOList.forEach((value) => {
+                        str += `<img src="${value.reviewImage}" alt="">`;
                     });
                 }
                 str += `</div>`;
@@ -150,8 +144,8 @@ function spreadMyWriteCompletedReviewList(customerId) {
 
             });
             div.innerHTML = str;
-        }else{
-            div.innerHTML = '<h1 style="font-size: 32px; font-weight: 700">작성하신  후기가 존재하지 않습니다.</h1>';
+        } else {
+            div.innerHTML = `<div class="nodata-zone"><span>작성완료한 후기가 존재하지 않습니다.</span></div>`;
         }
     });
 }
@@ -258,22 +252,6 @@ function starCalculate(starScore) {
     }
     return result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const rateWrap = document.querySelectorAll('.rating'),
@@ -455,16 +433,15 @@ document.getElementById('register-button').addEventListener('click', () => {
     console.log(data);
 
     sendReviewRegisterFromServer(data).then(result => {
-        if (result === 'register_success') {
-            alert('리뷰를 달아주셔서 감사합니다.\n(구매금액의1%,멤버십2%)포인트 증정해드립니다.');
-            spreadMyWriteReviewList(customerId);
-        } else {
-            alert('리뷰 등록 실패');
-        }
-
+        const parts = result.split('/');
+        let point = document.getElementById('point')
+        let withoutCommaPoint = parseInt(point.innerText.replace(/,/g, ''), 10);
+        point.innerText = (withoutCommaPoint + parseInt(parts[1])).toLocaleString();
+        alert(parts[0]);
+        spreadMyWriteReviewList(customerId);
         document.getElementById('cancel-button').click();
         content.value = '';
-        spreadMyPurchasedProductList(customerId);
+        //spreadMyPurchasedProductList(customerId);
     })
 
 
