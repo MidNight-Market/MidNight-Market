@@ -101,5 +101,7 @@
         WHERE
         id = #{id}
     </update>
-
+    <select id="getMyList" resultType="com.project.www.domain.OrdersVO">
+        select * from orders where customer_id = ${currentId}
+    </select>
 </mapper>

@@ -111,4 +111,9 @@ public class OrdersServiceImple implements OrdersService {
         }
 
     }
+
+    @Override
+    public List<OrdersVO> getMyList(String currentId) {
+        return ordersMapper.getMyList(currentId);
+    }
 }

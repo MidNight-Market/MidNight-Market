@@ -33,4 +33,6 @@ public interface OrdersMapper {
     List<OrdersVO> getList();
 
     int confirmOrderUpdate(OrdersVO ordersVO);
+
+    List<OrdersVO> getMyList(String currentId);
 }
