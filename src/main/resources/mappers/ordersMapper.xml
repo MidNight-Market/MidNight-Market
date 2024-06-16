@@ -101,4 +101,11 @@
         WHERE
         id = #{id}
     </update>
+
+    <select id="findExpiredOrders" resultType="com.project.www.domain.OrdersVO">
+        SELECT * FROM orders
+        WHERE
+        merchant_uid = #{merchantUid}
+    </select>
+
 </mapper>

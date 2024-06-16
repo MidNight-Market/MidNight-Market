@@ -27,9 +27,7 @@ public class ReviewController {
         log.info(">>>>리뷰객체 확인>>>{}",reviewVO);
         log.info("파일 온거 확인>>>>{}",(Object) files);
 
-
-        int isOk = rsv.register(fileHandler.reviewImageUploadFiles(files,reviewVO));
-        return isOk > 0 ? "register_success" : "register_fail";
+        return rsv.register(fileHandler.reviewImageUploadFiles(files,reviewVO));
     }
 
     @ResponseBody

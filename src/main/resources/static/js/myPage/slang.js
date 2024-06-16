@@ -48,7 +48,7 @@ function spreadMySlangProductList(customerId) {
             });
             div.innerHTML += str;
         }else{
-            div.innerHTML = '<h1 style="font-size: 32px;  font-weight: 700; display: block">찜한 상품이 존재하지 않습니다.</h1>';
+            div.innerHTML = `<div class="nodata-zone"><span>찜한 상품이 존재하지 않습니다.</span></div>`;
         }
 
     })
