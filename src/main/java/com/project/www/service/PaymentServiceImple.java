@@ -104,6 +104,7 @@ public class PaymentServiceImple implements PaymentService {
     @Transactional
     @Override
     public String basketPost(PaymentDTO paymentDTO) {
+
         try {
             String productName = "";
             long productCount = 0;
@@ -113,6 +114,11 @@ public class PaymentServiceImple implements PaymentService {
             // 내 장바구니 리스트
             List<BasketVO> basketList = basketMapper.getMyBasket(paymentDTO.getCustomerId());
             List<ProductVO> productList = new ArrayList<>();
+
+            log.info("바스켓 가져온거 객체리스트확인>>>{}",basketList);
+            if(basketList == null || basketList.isEmpty()){
+                return "quantity_exhaustion";
+            }
 
             for (BasketVO bsv : basketList) {
                 ProductVO productVO = productMapper.getDetail(bsv.getProductId());//상품 정보 리스트에 저장

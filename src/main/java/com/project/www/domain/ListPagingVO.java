@@ -16,6 +16,7 @@ public class ListPagingVO {
     private String type;
     private String subType;
     private String search;
+    private String description;
 
     public ListPagingVO(){
         this.PageNo = 1;

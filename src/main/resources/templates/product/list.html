@@ -67,8 +67,7 @@
 
         .title {
             text-align: center;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin: 70px 0;
             font-size: 30px;
             font-weight: 550;
         }
@@ -191,8 +190,7 @@
             display: flex;
             justify-content: center;
             font-size: 30px;
-            margin-top: 50px;
-            margin-bottom: 100px;
+            margin: 70px 0;
         }
         .memberShip {
             position: fixed;
@@ -245,9 +243,13 @@
 
 <body id="list-body">
 <div id="searchValPrint" style="display: none"></div>
+
+<th:block th:if="${ph.pgvo.search == null or ph.pgvo.search == ''}">
 <div class="title">
-    상품 리스트
+    <span>[[${ph.pgvo.description}]]</span>
 </div>
+</th:block>
+
 <div class="listNavbar">
     <span class="count"></span>
     <ul>
