@@ -320,7 +320,7 @@
         <div id="d2" style="display: none;">
             <div class="mypage2_box1">
                 <span class="mypage2_text1">쿠폰</span>
-                <a href=""><span class="mypage2_text3">+ 쿠폰 등록</span></a>
+                <span class="mypage2_text3" id="addCoupon">+ 쿠폰 등록</span>
             </div>
             <hr class="hr2">
             <div class="page-info-box">
@@ -610,7 +610,121 @@
         }
 
     });
+    document.getElementById('addCoupon').addEventListener('click', () => {
+        // 기존 쿠폰 컨테이너가 있는지 확인
+        let couponContainer = document.getElementById('couponContainer');
+        if (couponContainer) {
+            // 기존 컨테이너를 보이게 만듦
+            couponContainer.style.display = '';
+        } else {
+            // 새로운 div 요소 생성
+            couponContainer = document.createElement('div');
+            couponContainer.setAttribute('id', 'couponContainer');
+            couponContainer.style.position = 'fixed';
+            couponContainer.style.top = '50%';
+            couponContainer.style.left = '50%';
+            couponContainer.style.transform = 'translate(-50%, -50%)';
+            couponContainer.style.backgroundColor = '#fff';
+            couponContainer.style.padding = '20px';
+            couponContainer.style.border = '1px solid #ccc';
+            couponContainer.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+            couponContainer.style.zIndex = '1000';
 
+            // 쿠폰 코드 입력 안내 텍스트 추가
+            const text = document.createElement('p');
+            text.textContent = '쿠폰번호를 입력해주세요';
+            couponContainer.appendChild(text);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.innerText = "X";
+            closeBtn.setAttribute('id', 'closeBtn');
+            closeBtn.style.position = 'absolute';
+            closeBtn.style.top = '15px';
+            closeBtn.style.right = '15px';
+            closeBtn.style.background = 'transparent';
+            closeBtn.style.border = 'none';
+            closeBtn.style.fontSize = '16px';
+            closeBtn.style.cursor = 'pointer';
+            couponContainer.appendChild(closeBtn);
+            closeBtn.addEventListener('click', () => {
+                couponContainer.style.display = 'none';
+            });
+
+            // 쿠폰 코드 입력 input 요소 추가
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.style.width = '100%';
+            input.style.padding = '8px';
+            input.style.marginTop = '8px';
+            couponContainer.appendChild(input);
+
+            // 전송 버튼 추가
+            const submitButton = document.createElement('button');
+            submitButton.textContent = '등록';
+            submitButton.style.marginTop = '8px';
+            submitButton.style.padding = '8px 16px';
+            submitButton.style.backgroundColor = 'orange';
+            submitButton.style.color = '#fff';
+            submitButton.style.border = 'none';
+            submitButton.style.cursor = 'pointer';
+            couponContainer.appendChild(submitButton);
+
+            // 전송 버튼 클릭 이벤트 리스너 추가
+            submitButton.addEventListener('click', () => {
+                // 입력된 값 가져오기
+                const couponCode = input.value;
+                searchCoupon(couponCode).then(result => {
+                    if (result > 0) {
+                        if (confirm("쿠폰을 등록하시겠습니까?")) {
+                            addCoupon(customerId, result).then(result => {
+                                if (result == "1") {
+                                    alert("등록완료");
+                                    couponContainer.style.display = "none";
+                                } else {
+                                    alert("등록실패 관리자문의");
+                                }
+                            });
+                        }
+                    } else {
+                        alert("존재하지않는 쿠폰입니다. 다시입력해주세요.");
+                    }
+                });
+            });
+
+            document.body.appendChild(couponContainer);
+            input.focus();
+        }
+    });
+
+
+    async function searchCoupon(couponCode){
+        try {
+            const url = '/coupon/search/'+couponCode;
+            const config = {
+                method: 'GET'
+            };
+            console.log(couponCode);
+            const resp = await fetch(url, config);
+            const result = await resp.text();
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function addCoupon(id, couponId){
+        try {
+            const url = '/coupon/add/'+id+"/"+couponId;
+            const config = {
+                method: 'GET'
+            };
+            const resp = await fetch(url, config);
+            const result = await resp.text();
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 </script>
 
 </body>

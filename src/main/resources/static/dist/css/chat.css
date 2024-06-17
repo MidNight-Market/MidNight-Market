@@ -50,6 +50,7 @@ body{
     font-size: 13px;
     width: 300px;
     margin-left: 20px;
+    border-radius: 6px;
     margin-top: 20px;
     line-height: 20px;
     position: relative;
@@ -65,4 +66,37 @@ body{
     height: 30px;
     left: 20%;
     margin-top: 10px;
+}
+.selectOption1, .selectOption2{
+    width: 200px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+}
+.selectOption1{
+    margin-top: 60px;
+    margin-left: -10px;
+}
+.selectOption2{
+    margin-top: 20px;
+    margin-left: -10px;
+}
+#reply1{
+    position: absolute;
+    width: 380px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    left: 280px;
+    top : 300px
+}
+#reply1 > table{
+    padding-left: 15px;
 }

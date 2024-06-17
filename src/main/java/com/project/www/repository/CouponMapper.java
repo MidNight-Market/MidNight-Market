@@ -10,4 +10,6 @@ public interface CouponMapper {
     int insert(CouponVO cvo);
 
     List<CouponVO> getList();
+
+    long search(String couponCode);
 }

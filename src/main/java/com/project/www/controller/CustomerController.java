@@ -5,6 +5,7 @@ import com.project.www.domain.CustomerVO;
 import com.project.www.domain.NotificationVO;
 import com.project.www.service.CustomerService;
 import com.project.www.service.MailService;
+import com.project.www.service.MemberCouponService;
 import com.project.www.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class CustomerController {
     private final MailService msv;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final NotificationService nsv;
+    private final MemberCouponService mscv;
 
     @GetMapping("/insert")
     public void insert() {
@@ -40,6 +42,7 @@ public class CustomerController {
         int isOk = csv.insert(cvo);
         if(isOk > 0){
             NotificationVO nvo = new NotificationVO();
+            mscv.addCoupon(cvo.getId(),"1");
             nvo.setCustomerId(cvo.getId());
             nvo.setNotifyContent("회원가입을 환영합니다. 3천원 쿠폰이 발급되었습니다. ");
             nsv.insert(nvo);

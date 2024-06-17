@@ -8,4 +8,6 @@ public interface CouponService {
     int insert(CouponVO cvo);
 
     List<CouponVO> getList();
+
+    long search(String couponCode);
 }

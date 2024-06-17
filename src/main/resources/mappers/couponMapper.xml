@@ -10,4 +10,10 @@
     <select id="getList" resultType="com.project.www.domain.CouponVO">
         select * from coupon
     </select>
+    <select id="getName" resultType="String">
+        select name from coupon where id = ${couponId}
+    </select>
+    <select id="search" resultType="long">
+        select id from coupon where name = #{couponCode}
+    </select>
 </mapper>
