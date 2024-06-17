@@ -2,8 +2,10 @@ package com.project.www.service;
 
 import com.project.www.domain.CouponVO;
 import com.project.www.repository.CouponMapper;
+import com.project.www.repository.MemberCouponMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class CouponServiceImpl implements CouponService{
 
     private final CouponMapper couponMapper;
+    private final MemberCouponMapper memberCouponMapper;
 
     @Override
     public int insert(CouponVO cvo) {
@@ -21,5 +24,10 @@ public class CouponServiceImpl implements CouponService{
     @Override
     public List<CouponVO> getList() {
         return couponMapper.getList();
+    }
+
+    @Override
+    public long search(String couponCode) {
+        return couponMapper.search(couponCode);
     }
 }
