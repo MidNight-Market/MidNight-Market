@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>배송지 변경</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .mainAddress {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <h3>기본 배송지</h3>
+            <div>
+<!--                <span th:if="${address.isMain eq 'Y'}" class="mainAddress" th:text="${address.addrName}"></span>-->
+                <div>
+                    <span>(우편번호)</span>
+                    <span>도로명 : </span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <button type="button" id="newAddrAdd">새 배송지 추가</button>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <td>선택</td>
+                <td>주소 별칭</td>
+                <td>받으실 분</td>
+                <td>주소</td>
+                <td>연락처</td>
+                <td>삭제</td>
+            </tr>
+            </thead>
+            <tbody id="addressTbody">
+            <!-- 등록된 배송지들을 뿌리기(서버에서 동적으로 추가) -->
+            </tbody>
+        </table>
+        <hr>
+        <ul>
+            <li>배송 주소를 변경하실 경우는 쇼핑 전에 변경해주세요.</li>
+            <li>선택한 배송지에 따라 주문하실 상품의 재고가 달라질 수 있습니다.</li>
+        </ul>
+        <button type="button" id="addrChange">배송지 변경하기</button>
+    </div>
+
+<script>
+    let newAddrAdd = document.getElementById('newAddrAdd');
+    let addrChangeBtn = document.getElementById('addrChange');
+    let addressId = null; // 선택된 주소의 id 저장
+
+    newAddrAdd.addEventListener('click', () => {
+        window.location.href = '/payment/newAddrAddPopup';
+    });
+
+    listFromServer().then(result =>{
+        console.log(result);
+        radioButtons(); // input 라디오 버튼
+    });
+
+    // 서버로 리스트 값 보내기
+    async function listFromServer(){
+        try {
+            const url = '/address/list';
+            const config = {
+                method : 'get',
+            };
+            const resp = await fetch(url,config);
+            const result = await resp.json();
+
+            const tableBody = document.getElementById('addressTbody');
+            tableBody.innerHTML = ''; // 기존 내용 초기화
+
+            result.forEach(address => {
+                const tr =
+                `<tr>
+                    <td><input type="radio" name="selectedAddress" id="selectCheck-${address.ano}" data-address-id="${address.ano}"></td>
+                    <td>${address.addrNickName}</td>
+                    <td>${address.addrName}</td>
+                    <td>${address.address}</td>
+                    <td>${address.contactNum}</td>
+                    <td><button type="button" class="delBtn">삭제</button></td>
+                </tr>`;
+
+                tableBody.innerHTML += tr;
+            });
+            return result;
+        }catch (e){
+            console.log(e);
+        }
+    }
+
+    function radioButtons() {
+        document.querySelectorAll('input[name="selectedAddress"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                addressId = radio.getAttribute('data-address-id');
+            });
+        });
+    }
+</script>
+</body>
+</html>
