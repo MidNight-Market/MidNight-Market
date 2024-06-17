@@ -63,7 +63,7 @@
                     </a>
                     <a th:href="@{/basket/myBasket}" id="cartBtn" class="cartBtnPosition" onclick="showAlert(event, id)">
                         <img th:src="@{/dist/icon/cart.png}" class="cart-icon">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="basketBadge" th:if="${session.id}">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="basketBadge" th:if="${session.role == 'role_user'}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </a>
@@ -192,8 +192,12 @@
             </ul>
         </nav>
     </div>
+    <p th:text="${#authentication.authorities}" style="display: none" id="authRole"></p>
 
     </body>
+    <script sec:authentication>
+        let roleArr = document.getElementById('authRole').innerText;
+    </script>
     <script th:inline="javascript">
         let notificationList = /*[[${session.notificationList}]]*/ [];
         let loginId = [[${session.id}]];
@@ -203,6 +207,8 @@
                 alert("로그인이 필요한 서비스입니다.");
                 event.preventDefault();
                 window.location.href = "http://localhost:8090/login/form";
+            }else if(!roleArr.includes("user")){
+                alert("구매자만 접근가능한 서비스입니다. ")
             }
         }
         document.getElementById('heartBtn').addEventListener('click',()=>{
@@ -210,6 +216,8 @@
                 alert("로그인이 필요한 서비스입니다.");
                 event.preventDefault();
                 window.location.href = "http://localhost:8090/login/form";
+            }else if(!roleArr.includes("user")){
+                alert("구매자만 접근가능한 서비스입니다. ")
             }else{
                 let newUrl = '/customer/myPage?defaultTab=d3';
                 window.location.href = newUrl;
