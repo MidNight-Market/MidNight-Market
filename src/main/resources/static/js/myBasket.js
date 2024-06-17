@@ -42,6 +42,7 @@ $('#select-delete').click(function (event) {
 
     if(!confirm('정말로 삭제하시겠습니까?')){
     event.preventDefault(); // 기본 동작을 막음
+        return;
     }
 
     let checkedValues = [];

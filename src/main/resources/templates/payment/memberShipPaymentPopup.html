@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>멤버쉽 결제</title>
+    <link rel="stylesheet" href="/dist/css/reset.css">
+    <style>
+        @font-face {
+            font-family: 'NotoSans KR';
+            src: url("/dist/font/Noto_Sans_KR/NotoSansKR-VariableFont_wght.ttf");
+        }
+
+        body {
+            font-family: "NotoSans KR", serif;
+            background-color: #ffffff;
+        }
+
+        #membership-title {
+            width: 100%;
+            height: 111px;
+            background-color: orange;
+            color: white;
+            display: flex;
+            justify-content: end;
+        }
+        .title-box{
+            width: 90%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        .title-box p:first-child{
+            font-size: 19px;
+        }
+        .title-box p:last-child{
+            font-size: 25px;
+            font-weight: 600;
+        }
+        .content-box{
+            width: 100%;
+            height: 500px;
+            /*background-color: #0dcaf0;*/
+        }
+
+        .memberShipPaymentButton-box{
+            width: 100%;
+            height: 88px;
+            background-color: rebeccapurple;
+        }
+        .memberShipPaymentButton-box>button{
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: violet;
+            color: white;
+            font-size: 23px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .memberShipPaymentButton-box>button:hover{
+            filter: brightness(95%);
+        }
+
+        .content-box > div:nth-child(1){
+            width: 95%;
+            height: 100px;
+            /*background-color: red;*/
+            margin-left: 5%;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            font-size: 21px;
+            font-weight: 700;
+        }
+        .content-box>ul{
+            width: 80%;
+            height: 250px;
+            margin-left: 20%;
+            margin-top: 89px;
+            /*background-color: forestgreen;*/
+        }
+        .content-box>ul>li{
+            width: 100%;
+            height: 33%;
+            /*background-color: red;*/
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="membership-title">
+    <div class="title-box">
+    <p>Mid Night Market Plus +</p>
+    <p>멤버십 가입하기</p>
+    </div>
+</div>
+
+<div class="content-box">
+    <div><p>멤버십의 혜택은??</p></div>
+
+<ul>
+    <li>상품 구매시 구매금액의 5% 적립!</li>
+    <li>상품 구매후 리뷰 등록시 포인트 지급 2배!</li>
+    <li>지금 바로 시작해보세요</li>
+
+</ul>
+
+</div>
+
+
+<div class="memberShipPaymentButton-box">
+    <button id="membership-paymentButton">(4,900원) 결제하기(일단 100원으로 해놓음)</button>
+</div>
+<script th:inline="javascript">
+    const customerId = [[${session.id}]];
+</script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:src="@{/js/memberShipPayment.js}"></script>
+</body>
+</html>

@@ -191,9 +191,9 @@
 </main>
 
 <!--양쪽 배너-->
-<div class="memberShip">
-    <a href="#">
-        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
+<div class="memberShip" th:if="${session.mStatus == false or session == null or session.mStatus == null}">
+    <a href="#" id="membershipPayment">
+        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg" alt="">
     </a>
 </div>
 <div class="rightBanner">
@@ -217,7 +217,9 @@
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
+    const mStatus = [[${session.mStatus}]];
     console.log(role);
+    console.log(mStatus);
 
 
 

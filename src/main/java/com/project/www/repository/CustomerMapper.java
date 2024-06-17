@@ -1,12 +1,14 @@
 package com.project.www.repository;
 
 import com.project.www.domain.CustomerVO;
+import com.project.www.domain.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface CustomerMapper {
+
     int insert(CustomerVO cvo);
 
     int checkEmail(String email);
@@ -30,4 +32,6 @@ public interface CustomerMapper {
     int pointUpdate(CustomerVO ordersVO);
 
     CustomerVO selectOne(String customerId);
+
+    int memberShipJoinUpdate(PaymentDTO paymentDTO);
 }
