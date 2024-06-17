@@ -62,9 +62,14 @@ CREATE TABLE orders (
 
 #수정완료
 CREATE TABLE address (
-	address VARCHAR(400) NOT NULL,
-	customer_id VARCHAR(150),
-	isMain tinyint
+    ano bigint NOT NULL AUTO_INCREMENT,
+    address VARCHAR(400) NOT NULL,
+    customer_id VARCHAR(30) NOT NULL,
+    isMain VARCHAR(30) DEFAULT 'N',
+    addr_nick_name VARCHAR(30) NOT NULL,
+    addr_name VARCHAR(30) NOT NULL,
+    contact_num VARCHAR(30) NOT NULL,
+    PRIMARY KEY(ano)
 );
 
 #수정완료

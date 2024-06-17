@@ -665,7 +665,7 @@
         .selectAddr:focus,
         .selectAddr:active {
             outline: none;
-            width: 280px;
+            width: 320px;
         }
 
         .selectAddr {
@@ -689,7 +689,7 @@
 
         .select-container {
             width: 100%;
-            max-width: 280px;
+            max-width: 320px;
         }
 
         .addrChange {
@@ -713,6 +713,17 @@
             margin-right: 10px;
         }
 
+        .customerInput {
+            width: 320px;
+            height: 38.8px;
+            outline: none;
+            padding-left: 5px;
+            border: 1px solid lightgray;
+        }
+
+        #addrModifyBtn:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -793,12 +804,13 @@
                             <span>이름</span>
                             <span>기본주소</span>
                             <a class="addrChange">
-                                <button type="button">배송지 변경
+                                <button type="button" id="addrModifyBtn">배송지 변경
                                     <img th:src="@{/dist/icon/right_arrows.png}" style="width: 12px; height: 10px;">
                                 </button>
                             </a>
                         </div>
                     </div>
+
 
                     <div class="addrDivLeft">
                         <div class="addrDiv">
@@ -806,12 +818,16 @@
                         </div>
                         <div class="addrDivInner">
                             <div class="select-container">
-                                <select id="selectAddr" class="selectAddr">
-                                    <option value="">부재 시 경비실에 맡겨주세요</option>
-                                    <option value="">부재 시 문앞에 놓아주세요</option>
-                                    <option value="">직접 받겠습니다.</option>
-                                    <option value="">배송전에 연락주세요.</option>
+                                <select id="selectAddr" class="selectAddr" onchange="selectChange()">
+                                    <option value="" disabled selected>배송시 요청사항을 선택해주세요.</option>
+                                    <option value="guard">부재 시 경비실에 맡겨주세요.</option>
+                                    <option value="door">부재 시 문앞에 놓아주세요.</option>
+                                    <option value="contact">배송전에 미리 연락주세요.</option>
+                                    <option value="receive">직접 받겠습니다.</option>
+                                    <option value="directInput">직접 입력</option>
                                 </select>
+                                <input type="text" id="customerInput" placeholder="배송 요청사항을 입력하세요."
+                                       onblur="selectChangeHandler()" style="display: none" class="customerInput">
                             </div>
                         </div>
                     </div>
@@ -827,29 +843,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div class="order_box">-->
-<!--                <div class="order_box3">-->
-<!--                    <span>배송지</span>-->
-<!--                </div>-->
-<!--                <div class="order_box4">-->
-<!--                    <span>123</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <button type="button" class="addrAddBtn">배송지 추가</button>-->
-<!--            <div id="addrModal" style="display: none">-->
-<!--                <div class="addrModalContainer">-->
-<!--                    <div class="mb-3">-->
-<!--                        <span class="addrClose">&times;</span> &lt;!&ndash;&times; 는 x버튼&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label for="a" class="form-label">주소</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type="password" class="form-control" name="address" id="a">&ndash;&gt;-->
-<!--                        <input type="text" id="sample6_postcode" placeholder="우편번호">-->
-<!--                        <input type="button" onclick="daumPost()" value="우편번호 찾기"><br>-->
-<!--                        <input type="text" id="sample6_address" placeholder="주소"><br>-->
-<!--                        <input type="text" id="sample6_detailAddress" placeholder="상세주소">-->
-<!--                        <input type="text" name="address" id="address" style="display: none">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </form>
     <div class="basket3">
         <div class="order_text1">

@@ -82,76 +82,60 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
 });
 
 
+// 배송 요청사항 직접입력시
+function selectChange() {
+    let selectAddr = document.getElementById('selectAddr');
+    let customerInput = document.getElementById('customerInput');
 
-// 배송지 등록
-function daumPost() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
-
-            // 각 주소의 노출 규칙에 따라 주소를 조합
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가짐
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져옴
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우
-                addr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합
-            if(data.userSelectedType === 'R'){
-                // 법정동명이 있을 경우 추가 (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝남
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있고 공동주택일 경우 추가
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-            } else {
-                document.getElementById("sample6_extraAddress").value = '';
-            }
-
-            // 값 넣기
-            document.getElementById('sample6_postcode').value = data.zonecode; // 우편번호
-            document.getElementById("sample6_address").value = addr; // 주소
-
-            // 커서 이동
-            document.getElementById("sample6_detailAddress").focus();
-        }
-    }).open();
+    // "직접 입력"을 선택시 input
+    if (selectAddr.value === 'directInput') {
+        customerInput.style.display = 'inline';
+        customerInput.value = '';
+        customerInput.focus();
+    } else {
+        customerInput.style.display = 'none';
+    }
 }
 
-// 추가된 배송지 db저장
-document.querySelector('.basket6').addEventListener('click',()=>{
-    let code = document.getElementById('sample6_postcode').value;
-    let add1 = document.getElementById('sample6_address').value;
-    let add2 = document.getElementById('sample6_detailAddress').value;
-    document.getElementById('address').value = code+"/"+add1+"/"+add2;
-});
+// 새로운 값 직접 입력 받기
+function selectChangeHandler() {
+    let selectAddr = document.getElementById('selectAddr');
+    let customerInput = document.getElementById('customerInput');
+    let directInputOption = selectAddr.querySelector('option[value="directInput"]');
 
-// 배송지 추가 모달
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('.addrAddBtn').addEventListener('click', function() {
-        var addrModal = document.getElementById('addrModal');
-        addrModal.style.display = 'block';
-    });
-
-    // 모달 닫기 버튼
-    document.querySelector('.addrClose').addEventListener('click', function() {
-        var addrModal = document.getElementById('addrModal');
-        addrModal.style.display = 'none';
-    });
-
-    // 모달 영역 외 다른 구간 클릭 시 모달 닫음
-    window.addEventListener('click', function(e) {
-        var addrModal = document.getElementById('addrModal');
-        if (e.target == addrModal) {
-            addrModal.style.display = 'none';
+    let trimmedValue = customerInput.value.trim(); // 입력 받은 값 양쪽 끝 공백 제거
+    // 입력 받은 값이 공백이 아닌 경우만
+    if (trimmedValue !== '') {
+        // 직접 입력 옵션 유지하면서 새로운 값만 추가(공백만 있는거 안됨)
+        if (!isOption(selectAddr, trimmedValue)) {
+            let newOption = document.createElement('option'); // 옵션 요소 추가
+            newOption.value = trimmedValue; // 옵션 요소 value는 새로 입력한 값
+            newOption.text = trimmedValue;
+            selectAddr.appendChild(newOption); // select안에 만든 옵션값 추가
         }
+        // 새 값으로 "직접 입력" 옵션 설정
+        directInputOption.text = '직접 입력';
+        directInputOption.value = 'directInput';
+        selectAddr.value = trimmedValue;
+    }
+    customerInput.style.display = 'none';
+}
+
+// 해당 값이 이미 옵션에 있는지 확인
+function isOption(selectAddr, value) {
+    let options = selectAddr.options;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === value) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 배송비 변경 클릭시 팝업
+    let addrModifyBtn = document.getElementById('addrModifyBtn');
+
+    // 버튼 클릭시 팝업 보이게
+    addrModifyBtn.addEventListener('click', ()=>{
+        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=700,height=600');
     });
-});

@@ -32,8 +32,6 @@ for(let i = 0; i<secret.length; i++){
     });
 }
 
-console.log(role);
-
 // 관리자 답글은 비밀글일 경우 관리자랑 본인만 볼 수 있게
 let adminReply = document.querySelectorAll('.adminReply');
 
