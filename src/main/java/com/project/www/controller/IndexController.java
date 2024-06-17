@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -46,14 +48,20 @@ public class IndexController {
             HttpSession ses = request.getSession();
             ses.setAttribute("name", sellerPrincipalDetails.getShopName());
             ses.setAttribute("id", sellerPrincipalDetails.getUsername());
-            ses.setAttribute("role", sellerPrincipalDetails.getAuthorities());
+            Collection<? extends GrantedAuthority> authorities = sellerPrincipalDetails.getAuthorities();
+            for (GrantedAuthority authority : authorities) {
+                ses.setAttribute("role", authority.getAuthority());
+            }
             ses.setAttribute("shopName", sellerPrincipalDetails.getShopName());
         }
         if (principal != null) {
             HttpSession ses = request.getSession();
             ses.setAttribute("name", principal.getNickName());
             ses.setAttribute("id", principal.getUsername());
-            ses.setAttribute("role", principal.getAuthorities());
+            Collection<? extends GrantedAuthority> authorities = principal.getAuthorities();
+            for (GrantedAuthority authority : authorities) {
+                ses.setAttribute("role", authority.getAuthority());
+            }
             ses.setAttribute("mStatus", principal.getMStatus());
             if(principal.getPassword() != null){
                 if(bCryptPasswordEncoder.matches("resetPw",principal.getPassword())){
@@ -61,6 +69,7 @@ public class IndexController {
                 }
             }
         }
+
         model.addAttribute("newProductList", newProductList);
         model.addAttribute("heavySoldList", heavySoldList);
         model.addAttribute("discountProductList", discountProductList);

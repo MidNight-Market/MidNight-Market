@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>index</title>
@@ -191,7 +191,7 @@
 </main>
 
 <!--양쪽 배너-->
-<div class="memberShip" th:if="${session.mStatus == false or session == null or session.mStatus == null}">
+<div class="memberShip">
     <a href="#" id="membershipPayment">
         <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg" alt="">
     </a>
@@ -218,12 +218,15 @@
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
     const mStatus = [[${session.mStatus}]];
-    console.log(role);
-    console.log(mStatus);
-
-
-
+    document.getElementById('membershipPayment').style.display="";
+    if(role == "role_admin" || role == "role_seller"){
+        console.log("들어옴")
+        document.getElementById('membershipPayment').style.display="none";
+    }else if(mStatus == true){
+        document.getElementById('membershipPayment').style.display="none";
+    }
 </script>
+
 <script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
