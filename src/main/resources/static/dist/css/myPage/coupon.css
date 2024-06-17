@@ -1,0 +1,31 @@
+.couponList-box{
+    width: 75%;
+    height: 148px;
+    /*background-color: violet;*/
+    margin-bottom: 48px;
+    display: flex;
+    border: 3px solid black;
+}
+.couponName{
+    width: 37%;
+    height: 100%;
+    /*background-color: #20c997;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 3px dotted black;
+    font-size: 21px;
+    font-weight: 600;
+}
+.coupon-info{
+    width: 55%;
+    height: 100%;
+    margin-left: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: 500;
+    font-size: 17px;
+}
