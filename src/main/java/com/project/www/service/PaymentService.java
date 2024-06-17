@@ -15,4 +15,8 @@ public interface PaymentService {
     int paySuccessUpdate(PaymentDTO paymentDTO);
 
     String refundUpdate(OrdersVO ordersVO);
+
+    String saveMembershipPaymentInfo(PaymentDTO paymentDTO);
+
+    int membershipRegistrationCompletedUpdate(PaymentDTO paymentDTO);
 }

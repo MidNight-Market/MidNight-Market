@@ -1,5 +1,4 @@
 const email = paymentDTO.customerId.replace(/\([^)]*\)/g, '');
-console.log(email);
 
 $(document).ready(function () {
     $.ajax({
@@ -35,7 +34,6 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
         amount: paymentDTO.payPrice,
         buyer_email: email,
         buyer_name: nickName,
-        buyer_tel: '010-1234-5678',
         buyer_addr: '인천시 제주도 광역시',
         buyer_postcode: '123-456'
     }, function(rsp) {

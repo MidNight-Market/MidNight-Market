@@ -1,16 +1,16 @@
 package com.project.www.service;
 
+import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.BasketVO;
 import com.project.www.domain.OrdersVO;
 import com.project.www.domain.PaymentDTO;
 import com.project.www.domain.ProductVO;
-import com.project.www.repository.BasketMapper;
-import com.project.www.repository.OrdersMapper;
-import com.project.www.repository.PaymentMapper;
-import com.project.www.repository.ProductMapper;
+import com.project.www.repository.*;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +30,7 @@ public class PaymentServiceImple implements PaymentService {
     private final ProductMapper productMapper;
     private final OrdersMapper ordersMapper;
     private final BasketMapper basketMapper;
+    private final CustomerMapper customerMapper;
 
 
     @Transactional
@@ -115,8 +116,8 @@ public class PaymentServiceImple implements PaymentService {
             List<BasketVO> basketList = basketMapper.getMyBasket(paymentDTO.getCustomerId());
             List<ProductVO> productList = new ArrayList<>();
 
-            log.info("바스켓 가져온거 객체리스트확인>>>{}",basketList);
-            if(basketList == null || basketList.isEmpty()){
+            log.info("바스켓 가져온거 객체리스트확인>>>{}", basketList);
+            if (basketList == null || basketList.isEmpty()) {
                 return "quantity_exhaustion";
             }
 
@@ -222,12 +223,47 @@ public class PaymentServiceImple implements PaymentService {
                 throw new RuntimeException("환불 처리에 실패했습니다.");
             }
             DecimalFormat df = new DecimalFormat("#,###");
-            return df.format(ordersVO.getPayPrice())+"원이 정상적으로 환불되었습니다.";
+            return df.format(ordersVO.getPayPrice()) + "원이 정상적으로 환불되었습니다.";
         } catch (IamportResponseException | IOException | RuntimeException e) {
             log.error("환불 실패 : {}", e.getMessage());
             return "Refund failed :" + e.getMessage();
         }
 
 
+    }
+
+    @Override
+    public String saveMembershipPaymentInfo(PaymentDTO paymentDTO) {
+        paymentDTO.setPayPrice(100);
+        paymentDTO.setOriginalPrice(100);
+        paymentDTO.setPayDescription("멤버쉽결제");
+
+        int isOk = paymentMapper.register(paymentDTO);
+        return isOk > 0 ? "success" : "fail";
+    }
+
+    @Transactional
+    @Override
+    public int membershipRegistrationCompletedUpdate(PaymentDTO paymentDTO) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof PrincipalDetails) {
+            PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+            principalDetails.updateMStatus(true); // 멤버십 가입유무
+        }
+        try {
+            int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
+            isOk *= customerMapper.memberShipJoinUpdate(paymentDTO);
+
+            if (isOk == 0) {
+                new RuntimeException("멤버십 가입 중 오류 발생");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            log.error("멤버쉽 가입 오류 " + e.getMessage());
+            return -1;
+        }
+
+        return 1;
     }
 }

@@ -45,4 +45,13 @@
         WHERE
         id = #{id}
     </update>
+
+    <update id="memberShipJoinUpdate">
+        UPDATE customer
+        SET
+        m_status = 1,
+        m_reg_date = now()
+        WHERE
+        id = #{customerId}
+    </update>
 </mapper>
