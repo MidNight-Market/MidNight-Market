@@ -56,7 +56,9 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
                     contentType: 'application/json',
                     data: JSON.stringify({
                         merchantUid: rsp.merchant_uid,
-                        payMethod: rsp.pay_method
+                        payMethod: rsp.pay_method,
+                        payDescription: paymentDTO.payDescription,
+                        customerId: paymentDTO.customerId
                         // 주소와 전화번호와 같은 정보 기입
                     }),
                     success: function(response) {

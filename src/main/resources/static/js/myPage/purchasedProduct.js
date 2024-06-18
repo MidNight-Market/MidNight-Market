@@ -48,6 +48,7 @@ function spreadMyPurchasedProductList(customerId) {
 
                 if(value.status === '배송완료' && !value.confirmed){//배송완료되었지만 주문확정을 하지 않았을 경우
                     str += `<button class="orderConfirmed-button" data-id="${value.id}" data-name="${value.productVO.name}" data-price="${value.payPrice}">주문확정</button>`;
+                    str += `<button class="refundButton" data-id="${value.id}" data-name="${value.productVO.name}" data-price="${value.payPrice}">환불하기</button>`;
                 }
 
                 if(value.status === '배송완료' && !value.reviewComment && value.confirmed){ //배송완료지만 주문확정을 했을 경우

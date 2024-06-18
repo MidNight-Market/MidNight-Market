@@ -20,7 +20,7 @@
     <update id="paySuccessUpdate">
         UPDATE orders
         SET
-        order_date = now(),
+        orders_date = now(),
         status = '주문완료',
         status_date = now()
         WHERE

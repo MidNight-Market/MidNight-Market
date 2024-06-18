@@ -182,12 +182,9 @@ public class PaymentServiceImple implements PaymentService {
         try {
             int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
             isOk *= ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());
-            long productId =  paymentDTO.getProductId();
-            ProductVO pvo = productMapper.getDetail(productId);
-            String productName = pvo.getName();
             NotificationVO nvo = new NotificationVO();
             nvo.setCustomerId(paymentDTO.getCustomerId());
-            nvo.setNotifyContent("+"+productName+"+"+"상품 주문이 완료되었습니다. ");
+            nvo.setNotifyContent(paymentDTO.getPayDescription()+" 주문이 완료되었습니다. ");
             nsv.insert(nvo);
             if(isOk == 0){
                 throw new RuntimeException();
@@ -231,7 +228,7 @@ public class PaymentServiceImple implements PaymentService {
             nvo.setCustomerId(paymentDTO.getCustomerId());
             ProductVO pvo = productMapper.getDetail(ordersVO.getProductId());
             String productName = pvo.getName();
-            nvo.setNotifyContent("상품"+productName+"의 환불이 완료되었습니다. ");
+            nvo.setNotifyContent(productName+" 의 환불이 완료되었습니다. ");
             nsv.insert(nvo);
             if (isOk == 0) {
                 throw new RuntimeException("환불 처리에 실패했습니다.");
