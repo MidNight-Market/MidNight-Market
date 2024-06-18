@@ -52,7 +52,7 @@ public class SecurityConfig {
     SecurityFilterChain CustomerFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin/**").hasRole("admin")
+                        .requestMatchers("/admin/**").hasAuthority("role_admin")
                         .anyRequest().permitAll())
                 .formLogin((auth) -> auth.loginPage("/login/form")
                         .loginProcessingUrl("/login/form")
@@ -81,7 +81,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .securityMatcher("/login/seller/form")
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin/**").hasRole("admin")
+                        .requestMatchers("/admin/**").hasAuthority("role_admin")
                         .anyRequest().permitAll())
                 .formLogin(form -> form.loginPage("/login/seller/form")
                         .loginProcessingUrl("/login/seller/form")
