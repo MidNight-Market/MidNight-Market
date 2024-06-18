@@ -37,5 +37,13 @@ public class addressController {
         return list;
     }
 
+    @ResponseBody
+    @PutMapping("/address/updateIsMain")
+    public String updateIsMain(@RequestBody AddressVO avo) {
+        log.info("updateIsMain >>@@@ {}", avo);
+        isOK = asv.update(avo);
+        return isOK > 0 ? "success" : "fail";
+    }
+
 }
 

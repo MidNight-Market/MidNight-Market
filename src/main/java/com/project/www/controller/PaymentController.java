@@ -111,12 +111,11 @@ public class PaymentController {
         return psv.refundUpdate(ordersVO);
     }
 
-    //나라님 코드
     @GetMapping("/payment/addrModifyPopup")
     public String addrModifyPopup() {
         return "payment/addrModifyPopup";
     }
-    //나라님 코드
+
     @GetMapping("/payment/newAddrAddPopup")
     public String newAddrAddPopup() {
         return "payment/newAddrAddPopup";

@@ -23,4 +23,10 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressVO> getList() {
         return addressMapper.getList();
     }
+
+    @Override
+    public int update(AddressVO avo) {
+        addressMapper.resetIsMain(avo.getCustomerId()); // 다른 주소들의 isMain을 N으로 초기화
+        return addressMapper.update(avo);
+    }
 }

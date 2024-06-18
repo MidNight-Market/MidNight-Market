@@ -8,4 +8,6 @@ public interface AddressService {
     int register(AddressVO avo);
 
     List<AddressVO> getList();
+
+    int update(AddressVO avo);
 }
