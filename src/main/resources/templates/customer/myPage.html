@@ -235,7 +235,7 @@
             z-index: 9999999999999999999;
         }
 
-        .nodata-zone{
+        .nodata-zone {
             width: 100%;
             height: 300px;
             display: flex;
@@ -258,7 +258,8 @@
     <div id="mypage1" class="mypage1">
         <div class="mypage1-1">
             <div class="circle1">
-                <img src="/dist/icon/gangiMemberShip.png" alt="멤버쉽" th:if="${#authentication.principal.mStatus}" style="width: 100%"; height="100%">
+                <img src="/dist/icon/gangiMemberShip.png" alt="멤버쉽" th:if="${#authentication.principal.mStatus}"
+                     style="width: 100%" ; height="100%">
                 <span class="circle1_text" th:if="${not #authentication.principal.mStatus}" th:text="일반"></span>
             </div>
             <span class="mypage_text1">[[${session.name}]]님</span>
@@ -326,15 +327,7 @@
             <hr class="hr2">
             <div class="page-info-box">
                 <!--  쿠폰   -->
-                <div class="couponList-box">
-                    <div class="couponName">
-                        <span>3,000원</span>
-                    </div>
-                    <div class="coupon-info">
-                        2xxx.02.13 까지 사용가능
-                        <s>사용하면 2xxx.02.13 사용완료</s>
-                    </div>
-                </div>
+                <div id="coupon-list-box"></div>
             </div>
         </div>
         <div id="d3" style="display: none;">
@@ -593,6 +586,10 @@
                 spreadMyPurchasedProductList(customerId, 'purchasedPage');
                 return;
             }
+            if (target === 2) {
+                spreadMyCouponList(customerId);
+                return;
+            }
 
             //찜한상품
             if (target === 3) {
@@ -621,13 +618,10 @@
 
     });
     document.getElementById('addCoupon').addEventListener('click', () => {
-        // 기존 쿠폰 컨테이너가 있는지 확인
         let couponContainer = document.getElementById('couponContainer');
         if (couponContainer) {
-            // 기존 컨테이너를 보이게 만듦
             couponContainer.style.display = '';
         } else {
-            // 새로운 div 요소 생성
             couponContainer = document.createElement('div');
             couponContainer.setAttribute('id', 'couponContainer');
             couponContainer.style.position = 'fixed';
@@ -640,7 +634,6 @@
             couponContainer.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
             couponContainer.style.zIndex = '1000';
 
-            // 쿠폰 코드 입력 안내 텍스트 추가
             const text = document.createElement('p');
             text.textContent = '쿠폰번호를 입력해주세요';
             couponContainer.appendChild(text);
@@ -660,7 +653,6 @@
                 couponContainer.style.display = 'none';
             });
 
-            // 쿠폰 코드 입력 input 요소 추가
             const input = document.createElement('input');
             input.type = 'text';
             input.style.width = '100%';
@@ -668,7 +660,6 @@
             input.style.marginTop = '8px';
             couponContainer.appendChild(input);
 
-            // 전송 버튼 추가
             const submitButton = document.createElement('button');
             submitButton.textContent = '등록';
             submitButton.style.marginTop = '8px';
@@ -679,9 +670,8 @@
             submitButton.style.cursor = 'pointer';
             couponContainer.appendChild(submitButton);
 
-            // 전송 버튼 클릭 이벤트 리스너 추가
+
             submitButton.addEventListener('click', () => {
-                // 입력된 값 가져오기
                 const couponCode = input.value;
                 searchCoupon(couponCode).then(result => {
                     if (result > 0) {
@@ -690,6 +680,7 @@
                                 if (result == "1") {
                                     alert("등록완료");
                                     couponContainer.style.display = "none";
+                                    spreadMyCouponList(customerId)
                                 } else {
                                     alert("등록실패 관리자문의");
                                 }
@@ -707,9 +698,9 @@
     });
 
 
-    async function searchCoupon(couponCode){
+    async function searchCoupon(couponCode) {
         try {
-            const url = '/coupon/search/'+couponCode;
+            const url = '/coupon/search/' + couponCode;
             const config = {
                 method: 'GET'
             };
@@ -722,14 +713,57 @@
         }
     }
 
-    async function addCoupon(id, couponId){
+    async function addCoupon(id, couponId) {
         try {
-            const url = '/coupon/add/'+id+"/"+couponId;
+            const url = '/coupon/add/' + id + "/" + couponId;
             const config = {
                 method: 'GET'
             };
             const resp = await fetch(url, config);
             const result = await resp.text();
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function spreadMyCouponList(customerId) {
+        couponListFromServer(customerId).then(result =>{
+            if (result) {
+                console.log(result)
+                let div = document.getElementById('coupon-list-box');
+                div.innerHTML = '';
+                let str = '';
+                result.forEach(result => {
+                    str += `
+                    <div class="couponList-box">
+                        <div class="couponName">
+                            <span>${result.cvo.name}</span><br>
+                            <span>${result.cvo.discountAmount.toLocaleString()}원</span>
+                        </div>
+                        <div class="coupon-info">
+                        ${result.memberCouponVO.useStatus ? `${result.memberCouponVO.useDate}일 사용완료` : `${result.cvo.endDate}까지 사용가능`}
+                        </div>
+                    </div>
+            `;
+                });
+                div.innerHTML = str;
+            } else {
+                document.getElementById('couponList').innerHTML = '쿠폰 정보를 불러올 수 없습니다.';
+            }
+        })
+
+    }
+
+
+    async function couponListFromServer(customerId) {
+        try {
+            const url = '/coupon/' + customerId
+            const config = {
+                method: 'GET'
+            };
+            const resp = await fetch(url, config);
+            const result = await resp.json();
             return result;
         } catch (error) {
             console.log(error);
