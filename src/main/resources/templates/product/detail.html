@@ -280,15 +280,15 @@
     </a>
 </div>
 <div class="rightBanner">
-    <a th:href="@{/basket/myBasket}">
+    <a>
         <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
     </a>
     <hr>
-    <a th:href="@{/product/mySlang}">
+    <a >
         <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;">찜
     </a>
     <hr>
-    <a th:href="@{/customer/myPage}">
+    <a onclick="openPopup()">
         <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
     </a>
     <hr>
@@ -296,8 +296,7 @@
         <p>최근 본 상품</p>
         <div id="recentViewContainer"></div>
     </div>
-</div>
-
+</div><script src="/js/sidebar.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script sec:authorize="isAuthenticated()">
     let customerId = `[[${#authentication.name}]]`;
