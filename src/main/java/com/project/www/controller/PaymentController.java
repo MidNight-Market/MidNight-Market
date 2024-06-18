@@ -3,6 +3,7 @@ package com.project.www.controller;
 import com.project.www.domain.OrdersVO;
 import com.project.www.domain.PaymentDTO;
 import com.project.www.service.ImportService;
+import com.project.www.service.NotificationService;
 import com.project.www.service.PaymentService;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.Payment;
@@ -25,6 +26,8 @@ public class PaymentController {
 
     private final PaymentService psv;
     private final ImportService importService;
+    private final NotificationService nsv;
+
 
     @ResponseBody
     @PostMapping("/post")
@@ -54,7 +57,6 @@ public class PaymentController {
 
     @PostMapping("/orders")
     public String order(@RequestParam("merchantUid") String merchantUid, Model model){
-       // log.info("주문페이지 잘 오나 확인>>>>{}",merchantUid);
 
         //나의 결제 상품 가져오기
         PaymentDTO paymentDTO = psv.getMyPaymentProduct(merchantUid);
@@ -82,7 +84,6 @@ public class PaymentController {
     @PostMapping("/successUpdate")
     public String successUpdatePayment(@RequestBody PaymentDTO paymentDTO){
 
-       // log.info("결제 성공했을시 merchantUid 잘들어오나 확인>>>{}",paymentDTO.getMerchantUid());
         int isOk = psv.paySuccessUpdate(paymentDTO);
         return isOk > 0 ? "paySuccessUpdate" : "payUpdateFail";
     }
@@ -111,12 +112,11 @@ public class PaymentController {
         return psv.refundUpdate(ordersVO);
     }
 
-    //나라님 코드
     @GetMapping("/payment/addrModifyPopup")
     public String addrModifyPopup() {
         return "payment/addrModifyPopup";
     }
-    //나라님 코드
+
     @GetMapping("/payment/newAddrAddPopup")
     public String newAddrAddPopup() {
         return "payment/newAddrAddPopup";
