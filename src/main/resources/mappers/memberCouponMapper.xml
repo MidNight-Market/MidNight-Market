@@ -8,5 +8,8 @@
     <select id="getMemberCouponList" resultType="com.project.www.domain.MemberCouponVO">
         select * from member_coupon where customer_id = #{customerId}
     </select>
+    <select id="isExist" resultType="int">
+        select count(*) from member_coupon where customer_id = #{customerId} and coupon_id = #{couponId}
+    </select>
 
 </mapper>

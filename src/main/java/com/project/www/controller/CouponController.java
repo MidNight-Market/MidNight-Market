@@ -30,16 +30,19 @@ public class CouponController {
 
 
     @ResponseBody
-    @GetMapping("/search/{couponCode}")
-    public long searchCoupon(@PathVariable("couponCode")String couponCode) {
-        log.info("쿠폰이름 {}", couponCode);
+    @GetMapping("/search/{couponCode}/{customerId}")
+    public long searchCoupon(@PathVariable("couponCode")String couponCode, @PathVariable("customerId")String customerId) {
         long couponId = csv.search(couponCode);
-        log.info("있나{}", couponCode);
-        if(couponId > 0){
-            return couponId;
-        }else{
-            return -1;
-        }
+        Boolean isExist = mcsv.isExist(couponId,customerId);
+       if(isExist == false){
+           if(couponId > 0){
+               return couponId;
+           }else{
+               return -1;
+           }
+       }else{
+           return -2;
+       }
     }
     @ResponseBody
     @GetMapping("/{customerId}")
