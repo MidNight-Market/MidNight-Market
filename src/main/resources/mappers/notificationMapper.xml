@@ -10,4 +10,7 @@
     <select id="getList" resultType="com.project.www.domain.NotificationVO">
         select * from notification where customer_id = #{username}
     </select>
+    <delete id="deleteByContent">
+        DELETE FROM notification WHERE notify_content = #{content} and customer_id = #{id}
+    </delete>
 </mapper>

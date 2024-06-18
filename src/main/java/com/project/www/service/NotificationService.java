@@ -8,4 +8,6 @@ public interface NotificationService {
     void insert(NotificationVO nvo);
 
     List<NotificationVO> getList(String username);
+
+    boolean deleteNotificationByContent(String content,String id);
 }
