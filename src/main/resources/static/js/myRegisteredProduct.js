@@ -37,15 +37,15 @@ function spreadMyRegisteredProductList(sellerId){
                     if (li.discountRate !== 0) {
                         str += `<p>할인가 : ${li.discountPrice.toLocaleString()} 원</p>`;
                     }
-                    str += `<button onclick="openModal('price',li.name,li.price)">기존가 변경</button>`;
+                    str += `<button id="price" data-productid="${li.id}">기존가 변경</button>`;
                     str += `</div>`;
                     str += `<div class="quantity-box update-box">`;
                     str += `<p>잔여수량 : ${li.totalQty} 개</p>`;
-                    str += `<button onclick="openModal('quantity',li.name,li.qty)">수량 추가</button>`;
+                    str += `<button id="quantity" data-productid="${li.id}">수량 추가</button>`;
                     str += `</div>`;
                     str += `<div class="discountRate-box update-box">`;
                     str += `<p>할인율 : ${li.discountRate}%</p>`;
-                    str += `<button onclick="openModal('discount',li.name,li.discountRate)">할인율 변경</button>`;
+                    str += `<button id="discount" data-productid="${li.id}">할인율 변경</button>`;
                     str += `</div>`;
                     str += `<div class="totalSoldQty-box update-box">`;
                     str += `<p>누적판매량 : ${li.totalSoldQty} 개</p>`;
@@ -68,13 +68,32 @@ document.getElementById('reload').addEventListener('click',()=>{
 
 
 
+document.addEventListener('click',(e)=>{
+
+    const id = e.target.id;
+
+    if(id === 'price' || id === 'quantity' || id === 'discount'){//가격변경
+        openModal(id);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 let modal = document.getElementById("myModal");
 
 // 모달 열기 (타입, 상품코드)
-function openModal(type, name, data) {
+function openModal(type) {
     let modalContent = document.getElementById("modalContent");
-    console.log(name);
-    console.log(data);
     // 초기화
     modalContent.innerHTML = "";
 
@@ -82,6 +101,8 @@ function openModal(type, name, data) {
     if (type === 'quantity') {
         modalContent.innerHTML = `
                     <div class="form-group">
+                    <p>상품명</p>
+                    <p>변경전 수량 : </p>
                         <label for="quantity">수량:</label>
                         <input type="number" id="quantity" name="quantity" value="1" min="1">
                     </div>
@@ -92,6 +113,8 @@ function openModal(type, name, data) {
     } else if (type === 'price') {
         modalContent.innerHTML = `
                     <div class="form-group">
+                    <p>상품명</p>
+                    <p>변경전 가격 : </p>
                         <label for="price">새로운 가격:</label>
                         <input type="number" id="price" name="price" step="0.01" min="0.01">
                     </div>
@@ -102,6 +125,8 @@ function openModal(type, name, data) {
     } else if (type === 'discount') {
         modalContent.innerHTML = `
                     <div class="form-group">
+                    <p>상품명</p>
+                    <p>변경전 할인율 : </p>
                         <label for="discount">할인율 (%):</label>
                         <input type="number" id="discount" name="discount" value="0" min="0" max="100">
                     </div>

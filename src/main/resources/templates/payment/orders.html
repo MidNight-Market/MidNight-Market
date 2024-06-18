@@ -801,8 +801,8 @@
                             <span class="addrSpan">배송지 정보</span>
                         </div>
                         <div class="addrDivInner">
-                            <span id="addName">[[${paymentDTO.addressVO.addrName}]]</span>
-                            <span id="address">[[${paymentDTO.addressVO.address}]]</span>
+                            <span id="addName" th:text='${paymentDTO.addressVO != null ? paymentDTO.addressVO.addrName : ""}'></span>
+                            <span id="address" th:text='${paymentDTO.addressVO != null ? paymentDTO.addressVO.address : "기본배송지 없음"}'></span>
                             <a class="addrChange">
                                 <button type="button" id="addrModifyBtn">배송지 변경
                                     <img th:src="@{/dist/icon/right_arrows.png}" style="width: 12px; height: 10px;">
