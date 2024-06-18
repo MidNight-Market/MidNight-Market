@@ -4,6 +4,9 @@
 <th:block th:fragment="header">
     <head>
         <meta charset="UTF-8">
+        <script th:inline="javascript">
+            let id = [[${session.id}]];
+        </script>
         <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
         <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
         <link rel="stylesheet" th:href="@{/dist/css/header.css}">
@@ -197,7 +200,7 @@
     </body>
     <script th:inline="javascript">
         let notificationList = /*[[${session.notificationList}]]*/ [];
-        let role = [[${session.role}]]
+        let roleHeader = [[${session.role}]]
         let loginId = [[${session.id}]];
         function showAlert(event, id) {
             id = [[${session.id}]];
@@ -205,7 +208,7 @@
                 alert("로그인이 필요한 서비스입니다.");
                 event.preventDefault();
                 window.location.href = "http://localhost:8090/login/form";
-            }else if(!role.includes("user")){
+            }else if(!roleHeader.includes("user")){
                 alert("구매자만 접근가능한 서비스입니다. ")
             }else{
                 window.location.href = "/basket/myBasket";
@@ -216,7 +219,7 @@
                 alert("로그인이 필요한 서비스입니다.");
                 event.preventDefault();
                 window.location.href = "http://localhost:8090/login/form";
-            }else if(!role.includes("user")){
+            }else if(!roleHeader.includes("user")){
                 alert("구매자만 접근가능한 서비스입니다. ")
 
             }else{

@@ -1,10 +1,7 @@
 package com.project.www.service;
 
 import com.project.www.config.oauth2.PrincipalDetails;
-import com.project.www.domain.BasketVO;
-import com.project.www.domain.OrdersVO;
-import com.project.www.domain.PaymentDTO;
-import com.project.www.domain.ProductVO;
+import com.project.www.domain.*;
 import com.project.www.repository.*;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +28,7 @@ public class PaymentServiceImple implements PaymentService {
     private final OrdersMapper ordersMapper;
     private final BasketMapper basketMapper;
     private final CustomerMapper customerMapper;
+    private final NotificationService nsv;
 
 
     @Transactional
@@ -184,6 +182,16 @@ public class PaymentServiceImple implements PaymentService {
         try {
             int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
             isOk *= ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());
+            long productId =  paymentDTO.getProductId();
+            ProductVO pvo = productMapper.getDetail(productId);
+            String productName = pvo.getName();
+            NotificationVO nvo = new NotificationVO();
+            nvo.setCustomerId(paymentDTO.getCustomerId());
+            nvo.setNotifyContent("+"+productName+"+"+"상품 주문이 완료되었습니다. ");
+            nsv.insert(nvo);
+            if(isOk == 0){
+                throw new RuntimeException();
+            }
             return isOk;
         } catch (Exception e) {
             e.printStackTrace();
