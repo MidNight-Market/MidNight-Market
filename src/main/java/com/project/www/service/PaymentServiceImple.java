@@ -29,6 +29,8 @@ public class PaymentServiceImple implements PaymentService {
     private final BasketMapper basketMapper;
     private final CustomerMapper customerMapper;
     private final NotificationService nsv;
+    private final AddressMapper addressMapper;
+
 
 
     @Transactional
@@ -91,6 +93,7 @@ public class PaymentServiceImple implements PaymentService {
 
         PaymentDTO paymentDTO = paymentMapper.getMyPaymentProduct(merchantUid); //결제정보
         paymentDTO.setOrdersList(ordersMapper.getMyOrdersProduct(merchantUid)); //주문정보들 (장바구니 정보일경우 주문정보 여러개)
+        paymentDTO.setAddressVO(addressMapper.getIsMain(paymentDTO.getCustomerId()));
 
         //상품정보 가져오기 (이미지)
         paymentDTO.getOrdersList().forEach(orders -> {
