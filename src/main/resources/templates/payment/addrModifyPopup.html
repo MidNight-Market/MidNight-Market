@@ -89,7 +89,7 @@ let customerId = [[${session.id}]];
             };
             const resp = await fetch(url, config);
             const result = await resp.json();
-            console.log(result);
+            // 자식창에서 부모창으로 값 전달 (opener)
             opener.document.getElementById('address').innerText = result.address;
             opener.document.getElementById('addName').innerText = result.addrName;
             if (resp.ok) { // 응답성공시
@@ -178,8 +178,16 @@ let customerId = [[${session.id}]];
                 </div>`;
     }
 
-
-
+// 부모창에서 자식창으로 값 가져옴 (opener)
+let parentAddName = opener.document.getElementById('addName').innerText;
+let parentAddress = opener.document.getElementById('address').innerText;
+let str = '';
+str+=`<span>`;
+str+=parentAddName;
+str+=`</span><br><span>`;
+str+=parentAddress;
+str+=`</span>`;
+document.getElementById('mainAddress').innerHTML = str;
 </script>
 </body>
 </html>

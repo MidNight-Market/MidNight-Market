@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 public class MemberCouponVO {
-    private boolean useSate;
+    private boolean useStatus;
     private String useDate;
     private String customerId;
     private long couponId;

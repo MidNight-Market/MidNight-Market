@@ -5,6 +5,8 @@
     <insert id="addCoupon">
         insert into member_coupon(customer_id, coupon_id) values(#{customerId}, #{couponId})
     </insert>
-
+    <select id="getMemberCouponList" resultType="com.project.www.domain.MemberCouponVO">
+        select * from member_coupon where customer_id = #{customerId}
+    </select>
 
 </mapper>

@@ -30,4 +30,9 @@ public class CouponServiceImpl implements CouponService{
     public long search(String couponCode) {
         return couponMapper.search(couponCode);
     }
+
+    @Override
+    public CouponVO getCouponList(long tmpCouponId) {
+        return couponMapper.getCouponList(tmpCouponId);
+    }
 }

@@ -10,4 +10,6 @@ public interface CouponService {
     List<CouponVO> getList();
 
     long search(String couponCode);
+
+    CouponVO getCouponList(long tmpCouponId);
 }
