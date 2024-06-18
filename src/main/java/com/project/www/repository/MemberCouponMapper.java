@@ -11,4 +11,6 @@ public interface MemberCouponMapper {
     int addCoupon(String customerId, String couponId);
 
     List<MemberCouponVO> getMemberCouponList(String customerId);
+
+    int isExist(long couponId, String customerId);
 }

@@ -9,4 +9,6 @@ public interface MemberCouponService {
     int addCoupon(String customerId, String couponId);
 
     List<MemberCouponVO> getMemberCouponList(String customerId);
+
+    Boolean isExist(long couponId, String customerId);
 }

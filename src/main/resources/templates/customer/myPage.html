@@ -673,7 +673,7 @@
 
             submitButton.addEventListener('click', () => {
                 const couponCode = input.value;
-                searchCoupon(couponCode).then(result => {
+                searchCoupon(couponCode,customerId).then(result => {
                     if (result > 0) {
                         if (confirm("쿠폰을 등록하시겠습니까?")) {
                             addCoupon(customerId, result).then(result => {
@@ -686,7 +686,9 @@
                                 }
                             });
                         }
-                    } else {
+                    } else if(result == -2){
+                        alert("이미 등록된 쿠폰입니다. ");
+                    }else{
                         alert("존재하지않는 쿠폰입니다. 다시입력해주세요.");
                     }
                 });
@@ -698,13 +700,12 @@
     });
 
 
-    async function searchCoupon(couponCode) {
+    async function searchCoupon(couponCode,customerId) {
         try {
-            const url = '/coupon/search/' + couponCode;
+            const url = '/coupon/search/'+couponCode+"/"+customerId;
             const config = {
                 method: 'GET'
             };
-            console.log(couponCode);
             const resp = await fetch(url, config);
             const result = await resp.text();
             return result;

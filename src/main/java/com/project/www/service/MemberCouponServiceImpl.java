@@ -21,4 +21,9 @@ public class MemberCouponServiceImpl implements MemberCouponService{
     public List<MemberCouponVO> getMemberCouponList(String customerId) {
         return memberCouponMapper.getMemberCouponList(customerId);
     }
+
+    @Override
+    public Boolean isExist(long couponId, String customerId) {
+        return memberCouponMapper.isExist(couponId, customerId) > 0;
+    }
 }
