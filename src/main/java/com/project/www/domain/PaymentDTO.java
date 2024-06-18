@@ -28,4 +28,6 @@ public class PaymentDTO {
     private long qty;
     private OrdersVO ordersVO;
     private List<OrdersVO> ordersList;
+    private AddressVO addressVO; //배송지
+
 }

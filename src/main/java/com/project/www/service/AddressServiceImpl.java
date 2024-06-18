@@ -29,4 +29,14 @@ public class AddressServiceImpl implements AddressService {
         addressMapper.resetIsMain(avo.getCustomerId()); // 다른 주소들의 isMain을 N으로 초기화
         return addressMapper.update(avo);
     }
+
+    @Override
+    public int delete(long ano) {
+        return addressMapper.delete(ano);
+    }
+
+    @Override
+    public AddressVO getAddress(AddressVO avo) {
+        return addressMapper.getAddress(avo);
+    }
 }

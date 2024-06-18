@@ -39,16 +39,19 @@ public class addressController {
 
     @ResponseBody
     @PutMapping("/address/updateIsMain")
-    public String updateIsMain(@RequestBody AddressVO avo) {
+    public AddressVO updateIsMain(@RequestBody AddressVO avo) {
         log.info("updateIsMain >>@@@ {}", avo);
         isOK = asv.update(avo);
-        return isOK > 0 ? "success" : "fail";
+        AddressVO address = asv.getAddress(avo);
+        return isOK > 0 ? address : null;
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam("ano") long ano) {
+    @ResponseBody
+    @DeleteMapping("/delete/{ano}")
+    public String delete(@PathVariable("ano") long ano) {
+        log.info("delete >>@@@ {}", ano);
         isOK = asv.delete(ano);
-        return ;
+        return "redirect:/address/list";
     }
 
 }

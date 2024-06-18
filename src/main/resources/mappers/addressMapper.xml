@@ -21,8 +21,29 @@
 
     <update id="update">
         UPDATE address
-        SET isMain = #{isMain}
+        SET isMain = 'Y'
         WHERE ano = #{ano}
     </update>
+
+    <delete id="delete">
+        DELETE from address
+        WHERE ano = #{ano}
+    </delete>
+
+    <select id="getIsMain" resultType="com.project.www.domain.AddressVO">
+        SELECT * from address
+        WHERE
+        customer_id = #{customerId}
+        AND
+        isMain = 'Y'
+    </select>
+
+    <select id="getAddress" resultType="com.project.www.domain.AddressVO">
+        SELECT * from address
+        WHERE
+        customer_id = #{customerId}
+        AND
+        isMain = 'Y'
+    </select>
 
 </mapper>
