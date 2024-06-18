@@ -226,7 +226,13 @@ public class PaymentServiceImple implements PaymentService {
             int isOk = paymentMapper.refundUpdate(paymentDTO);
             isOk *= ordersMapper.refundUpdate(ordersVO);
             isOk *= productMapper.rollbackRefundQuantity(productVO);
+            NotificationVO nvo = new NotificationVO();
 
+            nvo.setCustomerId(paymentDTO.getCustomerId());
+            ProductVO pvo = productMapper.getDetail(ordersVO.getProductId());
+            String productName = pvo.getName();
+            nvo.setNotifyContent("상품"+productName+"의 환불이 완료되었습니다. ");
+            nsv.insert(nvo);
             if (isOk == 0) {
                 throw new RuntimeException("환불 처리에 실패했습니다.");
             }

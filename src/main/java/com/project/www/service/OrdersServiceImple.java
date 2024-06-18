@@ -2,6 +2,7 @@ package com.project.www.service;
 
 import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.CustomerVO;
+import com.project.www.domain.NotificationVO;
 import com.project.www.domain.OrdersVO;
 import com.project.www.repository.CustomerMapper;
 import com.project.www.repository.OrdersMapper;
@@ -23,6 +24,7 @@ public class OrdersServiceImple implements OrdersService {
     private final OrdersMapper ordersMapper;
     private final ProductMapper productMapper;
     private final CustomerMapper customerMapper;
+    private final NotificationService nsv;
 
     @Transactional
     @Override
@@ -89,6 +91,12 @@ public class OrdersServiceImple implements OrdersService {
                 customerVO.setPoint(point + Math.round(payPrice * 0.01));
                 addedPoints = Math.round(payPrice * 0.01);
             }
+            NotificationVO nvo = new NotificationVO();
+
+            nvo.setCustomerId(customerVO.getId());
+            nvo.setNotifyContent("구매확정 포인트 "+addedPoints+"점 적립이 완료되었습니다. ");
+            nsv.insert(nvo);
+
 
             int ordersUpdateResult = ordersMapper.confirmOrderUpdate(ordersVO);
             int customerUpdateResult = customerMapper.pointUpdate(customerVO);
