@@ -197,15 +197,15 @@
     </a>
 </div>
 <div class="rightBanner">
-    <a th:href="@{/basket/myBasket}">
+    <a>
         <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
     </a>
     <hr>
-    <a th:href="@{/product/mySlang}">
+    <a>
         <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;">찜
     </a>
     <hr>
-    <a th:href="@{/customer/myPage}">
+    <a onclick="openPopup()">
         <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
     </a>
     <hr>
@@ -214,6 +214,7 @@
         <div id="recentViewContainer"></div>
     </div>
 </div>
+<script src="/js/sidebar.js"></script>
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
