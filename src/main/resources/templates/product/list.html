@@ -326,17 +326,17 @@
         <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg" alt="">
     </a>
 </div>
-<div class="rightBanner">
+<div class="rightBanner" id="rightBanner">
     <a>
-        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
+        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;" id="bannerBasket">장바구니
     </a>
     <hr>
     <a>
-        <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;">찜
+        <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;" id="bannerSlang">찜
     </a>
     <hr>
     <a onclick="openPopup()">
-        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
+        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;" id="bannerInquiry">채팅문의
     </a>
     <hr>
     <div class="RecentlyViewed">
@@ -344,13 +344,14 @@
         <div id="recentViewContainer"></div>
     </div>
 </div>
-<script src="/js/sidebar.js"></script>
+
 <script>
     let url = location.href;
     let decode = decodeURI(url);
     const queryString = decode.split('?')[1];
     const params = new URLSearchParams(queryString);
     let searchVal = params.get('search');
+    const role = [[${session.role}]];
     console.log(searchVal);
     let searchResultElement = document.getElementById('searchValPrint');
     if (searchVal != null && (searchVal).length !== 0) {
@@ -433,10 +434,8 @@
 
     }
 </script>
-
-
+<script src="/js/sidebar.js"></script>
 </body>
-
 <th:block th:replace="~{footer :: footer}"></th:block>
 
 </html>
