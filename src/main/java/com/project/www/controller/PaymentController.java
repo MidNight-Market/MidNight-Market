@@ -112,12 +112,12 @@ public class PaymentController {
         return psv.refundUpdate(ordersVO);
     }
 
-    @GetMapping("/payment/addrModifyPopup")
+    @GetMapping("/addrModifyPopup")
     public String addrModifyPopup() {
         return "payment/addrModifyPopup";
     }
 
-    @GetMapping("/payment/newAddrAddPopup")
+    @GetMapping("/newAddrAddPopup")
     public String newAddrAddPopup() {
         return "payment/newAddrAddPopup";
     }

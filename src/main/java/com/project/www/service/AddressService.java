@@ -10,4 +10,8 @@ public interface AddressService {
     List<AddressVO> getList();
 
     int update(AddressVO avo);
+
+    int delete(long ano);
+
+    AddressVO getAddress(AddressVO avo);
 }

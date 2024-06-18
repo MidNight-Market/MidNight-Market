@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressVO {
-    private int ano;
+    private long ano;
     private String address;
     private String customerId;
     private String isMain; // 기본배송지 여부

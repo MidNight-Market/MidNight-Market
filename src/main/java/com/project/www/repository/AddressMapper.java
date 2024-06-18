@@ -14,4 +14,10 @@ public interface AddressMapper {
     int update(AddressVO avo);
 
     void resetIsMain(String customerId);
+
+    int delete(long ano);
+
+    AddressVO getIsMain(String customerId);
+
+    AddressVO getAddress(AddressVO avo);
 }
