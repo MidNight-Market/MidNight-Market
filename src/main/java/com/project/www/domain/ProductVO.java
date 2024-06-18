@@ -24,6 +24,4 @@ public class ProductVO {
     private String thumbImage;
     private String sellerId;
     private long reviewCount;
-
-
 }

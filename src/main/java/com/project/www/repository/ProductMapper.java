@@ -18,7 +18,7 @@ public interface ProductMapper {
 
     List<ProductVO> getMyRegisteredProduct(String id);
 
-    int productQtyUpdate(ProductVO productVO);
+    void productQtyUpdate(ProductVO productVO);
 
     List<ProductVO> getIndexNewProductList();
 
@@ -37,4 +37,8 @@ public interface ProductMapper {
     int rollbackRefundQuantity(ProductVO productVO);
 
     void updateProductDiscountRate(ProductVO productVO);
+
+    void productPriceUpdate(ProductVO productVO);
+
+    void updateProductDiscountRateDelete(ProductVO productVO);
 }
