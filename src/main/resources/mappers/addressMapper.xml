@@ -13,16 +13,16 @@
         SELECT * from address
     </select>
 
-    <update id="update">
-        UPDATE address
-        SET isMain = #{isMain}
-        WHERE ano = #{ano}
-    </update>
-
     <update id="resetIsMain">
         UPDATE address
         SET isMain = 'N'
         WHERE customer_id = #{customerId}
+    </update>
+
+    <update id="update">
+        UPDATE address
+        SET isMain = #{isMain}
+        WHERE ano = #{ano}
     </update>
 
 </mapper>

@@ -45,5 +45,11 @@ public class addressController {
         return isOK > 0 ? "success" : "fail";
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("ano") long ano) {
+        isOK = asv.delete(ano);
+        return ;
+    }
+
 }
 

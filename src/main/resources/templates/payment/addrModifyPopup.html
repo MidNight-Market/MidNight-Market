@@ -54,11 +54,17 @@
     </tbody>
 </table>
 <hr>
-<button type="button" id="addrChange">배송지 변경하기</button>
+<button type="button" id="addrChange">기본배송지 변경</button>
+<button type="button" id="newAddrAdd">새 배송지 추가</button>
 
 <script>
+    let newAddrAdd = document.getElementById('newAddrAdd');
     // 선택한 주소 정보 저장
     let selectedAddress = null;
+
+    newAddrAdd.addEventListener('click', () => {
+        window.location.href = '/payment/newAddrAddPopup';
+    });
 
     document.getElementById('addrChange').addEventListener('click', async () => {
         if (!selectedAddress) {
@@ -75,7 +81,7 @@
                 },
                 body: JSON.stringify({
                     ano: selectedAddress.ano,
-                    customerId: customerId,
+                    // customerId: customerId,
                     isMain: 'Y'
                 })
             };
@@ -127,25 +133,25 @@
             }
         });
 
-        // 주소 삭제
-        const delBtn = document.querySelector('.delBtn');
-        delBtn.addEventListener('click', async () => {
-            try {
-                const url = `/address/delete/${address.ano}`;
-                const config = { method: 'DELETE' };
-                const resp = await fetch(url, config);
-                if (resp.ok) {
-                    tr.remove(); // <tr> 내에 삭제한 행 제거
-                    alert('배송지가 삭제되었습니다.');
-                } else {
-                    alert('배송지 삭제에 실패하였습니다.');
-                }
-            } catch (e) {
-                console.error(e);
-                alert('배송지 삭제 중 오류가 발생하였습니다.');
-            }
-        });
-    }
+    //     // 주소 삭제
+    //     const delBtn = document.querySelector('.delBtn');
+    //     delBtn.addEventListener('click', async () => {
+    //         try {
+    //             const url = `/address/delete/${address.ano}`;
+    //             const config = { method: 'DELETE' };
+    //             const resp = await fetch(url, config);
+    //             if (resp.ok) {
+    //                 tr.remove(); // <tr> 내에 삭제한 행 제거
+    //                 alert('배송지가 삭제되었습니다.');
+    //             } else {
+    //                 alert('배송지 삭제에 실패하였습니다.');
+    //             }
+    //         } catch (e) {
+    //             console.error(e);
+    //             alert('배송지 삭제 중 오류가 발생하였습니다.');
+    //         }
+    //     });
+    // }
 
     // 페이지 로드 후 실행
     document.addEventListener('DOMContentLoaded', () => {
@@ -163,6 +169,8 @@
                     </div>
                 </div>`;
     }
+
+
 </script>
 </body>
 </html>
