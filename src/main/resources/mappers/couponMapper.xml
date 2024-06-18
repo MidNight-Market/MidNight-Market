@@ -16,4 +16,7 @@
     <select id="search" resultType="long">
         select id from coupon where name = #{couponCode}
     </select>
+    <select id="getCouponList" resultType="com.project.www.domain.CouponVO">
+        select * from coupon where id = #{tmpCouponId}
+    </select>
 </mapper>
