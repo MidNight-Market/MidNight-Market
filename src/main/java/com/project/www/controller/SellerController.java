@@ -45,14 +45,21 @@ public class SellerController {
     }
 
     @GetMapping("/myRegisteredProduct")
-    public void productList(Model model, @RequestParam(value = "id", required = false) String paramId){
+    public void productList(@RequestParam(value = "id", required = false) String paramId){
         String sessionId = session.getAttribute("id") != null ? session.getAttribute("id").toString() : null;
         String id = paramId != null ? paramId : sessionId;
         if (id != null) {
-            List<ProductVO> list = ssv.getMyRegisteredProduct(id);
-            model.addAttribute("list", list);
         }
     }
+
+    //내가등록한 상품 가져오기
+    @ResponseBody
+    @GetMapping("/getMyRegisteredProductList/{sellerId}")
+    public List<ProductVO> getMyRegisteredProductList(@PathVariable(value = "sellerId") String sellerId){
+        return ssv.getMyRegisteredProduct(sellerId);
+    }
+
+
 
     @PutMapping (value = "/productQtyUpdate", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> productQtyUpdate(@RequestBody ProductVO productVO){

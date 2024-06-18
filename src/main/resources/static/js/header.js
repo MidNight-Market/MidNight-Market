@@ -167,9 +167,11 @@ async function fetchNotifications() {
     }
 }
 
-async function deleteNotification(content) {
+async function deleteNotification(content,id) {
+    console.log(content)
+    console.log(id)
     try {
-        let response = await fetch(`/notifications/${content}`, {
+        let response = await fetch(`/notification/${content}/${id}`, {
             method: 'DELETE',
         });
         if (response.ok) {
@@ -220,7 +222,7 @@ async function showNotification(event) {
             deleteBtn.className = 'notification-button';
             deleteBtn.textContent = "X";
             deleteBtn.onclick = function () {
-                deleteNotification(notification.content);
+                deleteNotification(notification.notifyContent,id);
             };
 
             notificationItem.appendChild(notificationText);

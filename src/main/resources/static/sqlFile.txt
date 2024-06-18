@@ -101,7 +101,7 @@ CREATE TABLE review_like(
 
 #수정완료
 CREATE TABLE member_coupon (
-	use_status BOOLEAN,
+	use_status BOOLEAN default 0,
 	use_date DATETIME,
 	customer_id VARCHAR(150) NOT NULL,
 	coupon_id bigint
@@ -430,6 +430,7 @@ REFERENCES product (
 	id
 );
 
+insert into coupon(name, discount_amount, end_date) values("신규회원", 3000 , "2099-12-31")
 
 -- 카테고리
 INSERT INTO PRODUCT_CATEGORY VALUES (1, "채소");
