@@ -28,35 +28,9 @@
     <a href="/product/register">상품등록하기</a>
 </div>
 
+<div id="spreadLine">
 
-<th:block th:each="li:${list}">
-    <div class="registered-list">
-        <div class="registered-image-box">
-            <img th:src="${li.mainImage}" alt="사진없음">
-        </div>
-        <div class="registered-info-box">
-            <p>[[${li.name}]]</p>
-            <p>[[${li.description}]]</p>
-        </div>
-        <div class="price-box update-box">
-            <p th:text="'기존가: '+${#numbers.formatDecimal(li.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
-            <p th:if="${li.discountRate != 0}"
-               th:text="'할인가: '+${#numbers.formatDecimal(li.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
-            <button onclick="openModal('price',this.dataset.productId)" th:attr="data-product-id=${li.id}">기존가 변경</button>
-        </div>
-        <div class="quantity-box update-box">
-            <p>잔여수량 : [[${li.totalQty}]] 개</p>
-            <button onclick="openModal('quantity')">수량 추가</button>
-        </div>
-        <div class="discountRate-box update-box">
-            <p>할인율 : [[${li.discountRate}]]%</p>
-            <button onclick="openModal('discount')">할인율 변경</button>
-        </div>
-        <div class="totalSoldQty-box update-box">
-            <p>누적판매량 : [[${li.totalSoldQty}]] 개</p>
-        </div>
-    </div>
-</th:block>
+</div>
 
 <div id="myModal" class="modal">
     <div class="modal-content">
@@ -66,7 +40,10 @@
         <div id="modalContent"></div>
     </div>
 </div>
-
+<script th:inline="javascript">
+    const sellerId = [[${session.id}]];
+    console.log(sellerId);
+</script>
 <script th:src="@{/js/myRegisteredProduct.js}"></script>
 </body>
 
