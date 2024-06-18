@@ -10,4 +10,8 @@ public interface AddressMapper {
     int register(AddressVO avo);
 
     List<AddressVO> getList();
+
+    int update(AddressVO avo);
+
+    void resetIsMain(String customerId);
 }
