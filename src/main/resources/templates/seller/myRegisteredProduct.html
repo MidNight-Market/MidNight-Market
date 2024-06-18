@@ -6,96 +6,68 @@
     <link rel="stylesheet" th:href="@{/dist/css/myRegisteredProduct.css}">
 </head>
 
+
 <body id="registeredBody">
 
+
 <div class="content-title">
-    <p>[[${session.shopName}]] ([[${session.id}]]) 님께서  등록한 상품 목록</p>
+    <p>[[${session.shopName}]]([[${session.id}]]) 님께서 등록한 상품 목록</p>
+
+<div class="note-information">
+    <p>상품에 대한 수정 또는 삭제, 문의사항은</p>
+    <p>1577 - 1234 로 상담사를 통해 문의바랍니다.</p>
 </div>
 
-<div class="registered-list">
-    <div class="registered-image-box">
-        <img src="/dist/image/testImage.jpg" alt="사진없음">
-    </div>
-    <div class="registered-info-box">
-        <p>[요플레] ONLY2 플레인 요거트 대용량 1</p>
-        <p>깔끔하고 담백하게 완성한 요거트</p>
-    </div>
-    <div class="price-box">
-        <p>1,1111원</p>
-    </div>
-    <div class="quantity-box update-box" >
-        <p>수량 x개</p>
-        <button>수량 추가</button>
-    </div>
-    <div class="discountRate-box update-box">
-        <p>할인 x% 적용</p>
-        <button>할인율 변경</button>
-    </div>
 </div>
 
-<div class="registered-list">
-    <div class="registered-image-box">
-        <img src="/dist/image/testImage.jpg" alt="사진없음">
-    </div>
-    <div class="registered-info-box">
-        <p>[요플레] ONLY2 플레인 요거트 대용량 1</p>
-        <p>깔끔하고 담백하게 완성한 요거트</p>
-    </div>
-    <div class="price-box">
-        <p>1,1111원</p>
-    </div>
-    <div class="quantity-box update-box" >
-        <p>수량 x개</p>
-        <button>수량 추가</button>
-    </div>
-    <div class="discountRate-box update-box">
-        <p>할인 x% 적용</p>
-        <button>할인율 변경</button>
-    </div>
+<div class="product-register-box">
+
+    <button id="reload">새로고침</button>
+
+    <img src="/dist/image/상품등록.jpg" alt="" style="width: 240px; height: auto">
+    <a href="/product/register">상품등록하기</a>
 </div>
 
-<div class="registered-list">
-    <div class="registered-image-box">
-        <img src="/dist/image/testImage.jpg" alt="사진없음">
+
+<th:block th:each="li:${list}">
+    <div class="registered-list">
+        <div class="registered-image-box">
+            <img th:src="${li.mainImage}" alt="사진없음">
+        </div>
+        <div class="registered-info-box">
+            <p>[[${li.name}]]</p>
+            <p>[[${li.description}]]</p>
+        </div>
+        <div class="price-box update-box">
+            <p th:text="'기존가: '+${#numbers.formatDecimal(li.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+            <p th:if="${li.discountRate != 0}"
+               th:text="'할인가: '+${#numbers.formatDecimal(li.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+            <button onclick="openModal('price',this.dataset.productId)" th:attr="data-product-id=${li.id}">기존가 변경</button>
+        </div>
+        <div class="quantity-box update-box">
+            <p>잔여수량 : [[${li.totalQty}]] 개</p>
+            <button onclick="openModal('quantity')">수량 추가</button>
+        </div>
+        <div class="discountRate-box update-box">
+            <p>할인율 : [[${li.discountRate}]]%</p>
+            <button onclick="openModal('discount')">할인율 변경</button>
+        </div>
+        <div class="totalSoldQty-box update-box">
+            <p>누적판매량 : [[${li.totalSoldQty}]] 개</p>
+        </div>
     </div>
-    <div class="registered-info-box">
-        <p>[요플레] ONLY2 플레인 요거트 대용량 1</p>
-        <p>깔끔하고 담백하게 완성한 요거트</p>
-    </div>
-    <div class="price-box">
-        <p>1,1111원</p>
-    </div>
-    <div class="quantity-box update-box" >
-        <p>수량 x개</p>
-        <button>수량 추가</button>
-    </div>
-    <div class="discountRate-box update-box">
-        <p>할인 x% 적용</p>
-        <button>할인율 변경</button>
+</th:block>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="close-box">
+        <span class="update-modal-close" onclick="closeModal()">&times;</span>
+        </div>
+        <div id="modalContent"></div>
     </div>
 </div>
 
-<div class="registered-list">
-    <div class="registered-image-box">
-        <img src="/dist/image/testImage.jpg" alt="사진없음">
-    </div>
-    <div class="registered-info-box">
-        <p>[요플레] ONLY2 플레인 요거트 대용량 1</p>
-        <p>깔끔하고 담백하게 완성한 요거트</p>
-    </div>
-    <div class="price-box">
-        <p>1,1111원</p>
-    </div>
-    <div class="quantity-box update-box" >
-        <p>수량 x개</p>
-        <button>수량 추가</button>
-    </div>
-    <div class="discountRate-box update-box">
-        <p>할인 x% 적용</p>
-        <button>할인율 변경</button>
-    </div>
-</div>
-
+<script th:src="@{/js/myRegisteredProduct.js}"></script>
 </body>
 
 <th:block th:replace="~{footer :: footer}"></th:block>
