@@ -257,6 +257,7 @@ body {
 .menu_part > li > a {
     display: block;
     width: 200px;
+    height: 62px;
     padding: 20px 0;
     color: white;
     text-decoration: none;
