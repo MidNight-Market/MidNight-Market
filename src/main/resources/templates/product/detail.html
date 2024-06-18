@@ -279,24 +279,24 @@
         <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
     </a>
 </div>
-<div class="rightBanner">
+<div class="rightBanner" id="rightBanner">
     <a>
-        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
+        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;" id="bannerBasket">장바구니
     </a>
     <hr>
     <a >
-        <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;">찜
+        <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;" id="bannerSlang">찜
     </a>
     <hr>
     <a onclick="openPopup()">
-        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
+        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;" id="bannerInquiry">채팅문의
     </a>
     <hr>
     <div class="RecentlyViewed">
         <p>최근 본 상품</p>
         <div id="recentViewContainer"></div>
     </div>
-</div><script src="/js/sidebar.js"></script>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script sec:authorize="isAuthenticated()">
     let customerId = `[[${#authentication.name}]]`;
@@ -306,6 +306,7 @@
     const productId = [[${productId}]];
     let isAuthenticated = [[${isAuthenticated}]];
     let sellerCheck = [[${sellerCheck}]];
+    const role = [[${session.role}]];
     const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
     let pThumb = encodeURIComponent([[${productDTO.productVO.thumbImage}]]);
     let pName = encodeURIComponent([[${productDTO.productVO.name}]]);
@@ -324,6 +325,7 @@
     }
     setCookie("recentView", pThumb, pName, pPrice, pLink);
 </script>
+<script src="/js/sidebar.js"></script>
 <script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/productDetail.js}"></script>
 </body>

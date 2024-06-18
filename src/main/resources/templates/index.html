@@ -198,15 +198,15 @@
 </div>
 <div class="rightBanner">
     <a>
-        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
+        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;" id="bannerBasket">장바구니
     </a>
     <hr>
     <a>
-        <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;">찜
+        <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;" id="bannerSlang">찜
     </a>
     <hr>
-    <a onclick="openPopup()">
-        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;">채팅문의
+    <a>
+        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;" id="bannerInquiry">채팅문의
     </a>
     <hr>
     <div class="RecentlyViewed">
@@ -214,7 +214,7 @@
         <div id="recentViewContainer"></div>
     </div>
 </div>
-<script src="/js/sidebar.js"></script>
+
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
@@ -227,7 +227,7 @@
         document.getElementById('membershipPayment').style.display="none";
     }
 </script>
-
+<script src="/js/sidebar.js"></script>
 <script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
