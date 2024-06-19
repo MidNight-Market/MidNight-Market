@@ -61,7 +61,11 @@ $('#select-delete').click(function (event) {
             const checkedLength = checkedValues.length;
             let basketBadge = document.getElementById('basketBadge');
             basketBadge.innerText = String(parseInt(basketBadge.innerText) - checkedLength);
+
+            //1개만 남을경우 높이가 위에가 너무 떠서 설정
+
             spreadMyBasketList(customerId);
+
         }
     });
 });

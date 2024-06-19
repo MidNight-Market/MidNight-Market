@@ -41,15 +41,22 @@
     position: fixed;
     display: flex;
     flex-direction: column;
-    top: 45%;
+    top: 40%;
     left: 86%;
 }
 
 #reload{
-    width: 50%;
+    width: 75%;
     height: 45px;
     display: block;
     margin: 0 auto 67px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid lightgray;
+    background-color: white;
+}
+#reload:hover{
+    filter: brightness(95%);
 }
 .product-register-box a{
     width: 100%;
@@ -88,10 +95,13 @@
     width: 30%;
     height: 99px;
  }
+.registered-info-box > p{
+    margin-left: 21px;
+}
 .registered-info-box > p:first-child{
     font-size: 17px;
     font-weight: 500;
-    margin-bottom: 11px;
+    margin-bottom: 14px;
 }
 .registered-info-box > p:last-child{
     font-size: 15px;
