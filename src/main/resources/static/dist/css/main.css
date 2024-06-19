@@ -253,10 +253,17 @@ a p {
 }
 
 .memberShip {
-    position: fixed;
-    top: 50%;
-    left: 65px;
-    transform: translateY(-50%);
+    height: 2000px;
+    position: absolute;
+    top: 540px;
+    left: 50px;
+    z-index: 1;
+}
+
+a#membershipPayment {
+    position: sticky;
+    top: 70%;
+    right: 30px;
 }
 
 .memberShip > a > img {
@@ -264,11 +271,17 @@ a p {
     height: 480px;
 }
 
+.outer_rightBanner {
+    height: 2000px;
+    position: absolute;
+    top: 560px;
+    right: 50px;
+    z-index: 1;
+}
+
 .rightBanner {
-    position: fixed;
     top: 50%;
     right: 110px;
-    transform: translateY(-50%);
     border: 1px solid lightgray;
     width: 100px;
     text-align: center;
@@ -277,6 +290,7 @@ a p {
     font-family: 'NanumSquareRoundL';
     font-size: small;
     padding-bottom: 10px;
+    position: sticky;
 }
 
 .rightBanner hr {
