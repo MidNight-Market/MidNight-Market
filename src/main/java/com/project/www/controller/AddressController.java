@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @RequestMapping("/address/*")
 @RequiredArgsConstructor
 @Slf4j
-public class addressController {
+public class AddressController {
     private final AddressService asv;
     private int isOK;
 
@@ -33,6 +32,19 @@ public class addressController {
     @GetMapping("/list")
     public List<AddressVO> list() {
         List<AddressVO> list = asv.getList();
+        log.info("list >>@@@ {}", list);
+
+        // 기본배송지가 맨위로 오게
+        list.sort((a1, a2) -> {
+            if (a1.getIsMain().equals("Y") && a2.getIsMain().equals("N")) {
+                return -1; // a1이 우선순위
+            } else if (a1.getIsMain().equals("N") && a2.getIsMain().equals("Y")) {
+                return 1; // a2가 우선순위
+            } else {
+                return 0; // 동일하면 그대로
+            }
+        });
+
         log.info("list >>@@@ {}", list);
         return list;
     }

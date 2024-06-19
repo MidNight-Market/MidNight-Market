@@ -1,5 +1,6 @@
 package com.project.www.repository;
 
+import com.project.www.domain.AddressVO;
 import com.project.www.domain.CustomerVO;
 import com.project.www.domain.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,4 +35,6 @@ public interface CustomerMapper {
     CustomerVO selectOne(String customerId);
 
     int memberShipJoinUpdate(PaymentDTO paymentDTO);
+
+    List<AddressVO> getMyAddrList(String customerId);
 }

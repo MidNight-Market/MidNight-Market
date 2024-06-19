@@ -30,6 +30,14 @@
             font-weight: bold;
             color: #007bff;
         }
+        .mypage2_text4 {
+            margin: 0 20px;
+            padding: 5px;
+            font-size: 12px;
+            border: 1px solid lightgray;
+            background-color: rgba(211, 211, 211, 0.247);
+            border-radius: 15%;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +103,10 @@ let customerId = [[${session.id}]];
             if (resp.ok) { // 응답성공시
                 displayMainAddress(selectedAddress); // 선택된 주소 화면에 뿌림
                 alert('기본배송지로 설정되었습니다.');
+                if(opener.location.href.includes("customer")) {
+                    opener.location.href = '/customer/myPage?reload=1';
+                }
+                window.close();
             } else {
                 alert('기본배송지 설정에 실패하였습니다.');
             }
@@ -151,6 +163,9 @@ let customerId = [[${session.id}]];
                 if (resp.ok) {
                     tr.remove(); // <tr> 내에 삭제한 행 제거
                     alert('배송지가 삭제되었습니다.');
+                    if(opener.location.href.includes("customer")){
+                        opener.location.href = '/customer/myPage?reload=1';
+                    }
                 } else {
                     alert('배송지 삭제에 실패하였습니다.');
                 }
@@ -164,18 +179,20 @@ let customerId = [[${session.id}]];
     // 페이지 로드 후 실행
     document.addEventListener('DOMContentLoaded', () => {
         fetchAddresses(); // 주소 목록을 가져와 테이블에 추가
+        if(opener.location.href.includes("customer")) {
+            opener.location.href = '/customer/myPage?reload=1';
+        }
     });
 
     // 기본 배송지 값
     function displayMainAddress(address) {
         const mainAddressDiv = document.getElementById('mainAddress');
         mainAddressDiv.innerHTML =
-            `<div class="mainAddress">
-                    <span>${address.addrName}</span>
-                    <div>
-                        <span>${address.address}</span>
-                    </div>
-                </div>`;
+            `<span class="mypage2_text4" th:text="${address.isMain == 'Y' ? '기본배송지' : '추가배송지'}">
+            </span>${address.addrName}
+            <div>
+                <span>${address.address}</span>
+            </div>`;
     }
 
 // 부모창에서 자식창으로 값 가져옴 (opener)

@@ -54,4 +54,10 @@
         WHERE
         id = #{customerId}
     </update>
+
+    <select id="getMyAddrList" resultType="com.project.www.domain.AddressVO">
+        SELECT * from address
+        WHERE
+        customer_id = #{customerId}
+    </select>
 </mapper>
