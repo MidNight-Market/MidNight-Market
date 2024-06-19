@@ -6,6 +6,10 @@ const basketButtons = document.querySelectorAll('.basket-button');
 basketButtons.forEach(button=>{
     button.addEventListener('click',(e)=>{
 
+        if(role != "role_user"){
+            e.preventDefault();
+            alert("고객만 접근가능한 서비스입니다.")
+        }
         //이벤트 취소
         e.preventDefault();
 
