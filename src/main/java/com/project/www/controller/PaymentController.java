@@ -1,8 +1,10 @@
 package com.project.www.controller;
 
+import com.project.www.domain.NotificationVO;
 import com.project.www.domain.OrdersVO;
 import com.project.www.domain.PaymentDTO;
 import com.project.www.service.ImportService;
+import com.project.www.service.MemberCouponService;
 import com.project.www.service.NotificationService;
 import com.project.www.service.PaymentService;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -27,6 +29,7 @@ public class PaymentController {
     private final PaymentService psv;
     private final ImportService importService;
     private final NotificationService nsv;
+    private final MemberCouponService mscv;
 
 
     @ResponseBody
@@ -91,9 +94,16 @@ public class PaymentController {
     @ResponseBody
     @PutMapping("/membershipRegistrationCompletedUpdate")
     public String membershipRegistrationCompletedUpdate(@RequestBody PaymentDTO paymentDTO){
-
         int isOk = psv.membershipRegistrationCompletedUpdate(paymentDTO);
-
+        if(isOk > 0){
+            NotificationVO nvo = new NotificationVO();
+            mscv.addCoupon(paymentDTO.getCustomerId(),"2");
+            mscv.addCoupon(paymentDTO.getCustomerId(),"3");
+            mscv.addCoupon(paymentDTO.getCustomerId(),"4");
+            nvo.setCustomerId(paymentDTO.getCustomerId());
+            nvo.setNotifyContent("멤버쉽가입 쿠폰3장이 발급완료되었습니다. ");
+            nsv.insert(nvo);
+        }
         return isOk > 0 ? "success" : "fail";
     }
 
