@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자페이지</title>
+</head>
+<style>
+    body {
+        display: flex;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+        width: 100%;
+    }
+    .sidebar {
+        width: 200px;
+        background-color: #f4f4f4;
+        padding: 15px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar ul li {
+        margin-bottom: 20px;
+    }
+    .sidebar ul li:first-child {
+        margin-bottom: 50px;
+    }
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .sidebar ul li a:hover {
+        background-color: #ddd;
+    }
+    .content {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    .title {
+        font-size: 30px;
+        font-weight: 700;
+    }
+    #contentDisplay {
+        border: 1px solid black;
+        padding: 20px;
+        width: 80%;
+        max-width: 800px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    table{
+        width: 100%;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <ul>
+            <li class="title">관리자 페이지</li>
+            <li><a id="couponPublish">쿠폰 발행하기</a></li>
+            <li><a id="couponList">발급한 쿠폰 리스트</a></li>
+            <li><a id="inquiry">1대1 문의 질문</a></li>
+            <li><a id="orders">결제 내역</a></li>
+            <li><a id="sellerList">판매자 리스트 출력</a></li>
+            <li><a id="memberList">회원 리스트 출력</a></li>
+            <li><a th:href="@{/}">홈으로</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div id="contentDisplay"></div>
+    </div>
+</div>
+<script src="/js/admin.js">
+</script>
+</body>
+</html>

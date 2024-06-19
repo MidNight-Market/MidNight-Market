@@ -4,6 +4,7 @@ import com.project.www.domain.ProductDTO;
 import com.project.www.domain.ProductVO;
 import com.project.www.domain.SellerVO;
 import com.project.www.service.SellerService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class SellerController {
 
     private final SellerService ssv;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final HttpSession session;
 
     @GetMapping("/register")
     public void register(){}
@@ -43,26 +45,25 @@ public class SellerController {
     }
 
     @GetMapping("/myRegisteredProduct")
-    public void productList(Model model){
-    //아이디 또는 이메일 a태그 또는 프린시펄로 받아오기
-
-        String id = "dbscksdnd";
-
-        List<ProductVO> list = ssv.getMyRegisteredProduct(id);
-        
-        log.info(">>>>>상품 리스트 출력{}",list);
-
-        model.addAttribute("list",list);
+    public void productList(@RequestParam(value = "id", required = false) String paramId){
+        String sessionId = session.getAttribute("id") != null ? session.getAttribute("id").toString() : null;
+        String id = paramId != null ? paramId : sessionId;
+        if (id != null) {
+        }
     }
 
-    @PutMapping (value = "/productQtyUpdate", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> productQtyUpdate(@RequestBody ProductVO productVO){
+    //내가등록한 상품 가져오기
+    @ResponseBody
+    @GetMapping("/getMyRegisteredProductList/{sellerId}")
+    public List<ProductVO> getMyRegisteredProductList(@PathVariable(value = "sellerId") String sellerId){
+        return ssv.getMyRegisteredProduct(sellerId);
+    }
 
-        log.info("변경될 수량값 확인>>>>{}", productVO);
-        int isOk = ssv.productQtyUpdate(productVO);
 
-        return isOk > 0 ? new ResponseEntity<String>("true", HttpStatus.OK) :
-            new ResponseEntity<String>("false",HttpStatus.INTERNAL_SERVER_ERROR);
+    @ResponseBody
+    @PutMapping("/myRegisteredProductUpdate")
+    public String myRegisteredProductUpdate(@RequestBody ProductVO productVO){
+        return ssv.myRegisteredProductUpdate(productVO);
     }
 
     @ResponseBody
@@ -85,5 +86,10 @@ public class SellerController {
         return "1";
     }
 
+    @ResponseBody
+    @GetMapping("/getList")
+    public List<SellerVO> getList(){
+        return ssv.getList();
+    }
 
 }

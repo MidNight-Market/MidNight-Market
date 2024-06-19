@@ -6,11 +6,15 @@ const basketButtons = document.querySelectorAll('.basket-button');
 basketButtons.forEach(button=>{
     button.addEventListener('click',(e)=>{
 
+        if(role != "role_user"){
+            e.preventDefault();
+            alert("고객만 접근가능한 서비스입니다.")
+        }
         //이벤트 취소
         e.preventDefault();
 
         if(customerId == null){
-            alert('로그인 후 진행해주삼');
+            alert('로그인 후 확인 가능합니다.');
             return;
         }
 
@@ -34,7 +38,7 @@ basketButtons.forEach(button=>{
                 const number = rsp.replace(/\D/g, '');
 
                 //재고가 없을 경우
-                if(number === '0'){
+                if(message === '품절'){
                     alert('현재 상품은 품절되었습니다.');
                     return;
                 }
@@ -49,6 +53,8 @@ basketButtons.forEach(button=>{
 
                 //장바구니를 추가했을경우
                 if (rsp === 'register_success') {
+                    let basketCount = document.getElementById('basketBadge'); //장바구니 갯수
+                    basketCount.innerText = String(Number(basketCount.innerText) + 1);
                     if (confirm(`장바구니에 저장했습니다. \n 장바구니 페이지로 이동하시겠습니까?`)) {
                         location.href = '/basket/myBasket';
                     }

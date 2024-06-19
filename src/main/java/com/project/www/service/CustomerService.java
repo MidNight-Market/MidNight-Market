@@ -1,6 +1,9 @@
 package com.project.www.service;
 
+import com.project.www.domain.AddressVO;
 import com.project.www.domain.CustomerVO;
+
+import java.util.List;
 
 public interface CustomerService {
     int insert(CustomerVO cvo);
@@ -16,4 +19,10 @@ public interface CustomerService {
     void updateDefaultPw(String id, String pw);
 
     void updatePw(String id, String pw);
+
+    List<CustomerVO> getList();
+
+    List<AddressVO> getMyAddrList(String customerId);
+
+
 }

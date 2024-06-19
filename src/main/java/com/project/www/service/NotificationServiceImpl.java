@@ -21,4 +21,10 @@ public class NotificationServiceImpl implements NotificationService{
     public List<NotificationVO> getList(String username) {
         return notificationMapper.getList(username);
     }
+
+    @Override
+    public boolean deleteNotificationByContent(String content,String id) {
+        int rowsAffected = notificationMapper.deleteByContent(content, id);
+        return rowsAffected > 0;
+    }
 }

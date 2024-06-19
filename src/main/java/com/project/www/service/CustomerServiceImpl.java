@@ -1,10 +1,13 @@
 package com.project.www.service;
 
+import com.project.www.domain.AddressVO;
 import com.project.www.domain.CustomerVO;
 import com.project.www.repository.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -48,5 +51,15 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public void updatePw(String id, String pw) {
         customerMapper.updatePw(id, pw);
+    }
+
+    @Override
+    public List<CustomerVO> getList() {
+        return customerMapper.getList();
+    }
+
+    @Override
+    public List<AddressVO> getMyAddrList(String customerId) {
+        return customerMapper.getMyAddrList(customerId);
     }
 }

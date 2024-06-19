@@ -67,8 +67,7 @@
 
         .title {
             text-align: center;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin: 70px 0;
             font-size: 30px;
             font-weight: 550;
         }
@@ -191,8 +190,7 @@
             display: flex;
             justify-content: center;
             font-size: 30px;
-            margin-top: 50px;
-            margin-bottom: 100px;
+            margin: 70px 0;
         }
         .memberShip {
             position: fixed;
@@ -206,28 +204,33 @@
             height: 480px;
         }
 
-        .rigthBanner {
+        .rightBanner {
             position: fixed;
             top: 50%;
-            right: 65px;
+            right: 110px;
             transform: translateY(-50%);
             border: 1px solid lightgray;
             width: 100px;
-            height: 350px;
+            background-color: white;
             text-align: center;
+            border-radius: 15px;
             font-family: 'NanumSquareRoundL';
             font-size: small;
+            padding-bottom: 10px;
         }
 
-        .rigthBanner hr {
+        .rightBanner hr {
             margin: 5px 0;
         }
 
-        .rigthBanner > a:visited {
+        .rightBanner > a{
+            color: black;
+        }
+        .rightBanner > a:visited {
             color: black;
         }
 
-        .rigthBanner > a > img {
+        .rightBanner > a > img {
             display: block;
             margin: 5px auto;
         }
@@ -240,9 +243,13 @@
 
 <body id="list-body">
 <div id="searchValPrint" style="display: none"></div>
+
+<th:block th:if="${ph.pgvo.search == null or ph.pgvo.search == ''}">
 <div class="title">
-    상품 리스트
+    <span>[[${ph.pgvo.description}]]</span>
 </div>
+</th:block>
+
 <div class="listNavbar">
     <span class="count"></span>
     <ul>
@@ -272,7 +279,7 @@
                         <p class="product-sm-text">[[${list.description}]]</p>
 
                         <th:block th:if="${list.discountRate != 0}">
-                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(list.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+                            <p class="no-discount-price" th:text="${#numbers.formatDecimal(list.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
                             <span class="discountRate-text">[[${list.discountRate}]]%</span>
                         </th:block>
 
@@ -314,25 +321,27 @@
     </nav>
 
 <!--양쪽 배너-->
-<div class="memberShip">
-    <a href="#">
-        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
+<div class="memberShip" th:if="${session.mStatus == false or session == null or session.mStatus == null}">
+    <a href="#" id="membershipPayment">
+        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg" alt="">
     </a>
 </div>
-<div class="rigthBanner">
-    <a th:href="@{/basket/myBasket}">
-        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;">장바구니
+<div class="rightBanner" id="rightBanner">
+    <a>
+        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;" id="bannerBasket">장바구니
     </a>
     <hr>
-    <a th:href="@{/product/mySlang}">
-        <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;">찜
+    <a>
+        <img th:src="@{/dist/icon/heart.svg}" style="width: 28px; height: 28px;" id="bannerSlang">찜
+    </a>
+    <hr>
+    <a onclick="openPopup()">
+        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;" id="bannerInquiry">채팅문의
     </a>
     <hr>
     <div class="RecentlyViewed">
         <p>최근 본 상품</p>
-        <ul>
-            <p></p>
-        </ul>
+        <div id="recentViewContainer"></div>
     </div>
 </div>
 
@@ -342,8 +351,10 @@
     const queryString = decode.split('?')[1];
     const params = new URLSearchParams(queryString);
     let searchVal = params.get('search');
-    if (searchVal != null || searchVal.length != 0) {
-        let searchResultElement = document.getElementById('searchValPrint');
+    const role = `[[${session.role}]]`;
+    console.log(searchVal);
+    let searchResultElement = document.getElementById('searchValPrint');
+    if (searchVal != null && (searchVal).length !== 0) {
         searchResultElement.style.display = '';
         searchResultElement.innerHTML = `"<span style="color: #f57700;">${searchVal}</span>"에 대한 검색결과`;
     }
@@ -352,11 +363,79 @@
     const customerId = [[${session.id}]];
     const subType = [[${ph.pgvo.subType}]];
     console.log(subType);
-    document.getElementById(subType).style.color = 'black';
+    if(subType != null){
+        document.getElementById(subType).style.color = 'black';
+    }
 </script>
+<script th:src="@{/js/banner.js}"></script>
 <script th:src="@{/js/commonBasket.js}"></script>
-</body>
+<script th:src="@{/js/popup.js}"></script>
 
+
+<script>
+    //멤버십결제 페이지 이동
+    document.getElementById('membershipPayment').addEventListener('click', (e) => {
+
+        e.preventDefault();
+
+        if (customerId == null) {
+            alert('로그인을 해주세요.');
+            return;
+        }
+
+
+        const merchantUid = 'merchant_uid' + new Date().getTime();//결제 고유Id
+
+        saveMembershipPaymentInfo(customerId, merchantUid).then(rsp => {
+
+            if (rsp === 'fail') { //사전검증 데이터 등록 안되었을 경우
+                alert('오류가 발생했습니다. 잠시후 다시 시도해주세요.');
+                return;
+            }
+
+
+            localStorage.setItem('merchantUid', merchantUid); //스토리지에 저장하여 숨겨서 이동
+
+            const popupWidth = 910;
+            const popupHeight = 700;
+            const leftPosition = (screen.width - popupWidth) / 2;
+            const topPosition = (screen.height - popupHeight) / 2 - 50; // 살짝 위에 위치하도록 조정
+            const url = '/payment/memberShipPaymentPopup';
+            const popupFeatures = 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + leftPosition + ',top=' + topPosition;
+
+            window.open(url, '_blank', popupFeatures);
+        });
+
+    });
+
+    //사전검증을 위해 미리 결제 데이터 저장하기
+    async function saveMembershipPaymentInfo(customerId, merchantUid) {
+
+        const data = {
+            merchantUid: merchantUid,
+            customerId: customerId
+        }
+
+        try {
+            const url = '/payment/saveMembershipPaymentInfo';
+            const config = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json; charset =utf-8'
+                },
+                body: JSON.stringify(data)
+            }
+            const req = await fetch(url, config);
+            const rsp = await req.text();
+            return rsp;
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+</script>
+<script src="/js/sidebar.js"></script>
+</body>
 <th:block th:replace="~{footer :: footer}"></th:block>
 
 </html>

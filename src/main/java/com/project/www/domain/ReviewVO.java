@@ -16,10 +16,11 @@ public class ReviewVO {
     private long star;
     private String registerDate;
     private String customerId;
-    private String productId;
+    private long productId;
     private long ordersId;
     private long revUpCount;
     private String nickName;
     private List<ReviewImageVO> reviewImageVOList;
     private List<ReviewLikeVO> reviewLikeVO;
+    private ProductVO productVO;
 }

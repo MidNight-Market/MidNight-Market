@@ -5,10 +5,11 @@ import com.project.www.service.NotificationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +28,22 @@ public class NotificationController {
             return notificationList;
         }
         return null;
+    }
+    @DeleteMapping("/{content}/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteNotification(@PathVariable("content") String content, @PathVariable("id")String id) {
+        log.info("컨텐츠 내용: {}", content);
+        log.info("ID: {}", id);
+        try {
+            boolean isDeleted = nsv.deleteNotificationByContent(content,id);
+            if (isDeleted) {
+                return ResponseEntity.ok().body("Notification deleted successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Notification not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting notification");
+        }
     }
 
 

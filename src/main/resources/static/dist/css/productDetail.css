@@ -172,52 +172,41 @@ body{
 
 .second-content {
     width: 940px;
-    height:8000px;
+    height: auto;
     font-family: NanumSquareB;
 }
 
-.second-content > .detailMenuBar {
+.detailMenuBar {
     position: sticky;
     top: 0;
 }
 
-.second-content > .detailMenuBar > ul {
+.detailMenuBar > ul {
     display: flex;
     justify-content: space-around;
-    padding: 20px 0 20px 0;
-    background-color: #bfd1ec;
+    padding: 25px 0;
+    background-color: orange;
 }
 
-.second-content > .detailMenuBar > ul > li:hover {
+.detailMenuBar > ul > li:hover {
     cursor: pointer;
 }
 
-.second-content > .detailMenuBar > ul > li > a {
-    font-size: 18px;
+.detailMenuBar > ul > li {
+    font-size: 17px;
+    color: white;
 }
 
-.second-content > .detailMenu {
+.detailMenu {
     width: 940px;
     margin: 0 auto;
 }
 
-.second-content > .detailMenu > .detailImage {
+.detailImage {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
-}
-
-.second-content > .detailMenu > .review {
-    display: flex;
-    justify-content: space-between;
-}
-
-.second-content > .detailMenu > .review > button {
-    font-size: small;
-    border: none;
-    background-color: transparent;
-    outline: none;
 }
 
 .reviewList {
@@ -228,49 +217,62 @@ body{
 }
 
 .reviewList > p {
-    margin: 15px 0 10px 0;
+    margin: 15px 0 10px;
     font-size: small;
 }
 
 .review {
     width: 100%;
-    height: 250px;
+    display: flex;
 }
 
-.review > div:first-child {
-    float: left;
+.left-side {
     width: 30%;
-    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
 }
 
-.review > div:first-child > p {
+.left-side > p {
     text-align: center;
-    line-height: 250px;
+    margin: 5px;
 }
 
-.reviewImgDatail{
-    width: 100%;
-    height: 120px;
+.right-side {
+    width: 70%;
+}
+
+.star {
+    margin: 10px 0;
+}
+
+.productName {
+    margin: 5px 0;
+}
+
+.reviewImgDatail {
+    height: auto;
 }
 
 .reviewImgDatail > img {
     width: 120px;
     height: 120px;
-    line-height: 120px;
     margin-right: 5px;
 }
 
 .reviewContent {
-    width: 100%;
     height: auto;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 .date {
     display: flex;
     justify-content: space-between;
     line-height: 30px;
-    font-size: small;
+    font-size: 14px;
+    border-bottom: 1px solid lightgray;
+    margin: 0 0 20px 0;
 }
 
 .date > button {
@@ -282,7 +284,7 @@ body{
     display: flex;
     flex-wrap: nowrap;
     line-height: 30px;
-    margin: 0 10px;
+    margin: 0 10px 10px 10px;
 }
 
 .date > button > img {
@@ -295,7 +297,7 @@ body{
 }
 
 .date > button:hover {
-    color: darkorange;
+    color: navy;
 }
 
 .review > p {
@@ -306,7 +308,7 @@ body{
 .memberShip {
     position: fixed;
     top: 50%;
-    left: 65px;
+    left: 60px;
     transform: translateY(-50%);
 }
 
@@ -315,32 +317,215 @@ body{
     height: 480px;
 }
 
-.rigthBanner {
+.rightBanner {
     position: fixed;
     top: 50%;
-    right: 65px;
+    right: 100px;
     transform: translateY(-50%);
     border: 1px solid lightgray;
     width: 100px;
-    height: 350px;
     text-align: center;
     font-family: 'NanumSquareRoundL';
+    border-radius: 15px;
+    background-color: white;
     font-size: small;
+    padding-bottom: 10px;
 }
 
-.rigthBanner hr {
+.rightBanner hr {
     margin: 5px 0;
 }
 
-.rigthBanner > a:visited {
+.rightBanner > a:visited {
     color: black;
 }
-
-.rigthBanner > a > img {
+.rightBanner > a{
+    color: black;
+}
+.rightBanner > a > img {
     display: block;
     margin: 5px auto;
 }
 
 .RecentlyViewed > p {
     margin: 10px auto;
+}
+
+/* 상품 문의 */
+.product-qna {
+}
+
+.product_qna_title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.product_qna_title_text1 {
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.product_qna_title_text3 {
+  font-weight: 700;
+  color: #f27935;
+}
+
+.product_qna1 {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  padding-top: 12px;
+  border-top: solid 1px #e3e5e8;
+}
+
+.product_qna_title_text4 {
+  font-size: 12px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+.qna_button {
+  position: absolute;
+  top: 12px;
+  right: 0;
+  font-size: 12px;
+  border: 1px solid black;
+  padding: 5px;
+  color: black;
+}
+
+.product_qna2 {
+  width: 100%;
+  height: 150px;
+  /* border: 1px solid black; */
+  /* background-color: aqua; */
+  border-bottom: solid 1px #e3e5e8;
+}
+
+.product_qna_content {
+  box-sizing: border-box;
+  width: 85%;
+  height: 100px;
+  border: 1px solid lightgray;
+}
+
+.product_qna_content::placeholder {
+  text-align: center;
+  line-height: 90px;
+  font-size: 17px;
+  color: #959da6;
+}
+
+.product_qna_content:focus {
+  outline: none;
+}
+
+.product_qna_button {
+  float: right;
+  width: 15%;
+  height: 100px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.product_qna3 {
+  width: 100%;
+  height: auto;
+  /* background-color: aqua; */
+  border-bottom: solid 1px #e3e5e8;
+}
+
+.product_qna4 {
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.product_qna_id {
+  margin-right: 10px;
+  color: #7d7e80;
+}
+
+.product_qna_date {
+  color: #7d7e80;
+}
+
+.product_qna3_content {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  /* background-color: yellow; */
+}
+
+.product_qna3_content2 {
+  margin-left: 20px;
+  line-height: 50px;
+}
+
+.product_qna3_comment {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #7d7e80;
+}
+
+.product_qna_comment1 {
+  margin-left: 20px;
+  color: #7d7e80;
+  margin-bottom: 20px;
+}
+
+.product_qna_comment2 {
+  cursor: pointer;
+}
+
+#my-div {
+  width: 100%;
+  height: 100px;
+  background-color: #f8f8f8;
+  display: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.my_div_inner1 {
+  float: left;
+  margin-top: 10px;
+}
+
+.my_div_inner2 {
+  width: 100%;
+  height: auto;
+  margin-left: 30px;
+  /* background-color: aqua; */
+  padding-top: 10px;
+}
+
+.ico {
+    border: 1px solid #6dc067;
+    background-color: #fff;
+    color: #6dc067;
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 12px;
+}
+
+.my_div_date {
+    font-size: 12px;
+}
+
+.my_div_inner3 {
+    line-height: 70px;
+}
+
+.productDetailInfo {
+    width: 785px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.productDetailInfoImg {
+    width: 100%;
+    height: auto;
 }

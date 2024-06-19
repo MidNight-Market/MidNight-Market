@@ -2,9 +2,12 @@ package com.project.www.service;
 
 import com.project.www.domain.ReviewDTO;
 import com.project.www.domain.ReviewLikeVO;
+import com.project.www.domain.ReviewVO;
+
+import java.util.List;
 
 public interface ReviewService {
-    int register(ReviewDTO reviewDTO);
+    String register(ReviewDTO reviewDTO);
 
     int registerLike(ReviewLikeVO reviewLikeVO);
 
@@ -17,4 +20,6 @@ public interface ReviewService {
     void delete(ReviewLikeVO reviewLikeVO);
 
     Boolean isExist(ReviewLikeVO reviewLikeVO);
+
+    List<ReviewVO> getMyWriteCompletedReviewList(String customerId);
 }

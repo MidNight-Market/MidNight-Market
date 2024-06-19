@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>register</title>
+    <title>1:1문의</title>
 </head>
 <th:block th:replace="~{header :: header}"></th:block>
 <body>
@@ -11,7 +11,7 @@
     <form th:action="@{/help/register}" method="post">
         <div class="input-group mb-3">
             <span class="input-group-text" id="t">제목</span>
-            <input type="text" class="form-control" name="title" aria-label="title" aria-describedby="basic-addon1">
+            <input type="text" class="form-control title" name="title" aria-label="title" aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="i">작성자</span>
@@ -19,8 +19,9 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="c">내용</span>
-            <textarea class="form-control" name="content" aria-label="With textarea"></textarea>
+            <textarea class="form-control content" name="content" aria-label="With textarea"></textarea>
         </div>
+        <input style="display: none" th:value="${session.id}" name="customerId"></input>
         <div class="input-group mb-3">
             <label for="secret"></label>
             <input type="checkbox" id="secret" onclick="checkSecret()">비밀글 설정

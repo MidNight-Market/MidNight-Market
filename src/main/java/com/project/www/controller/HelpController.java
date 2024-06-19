@@ -91,7 +91,6 @@ public class HelpController {
   @PostMapping("/reply")
   public String reply(HelpVO hvo){
     log.info("hvo{}",hvo);
-
     hsv.replyRegister(hvo);
     return "redirect:/help/detail?hno="+hvo.getHno();
   }
@@ -118,6 +117,12 @@ public class HelpController {
       m.addAttribute("myList", myList);
       m.addAttribute("ph", ph);
     }
+  }
+
+  @ResponseBody
+  @GetMapping("/getList")
+  public List<HelpVO> getListToAdmin(){
+    return hsv.getListToAdmin();
   }
 
 

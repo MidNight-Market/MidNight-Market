@@ -116,7 +116,63 @@ public class ProductServiceImple implements ProductService {
 
     @Override
     public List<ProductVO> getProductList(ListPagingVO pgvo) {
+
+        ProductDTO productDTO = ProductDTO.builder()
+                .pcList(productCategoryMapper.getList())
+                .pcdList(productCategoryDetailMapper.getList())
+                .build();
+
+        String type = pgvo.getType();
+        String category = pgvo.getCategory();
+        String categoryDetail = pgvo.getCategoryDetail();
+
+        String description = "";
+
+        if (type != null) {
+
+            if (type.equals("best")) {
+                description = "베스트상품";
+            }
+
+            if (type.equals("new")) {
+                description = "신상품";
+            }
+
+            if (type.equals("sale")) {
+                description = "세일상품";
+            }
+        }
+
+        if(pgvo.getCategory() != null){
+
+            for (ProductCategoryVO productCategoryVO : productDTO.getPcList()) {
+
+                if(Long.toString(productCategoryVO.getId()).equals(category)){
+                    description = productCategoryVO.getName();
+                    break;
+                }
+            }
+        }
+
+        if(pgvo.getCategoryDetail() != null){
+
+            for (ProductCategoryDetailVO productCategoryDetailVO : productDTO.getPcdList()) {
+
+                if(Long.toString(productCategoryDetailVO.getId()).equals(categoryDetail)){
+                    description = productCategoryDetailVO.getName();
+                    break;
+                }
+            }
+        }
+
+        pgvo.setDescription(description);
+
         return productMapper.getList(pgvo);
 
     }
 }
+
+
+
+
+

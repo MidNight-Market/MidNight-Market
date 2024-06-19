@@ -33,7 +33,17 @@ $(document).on('click', '.basketCheckbox', function () {
 
 // 선택 삭제
 $('#select-delete').click(function (event) {
+
+    event.preventDefault();
+
+    if(checkedCheckboxes.length === 0){ //체크가 모두 안되어 있을경우
+        return;
+    }
+
+    if(!confirm('정말로 삭제하시겠습니까?')){
     event.preventDefault(); // 기본 동작을 막음
+        return;
+    }
 
     let checkedValues = [];
     $('.basketCheckbox:checked').each(function () {
@@ -48,7 +58,14 @@ $('#select-delete').click(function (event) {
         success: function (response) {
             console.log(response);
             // 리스트 뿌리기
+            const checkedLength = checkedValues.length;
+            let basketBadge = document.getElementById('basketBadge');
+            basketBadge.innerText = String(parseInt(basketBadge.innerText) - checkedLength);
+
+            //1개만 남을경우 높이가 위에가 너무 떠서 설정
+
             spreadMyBasketList(customerId);
+
         }
     });
 });
@@ -71,6 +88,7 @@ $(document).on('click', '.box1 button', function () {
         data: JSON.stringify(data),
         success: function (response) {
             console.log(response);
+
             // 리스트 뿌리기
             spreadMyBasketList(customerId);
         }
@@ -114,49 +132,39 @@ function myBasketList(response) {
     const ul = $('#basketList');
     ul.empty();
 
-    if (response == null) {
-        let li = $('<li>장바구니에 등록한 상품이 없습니다.</li>');
-        ul.append(li);
-        $('#product-price-text').text(0 + ' 원');
-        $('#product-discount-price-text').text(0 + ' 원');
-        $('#product-total-price-text').text(0 + ' 원');
-        ul.append(li);
-        return;
-    }
-
     if (response.length > 0) {
         for (let i = 0; i < response.length; i++) {
             total_price += response[i].qty * response[i].productVO.price;
             payment_price += response[i].qty * response[i].productVO.discountPrice;
-            let li = $('<li></li>');
+            let li = $('<li class="basketList-li"></li>');
 
             const price = response[i].qty > 0 ? (response[i].qty * response[i].productVO.discountPrice).toLocaleString('ko-KR') + ' 원' : '품절된 상품';
 
             li.html(`
-                <a href="">
                     <label class="checkbox_label">
                         <input type="checkbox" class="basketCheckbox" value="${response[i].productId}" />
                         <span class="checkbox_icon"></span>
+                    <div class="product-image-box">
+                        <img src="${response[i].productVO.mainImage}" alt="이미지">
+                    </div>
                     </label>
-                </a>
-                <a href="/product/detail?id=${response[i].productId}">
-                    <div class="image1">
-                        <img src="${response[i].productVO.mainImage}" style="width: 100%; height: 100%"/>
+                    <div class="product-desc-box">
+                        <p>${response[i].productVO.name}</p>
+                        <p>${response[i].productVO.description}</p>
                     </div>
-                </a>
-                <a href="/product/detail?id=${response[i].productId}">
-                    <div class="name1">${response[i].productVO.name}</div>
-                </a>
-                <div class="box1">
-                    <button type="button" class="-" data-productId="${response[i].productId}" data-qty="${response[i].qty - 1}" ${response[i].qty <= 1 ? 'disabled' : ''}>-</button>
-                    <div class="box2">
-                        <span>${response[i].qty}</span>
-                    </div>
+                    <div class="calc-box">
+                        <div class="box1">
+                                <button type="button" class="-" data-productId="${response[i].productId}" data-qty="${response[i].qty - 1}" ${response[i].qty <= 1 ? 'disabled' : ''}>-</button>
+                            <div class="box2">
+                                <span>${response[i].qty}</span>
+                            </div>
                     <button type="button" class="+" data-productId="${response[i].productId}" data-qty="${response[i].qty + 1}" ${response[i].qty >= response[i].productVO.totalQty ? 'disabled' : ''}>+</button>
-                </div>
-                <div class="price">
-                    <span>${price}</span>
-                </div>
+                        </div>
+                    </div>
+                    <div class="product-price-box">
+                        <p style="font-weight: 500">${(response[i].productVO.discountPrice * response[i].qty).toLocaleString('ko-KR')} 원</p>
+                    ${response[i].productVO.discountRate != 0 ? `<s style="font-size: 13px; font-weight: 400;">${(response[i].productVO.price * response[i].qty).toLocaleString('ko-KR')} 원</s>` : ''}
+                    </div>
             `);
 
             ul.append(li);
@@ -167,6 +175,13 @@ function myBasketList(response) {
         $('#product-price-text').text(total_price.toLocaleString('ko-KR') + ' 원');
         $('#product-discount-price-text').text(discount_price.toLocaleString('ko-KR') + ' 원');
         $('#product-total-price-text').text(payment_price.toLocaleString('ko-KR') + ' 원');
+        $('#basketBadge').text(String(response.length));
+    }else{
+        let li = $('<li><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center"> <p style="color: rgb(181, 181, 181); font-weight: 400">장바구니에 등록한 상품이 존재하지 않습니다.</p> </div></li>');
+        ul.append(li);
+        $('#product-price-text').text( ' 0원');
+        $('#product-discount-price-text').text(' 0원');
+        $('#product-total-price-text').text(' 0원');
     }
 }
 
@@ -179,7 +194,11 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
 
     if (button) {
 
-        // let soldOutName = myBasket.filter(item => item.qty === 0);
+        if(!confirm('장바구니에 담긴 상품들을 주문하시겠습니까?')){
+            e.preventDefault();
+            return;
+        }
+
         let soldOutQuantity = myBasket.filter(item => item.qty === 0);
 
         //주문할 상품이 하나인데 품절 상품일 경우 취소
@@ -212,8 +231,13 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
             success: function (rsp) {
 
                 if (rsp === 'excess_quantity') {
-                    alert('수량이 맞지않습니다. 다시시도해주세요.');
+                    alert('수량이 맞지 않습니다.\n다시 시도해주세요.');
                     location.reload();
+                }
+
+                if(rsp === 'quantity_exhaustion'){
+                    alert('현재 장바구니에 등록된 상품이 존재하지 않습니다.\n상품을 하나이상 담고 진행해주세요.');
+                    return;
                 }
 
                 if (rsp === 'post_success') {

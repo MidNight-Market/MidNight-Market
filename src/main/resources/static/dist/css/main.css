@@ -253,10 +253,17 @@ a p {
 }
 
 .memberShip {
-    position: fixed;
-    top: 50%;
-    left: 65px;
-    transform: translateY(-50%);
+    height: 2000px;
+    position: absolute;
+    top: 540px;
+    left: 50px;
+    z-index: 1;
+}
+
+a#membershipPayment {
+    position: sticky;
+    top: 70%;
+    right: 30px;
 }
 
 .memberShip > a > img {
@@ -264,28 +271,39 @@ a p {
     height: 480px;
 }
 
-.rigthBanner {
-    position: fixed;
-    top: 50%;
-    right: 65px;
-    transform: translateY(-50%);
-    border: 1px solid lightgray;
-    width: 100px;
-    height: 350px;
-    text-align: center;
-    font-family: 'NanumSquareRoundL';
-    font-size: small;
+.outer_rightBanner {
+    height: 2000px;
+    position: absolute;
+    top: 560px;
+    right: 50px;
+    z-index: 1;
 }
 
-.rigthBanner hr {
+.rightBanner {
+    top: 50%;
+    right: 110px;
+    border: 1px solid lightgray;
+    width: 100px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: white;
+    font-family: 'NanumSquareRoundL';
+    font-size: small;
+    padding-bottom: 10px;
+    position: sticky;
+}
+
+.rightBanner hr {
     margin: 5px 0;
 }
 
-.rigthBanner > a:visited {
+.rightBanner > a:visited {
     color: black;
 }
-
-.rigthBanner > a > img {
+.rightBanner > a{
+    color: black;
+}
+.rightBanner > a > img {
     display: block;
     margin: 5px auto;
 }

@@ -1,12 +1,14 @@
 package com.project.www.config.oauth2;
 
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import com.project.www.config.oauth2.provider.GoogleUserInfo;
 import com.project.www.config.oauth2.provider.KakaoUserInfo;
 import com.project.www.config.oauth2.provider.NaverUserInfo;
 import com.project.www.config.oauth2.provider.OAuth2UserInfo;
 import com.project.www.domain.CustomerVO;
+import com.project.www.domain.NotificationVO;
 import com.project.www.repository.CustomerMapper;
+import com.project.www.service.MemberCouponService;
+import com.project.www.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private CustomerMapper customerMapper;
+    @Autowired
+    private final NotificationService nsv;
+    @Autowired
+    private final MemberCouponService mscv;
 
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
@@ -51,6 +57,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             newCustomer.setProviderId(providerId);
             newCustomer.setRole(role);
             customerMapper.insert(newCustomer);
+            NotificationVO nvo = new NotificationVO();
+            nvo.setCustomerId("("+provider+")"+id);
+            mscv.addCoupon("("+provider+")"+id,"1");
+            nvo.setNotifyContent("회원가입을 환영합니다. 3천원 쿠폰이 발급되었습니다. ");
+            nsv.insert(nvo);
             return new PrincipalDetails(newCustomer, oAuth2User.getAttributes());
         } else {
             return new PrincipalDetails(existingCustomer, oAuth2User.getAttributes());

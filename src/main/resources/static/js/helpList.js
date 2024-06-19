@@ -24,15 +24,13 @@ for(let i = 0; i<secret.length; i++){
             if(sesName == writer || role=="role_admin"){
                 window.location.href = "/help/detail?hno="+hno;
             }else if(sesName != writer){
-                alert("비밀글은 관리자와 작성자만 확인할 수 있습니다.")  //@@@@@@@@@@관리자 부분 추가 필
+                alert("비밀글은 작성자와 관리자만 확인할 수 있습니다.")
             }
         }else{
             window.location.href = "/help/detail?hno="+hno;
         }
     });
 }
-
-console.log(role);
 
 // 관리자 답글은 비밀글일 경우 관리자랑 본인만 볼 수 있게
 let adminReply = document.querySelectorAll('.adminReply');
@@ -52,7 +50,7 @@ for(let i=0; i<adminReply.length; i++){
         }else if(secretCheck == "N" || sesName != writer ){
             window.location.href = "/help/replyAns?hno="+hno;
         }else{
-            alert("비밀글은 본인과 관리자만 확인 가능합니다.");
+            alert("비밀글은 작성자와 관리자만 확인 가능합니다.");
         }
     });
 }

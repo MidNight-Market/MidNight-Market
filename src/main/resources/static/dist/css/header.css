@@ -74,7 +74,7 @@ body {
 }
 
 .header {
-    height: 200px;
+    height: 100px;
     margin-bottom: 20px;
 }
 
@@ -123,8 +123,8 @@ body {
 
 .search_part > input {
     font-family: 'NanumSquareRoundL';
-    font-size: 15px;
-    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
 }
 
 .search_part > button {
@@ -146,9 +146,9 @@ body {
 }
 
 .search_bar::placeholder {
-    text-align: center;
     color: black;
     opacity: 0.9;
+    padding-left: 10px;
 }
 
 .search_bar:focus {
@@ -161,7 +161,7 @@ body {
 }
 
 .loginBox {
-    width: 200px;
+    width: 160px;
     display: flex;
     justify-content: flex-start;
     font-size: 13px;
@@ -187,7 +187,6 @@ body {
     height: 40px;
     display: flex;
     justify-content: flex-start;
-    margin-left: -40px;
 }
 
 .etc-part > a {
@@ -213,6 +212,20 @@ body {
     content: url("/dist/icon/heart.gif");
 }
 
+#cartBtn {
+    position: relative;
+}
+
+#cartBtn .badge {
+    position: absolute;
+    z-index: 1;
+    font-size: 9px;
+    padding: 3px 0;
+    margin: 4px 0 0 2px;
+    width: 16px;
+    height: 16px;
+}
+
 .menu {
     height: 100%;
     display: flex;
@@ -221,6 +234,7 @@ body {
     position: sticky;
     background-color: orange;
     z-index: 100;
+    margin-bottom: 20px;
     /*border-top: 1px solid darkorange;*/
 }
 
@@ -243,6 +257,7 @@ body {
 .menu_part > li > a {
     display: block;
     width: 200px;
+    height: 62px;
     padding: 20px 0;
     color: white;
     text-decoration: none;
@@ -319,6 +334,10 @@ body {
     align-items: center;
 }
 
+.member {
+    margin-right: -12px;
+}
+
 .input-box{
     margin: 10px auto;
     width: 90%;
@@ -373,13 +392,39 @@ body {
 #recentSearch {
     position: absolute;
     color: black;
-    top: 85px;
-    left: 775px;
-    width: 400px;
     border: 1px solid orange;
     z-index: 9999;
     background-color: white;
+    top: 68pt;
+    width: 398px;
+    margin-left: 3px;
 }
+#recentSearch svg{
+    margin-left: 10px;
+    color: gray;
+    position: relative;
+    top: -15px;
+}
+#recentSearch a {
+    color: #888888;
+    font-size: 15px;
+    margin: 15px 0 0 5px;
+    display: inline-block;
+    width: 300px;
+    height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#recentSearch > .delBtn{
+    position: fixed;
+    left: 1140px;
+    margin-top: 12px;
+}
+#delAll, #offRecent{
+    font-size: 15px;
+}
+
 .notification {
     position: absolute;
     padding: 20px;
@@ -387,7 +432,7 @@ body {
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
-    width: 300px;
+    width: 500px;
 }
 .notification::after {
     content: '';
@@ -424,4 +469,31 @@ body {
     color: #f00;
     font-weight: bold;
     cursor: pointer;
+}
+.ui-autocomplete {
+    width: 400px;
+    position: absolute;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ui-autocomplete ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-autocomplete li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.ui-autocomplete li:last-child {
+    border-bottom: none;
+}
+
+.ui-autocomplete li:hover {
+    background-color: #f0f0f0;
 }

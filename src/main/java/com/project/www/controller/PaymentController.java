@@ -3,6 +3,7 @@ package com.project.www.controller;
 import com.project.www.domain.OrdersVO;
 import com.project.www.domain.PaymentDTO;
 import com.project.www.service.ImportService;
+import com.project.www.service.NotificationService;
 import com.project.www.service.PaymentService;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.Payment;
@@ -25,11 +26,13 @@ public class PaymentController {
 
     private final PaymentService psv;
     private final ImportService importService;
+    private final NotificationService nsv;
+
 
     @ResponseBody
     @PostMapping("/post")
     public String paymentPost(@RequestBody PaymentDTO paymentDTO){
-        log.info("결제DTO확인 ->>>{}",paymentDTO);
+        //log.info("결제DTO확인 ->>>{}",paymentDTO);
 
         return psv.post(paymentDTO);
     }
@@ -37,15 +40,23 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/basketPost")
     public String basketPaymentPost(@RequestBody PaymentDTO paymentDTO){
-        log.info("장바구니 결제 DTO 확인 >>>>{}",paymentDTO);
+        //log.info("장바구니 결제 DTO 확인 >>>>{}",paymentDTO);
 
         return psv.basketPost(paymentDTO);
     }
 
+    @ResponseBody
+    @PostMapping("/saveMembershipPaymentInfo")
+        public String saveMembershipPaymentInfo(@RequestBody PaymentDTO paymentDTO){
+        return psv.saveMembershipPaymentInfo(paymentDTO);
+    }
+
+    @GetMapping("/memberShipPaymentPopup")
+    public void memberShipPaymentPopup(){}
+
 
     @PostMapping("/orders")
     public String order(@RequestParam("merchantUid") String merchantUid, Model model){
-        log.info("주문페이지 잘 오나 확인>>>>{}",merchantUid);
 
         //나의 결제 상품 가져오기
         PaymentDTO paymentDTO = psv.getMyPaymentProduct(merchantUid);
@@ -58,7 +69,7 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/prepare")
     public void prepare(@RequestBody PaymentDTO paymentDTO) throws IamportResponseException, IOException {
-        log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
+        //log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
         importService.postPrepare(paymentDTO);
     }
     
@@ -73,9 +84,17 @@ public class PaymentController {
     @PostMapping("/successUpdate")
     public String successUpdatePayment(@RequestBody PaymentDTO paymentDTO){
 
-        log.info("결제 성공했을시 merchantUid 잘들어오나 확인>>>{}",paymentDTO.getMerchantUid());
         int isOk = psv.paySuccessUpdate(paymentDTO);
         return isOk > 0 ? "paySuccessUpdate" : "payUpdateFail";
+    }
+
+    @ResponseBody
+    @PutMapping("/membershipRegistrationCompletedUpdate")
+    public String membershipRegistrationCompletedUpdate(@RequestBody PaymentDTO paymentDTO){
+
+        int isOk = psv.membershipRegistrationCompletedUpdate(paymentDTO);
+
+        return isOk > 0 ? "success" : "fail";
     }
 
 
@@ -88,9 +107,19 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/refund")
     public String refund(@RequestBody OrdersVO ordersVO){
-        log.info(">>>주문아이디확인>>>{}",ordersVO);
+        //log.info(">>>주문아이디확인>>>{}",ordersVO);
 
         return psv.refundUpdate(ordersVO);
+    }
+
+    @GetMapping("/addrModifyPopup")
+    public String addrModifyPopup() {
+        return "payment/addrModifyPopup";
+    }
+
+    @GetMapping("/newAddrAddPopup")
+    public String newAddrAddPopup() {
+        return "payment/newAddrAddPopup";
     }
 
 

@@ -1,12 +1,15 @@
 package com.project.www.repository;
 
+import com.project.www.domain.AddressVO;
 import com.project.www.domain.CustomerVO;
+import com.project.www.domain.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface CustomerMapper {
+
     int insert(CustomerVO cvo);
 
     int checkEmail(String email);
@@ -24,4 +27,14 @@ public interface CustomerMapper {
     CustomerVO findByUserName(String providerId);
 
     List<CustomerVO> getNickName(String customerId);
+
+    List<CustomerVO> getList();
+
+    int pointUpdate(CustomerVO ordersVO);
+
+    CustomerVO selectOne(String customerId);
+
+    int memberShipJoinUpdate(PaymentDTO paymentDTO);
+
+    List<AddressVO> getMyAddrList(String customerId);
 }

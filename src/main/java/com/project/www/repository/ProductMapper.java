@@ -18,7 +18,7 @@ public interface ProductMapper {
 
     List<ProductVO> getMyRegisteredProduct(String id);
 
-    int productQtyUpdate(ProductVO productVO);
+    void productQtyUpdate(ProductVO productVO);
 
     List<ProductVO> getIndexNewProductList();
 
@@ -26,13 +26,19 @@ public interface ProductMapper {
 
     List<ProductVO> getIndexDiscountProductList();
 
-    void orderUpdate(OrdersVO ordersVO);
+    int orderUpdate(OrdersVO ordersVO);
 
-    void reviewCountUpdate(String productId);
+    int reviewCountUpdate(long productId);
 
     List<ProductVO> getList(ListPagingVO pgvo);
 
     int getTotalCount(ListPagingVO pgvo);
 
-    void rollbackRefundQuantity(ProductVO productVO);
+    int rollbackRefundQuantity(ProductVO productVO);
+
+    void updateProductDiscountRate(ProductVO productVO);
+
+    void productPriceUpdate(ProductVO productVO);
+
+    void updateProductDiscountRateDelete(ProductVO productVO);
 }

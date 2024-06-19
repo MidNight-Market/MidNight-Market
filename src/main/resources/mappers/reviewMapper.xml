@@ -28,4 +28,11 @@
     <select id="getCount" resultType="int">
         select rev_up_count from review where id = #{reviewId}
     </select>
+
+    <select id="getMyWriteCompletedReviewList" resultType="com.project.www.domain.ReviewVO">
+        SELECT * FROM review
+        WHERE
+        customer_id = #{customer_id}
+        ORDER BY register_date DESC
+    </select>
 </mapper>

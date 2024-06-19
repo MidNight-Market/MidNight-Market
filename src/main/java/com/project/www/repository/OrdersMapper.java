@@ -8,11 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface OrdersMapper {
-    void register(OrdersVO ordersVO);
+    int register(OrdersVO ordersVO);
 
     List<OrdersVO> getMyOrdersProduct(String merchantUid);
 
-    void paySuccessUpdate(String merchantUid);
+    int paySuccessUpdate(String merchantUid);
 
     List<OrdersVO> getMyPurchasedProductList(String customerId);
 
@@ -20,9 +20,22 @@ public interface OrdersMapper {
 
     OrdersVO selectOne(long id);
 
-    void refundUpdate(OrdersVO ordersVO);
+    int refundUpdate(OrdersVO ordersVO);
 
     List<OrdersVO> getMyFrequentPurchasesList(String customerId);
 
     List<OrdersVO> getMyWriteReviewList(String customerId);
+
+    int markAsDelivered();
+
+    List<String> getDeliveredCustomers(int deliveredCount);
+
+    List<OrdersVO> getList();
+
+    int confirmOrderUpdate(OrdersVO ordersVO);
+
+    List<OrdersVO> findExpiredOrders(String merchantUid);
+
+    List<OrdersVO> getMyList(String currentId);
+
 }

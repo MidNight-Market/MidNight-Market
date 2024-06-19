@@ -20,14 +20,14 @@ function updateCategoryOptions() {
 document.getElementById('product-name-input').addEventListener('input', (e) => {
     const nameLength = e.target.value.length;
     const nameError = document.getElementById('product-name-error');
-    if (nameLength < 5) {
-        nameError.innerText = '상품명을 5글자 이상 입력해주세요.';
+    if (nameLength < 2) {
+        nameError.innerText = '상품명을 2글자 이상 입력해주세요.';
     } else {
         nameError.innerText = '';
     }
 
-    if (nameLength > 25) {
-        e.target.value = e.target.value.slice(0, 25);
+    if (nameLength > 45) {
+        e.target.value = e.target.value.slice(0, 45);
         return;
     }
 
@@ -175,9 +175,9 @@ document.getElementById('register-button').addEventListener('click', (e) => {
     productCategoryError.innerText = '';
 
     // 상품이름
-    if (productName.length < 5) {
+    if (productName.length < 2) {
         productNameInput.focus();
-        productNameError.innerText = '상품명을 5글자 이상 입력해주세요.';
+        productNameError.innerText = '상품명을 2글자 이상 입력해주세요.';
         productNameInput.scrollIntoView({behavior: 'smooth', block: 'center'});
         return;
     }
@@ -215,13 +215,13 @@ document.getElementById('register-button').addEventListener('click', (e) => {
 
     //상품대표이미지
     if (file.files.length === 0) {
-        alert('상품 대표 이미지를 등록해주세요.');
+        alert('상품 대표이미지를 등록해주세요.');
         return;
     }
     
     //세부이미지
     if(files.files.length === 0){
-        alert('상품 상세이미지를 등록하여 주세요.');
+        alert('상품 상세이미지를 등록해주세요.');
         return;
     }
 
