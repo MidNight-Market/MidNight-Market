@@ -20,7 +20,6 @@ if (document.getElementById("isReset") != null) {
         if (openPop.closed) {
             clearInterval(popupInterval);
             logout().then(result => {
-                console.log(result);
                 location.reload();
             })
         }
@@ -77,69 +76,154 @@ $('#autoComplete').autocomplete({
     autoFocus: true,
     delay: 100,
     select: function (evt, ui) {
-        console.log(ui.item.label);
     },
     open: function () {
         $('#recentSearch').hide();
     }
 });
-
 document.getElementById('autoComplete').addEventListener('focus', () => {
-    document.getElementById('recentSearch').style.display = 'block';
+    let saveStatus = window.localStorage.getItem("saveStatus");
     let searchHistory = window.localStorage.getItem("searchHistory");
-    let parseData = JSON.parse(searchHistory);
-    let count = 1;
-    document.getElementById('recentSearch').innerHTML = ''; // Clear previous entries
-    for (let i = 0; i < parseData.length; i++) {
-        document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=product&search=${parseData[i]}" style="color: black">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
-        count++;
+    if(saveStatus == "false") {
+        document.getElementById('recentSearch').style.display = '';
+        document.getElementById('recentSearch').innerHTML = `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="offRecent">최근검색어 저장 켜기</button>`
+    }else{
+        document.getElementById('recentSearch').style.display = '';
+        let parseData = JSON.parse(searchHistory);
+        let count = 1;
+        if(parseData != null){
+            document.getElementById('recentSearch').innerHTML = '';
+            for (let i = parseData.length - 1; i >= 0; i--) {
+                document.getElementById('recentSearch').innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <a href="/product/list?type=product&search=${parseData[i]}" id="aId${count}">${parseData[i]}</a><button type="button" class="delBtn" id="delBtn${count}" style="border: none; background-color: white; color: rgba(116,116,116,0.8); font-size: 20px">X</button><br>`;
+                count++;
+            }
+            document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="delAll">&nbsp;&nbsp;전체 삭제 &nbsp; | </button>`
+            document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="offRecent">최근검색어 저장 끄기</button>`
+        }
     }
 });
-
-
-document.getElementById('searchButton').addEventListener('click', () => {
-    let searchVal = document.getElementById('autoComplete').value;
+function searchPrevVal(word){
     let prevData = window.localStorage.getItem("searchHistory");
-    if (prevData == null) {
-        let saveHistoryArr = [];
-        saveHistoryArr.push(searchVal);
-        window.localStorage.setItem("searchHistory", JSON.stringify(saveHistoryArr));
-    } else {
-        let preletr = JSON.parse(prevData);
-        preletr.push(searchVal);
-        window.localStorage.setItem("searchHistory", JSON.stringify(preletr));
+    let parsingData = JSON.parse(prevData);
+    for(let i=0; i<parsingData.length; i++){
+        if(parsingData[i] == word){
+            return false;
+        }else{
+            return true;
+        }
     }
+}
 
-    //요기 수정
-    let search = encodeURI(searchVal);
-    window.location.href = `/product/list?type=product&search=${search}`;
+
+document.getElementById('searchButton').addEventListener('click', (e) => {
+    let saveStatus = window.localStorage.getItem("saveStatus");
+    if(saveStatus == null){
+        window.localStorage.setItem("saveStatus", "true");
+    }
+    let searchVal = document.getElementById('autoComplete').value;
+    if(searchVal == null || searchVal.length === 0){
+        alert("검색어가 공백입니다. ");
+    }else{
+        if(saveStatus == "true" || saveStatus == null){
+            let prevData = window.localStorage.getItem("searchHistory");
+            if (prevData == null) {
+                let saveHistoryArr = [];
+                saveHistoryArr.push(searchVal);
+                window.localStorage.setItem("searchHistory", JSON.stringify(saveHistoryArr));
+            } else {
+                if(searchPrevVal(searchVal)){
+                    let prev = JSON.parse(prevData);
+                    prev.push(searchVal);
+                    window.localStorage.setItem("searchHistory", JSON.stringify(prev));
+                }else{
+                    let prev = JSON.parse(prevData);
+                    let index;
+                    for(let i=0; i<prev.length; i++){
+                        if(prev[i]==searchVal){
+                            index = i;
+                        }
+                    }
+                    prev.splice(index,1);
+                    prev.push(searchVal);
+                    window.localStorage.setItem("searchHistory", JSON.stringify(prev));
+                }
+            }
+        }
+        let search = encodeURI(searchVal);
+        window.location.href = `/product/list?type=product&search=${search}`;
+    }
 });
+document.body.addEventListener('click',(e)=>{
+    let str = e.target.id;
+    if (str.includes('aId')) {
+        let num = parseInt(str.replace('aId', ''));
+        let storage = window.localStorage.getItem("searchHistory");
+        let parseData = JSON.parse(storage);
+        let delNum = parseData.length-num;
+        parseData.splice(delNum, 1);
+        let clickVal = document.getElementById(str).innerText;
+        parseData.push(clickVal);
+        let stringifyArr = JSON.stringify(parseData);
+        window.localStorage.setItem("searchHistory", stringifyArr);
+    }
+})
 
 document.getElementById('recentSearch').addEventListener('click', (e) => {
     let str = e.target.id;
     if (str.includes('delBtn')) {
-        console.log("test");
         let id = e.target.id;
-        let num = parseInt(id.replace('delBtn', '')); // Parse button number
+        let num = parseInt(id.replace('delBtn', ''));
         let storage = window.localStorage.getItem("searchHistory");
         let parseData = JSON.parse(storage);
-
-        // num-1 위치의 요소를 제거
-        parseData.splice(num - 1, 1);
-
-        // 수정된 배열을 다시 JSON 문자열로 변환하여 저장
+        let delNum = parseData.length-num+1;
+        parseData.splice(delNum-1, 1);
         let stringifyArr = JSON.stringify(parseData);
         window.localStorage.setItem("searchHistory", stringifyArr);
 
-        // 최근 검색어 목록 업데이트
         document.getElementById('recentSearch').innerHTML = '';
         let count = 1;
-        for (let i = 0; i < parseData.length; i++) {
-            document.getElementById('recentSearch').innerHTML += `<a href="/product/list?type=product&search=${parseData[i]}" style="color: black">${parseData[i]}</a><button type="button" id="delBtn${count}" style="border: none; background-color: white">X</button><br>`;
+        for (let i = parseData.length - 1; i >= 0; i--) {
+            document.getElementById('recentSearch').innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <a href="/product/list?type=product&search=${parseData[i]}" id="aId${count}">${parseData[i]}</a><button type="button" class="delBtn" id="delBtn${count}" style="border: none; background-color: white; color: rgba(116,116,116,0.8); font-size: 20px">X</button><br>`;
             count++;
+        }
+        document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="delAll">&nbsp;&nbsp;전체 삭제 &nbsp; | </button>`
+        document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="offRecent">최근검색어 저장 끄기</button>`
+    }else if(e.target.id == "delAll"){
+        e.preventDefault();
+        window.localStorage.removeItem("searchHistory");
+        document.getElementById('recentSearch').innerHTML = `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="delAll">&nbsp;&nbsp;전체 삭제 &nbsp; | </button>`;
+        document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="offRecent">최근검색어 저장 끄기</button>`
+    }else if(e.target.id == "offRecent"){
+        e.preventDefault();
+        let saveStatus = window.localStorage.getItem("saveStatus");
+        if(saveStatus == "true") {
+            saveOff();
+            window.localStorage.removeItem("searchHistory");
+            document.getElementById('recentSearch').innerHTML = `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="offRecent">최근검색어 저장 끄기</button>`
+            document.getElementById('offRecent').innerHTML = "최근검색어 저장 켜기"
+        }else{
+            saveOff();
+            document.getElementById('offRecent').innerHTML = "최근검색어 저장 끄기"
         }
     }
 });
+
+
+function saveOff(){
+    let saveStatus = window.localStorage.getItem("saveStatus");
+    if(saveStatus == "true"){
+        window.localStorage.setItem("saveStatus", "false");
+    }else{
+        window.localStorage.setItem("saveStatus", "true");
+    }
+}
+
 
 let notificationDiv = null;
 
@@ -156,7 +240,10 @@ async function fetchNotifications() {
     try {
         let response = await fetch('/notification/notifications');
         if (response.ok) {
-            return await response.json();
+            let notifications = await response.json();
+            // 최근 알림이 가장 위에 오도록 정렬
+            notifications.sort((a, b) => new Date(b.notifyDate) - new Date(a.notifyDate));
+            return notifications;
         } else {
             console.error('Failed to fetch notifications');
             return [];
@@ -167,16 +254,14 @@ async function fetchNotifications() {
     }
 }
 
-async function deleteNotification(content,id) {
-    console.log(content)
-    console.log(id)
+async function deleteNotification(content, id) {
     try {
-        let response = await fetch(`/notification/${content}/${id}`, {
+        let response = await fetch(`/notification/${content}/${loginId}`, {
             method: 'DELETE',
         });
         if (response.ok) {
             console.log('Notification deleted');
-            showNotification();
+            await showNotification(); // 알림을 새로고침
         } else {
             console.error('Failed to delete notification');
         }
@@ -191,54 +276,85 @@ async function showNotification(event) {
         event.preventDefault();
         window.location.href = "http://localhost:8090/login/form";
     } else {
-        if (notificationDiv) {
+        if (notificationDiv && event) {
             document.body.removeChild(notificationDiv);
             notificationDiv = null;
             return;
         }
 
-        let button = event.target;
-        let rect = button.getBoundingClientRect();
+        if (!notificationDiv) {
+            let button = event ? event.target : document.getElementById('notificationButton');
+            let rect = button.getBoundingClientRect();
 
-        notificationDiv = document.createElement('div');
-        notificationDiv.className = 'notification';
+            notificationDiv = document.createElement('div');
+            notificationDiv.className = 'notification';
 
-        let notifications = await fetchNotifications();
-        notifications.forEach(notification => {
-            let notificationItem = document.createElement('div');
-            notificationItem.className = 'notification-item';
+            let notifications = await fetchNotifications();
+            notifications.forEach(notification => {
+                let notificationItem = document.createElement('div');
+                notificationItem.className = 'notification-item';
 
-            let notificationText = document.createElement('div');
-            notificationText.className = 'notification-content';
-            notificationText.textContent = notification.notifyContent;
-            notificationText.onclick = toggleNotificationContent;
+                let notificationText = document.createElement('div');
+                notificationText.className = 'notification-content';
+                notificationText.textContent = notification.notifyContent;
+                notificationText.onclick = toggleNotificationContent;
 
-            let notificationTime = document.createElement('div');
-            notificationTime.className = 'notification-time';
-            let timeVal = getTimeDiff(notification.notifyDate);
-            notificationTime.textContent = timeVal;
+                let notificationTime = document.createElement('div');
+                notificationTime.className = 'notification-time';
+                let timeVal = getTimeDiff(notification.notifyDate);
+                notificationTime.textContent = timeVal;
 
-            let deleteBtn = document.createElement('button');
-            deleteBtn.className = 'notification-button';
-            deleteBtn.textContent = "X";
-            deleteBtn.onclick = function () {
-                deleteNotification(notification.notifyContent,id);
-            };
+                let deleteBtn = document.createElement('button');
+                deleteBtn.className = 'notification-button';
+                deleteBtn.textContent = "X";
+                deleteBtn.onclick = function () {
+                    deleteNotification(notification.notifyContent, notification.id);
+                };
 
-            notificationItem.appendChild(notificationText);
-            notificationItem.appendChild(notificationTime);
-            notificationItem.appendChild(deleteBtn);
-            notificationDiv.appendChild(notificationItem);
-        });
+                notificationItem.appendChild(notificationText);
+                notificationItem.appendChild(notificationTime);
+                notificationItem.appendChild(deleteBtn);
+                notificationDiv.appendChild(notificationItem);
+            });
 
-        document.body.appendChild(notificationDiv);
-        notificationDiv.style.top = (rect.bottom + window.scrollY) + 15 + 'px';
-        notificationDiv.style.left = (rect.right + window.scrollX) + 20 - notificationDiv.offsetWidth + 'px';
+            document.body.appendChild(notificationDiv);
+            notificationDiv.style.top = (rect.bottom + window.scrollY) + 15 + 'px';
+            notificationDiv.style.left = (rect.right + window.scrollX) + 20 - notificationDiv.offsetWidth + 'px';
+        } else {
+            let notifications = await fetchNotifications();
+            notificationDiv.innerHTML = ''; // 기존 알림 내용을 초기화
+            notifications.forEach(notification => {
+                let notificationItem = document.createElement('div');
+                notificationItem.className = 'notification-item';
+
+                let notificationText = document.createElement('div');
+                notificationText.className = 'notification-content';
+                notificationText.textContent = notification.notifyContent;
+                notificationText.onclick = toggleNotificationContent;
+
+                let notificationTime = document.createElement('div');
+                notificationTime.className = 'notification-time';
+                let timeVal = getTimeDiff(notification.notifyDate);
+                notificationTime.textContent = timeVal;
+
+                let deleteBtn = document.createElement('button');
+                deleteBtn.className = 'notification-button';
+                deleteBtn.textContent = "X";
+                deleteBtn.onclick = function () {
+                    deleteNotification(notification.notifyContent, notification.id);
+                };
+
+                notificationItem.appendChild(notificationText);
+                notificationItem.appendChild(notificationTime);
+                notificationItem.appendChild(deleteBtn);
+                notificationDiv.appendChild(notificationItem);
+            });
+        }
     }
-
 }
 
 document.getElementById('notificationButton').onclick = showNotification;
+
 
 function getTimeDiff(notificationDate) {
     let currentDate = new Date();
@@ -318,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
 async function GetBasketQuantity(customerId) {
 
     if (customerId == null || customerId === '') {
-        console.log('고객이 아님');
         return;
     }
 
@@ -327,7 +442,6 @@ async function GetBasketQuantity(customerId) {
         const result = await response.text();
 
         if (result !== null || result !== '') {
-            console.log(result);
             document.getElementById('basketBadge').innerText = result; //값 집어넣음
         }
 

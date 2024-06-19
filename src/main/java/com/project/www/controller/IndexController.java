@@ -76,6 +76,9 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/dd")
+    public void dd(){}
+
 
 
 
