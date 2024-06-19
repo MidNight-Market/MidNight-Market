@@ -57,7 +57,7 @@ public class PaymentServiceImple implements PaymentService {
 
         try {
             //결제 정보 객체에 저장
-            paymentDTO.setPayDescription(productVO.getName() + paymentQuantity + "개"); //상품결제 설명 저장
+            paymentDTO.setPayDescription(productVO.getName() + "  " + paymentQuantity + "개"); //상품결제 설명 저장
             paymentDTO.setOriginalPrice(originalPayment); //할인되기 전 기존가격 저장 (할인금액 구하기 위해)
             paymentDTO.setPayPrice(discountPayment); //실제 결제가격 저장
 
@@ -109,9 +109,10 @@ public class PaymentServiceImple implements PaymentService {
 
         try {
             String productName = "";
-            long productCount = 0;
+            long productCount = -1;
             long originalPrice = 0;
             long payPrice = 0;
+            long productQuantity = 0;
 
             // 내 장바구니 리스트
             List<BasketVO> basketList = basketMapper.getMyBasket(paymentDTO.getCustomerId());
@@ -132,6 +133,7 @@ public class PaymentServiceImple implements PaymentService {
                 if (bsv.getQty() != 0) {//상단에 이름 저장하기위해 수량이 0이 아닌 상품의 이름을 가져옴
                     productName = productVO.getName();
                     productCount += 1;
+                    productQuantity = bsv.getQty();
                 }
                 originalPrice += bsv.getQty() * productVO.getPrice();
                 payPrice += bsv.getQty() * productVO.getDiscountPrice();
@@ -140,7 +142,7 @@ public class PaymentServiceImple implements PaymentService {
                 productList.add(productVO);
             }
 
-            paymentDTO.setPayDescription(productName + (productCount <= 1 ? paymentDTO.getQty() + "개" : " 외 (" + productCount + " 개)"));
+            paymentDTO.setPayDescription(productName + "  " + (productCount <= 0 ? productQuantity + " 개" : " 외 (" + productCount + " 개)"));
             paymentDTO.setOriginalPrice(originalPrice);
             paymentDTO.setPayPrice(payPrice);
 

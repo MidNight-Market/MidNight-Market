@@ -1,5 +1,6 @@
 package com.project.www.service;
 
+import com.project.www.domain.AddressVO;
 import com.project.www.domain.CustomerVO;
 import com.project.www.repository.CustomerMapper;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +56,10 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public List<CustomerVO> getList() {
         return customerMapper.getList();
+    }
+
+    @Override
+    public List<AddressVO> getMyAddrList(String customerId) {
+        return customerMapper.getMyAddrList(customerId);
     }
 }
