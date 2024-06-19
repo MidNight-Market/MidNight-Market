@@ -245,6 +245,26 @@
             color: rgb(181, 181, 181);
         }
 
+        .mypage2_text3 {
+            cursor: pointer;
+        }
+
+        .mypage2_text3:hover {
+            text-decoration: underline;
+        }
+
+        .mypage3_text2 {
+            margin: 5px 0;
+        }
+
+        #address {
+            margin-left: 110px;
+        }
+
+        #addressContainer {
+            margin-bottom: 20px;
+        }
+
     </style>
     <link rel="stylesheet" th:href="@{/dist/css/myPage/slang.css}">
     <link rel="stylesheet" th:href="@{/dist/css/myPage/purchasedProduct.css}">
@@ -388,26 +408,23 @@
             <div class="mypage2_box1">
                 <span class="mypage2_text1">배송지 관리</span>
                 <span class="mypage2_text2">배송지에 따라 상품 정보 및 배송 유형이 달라질 수 있습니다.</span>
-                <a href=""><span class="mypage2_text3">+ 배송지 추가</span></a>
+                <a><span class="mypage2_text3" id="addressAddBtn">+ 배송지 설정</span></a>
             </div>
             <hr class="hr2">
-            <div class="mypage2_box2">
-                <ul>
-                    <li>
-                        <a href="">
-                            <label class="checkbox_label">
-                                <input type="checkbox">
-                                <span class="checkbox_icon"></span>
-                            </label>
-                        </a>
-                        <div class="mypage2_box2-1">
-                            <span class="mypage2_text4">기본 배송지</span>
-                            <span class="mypage2_text5">인천 남동구 남동대로 123번길 123동 123호</span>
-                        </div>
-                    </li>
-                </ul>
+
+            <div class="page-info-box" style="background-color: violet">
+                <div th:each="avo : ${list}" id="addressContainer" th:data="${avo.isMain}">
+                    <div class="mypage3_text2" id="addName">
+                        <span class="mypage2_text4" th:text="${avo.isMain == 'Y' ? '기본배송지' : '추가배송지'}"></span>
+                        [[${avo.addrName}]]
+                    </div>
+                    <span class="mypage3_text3" id="address">
+                        [[${avo.address}]]
+                    </span>
+                </div>
             </div>
         </div>
+
         <div id="d8" style="display: none;">
             <div class="mypage2_box1">
                 <span class="mypage2_text1">개인정보 수정</span>
@@ -542,11 +559,15 @@
     window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
         const defaultTab = urlParams.get('defaultTab');
+        const reloadTab = urlParams.get('reload');
         const select_button = document.querySelectorAll('.mypage_text8');
         if (defaultTab) {
             // 기본 탭 선택 로직
             select_button[2].click();
-        } else {
+        }else if(reloadTab){
+            select_button[6].click();
+        }
+        else {
             select_button[0].click();
         }
     }
@@ -610,13 +631,13 @@
                 if (select_button.length > 0) {
                     select_button[0].click();
                 }
+            }
+            if(target === 7){
 
             }
-
-            console.log('등등');
         }
-
     });
+
     document.getElementById('addCoupon').addEventListener('click', () => {
         let couponContainer = document.getElementById('couponContainer');
         if (couponContainer) {
@@ -673,7 +694,7 @@
 
             submitButton.addEventListener('click', () => {
                 const couponCode = input.value;
-                searchCoupon(couponCode,customerId).then(result => {
+                searchCoupon(couponCode, customerId).then(result => {
                     if (result > 0) {
                         if (confirm("쿠폰을 등록하시겠습니까?")) {
                             addCoupon(customerId, result).then(result => {
@@ -686,9 +707,9 @@
                                 }
                             });
                         }
-                    } else if(result == -2){
+                    } else if (result == -2) {
                         alert("이미 등록된 쿠폰입니다. ");
-                    }else{
+                    } else {
                         alert("존재하지않는 쿠폰입니다. 다시입력해주세요.");
                     }
                 });
@@ -700,9 +721,9 @@
     });
 
 
-    async function searchCoupon(couponCode,customerId) {
+    async function searchCoupon(couponCode, customerId) {
         try {
-            const url = '/coupon/search/'+couponCode+"/"+customerId;
+            const url = '/coupon/search/' + couponCode + "/" + customerId;
             const config = {
                 method: 'GET'
             };
@@ -729,7 +750,7 @@
     }
 
     function spreadMyCouponList(customerId) {
-        couponListFromServer(customerId).then(result =>{
+        couponListFromServer(customerId).then(result => {
             if (result) {
                 console.log(result)
                 let div = document.getElementById('coupon-list-box');
@@ -770,6 +791,12 @@
             console.log(error);
         }
     }
+
+    let addressAddBtn = document.getElementById('addressAddBtn');
+    addressAddBtn.addEventListener('click', () => {
+        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=700,height=600');
+    });
+
 </script>
 
 </body>

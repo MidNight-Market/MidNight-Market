@@ -1,17 +1,20 @@
 package com.project.www.controller;
 
 import com.project.www.config.oauth2.PrincipalDetails;
+import com.project.www.domain.AddressVO;
 import com.project.www.domain.CustomerVO;
 import com.project.www.domain.NotificationVO;
 import com.project.www.service.CustomerService;
 import com.project.www.service.MailService;
 import com.project.www.service.MemberCouponService;
 import com.project.www.service.NotificationService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -119,7 +122,24 @@ public class CustomerController {
     }
 
     @GetMapping("/myPage")
-    public void myPage() {}
+    public void myPage(Model m, HttpSession session) {
+        String CustomerId = (String) session.getAttribute("id");
+        log.info("아이디 확인>>>>{}", CustomerId);
+        List<AddressVO> list = csv.getMyAddrList(CustomerId);
+
+        // 기본배송지가 맨위로 오게
+        list.sort((a1, a2) -> {
+            if (a1.getIsMain().equals("Y") && a2.getIsMain().equals("N")) {
+                return -1; // a1이 우선순위
+            } else if (a1.getIsMain().equals("N") && a2.getIsMain().equals("Y")) {
+                return 1; // a2가 우선순위
+            } else {
+                return 0; // 동일하면 그대로
+            }
+        });
+        
+        m.addAttribute("list", list);
+    }
 
     @ResponseBody
     @GetMapping("/getList")

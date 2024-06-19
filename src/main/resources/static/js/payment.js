@@ -92,6 +92,7 @@ function selectChange() {
     // "직접 입력"을 선택시 input
     if (selectAddr.value === 'directInput') {
         customerInput.style.display = 'inline';
+        customerInput.style.paddingLeft = '20px';
         customerInput.value = '';
         customerInput.focus();
     } else {
