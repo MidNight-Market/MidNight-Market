@@ -20,7 +20,6 @@ if (document.getElementById("isReset") != null) {
         if (openPop.closed) {
             clearInterval(popupInterval);
             logout().then(result => {
-                console.log(result);
                 location.reload();
             })
         }
@@ -98,7 +97,7 @@ document.getElementById('autoComplete').addEventListener('focus', () => {
                 document.getElementById('recentSearch').innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg>
-                <a href="/product/list?type=product&search=${parseData[i]}">${parseData[i]}</a><button type="button" class="delBtn" id="delBtn${count}" style="border: none; background-color: white; color: rgba(116,116,116,0.8); font-size: 20px">X</button><br>`;
+                <a href="/product/list?type=product&search=${parseData[i]}" id="aId${count}">${parseData[i]}</a><button type="button" class="delBtn" id="delBtn${count}" style="border: none; background-color: white; color: rgba(116,116,116,0.8); font-size: 20px">X</button><br>`;
                 count++;
             }
             document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="delAll">&nbsp;&nbsp;전체 삭제 &nbsp; | </button>`
@@ -109,7 +108,6 @@ document.getElementById('autoComplete').addEventListener('focus', () => {
 function searchPrevVal(word){
     let prevData = window.localStorage.getItem("searchHistory");
     let parsingData = JSON.parse(prevData);
-    console.log(parsingData);
     for(let i=0; i<parsingData.length; i++){
         if(parsingData[i] == word){
             return false;
@@ -158,18 +156,31 @@ document.getElementById('searchButton').addEventListener('click', (e) => {
         window.location.href = `/product/list?type=product&search=${search}`;
     }
 });
+document.body.addEventListener('click',(e)=>{
+    let str = e.target.id;
+    if (str.includes('aId')) {
+        let num = parseInt(str.replace('aId', ''));
+        let storage = window.localStorage.getItem("searchHistory");
+        let parseData = JSON.parse(storage);
+        let delNum = parseData.length-num;
+        parseData.splice(delNum, 1);
+        let clickVal = document.getElementById(str).innerText;
+        parseData.push(clickVal);
+        let stringifyArr = JSON.stringify(parseData);
+        window.localStorage.setItem("searchHistory", stringifyArr);
+    }
+})
 
 document.getElementById('recentSearch').addEventListener('click', (e) => {
     let str = e.target.id;
     if (str.includes('delBtn')) {
         let id = e.target.id;
-        let num = parseInt(id.replace('delBtn', '')); // Parse button number
+        let num = parseInt(id.replace('delBtn', ''));
         let storage = window.localStorage.getItem("searchHistory");
         let parseData = JSON.parse(storage);
         let delNum = parseData.length-num+1;
         parseData.splice(delNum-1, 1);
         let stringifyArr = JSON.stringify(parseData);
-        console.log(stringifyArr)
         window.localStorage.setItem("searchHistory", stringifyArr);
 
         document.getElementById('recentSearch').innerHTML = '';
@@ -178,7 +189,7 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
             document.getElementById('recentSearch').innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg>
-                <a href="/product/list?type=product&search=${parseData[i]}">${parseData[i]}</a><button type="button" class="delBtn" id="delBtn${count}" style="border: none; background-color: white; color: rgba(116,116,116,0.8); font-size: 20px">X</button><br>`;
+                <a href="/product/list?type=product&search=${parseData[i]}" id="aId${count}">${parseData[i]}</a><button type="button" class="delBtn" id="delBtn${count}" style="border: none; background-color: white; color: rgba(116,116,116,0.8); font-size: 20px">X</button><br>`;
             count++;
         }
         document.getElementById('recentSearch').innerHTML += `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="delAll">&nbsp;&nbsp;전체 삭제 &nbsp; | </button>`
@@ -194,7 +205,7 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
         if(saveStatus == "true") {
             saveOff();
             window.localStorage.removeItem("searchHistory");
-            document.getElementById('recentSearch').innerHTML = `<button style=\"border: none; background-color: white; margin: 20px 0 20px 0\" id=\"offRecent\">최근검색어 저장 끄기</button>`
+            document.getElementById('recentSearch').innerHTML = `<button style="border: none; background-color: white; margin: 20px 0 20px 0" id="offRecent">최근검색어 저장 끄기</button>`
             document.getElementById('offRecent').innerHTML = "최근검색어 저장 켜기"
         }else{
             saveOff();
@@ -244,8 +255,6 @@ async function fetchNotifications() {
 }
 
 async function deleteNotification(content, id) {
-    console.log(content)
-    console.log(id)
     try {
         let response = await fetch(`/notification/${content}/${loginId}`, {
             method: 'DELETE',
@@ -425,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
 async function GetBasketQuantity(customerId) {
 
     if (customerId == null || customerId === '') {
-        console.log('고객이 아님');
         return;
     }
 
@@ -434,7 +442,6 @@ async function GetBasketQuantity(customerId) {
         const result = await response.text();
 
         if (result !== null || result !== '') {
-            console.log(result);
             document.getElementById('basketBadge').innerText = result; //값 집어넣음
         }
 
