@@ -60,15 +60,10 @@ public class SellerController {
     }
 
 
-
-    @PutMapping (value = "/productQtyUpdate", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> productQtyUpdate(@RequestBody ProductVO productVO){
-
-        log.info("변경될 수량값 확인>>>>{}", productVO);
-        int isOk = ssv.productQtyUpdate(productVO);
-
-        return isOk > 0 ? new ResponseEntity<String>("true", HttpStatus.OK) :
-            new ResponseEntity<String>("false",HttpStatus.INTERNAL_SERVER_ERROR);
+    @ResponseBody
+    @PutMapping("/myRegisteredProductUpdate")
+    public String myRegisteredProductUpdate(@RequestBody ProductVO productVO){
+        return ssv.myRegisteredProductUpdate(productVO);
     }
 
     @ResponseBody

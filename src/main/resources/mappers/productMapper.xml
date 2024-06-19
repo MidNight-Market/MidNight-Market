@@ -29,7 +29,25 @@
     
     <update id="productQtyUpdate">
         UPDATE product SET
-        total_qty = #{totalQty}
+        total_qty = total_qty + #{totalQty}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="productPriceUpdate">
+        UPDATE product
+        SET
+        price = #{price},
+        discount_price = #{price} - (#{price} * discount_rate / 100)
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateProductDiscountRateDelete">
+        UPDATE product
+        SET
+        discount_rate = 0,
+        discount_price = price
         WHERE
         id = #{id}
     </update>

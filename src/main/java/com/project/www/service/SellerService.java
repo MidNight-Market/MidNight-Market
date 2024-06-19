@@ -12,7 +12,7 @@ public interface SellerService {
 
     List<ProductVO> getMyRegisteredProduct(String id);
 
-    int productQtyUpdate(ProductVO productVO);
+    String myRegisteredProductUpdate(ProductVO productVO);
 
     int checkId(String id);
 

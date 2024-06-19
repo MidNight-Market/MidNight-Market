@@ -47,6 +47,9 @@ a {
 
 .text2 {
     margin-left: 20px;
+    font-size: 15px;
+    color: black;
+    font-weight: 400;
 }
 
 hr {
@@ -138,7 +141,7 @@ hr {
     margin-top: 26px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
 }
 #basketList > .basketList-li{
     width: 100%;
@@ -238,8 +241,7 @@ input[type="checkbox"] {
 /* 체크박스 디자인 */
 .checkbox_icon::before {
     content: "";
-    display: block;
-    margin-right: 5px;
+    margin-right: 12px;
     display: inline-block;
     width: 15px;
     height: 15px;

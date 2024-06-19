@@ -37,15 +37,15 @@ function spreadMyRegisteredProductList(sellerId){
                     if (li.discountRate !== 0) {
                         str += `<p>할인가 : ${li.discountPrice.toLocaleString()} 원</p>`;
                     }
-                    str += `<button id="price" data-productid="${li.id}">기존가 변경</button>`;
+                    str += `<button class="selectUpdate" id="price" data-productid="${li.id}" data-name="${li.name}" data-text="${li.price}">기존가 변경</button>`;
                     str += `</div>`;
                     str += `<div class="quantity-box update-box">`;
                     str += `<p>잔여수량 : ${li.totalQty} 개</p>`;
-                    str += `<button id="quantity" data-productid="${li.id}">수량 추가</button>`;
+                    str += `<button class="selectUpdate" id="quantity" data-productid="${li.id}" data-name="${li.name}" data-text="${li.totalQty}">수량 추가</button>`;
                     str += `</div>`;
                     str += `<div class="discountRate-box update-box">`;
                     str += `<p>할인율 : ${li.discountRate}%</p>`;
-                    str += `<button id="discount" data-productid="${li.id}">할인율 변경</button>`;
+                    str += `<button class="selectUpdate" id="discount" data-productid="${li.id}" data-name="${li.name}" data-text="${li.discountRate}">할인율 변경</button>`;
                     str += `</div>`;
                     str += `<div class="totalSoldQty-box update-box">`;
                     str += `<p>누적판매량 : ${li.totalSoldQty} 개</p>`;
@@ -53,86 +53,75 @@ function spreadMyRegisteredProductList(sellerId){
                     str += `</div>`;
                 }
                 div.innerHTML = str
-            }
 
+                const selectButton = document.querySelectorAll('.selectUpdate');
+
+                selectButton.forEach(button=>{
+
+                    button.addEventListener('click',(e)=>{
+                        const id = e.target.id;
+                        const productId = e.target.dataset.productid;
+                        const name = e.target.dataset.name;
+                        const text = e.target.dataset.text;
+                        openModal(productId,id,name,text);
+                    });
+                });
+            }
         })
     }catch (error){
         console.log(error);
     }
 }
 
-//새로고침을 클릭했을 경우
 document.getElementById('reload').addEventListener('click',()=>{
-    spreadMyRegisteredProductList(sellerId);
+    spreadMyRegisteredProductList(sellerId); //뿌리기
 });
-
-
-
-document.addEventListener('click',(e)=>{
-
-    const id = e.target.id;
-
-    if(id === 'price' || id === 'quantity' || id === 'discount'){//가격변경
-        openModal(id);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
 
 
 let modal = document.getElementById("myModal");
 
 // 모달 열기 (타입, 상품코드)
-function openModal(type) {
+function openModal(productId,id,name,text) {
     let modalContent = document.getElementById("modalContent");
     // 초기화
     modalContent.innerHTML = "";
-
     // 타입에 따라 모달 내용 설정
-    if (type === 'quantity') {
+    if (id === 'quantity') {
         modalContent.innerHTML = `
                     <div class="form-group">
-                    <p>상품명</p>
-                    <p>변경전 수량 : </p>
+                    <p>상품명 : ${name}</p>
+                    <p>변경전 수량 : ${text} 개</p>
                         <label for="quantity">수량:</label>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1">
+                        <input type="number" id="value" name="quantity" value="1" min="1">
                     </div>
                     <div class="form-group">
-                        <button onclick="updateQuantity()">수량 추가</button>
+                        <button onclick="myRegisteredProductUpdate(${productId}, 'quantity')">수량 추가</button>
                     </div>
                 `;
-    } else if (type === 'price') {
+    } else if (id === 'price') {
         modalContent.innerHTML = `
                     <div class="form-group">
-                    <p>상품명</p>
-                    <p>변경전 가격 : </p>
+                    <p>상품명 : ${name}</p>
+                    <p>변경전 가격 : ${Number(text).toLocaleString()} 원</p>
                         <label for="price">새로운 가격:</label>
-                        <input type="number" id="price" name="price" step="0.01" min="0.01">
+                        <input type="number" id="value" name="price" step="0.01" min="0.01">
                     </div>
                     <div class="form-group">
-                        <button onclick="updatePrice()">가격 변경</button>
+                        <button onclick="myRegisteredProductUpdate(${productId}, 'price')">가격 변경</button>
                     </div>
                 `;
-    } else if (type === 'discount') {
+    } else if (id === 'discount') {
         modalContent.innerHTML = `
                     <div class="form-group">
-                    <p>상품명</p>
-                    <p>변경전 할인율 : </p>
+                    <p>상품명 : ${name}</p>
+                    <p>변경전 할인율 : ${text} %</p>
                         <label for="discount">할인율 (%):</label>
-                        <input type="number" id="discount" name="discount" value="0" min="0" max="100">
+                        <input type="number" id="value" name="discount" value="0" min="0" max="100">
                     </div>
                     <div class="form-group">
-                        <button onclick="updateDiscount()">할인율 변경</button>
-                    </div>
+                        <button onclick="myRegisteredProductUpdate(${productId}, 'discount')">할인율 변경</button>
+            ${text !== '0' ? `<button onclick="myRegisteredProductUpdate(${productId}, 'discountDelete')">할인 제거</button>` : ''}
+                                </div>
                 `;
     }
 
@@ -144,91 +133,42 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-// 수량 추가 함수
-function updateQuantity() {
-    let quantity = document.getElementById("quantity").value;
-    alert("수량이 " + quantity + "개 추가되었습니다.");
-    closeModal();
-}
 
-// 가격 변경 함수
-function updatePrice() {
-    let price = document.getElementById("price").value;
-    alert("가격이 $" + price + "로 변경되었습니다.");
-    closeModal();
-}
+async function myRegisteredProductUpdate(productId,id){
 
-// 할인율 변경 함수
-function updateDiscount() {
-    let discount = document.getElementById("discount").value;
-    alert("할인율이 " + discount + "%로 변경되었습니다.");
-    closeModal();
-}
+    const value = document.getElementById('value').value;
 
-// 모달 외부 클릭 시 닫기 기능 제거
-modal.onclick = function(event) {
-    event.stopPropagation();
-};
-
-// 모달 외부 클릭 시 닫기
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
+    if(value < 1 && id !== 'discountDelete'){
+        alert(id + '는 1보다 작을 수 없습니다. \n올바른 값으로 다시 입력해주세요.');
+        return;
     }
-};
 
-
-
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('updateQty')) {
-        // 버튼의 부모 요소(li)에서 .qty 클래스를 가진 input 요소 찾기
-        const productId = e.target.dataset.id;
-        const qtyInput = e.target.closest('li').querySelector('.qty').value;
-        console.log('ID:', productId);
-        console.log('수량:', qtyInput);
-
-        if(qtyInput.length === 0 || qtyInput.val === ''){
-            alert('변경하실 상품의 수량을 입력해주세요.');
-            return;
-        }
-
-        const sendData = {
-            id : productId,
-            totalQty : qtyInput
-        }
-
-        sendUpdateQtyToSeller(sendData).then(result=>{
-            if(result === 'true'){
-                alert('수량변경에 성공하였습니다.');
-                e.target.closest('ul').querySelector('.productQty').innerText = qtyInput;
-                e.target.closest('li').querySelector('.qty').value = '';
-
-            }
-        })
-
+    const data = {
+        id : parseInt(productId),
+        description : id,
+        price : value,
+        totalQty: value,
+        discountRate: value
     }
-});
-
-async function sendUpdateQtyToSeller(sendData){
-
     try {
-        const url = '/seller/productQtyUpdate';
+        const url = '/seller/myRegisteredProductUpdate';
         const config = {
-            method : 'put',
+            method : 'PUT',
             headers : {
                 'content-type' : 'application/json; charset = utf-8'
             },
-            body : JSON.stringify(sendData)
+            body : JSON.stringify(data)
         }
-
-        const resp = await  fetch(url,config);
+        const resp = await fetch(url,config);
         const result = await resp.text();
-        return result;
+
+        alert(result);
+        spreadMyRegisteredProductList(sellerId);
+        closeModal();
 
     }catch(error){
         console.log(error);
     }
-
 }
 
 
