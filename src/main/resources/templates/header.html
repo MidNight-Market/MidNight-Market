@@ -27,7 +27,7 @@
                     </div>
                     <div class="search_part">
                         <input type="text" class="search_bar" id="autoComplete" placeholder="찾고 싶은 상품을 검색해보세요!"
-                               onfocus="this.placeholder=''" onblur='this.placeholder="찾고 싶은 상품을 검색해보세요!"'>
+                               onfocus="this.placeholder=''" onblur='this.placeholder="찾고 싶은 상품을 검색해보세요!"' onkeydown="handleEnter(event)">
                         <div id="recentSearch" style="display: none"></div>
                         <button type="button" id="searchButton"><img th:src="@{/dist/icon/search.gif}"></button>
                     </div>

@@ -213,7 +213,34 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
         }
     }
 });
+function handleEnter(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+    }
+}
+const autoCompleteInput = document.getElementById('autoComplete');
+const recentSearchDiv = document.getElementById('recentSearch');
 
+autoCompleteInput.addEventListener('blur', (e) => {
+    if (!e.relatedTarget || !isDescendant(recentSearchDiv, e.relatedTarget)) {
+        recentSearchDiv.style.display = "none";
+    }
+});
+
+recentSearchDiv.addEventListener('focus', () => {
+    recentSearchDiv.style.display = "block";
+});
+
+function isDescendant(parent, child) {
+    let node = child.parentNode;
+    while (node != null) {
+        if (node === parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
 
 function saveOff(){
     let saveStatus = window.localStorage.getItem("saveStatus");
@@ -223,7 +250,10 @@ function saveOff(){
         window.localStorage.setItem("saveStatus", "true");
     }
 }
-
+document.body.addEventListener('wheel',()=>{
+    document.getElementById('recentSearch').style.display = "none";
+    document.getElementById('autoComplete').blur();
+})
 
 let notificationDiv = null;
 
