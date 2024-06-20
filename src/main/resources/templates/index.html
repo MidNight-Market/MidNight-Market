@@ -27,9 +27,6 @@
     </div>
 </form>
 <a th:href="@{/chat/page}">dd</a>
-<th:block sec:authorize="isAuthenticated()">
-    <p th:text="${#authentication.principal == null ? '없음' : #authentication.principal.nickName}"></p>
-</th:block>
 <section>
     <!--광고배너(자동슬라이드&버튼)-->
     <div class="inner sectionBox">
