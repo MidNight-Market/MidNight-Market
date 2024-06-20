@@ -839,19 +839,19 @@ input[type=checkbox]{
 }
 .price-info{
     width: 320px;
-    height: 400px;
+    height: 353px;
     position: fixed;
-    background-color: #6f42c1;
-    top: 47%;
+    /*background-color: #6f42c1;*/
+    top: 40%;
     right: 2%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.price-info div:first-child{
+.price-info > .info-title:first-child{
     width: 100%;
     height: 16%;
-    background-color: #03c75a;
+    /*background-color: #03c75a;*/
     font-size: 19px;
     font-weight: 500;
     display: flex;
@@ -860,8 +860,96 @@ input[type=checkbox]{
 }
 .price-desc{
     width: 98%;
-    height: 76%;
+    height: 85%;
     background-color: rgb(250, 250, 250);
-    border: 1px solid rgb(242, 242, 242)
-
+    border: 1px solid rgb(242, 242, 242);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.main-desc{
+    width: 95%;
+    height: 46px;
+    /*background-color: #6f42c1;*/
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 500;
+}
+.sub-desc{
+    width: 95%;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.main-content{
+    width: 35%;
+    height: 46px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    /*border: 1px solid black;*/
+}
+
+.sub-title{
+    width: 50%;
+    height: 30px;
+    display: flex;
+    justify-content: start;
+}
+
+.sub-content{
+    width: 35%;
+    height: 30px;
+    display: flex;
+    justify-content: end;
+    /*border: 1px solid black;*/
+}
+.main-title{
+    justify-content: start;
+}
+.last-desc{
+    width: 95%;
+    height: 84px;
+    /*background-color: #6f42c1;*/
+    display: flex;
+    justify-content: space-between;
+    font-size: 19px;
+    font-weight: 500;
+    align-items: center;
+    border-top: 1px solid lightgray;
+}
+.last-content{
+    width: 35%;
+    height: 46px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    /*border: 1px solid black;*/
+}
+.last-title{
+    justify-content: start;
+}
+
+.coupon-content{
+    width: 227px;
+    height: 48px;
+    /*background-color: #6f42c1;*/
+    margin-right: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.coupon-content button {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border:1px solid lightgray;
+}
+
+
+
+
