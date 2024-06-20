@@ -211,6 +211,8 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
             saveOff();
             document.getElementById('offRecent').innerHTML = "최근검색어 저장 끄기"
         }
+    }else{
+
     }
 });
 function handleEnter(event) {
