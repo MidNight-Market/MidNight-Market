@@ -30,10 +30,9 @@ public class OauthCustomAuthenticationSuccessHandler extends SimpleUrlAuthentica
         }
         if (returnUrlFromCookie != null && !returnUrlFromCookie.isEmpty()) {
             getRedirectStrategy().sendRedirect(request, response, returnUrlFromCookie);
-            return; // 처리 후 메서드 종료
+            return;
         }
 
-        // 기본 처리
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }
