@@ -119,12 +119,12 @@
     <div class="login-box">
         <div class="input-box">
 
-            <input type="text" class="box-size" name="id" placeholder="아이디">
+            <input type="text" class="box-size" name="id" id="id" placeholder="아이디">
             <input type="password" class="box-size" name="pw" placeholder="비밀번호">
         </div>
         <div class="other-info-box">
             <label>
-                <input type="checkbox">
+                <input type="checkbox" id="rememberId">
                 <span style="margin-right: 15px;">아이디저장</span>
             </label>
             <a href="/customer/findId" id="cusOnly1"><span>아이디 찾기 |</span></a>
@@ -194,6 +194,15 @@
             }
         });
     });
+    let checkBox = document.getElementById('rememberId');
+    checkBox.addEventListener('click',()=>{
+        console.log(checkBox.checked);
+        if(checkBox.checked){
+            let id = document.getElementById('id').value;
+            let obj = {}
+            window.localStorage.setItem("saveId")
+        }
+    })
 
 </script>
 
