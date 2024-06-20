@@ -133,9 +133,9 @@
         </div>
         <button type="submit" class="box-size form-box" id="login">로그인</button>
         <div class="social-icon">
-            <a href="/oauth2/authorization/google"><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
-            <a href="/oauth2/authorization/kakao"><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
-            <a href="/oauth2/authorization/naver"><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
+            <a href="/oauth2/authorization/google" class="socialLogin"><div style="background-image: url(/dist/image/social-image/google.png);"></div></a>
+            <a href="/oauth2/authorization/kakao"  class="socialLogin"><div style="background-image: url(/dist/image/social-image/kakao.png);"></div></a>
+            <a href="/oauth2/authorization/naver"  class="socialLogin"><div style="background-image: url(/dist/image/social-image/naver.png);"></div></a>
         </div>
 
     </div>
@@ -223,6 +223,12 @@
     if(parseData.saveStatus == true){
         checkBox.checked = true;
         document.getElementById('id').value = parseData.id;
+    }
+    let social = document.querySelectorAll('.socialLogin');
+    for(let i=0; i<social.length; i++){
+        social[i].addEventListener('click',()=>{
+            window.localStorage.removeItem("saveId");
+        })
     }
 </script>
 
