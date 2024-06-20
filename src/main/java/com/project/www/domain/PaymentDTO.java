@@ -29,5 +29,6 @@ public class PaymentDTO {
     private OrdersVO ordersVO;
     private List<OrdersVO> ordersList;
     private AddressVO addressVO; //배송지
-
+    private long usedCouponId;
+    private long usedPoint;
 }

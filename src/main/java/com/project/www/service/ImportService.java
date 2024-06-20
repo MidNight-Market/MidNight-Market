@@ -1,6 +1,10 @@
 package com.project.www.service;
 
+import com.project.www.domain.CouponVO;
+import com.project.www.domain.MemberCouponVO;
 import com.project.www.domain.PaymentDTO;
+import com.project.www.repository.CouponMapper;
+import com.project.www.repository.MemberCouponMapper;
 import com.project.www.repository.PaymentMapper;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -22,6 +26,12 @@ public class ImportService {
 
     @Autowired
     private PaymentMapper paymentMapper;
+
+    @Autowired
+    private CouponMapper couponMapper;
+
+    @Autowired
+    private MemberCouponMapper memberCouponMapper;
 
     public ImportService() {
         this.api = new IamportClient(
@@ -46,12 +56,25 @@ public class ImportService {
 
         //현재 merchantUid로 DB에 저장된 가격 가져오기
        PaymentDTO preparePaymentDTO = paymentMapper.getMyPaymentProduct(paymentDTO.getMerchantUid());
-       BigDecimal preparePrice = BigDecimal.valueOf(preparePaymentDTO.getPayPrice()); //DB에 저장되어있는 결제 금액
+       CouponVO couponVO = couponMapper.getUsedCoupon(preparePaymentDTO.getUsedCouponId());
+       int isUsedCoupon = memberCouponMapper.isExist(preparePaymentDTO.getUsedCouponId(), preparePaymentDTO.getCustomerId());
+
+       long paid = preparePaymentDTO.getPayPrice(); //실제 가격을 가져옴
+
+        if(paymentDTO.getUsedPoint() != 0){ //포인트를 사용했다면
+            paid -= paymentDTO.getUsedPoint();
+        }
+
+        if(isUsedCoupon != 0){ //쿠폰을 사용했다면
+            paid -= couponVO.getDiscountAmount();
+        }
+
+       BigDecimal preparePrice = BigDecimal.valueOf(paid); //DB에 저장되어있는 결제 금액
 
         IamportResponse<Payment> iamportResponse = api.paymentByImpUid(paymentDTO.getImpUid());
         BigDecimal paidPrice = iamportResponse.getResponse().getAmount(); //실제로 결제한 금액
 
-        if(!preparePrice.equals(paidPrice)){
+        if(!preparePrice.equals(paidPrice)){ //가격이 불일치할경우 결제 취소
             CancelData cancelData = cancelPayment(iamportResponse);
         }
 

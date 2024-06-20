@@ -19,4 +19,10 @@
     <select id="getCouponList" resultType="com.project.www.domain.CouponVO">
         select * from coupon where id = #{tmpCouponId}
     </select>
+    
+    <select id="getUsedCoupon" resultType="com.project.www.domain.CouponVO">
+        SELECT * FROM coupon
+        WHERE
+        id = #{couponId}
+    </select>
 </mapper>

@@ -1,46 +1,48 @@
 let myBasket;
 
 // 선택 삭제
-$('#select-delete').click(function (event) {
+$(document).ready(function () {
+    $('#select-all').on('click', '#select-delete', function (event) {
+        event.preventDefault();
 
-    event.preventDefault();
-    const checkedCount = $('.checkbox:checked').length;
+        const checkedCount = $('.basketCheckbox:checked').not('[id="basketCheckboxAll"]').length;
 
-    console.log(checkedCount);
+        console.log(checkedCount);
 
-    if(checkedCount === 0){ //체크가 모두 안되어 있을경우
-        return;
-    }
-
-    if(!confirm('정말로 삭제하시겠습니까?')){
-    event.preventDefault(); // 기본 동작을 막음
-        return;
-    }
-
-    let checkedValues = [];
-    $('.basketCheckbox:checked').each(function () {
-        checkedValues.push({customerId: customerId, productId: $(this).val()});
-    });
-
-    $.ajax({
-        type: 'DELETE',
-        url: '/basket/delete',
-        contentType: 'application/json',
-        data: JSON.stringify(checkedValues),
-        success: function (response) {
-            console.log(response);
-            // 리스트 뿌리기
-            const checkedLength = checkedValues.length;
-            let basketBadge = document.getElementById('basketBadge');
-            basketBadge.innerText = String(parseInt(basketBadge.innerText) - checkedLength);
-
-            //1개만 남을경우 높이가 위에가 너무 떠서 설정
-
-            spreadMyBasketList(customerId);
-
+        if (checkedCount === 0) { // 체크가 모두 안되어 있을 경우
+            return;
         }
+
+        if (!confirm('정말로 삭제하시겠습니까?')) {
+            return;
+        }
+
+        let checkedValues = [];
+        $('.basketCheckbox:checked').each(function () {
+            checkedValues.push({customerId: customerId, productId: $(this).val()});
+        });
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/basket/delete',
+            contentType: 'application/json',
+            data: JSON.stringify(checkedValues),
+            success: function (response) {
+                console.log(response);
+                // 리스트 뿌리기
+                const checkedLength = $('.basketCheckbox:checked').not('[id="basketCheckboxAll"]').length;
+                let basketBadge = document.getElementById('basketBadge');
+                basketBadge.innerText = String(parseInt(basketBadge.innerText) - checkedLength);
+
+                spreadMyBasketList(customerId);
+            },
+            error: function (error) {
+                console.error('삭제 실패: ', error);
+            }
+        });
     });
 });
+
 
 // 상품 계산 및 리스트 뿌리기
 $(document).on('click', '.box1 button', function () {
@@ -99,14 +101,14 @@ function myBasketList(response) {
     if (response.length > 0) {
         for (let i = 0; i < response.length; i++) {
 
-            if(!response[i].checked){ //하나라도 체크되어있지 않다면
+            if (!response[i].checked) { //하나라도 체크되어있지 않다면
                 basketCheckboxAll.checked = false;
                 basketCheckboxAll.dataset.isChecked = 'all';
             }
 
-            if(response[i].checked){ //체크되어있는 Item만 가격 추가
-            total_price += response[i].qty * response[i].productVO.price;
-            payment_price += response[i].qty * response[i].productVO.discountPrice;
+            if (response[i].checked) { //체크되어있는 Item만 가격 추가
+                total_price += response[i].qty * response[i].productVO.price;
+                payment_price += response[i].qty * response[i].productVO.discountPrice;
             }
             let li = $('<li class="basketList-li"></li>');
 
@@ -149,44 +151,10 @@ function myBasketList(response) {
         $('#product-total-price-text').text(payment_price.toLocaleString('ko-KR') + ' 원');
         $('#basketBadge').text(String(response.length));
 
-        //체크박스 클릭하면 비동기로 업데이트
-        $(document).ready(function(){ //시작되고
-
-            $('.basketCheckbox').click(function (){ //체크박스를 클릭했을 때
-
-                const productId = $(this).val(); //체크박스 밸류 상품 아이디 가져옴
-                const isChecked = $(this).data('isChecked'); //체크상태를 가져옴
-
-                console.log('체크박스 클릭함 : ',productId);
-                console.log('체크박스 업데이트할때  : ',isChecked);
-
-                const data = {
-                    customerId: customerId,
-                    productId : productId,
-                    type : isChecked //0이면 false 1이면 true
-                }
-
-                $.ajax({
-                    type: 'PUT',
-                    url: '/basket/checkedUpdate',
-                    contentType: 'application/json',
-                    data : JSON.stringify(data),
-                    success: function (response) {
-                        console.log(response);
-                        spreadMyBasketList(customerId);
-                    },
-                    error: function (error){
-                        console.error('전송 실패: ', error);
-                    }
-                });
-            });
-        });
-
-
-    }else{
+    } else {
         let li = $('<li><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center"> <p style="color: rgb(181, 181, 181); font-weight: 400">장바구니에 등록한 상품이 존재하지 않습니다.</p> </div></li>');
         ul.append(li);
-        $('#product-price-text').text( ' 0원');
+        $('#product-price-text').text(' 0원');
         $('#product-discount-price-text').text(' 0원');
         $('#product-total-price-text').text(' 0원');
     }
@@ -201,7 +169,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
 
     if (button) {
 
-        if(!confirm('장바구니에 담긴 상품들을 주문하시겠습니까?')){
+        if (!confirm('장바구니에 담긴 상품들을 주문하시겠습니까?')) {
             e.preventDefault();
             return;
         }
@@ -223,7 +191,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
             }
         }
 
-        const merchant_uid = 'merchent_uid' + new Date().getTime();
+        const merchant_uid = 'merchant+_uid' + new Date().getTime();
 
         const payData = {
             merchantUid: merchant_uid,
@@ -242,7 +210,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
                     location.reload();
                 }
 
-                if(rsp === 'quantity_exhaustion'){
+                if (rsp === 'quantity_exhaustion') {
                     alert('현재 장바구니에 등록된 상품이 존재하지 않습니다.\n상품을 하나이상 담고 진행해주세요.');
                     return;
                 }
@@ -259,3 +227,47 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
     }
 });
 
+//체크박스 클릭하면 비동기로 업데이트
+$(document).ready(function () { // 시작되고
+
+    $('#basket3').on('click', '.basketCheckbox', function () { // 체크박스를 클릭했을 때
+
+        const $checkbox = $(this); // 클릭한 체크박스 jQuery 객체로 저장
+        const productId = $(this).val(); // 체크박스 밸류 상품 아이디 가져옴
+        let isChecked = $(this).data('isChecked'); // 체크상태를 가져옴
+
+        console.log('체크박스 클릭함 : ', productId);
+        console.log('체크박스 업데이트할때  : ', isChecked);
+
+        const data = {
+            customerId: customerId,
+            productId: productId,
+            type: isChecked // 0이면 false 1이면 true
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: '/basket/checkedUpdate',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                // 요청 성공 시 처리
+                if (isChecked === 'no-all') {
+                    // 전체 선택을 취소한 경우
+                    isChecked = 'all'; // 데이터 값을 변경
+                    $checkbox.data('isChecked', isChecked); // 데이터 세트에도 변경된 값을 적용
+                } else if (isChecked === 'all') {
+                    // 전체 선택을 한 경우
+                    isChecked = 'no-all'; // 데이터 값을 변경
+                    $checkbox.data('isChecked', isChecked); // 데이터 세트에도 변경된 값을 적용
+                }
+                console.log('Updated isChecked value:', isChecked); // 변경된 값 출력
+                spreadMyBasketList(customerId); // 바스켓 리스트 업데이트 함수 호출
+            },
+            error: function (error) {
+                // 요청 실패 시 처리
+                console.error('전송 실패: ', error);
+            }
+        });
+    });
+});

@@ -52,8 +52,13 @@
         UPDATE basket
         SET
         <include refid="basketChecked"/>
-
     </update>
+
+    <delete id="clearBasketOnPaymentSuccess">
+        DELETE FROM basket
+        WHERE
+        qty > 0 AND is_checked = 1 AND customer_id = #{customerId}
+    </delete>
 
     <sql id="basketChecked">
         <if test="type != null">

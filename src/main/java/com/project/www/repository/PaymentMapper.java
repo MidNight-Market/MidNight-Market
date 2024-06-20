@@ -19,4 +19,6 @@ public interface PaymentMapper {
     List<String> findExpiredPayments(LocalDateTime tenMinutesAgo);
 
     int deleteExpiredPayments(String merchantUid);
+
+    void usedPointAndCouponUpdate(PaymentDTO paymentDTO);
 }
