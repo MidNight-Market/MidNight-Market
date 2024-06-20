@@ -32,7 +32,6 @@ public class IndexController {
 
     private final IndexService isv;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final BasketService bsv;
 
     @GetMapping("/")
     public String index(Model model,HttpServletResponse response, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal, @AuthenticationPrincipal SellerPrincipalDetails sellerPrincipalDetails) {

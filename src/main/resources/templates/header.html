@@ -51,6 +51,7 @@
                                 <a th:if="${auth.authority == 'role_admin'}" th:href="@{/admin/admin}">
                                     [[${session.name}]] 님
                                 </a>
+
                             </th:block>
                             <a href="/logout" id="logoutBtn" class="logout">로그아웃</a>
                             <th:block th:if="${pwReset == 1}">
