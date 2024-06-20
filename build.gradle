@@ -41,6 +41,8 @@ dependencies {
 	implementation 'org.apache.tika:tika-core:2.4.1'
 	implementation 'org.apache.tika:tika-parsers:2.4.1'
 	implementation 'net.coobird:thumbnailator:0.4.17'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
+
 	//결제관련api
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
 

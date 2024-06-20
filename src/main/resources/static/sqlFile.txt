@@ -431,6 +431,9 @@ REFERENCES product (
 );
 
 insert into coupon(name, discount_amount, end_date) values("신규회원", 3000 , "2099-12-31");
+insert into coupon(name, discount_amount, end_date) values("멤버쉽1", 3000 , "2099-12-31");
+insert into coupon(name, discount_amount, end_date) values("멤버쉽2", 3000 , "2099-12-31");
+insert into coupon(name, discount_amount, end_date) values("멤버쉽3", 3000 , "2099-12-31");
 
 -- 카테고리
 INSERT INTO PRODUCT_CATEGORY VALUES (1, "채소");

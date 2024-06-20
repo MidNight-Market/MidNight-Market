@@ -2,17 +2,11 @@ package com.project.www.domain;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class ChatMessageVO {
     private Long id;
+    private String sender;
+    private String content;
     private String chatRoomId;
-    private String senderId;
-    private String message;
-    private LocalDateTime timestamp;
+    private String senderType; // 추가 필드: 'seller' 또는 'customer'
 }

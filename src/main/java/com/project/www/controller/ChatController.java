@@ -2,36 +2,52 @@ package com.project.www.controller;
 
 import com.project.www.domain.ChatMessageVO;
 import com.project.www.service.ChatService;
+import com.project.www.domain.ChatRoomVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/chat")
 public class ChatController {
 
     @Autowired
     private ChatService chatService;
 
-    @MessageMapping("/send")
-    @SendTo("/topic/messages")
-    public ChatMessageVO sendMessage(ChatMessageVO chatMessage) {
-        chatService.saveMessage(chatMessage);
-        return chatMessage;
+    @PostMapping("/room")
+    @ResponseBody
+    public void createChatRoom(@RequestBody ChatRoomVO chatRoom) {
+        chatService.createChatRoom(chatRoom);
     }
 
-    @MessageMapping("/history/{chatRoomId}")
-    @SendTo("/topic/history/{chatRoomId}")
-    public List<ChatMessageVO> getHistory(@PathVariable String chatRoomId) {
-        return chatService.getMessagesByChatRoomId(chatRoomId);
+    @GetMapping("/room/{chatRoomId}")
+    @ResponseBody
+    public ChatRoomVO getChatRoomById(@PathVariable String chatRoomId) {
+        return chatService.getChatRoomById(chatRoomId);
     }
 
-    @GetMapping("/history/{chatRoomId}")
-    public List<ChatMessageVO> getHistoryRest(@PathVariable String chatRoomId) {
-        return chatService.getMessagesByChatRoomId(chatRoomId);
+    @DeleteMapping("/room/{chatRoomId}")
+    @ResponseBody
+    public void deleteChatRoomById(@PathVariable String chatRoomId) {
+        chatService.deleteChatRoomById(chatRoomId);
+    }
+
+    @GetMapping("/messages/{chatRoomId}")
+    @ResponseBody
+    public List<ChatMessageVO> getMessagesByRoomId(@PathVariable String chatRoomId) {
+        return chatService.getMessagesByRoomId(chatRoomId);
+    }
+
+    @DeleteMapping("/messages/{chatRoomId}")
+    @ResponseBody
+    public void deleteMessagesByRoomId(@PathVariable String chatRoomId) {
+        chatService.deleteMessagesByRoomId(chatRoomId);
+    }
+
+    @GetMapping("/page")
+    public String chatPage() {
+        return "chat";  // templates/chat.html로 이동
     }
 }
