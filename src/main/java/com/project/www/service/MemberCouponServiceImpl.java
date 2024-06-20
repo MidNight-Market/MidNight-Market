@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class MemberCouponServiceImpl implements MemberCouponService{
     private final MemberCouponMapper memberCouponMapper;
 
@@ -25,5 +25,10 @@ public class MemberCouponServiceImpl implements MemberCouponService{
     @Override
     public Boolean isExist(long couponId, String customerId) {
         return memberCouponMapper.isExist(couponId, customerId) > 0;
+    }
+
+    @Override
+    public int getCount(String customerId) {
+        return memberCouponMapper.getCount(customerId);
     }
 }

@@ -11,4 +11,6 @@ public interface MemberCouponService {
     List<MemberCouponVO> getMemberCouponList(String customerId);
 
     Boolean isExist(long couponId, String customerId);
+
+    int getCount(String customerId);
 }

@@ -135,15 +135,15 @@
             </div>
 
             <div class="event-inner-box">
-                <!--                <div class="event-info-box">-->
-                <!--                    <span>쿠폰 적용</span>-->
-                <!--                </div>-->
                 <div class="event-content-box">
                     <div class="coupon-content" style="justify-content: space-between">
-                        <span style="font-size: 15px; font-weight: 400">보유 쿠폰 x장</span>
+                        <span style="font-size: 18px; font-weight: 400" id="couponCount">보유중인 쿠폰 <span style="color: red">[[${couponCount}]]</span>장</span>
                     </div>
                     <div class="coupon-content" style="width: 120px; height: 37px">
-                        <button>쿠폰 선택</button>
+                        <button id="couponSelect">쿠폰 선택</button>
+                    </div>
+                    <div style="display: none" id="couponSelection">
+
                     </div>
                 </div>
             </div>
@@ -597,6 +597,30 @@
                         <div class="lsat-content"><span id="lastPay">6,990원</span></div>
                     </div>
                 </div>
+                <div id="couponModal" class="modal-coupon">
+                    <div class="modal-content-coupon">
+                        <span class="closeModal">&times;</span>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>선택</th>
+                                        <th>쿠폰이름</th>
+                                        <th>할인가격</th>
+                                        <th>유효기간</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="coupon, stat : ${couponList}">
+                                        <td><input type="radio" th:id="'checkbox' + ${stat.index}"></td>
+                                        <td><label th:for="'checkbox' + ${stat.index}" th:text="${coupon.name}"></label></td>
+                                        <td><span th:text="${coupon.discountAmount}"></span></td>
+                                        <td><span th:text="${coupon.issueDate}"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <button id="selectCoupon">사용하기</button>
+                    </div>
+                </div>
             </div>
             <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -611,9 +635,38 @@
 
                 document.getElementById('customerIdWithoutSpan').innerText = customerIdWithout;
             </script>
-
             <script th:inline="javascript">const nickName = [[${session.name}]];</script>
             <script>
+                // Get the modal
+                var couponModal = document.getElementById("couponModal");
+
+                // Get the button that opens the modal
+                var btn = document.getElementById("couponSelect");
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("closeModal")[0];
+
+                // When the user clicks the button, open the modal
+                btn.onclick = function() {
+                    couponModal.style.display = "flex";
+                }
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    couponModal.style.display = "none";
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                couponModal.onclick = function(event) {
+                    console.log(event.target);
+                    // Check if the clicked element is the modal itself and not its content
+                    if (event.target == couponModal) {
+                        couponModal.style.display = "none";
+                    }
+                }
+
+
+
                 window.onload = function () {
                     function onClick() {
                         document.querySelector('.modal_wrap1').style.display = 'block';
