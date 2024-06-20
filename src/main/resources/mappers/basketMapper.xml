@@ -47,4 +47,41 @@
         from basket
         where customer_id = #{username}
     </select>
+    
+    <update id="myBasketCheckedUpdate">
+        UPDATE basket
+        SET
+        <include refid="basketChecked"/>
+
+    </update>
+
+    <sql id="basketChecked">
+        <if test="type != null">
+
+                <choose>
+                    <when test="type == '0'.toString()">
+                        is_checked = 0
+                        WHERE
+                        customer_id = #{customerId} AND product_id = #{productId}
+                    </when>
+                    <when test="type == '1'.toString()">
+                        is_checked = 1
+                        WHERE
+                        customer_id = #{customerId} AND product_id = #{productId}
+                    </when>
+                    <when test="type == 'all'.toString()">
+                        is_checked = 1
+                        WHERE
+                        customer_id = #{customerId}
+                    </when>
+                    <when test="type == 'no-all'.toString()">
+                        is_checked = 0
+                        WHERE
+                        customer_id = #{customerId}
+                    </when>
+                </choose>
+
+        </if>
+    </sql>
+
 </mapper>

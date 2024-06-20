@@ -21,4 +21,6 @@ public interface BasketService {
     int update(BasketVO basketVO);
 
     int getBasketTotalCount(String username);
+
+    int myBasketCheckedUpdate(BasketVO basketVO);
 }

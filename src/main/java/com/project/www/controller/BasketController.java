@@ -63,6 +63,15 @@ public class BasketController {
     }
 
     @ResponseBody
+    @PutMapping("/checkedUpdate")
+    public String checkedUpdate(@RequestBody BasketVO basketVO){
+        log.info("체크 바스캣 업데이트 확인>>>{}",basketVO);
+        int isOk = bsv.myBasketCheckedUpdate(basketVO);
+        return "잘들어옴";
+    }
+
+
+    @ResponseBody
     @DeleteMapping("/delete")
     public String delete(@RequestBody List<BasketVO> basketList){
 

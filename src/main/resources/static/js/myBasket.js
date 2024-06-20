@@ -1,42 +1,14 @@
 let myBasket;
 
-// 비동기로 불러오기 전에 체크된 체크박스 저장
-let checkedCheckboxes = [];
-
-// 전체 선택 및 해제
-$('#basketCheckboxAll').click(function () {
-    const selectAllCheckbox = $('#basketCheckboxAll');
-    $('.basketCheckbox').prop('checked', selectAllCheckbox.prop('checked'));
-
-    // 전체 선택 체크된 경우 모두 저장
-    if (selectAllCheckbox.prop('checked')) {
-        checkedCheckboxes = $('.basketCheckbox').map(function () {
-            return this.value;
-        }).get();
-    } else {
-        checkedCheckboxes = [];
-    }
-});
-
-// 다른 버튼 선택 해제 시 전체 선택도 선택 해제
-$(document).on('click', '.basketCheckbox', function () {
-    const allChecked = $('.basketCheckbox:checked').length === $('.basketCheckbox').length;
-    $('#basketCheckboxAll').prop('checked', allChecked);
-
-    // 체크박스 체크 상태 저장
-    if ($(this).prop('checked')) {
-        checkedCheckboxes.push($(this).val());
-    } else {
-        checkedCheckboxes = checkedCheckboxes.filter(id => id !== $(this).val());
-    }
-});
-
 // 선택 삭제
 $('#select-delete').click(function (event) {
 
     event.preventDefault();
+    const checkedCount = $('.checkbox:checked').length;
 
-    if(checkedCheckboxes.length === 0){ //체크가 모두 안되어 있을경우
+    console.log(checkedCount);
+
+    if(checkedCount === 0){ //체크가 모두 안되어 있을경우
         return;
     }
 
@@ -112,15 +84,7 @@ function spreadMyBasketList(customerId) {
 
             myBasketList(response);
             // 체크되어 있는 상품들을 다시 체크 처리
-            $('.basketCheckbox').each(function () {
-                if (checkedCheckboxes.includes($(this).val())) {
-                    $(this).prop('checked', true);
-                }
-            });
 
-            // 전체 선택 체크 확인
-            const allChecked = $('.basketCheckbox:checked').length === $('.basketCheckbox').length;
-            $('#basketCheckboxAll').prop('checked', allChecked);
         }
     });
 }
@@ -131,18 +95,26 @@ function myBasketList(response) {
 
     const ul = $('#basketList');
     ul.empty();
-
+    let basketCheckboxAll = document.getElementById('basketCheckboxAll');
     if (response.length > 0) {
         for (let i = 0; i < response.length; i++) {
+
+            if(!response[i].checked){ //하나라도 체크되어있지 않다면
+                basketCheckboxAll.checked = false;
+                basketCheckboxAll.dataset.isChecked = 'all';
+            }
+
+            if(response[i].checked){ //체크되어있는 Item만 가격 추가
             total_price += response[i].qty * response[i].productVO.price;
             payment_price += response[i].qty * response[i].productVO.discountPrice;
+            }
             let li = $('<li class="basketList-li"></li>');
 
             const price = response[i].qty > 0 ? (response[i].qty * response[i].productVO.discountPrice).toLocaleString('ko-KR') + ' 원' : '품절된 상품';
 
             li.html(`
                     <label class="checkbox_label">
-                        <input type="checkbox" class="basketCheckbox" value="${response[i].productId}" />
+                        <input type="checkbox" class="basketCheckbox" value="${response[i].productId}" data-is-checked="${response[i].checked ? '0' : '1'}" ${response[i].checked ? 'checked' : ''}/>
                         <span class="checkbox_icon"></span>
                     <div class="product-image-box">
                         <img src="${response[i].productVO.mainImage}" alt="이미지">
@@ -176,6 +148,41 @@ function myBasketList(response) {
         $('#product-discount-price-text').text(discount_price.toLocaleString('ko-KR') + ' 원');
         $('#product-total-price-text').text(payment_price.toLocaleString('ko-KR') + ' 원');
         $('#basketBadge').text(String(response.length));
+
+        //체크박스 클릭하면 비동기로 업데이트
+        $(document).ready(function(){ //시작되고
+
+            $('.basketCheckbox').click(function (){ //체크박스를 클릭했을 때
+
+                const productId = $(this).val(); //체크박스 밸류 상품 아이디 가져옴
+                const isChecked = $(this).data('isChecked'); //체크상태를 가져옴
+
+                console.log('체크박스 클릭함 : ',productId);
+                console.log('체크박스 업데이트할때  : ',isChecked);
+
+                const data = {
+                    customerId: customerId,
+                    productId : productId,
+                    type : isChecked //0이면 false 1이면 true
+                }
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/basket/checkedUpdate',
+                    contentType: 'application/json',
+                    data : JSON.stringify(data),
+                    success: function (response) {
+                        console.log(response);
+                        spreadMyBasketList(customerId);
+                    },
+                    error: function (error){
+                        console.error('전송 실패: ', error);
+                    }
+                });
+            });
+        });
+
+
     }else{
         let li = $('<li><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center"> <p style="color: rgb(181, 181, 181); font-weight: 400">장바구니에 등록한 상품이 존재하지 않습니다.</p> </div></li>');
         ul.append(li);
@@ -249,7 +256,6 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
 
             }
         });
-
     }
-
 });
+
