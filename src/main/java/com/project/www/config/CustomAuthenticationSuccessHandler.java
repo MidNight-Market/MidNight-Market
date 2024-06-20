@@ -20,14 +20,11 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                                         Authentication authentication) throws IOException, ServletException {
 
         String header = request.getHeader("Referer");
-        log.info("체크해바{}", header);
         if (header != null && header.contains("returnUrl=")) {
             String returnUrl = header.substring(header.indexOf("returnUrl=") + "returnUrl=".length());
-            log.info("주소체크해바{}", returnUrl);
             if (!returnUrl.isEmpty()) {
-                log.info("여기들어옴");
                 getRedirectStrategy().sendRedirect(request, response, returnUrl);
-                return; // 처리 후 메서드 종료
+                return;
             }
         }
         super.onAuthenticationSuccess(request, response, authentication);
