@@ -11,5 +11,8 @@
     <select id="isExist" resultType="int">
         select count(*) from member_coupon where customer_id = #{customerId} and coupon_id = #{couponId}
     </select>
+    <select id="getCount" resultType="int">
+        select count(*) from member_coupon where customer_id = #{customer_id}
+    </select>
 
 </mapper>

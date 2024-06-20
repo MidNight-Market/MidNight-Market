@@ -2,13 +2,8 @@ package com.project.www.controller;
 
 import com.mysql.cj.Session;
 import com.project.www.config.oauth2.PrincipalDetails;
-import com.project.www.domain.NotificationVO;
-import com.project.www.domain.OrdersVO;
-import com.project.www.domain.PaymentDTO;
-import com.project.www.service.ImportService;
-import com.project.www.service.MemberCouponService;
-import com.project.www.service.NotificationService;
-import com.project.www.service.PaymentService;
+import com.project.www.domain.*;
+import com.project.www.service.*;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.Payment;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -34,6 +31,7 @@ public class PaymentController {
     private final ImportService importService;
     private final NotificationService nsv;
     private final MemberCouponService mscv;
+    private final CouponService csv;
 
 
     @ResponseBody
@@ -69,6 +67,19 @@ public class PaymentController {
         //나의 결제 상품 가져오기
         PaymentDTO paymentDTO = psv.getMyPaymentProduct(merchantUid);
 
+        //내쿠폰 정보
+        int couponCount = mscv.getCount(paymentDTO.getCustomerId());
+        List<MemberCouponVO>mList = mscv.getMemberCouponList(paymentDTO.getCustomerId());
+        log.info("내가가진{}", mList);
+        List<CouponVO> couponList = new ArrayList<>();
+        for(MemberCouponVO mcvo : mList) {
+            long couponId = mcvo.getCouponId();
+            CouponVO cvo = csv.getCouponList(couponId);
+            couponList.add(cvo);
+        }
+        log.info("쿠폰{}", couponList);
+        model.addAttribute("couponList", couponList);
+        model.addAttribute("couponCount", couponCount);
         model.addAttribute("paymentDTO", paymentDTO);
         return "payment/orders";
     }
