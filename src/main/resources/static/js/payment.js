@@ -63,7 +63,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e)=> {
                     }),
                     success: function(response) {
                         alert('결제가 성공적으로 완료되었습니다');
-                        location.href = '/payment/success'
+                        location.href = '/payment/success/' + rsp.merchant_uid;
                     },
                     error: function(xhr, status, error) {
                         // 요청이 실패했을 때 실행되는 코드

@@ -135,16 +135,16 @@
             </div>
 
             <div class="event-inner-box">
-                <div class="event-info-box">
-                    <span>쿠폰 적용</span>
-                </div>
+                <!--                <div class="event-info-box">-->
+                <!--                    <span>쿠폰 적용</span>-->
+                <!--                </div>-->
                 <div class="event-content-box">
-                    <select class="content-select">
-                        <option>4000원 할인쿠폰</option>
-                        <option>5000원 할인쿠폰</option>
-                        <option>6000원 할인쿠폰</option>
-
-                    </select>
+                    <div class="coupon-content" style="justify-content: space-between">
+                        <span style="font-size: 15px; font-weight: 400">보유 쿠폰 x장</span>
+                    </div>
+                    <div class="coupon-content" style="width: 120px; height: 37px">
+                        <button>쿠폰 선택</button>
+                    </div>
                 </div>
             </div>
 
@@ -163,10 +163,10 @@
                 <div class="event-content-box" style="flex-direction: column">
                     <div class="point-text-box">
                         <div><span>사용가능 포인트</span></div>
-                        <div><span>1023원</span></div>
+                        <div><span id="point"></span></div>
                     </div>
                     <div class="point-text-box">
-                        <div><input type="number"></div>
+                        <div><input type="number" id="point-input" value=""></div>
                         <div>
                             <button id="all-in">모두 사용</button>
                         </div>
@@ -562,7 +562,7 @@
                         <a href="#" id="purchaseButton">
                             <div class="basket6">
                         <span class="text9"
-                              th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원 결제하기'"></span>
+                              th:text="${#numbers.formatDecimal(paymentDTO.originalPrice, 0, 'COMMA', -1, 'POINT')} + ' 원 결제하기'"></span>
                             </div>
                         </a>
                     </div>
@@ -570,9 +570,32 @@
             </div>
 
             <div class="price-info">
-                <div><span>결제금액</span></div>
+                <div class="info-title"><span>결제 금액</span></div>
                 <div class="price-desc">
-
+                    <div class="main-desc">
+                        <div class="main-content main-title"><span>주문금액</span></div>
+                        <div class="main-content"><span id="ordersPay">6,990원</span></div>
+                    </div>
+                    <div class="sub-desc">
+                        <div class="sub-title"><span>└상품금액</span></div>
+                        <div class="sub-content"><span id="productPay"></span></div>
+                    </div>
+                    <div class="sub-desc">
+                        <div class="sub-title"><span>└상품할인금액</span></div>
+                        <div class="sub-content"><span id="discountPay">-3,000원</span></div>
+                    </div>
+                    <div class="main-desc">
+                        <div class="main-content main-title"><span>쿠폰할인</span></div>
+                        <div class="main-content"><span id="couponDiscount">0원</span></div>
+                    </div>
+                    <div class="main-desc">
+                        <div class="main-content main-title"><span>포인트할인</span></div>
+                        <div class="main-content"><span id="pointDiscount">0원</span></div>
+                    </div>
+                    <div class="last-desc">
+                        <div class="last-content last-title"><span style="font-size: 17px">최종결제금액</span></div>
+                        <div class="lsat-content"><span id="lastPay">6,990원</span></div>
+                    </div>
                 </div>
             </div>
             <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
@@ -581,7 +604,8 @@
             <script th:inline="javascript">
                 const customerIdModify = /*[[${paymentDTO.customerId}]]*/ '';
                 const paymentDTO = [[${paymentDTO}]];
-                console.log(paymentDTO);
+
+                const pointVal = parseInt([[${#authentication.principal.point}]]);
 
                 const customerIdWithout = customerIdModify.replace(/\([^)]*\)/g, ''); // 이메일 앞에 붙은 (kakao),(google),(naver) 떼기
 
@@ -652,6 +676,7 @@
             <!--배송지 등록에 필요 script-->
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+            <script th:src="@{/js/orders.js}"></script>
             <script th:src="@{/js/payment.js}"></script>
 </body>
 
