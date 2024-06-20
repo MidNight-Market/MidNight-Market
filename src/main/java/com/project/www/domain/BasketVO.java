@@ -15,5 +15,7 @@ public class BasketVO {
     private String customerId;
     private long productId;
     private long qty;
+    private boolean isChecked;
+    private String type;
     private ProductVO productVO;
 }

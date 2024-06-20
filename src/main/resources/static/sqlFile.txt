@@ -121,7 +121,8 @@ CREATE TABLE coupon (
 CREATE TABLE basket (
 	customer_id VARCHAR(150) NOT NULL,
 	qty bigint NOT NULL,
-	product_id bigint NOT NULL
+	product_id bigint NOT NULL,
+	is_checked TINYINT DEFAULT 1
 );
 
 #수정완료
