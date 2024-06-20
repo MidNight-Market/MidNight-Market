@@ -22,7 +22,7 @@ import java.util.Set;
 class ProjectApplicationTests {
 
     @Autowired
-    private HelpMapper mapper;
+    private HelpMapper helpmapper;
 
     @Autowired
     private ProductMapper productMapper;
@@ -39,7 +39,7 @@ class ProjectApplicationTests {
                     .content("내용입니다" + i)
                     .build();
 
-            mapper.insert(hvo);
+            helpmapper.insert(hvo);
         }
     }
 

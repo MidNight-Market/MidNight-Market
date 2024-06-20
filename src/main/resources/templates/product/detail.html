@@ -27,19 +27,19 @@
                 </div>
 
                 <div class="product-description-box">
-                    <p>[[${productDTO.productVO.price}]]원</p>
+                    <p>[[${productDTO.productVO.description}]]</p>
                 </div>
 
                 <div class="product-description-box">
-                    <p>별점 : ⭐⭐⭐⭐⭐ (+카운트)</p>
+                    <p>⭐⭐⭐⭐⭐ (+카운트)</p>
                 </div>
 
                 <div class="product-description-box">
-                    <p>판매자</p>
+                    <p>판매자 : [[${productDTO.shopName}]]</p>
                 </div>
 
                 <div class="product-description-box">
-                    <p>3,000원(40,000원 이상 무료)</p>
+                    <p th:text="${#numbers.formatDecimal(productDTO.productVO.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
                 </div>
             </div>
 
@@ -56,7 +56,7 @@
                         <div class="total-sum">
                             <span style="font-size: 27px; margin: 0 50px 0 100px">합계</span>
                             <span class="product-price-text" id="productPrice"
-                                  th:text="${#numbers.formatDecimal(productDTO.productVO.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
+                                  th:text="${#numbers.formatDecimal(productDTO.productVO.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
                         </div>
                     </div>
 
@@ -78,11 +78,11 @@
                                 </svg>
                             </th:block>
                         </button>
-                        <button class="buy-or-pick-select" style="background-color: blueviolet;" id="basketButton">
+                        <button class="buy-or-pick-select" style="background-color: darkorchid;" id="basketButton">
                             장바구니
                         </button>
                         <button class="buy-or-pick-select" id="orderButton"
-                                style="background-color: rgba(255, 69, 0, 0.81);">상품주문
+                                style="background-color: coral;">상품주문
                         </button>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                         상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.
                     </p>
                     <p class="product_qna_title_text4">
-                        개인정보보호를 위해 상품문의에 개인정보를 입력하지 말아주세요.
+                        개인정보보호를 위해 상품문의에 개인정보를 입력카하지 말아주세요.
                     </p>
                     <a href="">
                         <div class="qna_button">

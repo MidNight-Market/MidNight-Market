@@ -47,7 +47,7 @@ for(let i=0; i<adminReply.length; i++){
             window.location.href = "/help/replyAns?hno="+hno;
         }else if(secretCheck == "Y" && sesName == writer){
             window.location.href = "/help/replyAns?hno="+hno;
-        }else if(secretCheck == "N" || sesName != writer ){
+        }else if(secretCheck == "N"){
             window.location.href = "/help/replyAns?hno="+hno;
         }else{
             alert("비밀글은 작성자와 관리자만 확인 가능합니다.");
