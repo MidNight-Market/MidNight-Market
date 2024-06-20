@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat Room</title>
+    <script>
+        let socket = new WebSocket("ws://localhost:8090/chat");
+
+        socket.onmessage = function(event) {
+            let messageArea = document.getElementById("messageArea");
+            let newMessage = document.createElement("p");
+            newMessage.textContent = event.data;
+            messageArea.appendChild(newMessage);
+        };
+
+        function sendMessage() {
+            let messageInput = document.getElementById("messageInput");
+            socket.send(messageInput.value);
+            messageInput.value = '';
+        }
+    </script>
+</head>
+<body>
+<h1>Chat Room</h1>
+<div id="messageArea">
+    <p th:each="message : ${messages}" th:text="${message.content}">Message</p>
+</div>
+<input type="text" id="messageInput">
+<button onclick="sendMessage()">Send</button>
+</body>
+</html>
