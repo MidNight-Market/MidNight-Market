@@ -12,11 +12,16 @@ import com.project.www.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Slf4j
 @Service
@@ -46,7 +51,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String providerId = oAuth2UserInfo.getProviderId();
         String id = oAuth2UserInfo.getEmail();
         String nickName= oAuth2UserInfo.getName();
-        String role = "ROLE_USER";
+        String role = "role_user";
         CustomerVO existingCustomer = customerMapper.findByUserName(providerId);
         if (existingCustomer == null) {
             log.info("New user, creating account");
