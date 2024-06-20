@@ -611,7 +611,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="coupon, stat : ${couponList}">
-                                        <td><input type="radio" th:id="'checkbox' + ${stat.index}"></td>
+                                        <td><input type="radio" name="coupon" th:id="'checkbox' + ${stat.index}" th:data-name="${coupon.name}" th:data-discount="${coupon.discountAmount}"></td>
                                         <td><label th:for="'checkbox' + ${stat.index}" th:text="${coupon.name}"></label></td>
                                         <td><span th:text="${coupon.discountAmount}"></span></td>
                                         <td><span th:text="${coupon.issueDate}"></span></td>
@@ -637,33 +637,36 @@
             </script>
             <script th:inline="javascript">const nickName = [[${session.name}]];</script>
             <script>
-                // Get the modal
                 var couponModal = document.getElementById("couponModal");
-
-                // Get the button that opens the modal
                 var btn = document.getElementById("couponSelect");
-
-                // Get the <span> element that closes the modal
                 var span = document.getElementsByClassName("closeModal")[0];
-
-                // When the user clicks the button, open the modal
                 btn.onclick = function() {
                     couponModal.style.display = "flex";
                 }
-
-                // When the user clicks on <span> (x), close the modal
                 span.onclick = function() {
                     couponModal.style.display = "none";
                 }
-
-                // When the user clicks anywhere outside of the modal, close it
                 couponModal.onclick = function(event) {
-                    console.log(event.target);
-                    // Check if the clicked element is the modal itself and not its content
                     if (event.target == couponModal) {
                         couponModal.style.display = "none";
                     }
                 }
+                document.getElementById('selectCoupon').addEventListener('click', (e) => {
+                    // 선택된 라디오 버튼 찾기
+                    const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
+
+                    if (selectedCoupon) {
+                        const couponName = selectedCoupon.getAttribute('data-name');
+                        const discountAmount = selectedCoupon.getAttribute('data-discount');
+
+                        const couponSelectionDiv = document.getElementById('couponSelection');
+                        couponSelectionDiv.innerHTML = `<span style="font-size: 18px; font-weight: 400; width: auto">선택된 쿠폰 : ${couponName}</span><br><span style="font-size: 18px; font-weight: 400; width: auto">할인 가격: ${discountAmount}원</span>`;
+                        couponSelectionDiv.style.display = 'block';
+                        couponModal.style.display = "none";
+                    } else {
+                        alert('쿠폰을 선택하세요.');
+                    }
+                })
 
 
 
