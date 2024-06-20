@@ -448,22 +448,23 @@ async function reviewLikeUpdateFromServer(type, data){
 // 디테일 메뉴바 스크롤 적용
 document.getElementById('product-detail').addEventListener('click', () => {
     let productDetail = document.querySelector('.product-detail');
-    let productDetailOffset = productDetail.offsetTop;
+    let productDetailOffset = productDetail.offsetTop-70; //너무 내려가서 -70처리해서 위치조절함
+    console.log('product-detail offset:', productDetailOffset);
     scroll(productDetailOffset);
 });
 document.getElementById('product-review').addEventListener('click', () => {
     let productReview = document.querySelector('.product-review');
-    let productReviewOffset = productReview.offsetTop;
+    let productReviewOffset = productReview.offsetTop-70;
     scroll(productReviewOffset);
 });
 document.getElementById('product_qna').addEventListener('click', () => {
     let productQna = document.querySelector('.product-qna');
-    let productQnaOffset = productQna.offsetTop;
+    let productQnaOffset = productQna.offsetTop-70;
     scroll(productQnaOffset);
 });
 document.getElementById('product-info').addEventListener('click', () => {
     let productInfo = document.querySelector('.productDetailInfo');
-    let productInfoOffset = productInfo.offsetTop;
+    let productInfoOffset = productInfo.offsetTop-70;
     scroll(productInfoOffset);
 });
 

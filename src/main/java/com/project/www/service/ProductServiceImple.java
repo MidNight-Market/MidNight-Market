@@ -23,6 +23,7 @@ public class ProductServiceImple implements ProductService {
     private final ReviewMapper reviewMapper;
     private final ReviewImageMapper reviewImageMapper;
     private final ReviewLikeMapper reviewLikeMapper;
+    private final SellerMapper sellerMapper;
 
     @Transactional
     @Override
@@ -57,7 +58,7 @@ public class ProductServiceImple implements ProductService {
         productDTO.setPcdVO(productCategoryDetailMapper.getMyCategoryDetail(productDTO.getProductVO().getProductCategoryDetailId()));
         productDTO.setPcVO(productCategoryMapper.getMyCategory(productDTO.getPcdVO().getProductCategoryId()));
         productDTO.setSlangVO(slangMapper.getMySlang(customerId, id));
-
+        productDTO.setShopName(sellerMapper.getShopName(productDTO.getProductVO().getSellerId()));
         return productDTO;
     }
 

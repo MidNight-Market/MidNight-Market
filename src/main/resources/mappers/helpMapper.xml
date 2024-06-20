@@ -23,7 +23,7 @@
     <update id="modify">
         UPDATE help
         set
-        title=#{title}, content=#{content}, mod_at = now()
+        title=#{title}, content=#{content}, secret=#{secret}, mod_at = now()
         where hno = #{hno}
     </update>
 

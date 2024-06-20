@@ -19,5 +19,5 @@ public class ProductDTO {
     private List<ProductCategoryVO> pcList;
     private List<ProductCategoryDetailVO> pcdList;
     private SlangVO slangVO;
-
+    private String shopName;
 }

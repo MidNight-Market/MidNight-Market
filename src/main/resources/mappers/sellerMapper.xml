@@ -20,6 +20,10 @@
     <select id="getList" resultType="com.project.www.domain.SellerVO">
         select * from seller
     </select>
+    <select id="getShopName" resultType="String">
+        SELECT shop_name from seller
+        WHERE id = #{sellerId}
+    </select>
 
 
     

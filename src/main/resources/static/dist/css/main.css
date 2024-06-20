@@ -300,8 +300,9 @@ a#membershipPayment {
 .rightBanner > a:visited {
     color: black;
 }
-.rightBanner > a{
+.rightBanner a {
     color: black;
+    cursor: pointer;
 }
 .rightBanner > a > img {
     display: block;
