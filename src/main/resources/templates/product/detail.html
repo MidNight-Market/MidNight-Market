@@ -198,8 +198,13 @@
                         <p class="reviewContent">[[${rev.content}]]</p>
                         <div class="reviewImgDatail">
                             <th:block th:each="img : ${rev.reviewImageVOList}">
-                                <img th:src="${img.reviewImage}" alt="">
+                                <img th:src="${img.reviewImage}" th:onclick="openModal([[${img.reviewImage}]])">
                             </th:block>
+                        </div>
+                        <!-- 모달 창 -->
+                        <div id="myModal" class="modal" onclick="closeModal()">
+                            <span class="close">&times;</span> <!--&times;는 x버튼-->
+                            <img class="modal-content" id="modalImg" style="width: 80%; height: 90%;">
                         </div>
                         <div class="date">[[${rev.registerDate}]]
                             <button type="button" id="likeBtn" class="likeBtn"
@@ -212,6 +217,26 @@
                     </div>
                 </div>
             </div>
+            <!--페이지네이션-->
+            <nav aria-label="Page navigation example" class="pageNav" th:if="${ph.totalCount != 0}">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${ph.prev == false} ? 'disabled' : ''">
+                        <a class="page-link" th:href="@{/product/detail(id=${ph.id}, pageNum=${ph.startPage-1},pageSize=${ph.pgvo.pageSize})}" aria-label="Previous">
+                            <span aria-hidden="true">≪</span>
+                        </a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(ph.startPage, ph.endPage)}"
+                        th:classappend="${i == ph.pgvo.pageNum} ? 'active' : ''"
+                        class="page-item">
+                        <a class="page-link" th:href="@{/product/detail(id=${ph.id}, pageNum=${i}, pageSize=${ph.pgvo.pageSize})}" th:text="${i}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${ph.next == false} ? 'disabled' : ''">
+                        <a class="page-link" th:href="@{/product/detail(id=${ph.id}, pageNum=${ph.endPage+1},pageSize=${ph.pgvo.pageSize})}" aria-label="Next">
+                            <span aria-hidden="true">≫</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
             <div class="product-qna">
                 <div class="product_qna_title">
@@ -229,7 +254,7 @@
                     <p class="product_qna_title_text4">
                         개인정보보호를 위해 상품문의에 개인정보를 입력카하지 말아주세요.
                     </p>
-                    <a href="">
+                    <a href="/help/desk">
                         <div class="qna_button">
                             자주 묻는 질문 바로가기
                         </div>

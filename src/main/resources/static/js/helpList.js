@@ -24,7 +24,7 @@ for(let i = 0; i<secret.length; i++){
             if(sesName == writer || role=="role_admin"){
                 window.location.href = "/help/detail?hno="+hno;
             }else if(sesName != writer){
-                alert("비밀글은 작성자와 관리자만 확인할 수 있습니다.")
+                alert("비밀글은 작성자와 관리자만 확인 가능합니다.")
             }
         }else{
             window.location.href = "/help/detail?hno="+hno;

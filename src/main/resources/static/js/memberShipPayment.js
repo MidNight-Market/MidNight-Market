@@ -75,7 +75,7 @@ document.getElementById('membership-paymentButton').addEventListener('click', ()
 
             })
         } else {
-            alert('결제에 실패하였습니다. 다시 시도해주세요.\n에러 내용: ' + rsp.error_msg);
+            alert('결제에 실패하였습니다.\n다시 시도해주세요.\n에러 내용: ' + rsp.error_msg);
             // 결제 실패 후 처리
             window.close();
         }

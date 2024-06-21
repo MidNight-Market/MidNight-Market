@@ -18,8 +18,11 @@ public interface ProductService {
     List<ProductVO> getMySlangProduct(String customerId);
 
     List<ReviewVO> getReview(long id);
+    List<ReviewVO> getReviewP(PagingVO pgvo);
 
     int getTotalCount(ListPagingVO pgvo);
 
     List<ProductVO> getProductList(ListPagingVO pgvo);
+
+    int getTotal(PagingVO pgvo);
 }
