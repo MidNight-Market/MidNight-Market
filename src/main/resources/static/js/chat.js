@@ -1,21 +1,17 @@
 currentId = '(kakao)ehdwo13@kakao.com';
-async function getOrderList(currentId){
-    try {
-        const resp = await fetch(`/orders/getList?currentId=${currentId}`); // GET 요청
-        const result = await resp.json();
-        return result;
-    } catch (error) {
-        console.log(error);
+window.addEventListener('scroll', function() {
+    const scrollButton = document.getElementById('newChat');
+    const topBtn = document.getElementById('topBtn');
+    if (window.scrollY) {
+        scrollButton.style.top = window.scrollY+690 + 'px';
+        topBtn.style.top = window.scrollY+630 + 'px';
     }
-}
-document.getElementById('option2Div').style.display = 'none';
-document.body.addEventListener('click',(e)=>{
-    console.log(e.target.id);
-    if(e.target.id === "option1"){
-        document.getElementById('option2Div').style.display = 'none';
-        document.getElementById('option1Div').style.display = '';
-    }else if(e.target.id === "option2"){
-        document.getElementById('option2Div').style.display = '';
-        document.getElementById('option1Div').style.display = 'none';
+    if(window.scrollY < 700) {
+        topBtn.style.display = 'none';
+    }else{
+        topBtn.style.display = '';
     }
 });
+document.getElementById('topBtn').addEventListener('click',()=>{
+    window.scrollTo(0,0);
+})
