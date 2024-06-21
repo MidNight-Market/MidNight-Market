@@ -1,5 +1,5 @@
 function openPopup() {
-    window.open('/popup', 'PopupWindow', 'width=700,height=700,scrollbars=yes,left=700,top=230, scrollbars = yes');
+    window.open('/popup', 'PopupWindow', 'width=800,height=800,scrollbars=yes,left=600,top=100, scrollbars = yes');
 }
 document.getElementById('bannerBasket').addEventListener('click', ()=>{
     if(role != "role_user" || role == null){
