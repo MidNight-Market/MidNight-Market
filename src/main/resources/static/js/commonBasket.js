@@ -31,9 +31,6 @@ basketButtons.forEach(button=>{
             contentType: 'application/json',
             data: JSON.stringify(productData),
             success: function (rsp) {
-                console.log("응답 오느지 확인" + rsp);
-
-
                 const message = rsp.replace(/\d+$/, '');
                 const number = rsp.replace(/\D/g, '');
 

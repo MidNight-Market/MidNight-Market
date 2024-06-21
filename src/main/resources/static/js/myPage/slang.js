@@ -13,7 +13,6 @@ async function getMySlangProductListFromServer(customerId) {
 
 function spreadMySlangProductList(customerId) {
     getMySlangProductListFromServer(customerId).then(result => {
-        console.log(result);
         let div = document.getElementById('slangPage');
         div.innerHTML = '';
         let str = `<span style="font-weight: 600; font-size: 23px; margin-bottom:50px">전체 ${result.length}개</span> `;
@@ -56,7 +55,6 @@ function spreadMySlangProductList(customerId) {
 
 // 상품 주문 함수
 function orderProduct(productId) {
-    console.log(productId);
     window.location.href = '/product/detail?id='+productId;
 }
 

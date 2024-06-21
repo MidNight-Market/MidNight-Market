@@ -32,8 +32,6 @@ public class NotificationController {
     @DeleteMapping("/{content}/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteNotification(@PathVariable("content") String content, @PathVariable("id")String id) {
-        log.info("컨텐츠 내용: {}", content);
-        log.info("ID: {}", id);
         try {
             boolean isDeleted = nsv.deleteNotificationByContent(content,id);
             if (isDeleted) {

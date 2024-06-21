@@ -18,10 +18,6 @@ public class HelpServiceImpl implements HelpService {
     private final HelpMapper helpMapper;
     private final NotificationService nsv;
 
-//    @Override
-//    public List<HelpVO> getList(PagingVO pgvo) {
-//        return helpMapper.getList(pgvo);
-//    }
     @Override
     public List<HelpVO> getList(PagingVO pgvo) {
         return helpMapper.getList(pgvo);

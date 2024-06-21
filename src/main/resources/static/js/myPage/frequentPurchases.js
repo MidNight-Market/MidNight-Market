@@ -12,7 +12,6 @@ async function getMyFrequentPurchasesListFromServer(customerId) {
 
 function spreadMyFrequentPurchasesList(customerId) {
     getMyFrequentPurchasesListFromServer(customerId).then(result => {
-        console.log(result);
         let div = document.getElementById('frequentPurchases');
         div.innerHTML = '';
         let str = '';

@@ -37,16 +37,12 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/post")
     public String paymentPost(@RequestBody PaymentDTO paymentDTO) {
-        //log.info("결제DTO확인 ->>>{}",paymentDTO);
-
         return psv.post(paymentDTO);
     }
 
     @ResponseBody
     @PostMapping("/basketPost")
     public String basketPaymentPost(@RequestBody PaymentDTO paymentDTO) {
-        //log.info("장바구니 결제 DTO 확인 >>>>{}",paymentDTO);
-
         return psv.basketPost(paymentDTO);
     }
 
@@ -70,14 +66,12 @@ public class PaymentController {
         //내쿠폰 정보
         int couponCount = mscv.getCount(paymentDTO.getCustomerId());
         List<MemberCouponVO>mList = mscv.getMemberCouponList(paymentDTO.getCustomerId());
-        log.info("내가가진{}", mList);
         List<CouponVO> couponList = new ArrayList<>();
         for(MemberCouponVO mcvo : mList) {
             long couponId = mcvo.getCouponId();
             CouponVO cvo = csv.getCouponList(couponId);
             couponList.add(cvo);
         }
-        log.info("쿠폰{}", couponList);
         model.addAttribute("couponList", couponList);
         model.addAttribute("couponCount", couponCount);
         model.addAttribute("paymentDTO", paymentDTO);
@@ -88,7 +82,6 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/prepare")
     public void prepare(@RequestBody PaymentDTO paymentDTO) throws IamportResponseException, IOException {
-        log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
         psv.usedPointAndCouponUpdate(paymentDTO);
         importService.postPrepare(paymentDTO);
     }
@@ -155,8 +148,6 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/refund")
     public String refund(@RequestBody OrdersVO ordersVO) {
-        //log.info(">>>주문아이디확인>>>{}",ordersVO);
-
         return psv.refundUpdate(ordersVO);
     }
 

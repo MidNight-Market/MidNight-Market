@@ -29,8 +29,6 @@
     async function resetPw() {
         let id = document.getElementById('id').value;
         let pw = document.getElementById('pw').value;
-        console.log(id);
-        console.log(pw);
         try {
             const url = '/customer/resetPw/'+id+'/'+pw;
             const config = {

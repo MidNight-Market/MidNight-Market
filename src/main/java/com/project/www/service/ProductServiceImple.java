@@ -34,13 +34,9 @@ public class ProductServiceImple implements ProductService {
 
         long productId = productMapper.getProductId();
 
-        log.info(">>>>>상품번호 마지막 가져오기>>>>>{}", productId);
-
         if (isOK > 0) {
             for (ProductDetailImageVO image : productDTO.getImageList()) {
                 image.setProductId(productId);
-
-                log.info(">>>>세부이미지 리스트>>>>>{}", image);
 
                 productDetailImageMapper.insert(image);
             }
@@ -106,7 +102,6 @@ public class ProductServiceImple implements ProductService {
             review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
             review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
         }
-        log.info("rvo >> {}", rvo);
         return rvo;
     }
 

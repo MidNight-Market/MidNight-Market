@@ -547,7 +547,6 @@
     let point = parseInt([[${#authentication.principal.point}]]);
     document.getElementById('point').innerText = point.toLocaleString();
     let mStatus = [[${#authentication.principal.mStatus}]];
-    console.log(mStatus);
 </script>
 <script th:src="@{/js/myPage/slang.js}"></script>
 <script th:src="@{/js/myPage/purchasedProduct.js}"></script>
@@ -752,7 +751,6 @@
     function spreadMyCouponList(customerId) {
         couponListFromServer(customerId).then(result => {
             if (result) {
-                console.log(result)
                 let div = document.getElementById('coupon-list-box');
                 div.innerHTML = '';
                 let str = '';

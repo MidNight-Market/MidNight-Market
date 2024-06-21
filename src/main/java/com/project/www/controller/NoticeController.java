@@ -31,7 +31,6 @@ public class NoticeController {
 
     @PostMapping("/register")
     public String register(NoticeVO nvo){
-        log.info("{}",nvo);
         nsv.register(nvo);
         return "redirect:/notice/notice";
     }
@@ -69,7 +68,6 @@ public class NoticeController {
 
     @PostMapping("/modify")
     public String modify(NoticeVO nvo){
-        log.info("nvo{}",nvo);
         isOk = nsv.modify(nvo);
 
         return "redirect:/notice/detail?id="+nvo.getId();

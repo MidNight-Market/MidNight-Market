@@ -14,7 +14,6 @@ async function getMyPurchasedProductListFromServer(customerId) {
 
 function spreadMyPurchasedProductList(customerId) {
     getMyPurchasedProductListFromServer(customerId).then(result => {
-        console.log(result);
         let div = document.getElementById('purchasedPage');
         div.innerHTML = '';
         let str = '';
@@ -86,7 +85,6 @@ function spreadMyPurchasedProductList(customerId) {
                     })
                         .then(response => response.text())
                         .then(data => {
-                            console.log('Success:', data);
                             // 서버 응답 처리
                             alert(data);
                             spreadMyPurchasedProductList(customerId);
