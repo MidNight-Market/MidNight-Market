@@ -31,8 +31,6 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
 
     const finalPaymentPrice = payPrice - usedPoint - usedCoupon;
 
-    console.log('최종 결제금액' ,finalPaymentPrice);
-
     $(document).ready(function () { //쿠폰 및 포인트 사용시 사용한 쿠폰 포인트 합산해서 사전등록
         $.ajax({
             url: "/payment/prepare",
@@ -68,7 +66,6 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
         buyer_name: nickName,
         buyer_addr: '인천시 제주도 광역시',
     }, function (rsp) {
-        console.log(rsp);
         if (rsp.success) {
             $.ajax({
                 url: '/payment/validate',
@@ -108,7 +105,6 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
                     },
                     complete: function (xhr, status) {
                         // 요청이 완료되었을 때 (성공 또는 실패 모두 포함) 실행되는 코드
-                        console.log("요청 완료:", status);
                     }
                 });
 

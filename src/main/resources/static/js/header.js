@@ -292,7 +292,6 @@ async function deleteNotification(content, id) {
             method: 'DELETE',
         });
         if (response.ok) {
-            console.log('Notification deleted');
             await showNotification(); // 알림을 새로고침
         } else {
             console.error('Failed to delete notification');

@@ -25,8 +25,6 @@ document.getElementById('selectCoupon').addEventListener('click', (e) => {
         const couponId = Number(selectedCoupon.getAttribute('data-coupon-id'));
         usedPoint = Number(pointInputText.value); //사용한 포인트 가격
 
-        console.log(couponId);
-
         if ((payPrice - discountAmount - usedPoint) < 100) { //쿠폰을 사용하고 최종금액이 100원미만인 경우
             alert('쿠폰금액이 결제할 금액을 초과하여 사용할 수 없습니다.');
             return;
@@ -138,7 +136,6 @@ function Modal(num) {
         // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
         btns[num].onclick = function () {
             modals[num].style.display = "block";
-            console.log(num);
         };
 
         // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.

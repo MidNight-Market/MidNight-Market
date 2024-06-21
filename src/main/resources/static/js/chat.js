@@ -1,4 +1,3 @@
-console.log(currentId);
 window.addEventListener('scroll', function() {
     const scrollButton = document.getElementById('newChat');
     const topBtn = document.getElementById('topBtn');

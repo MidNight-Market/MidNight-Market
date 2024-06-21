@@ -4,10 +4,6 @@ const payPrice = 100;
 const email = customerId.replace(/\([^)]*\)/g, '');
 // 'merchantUid' 데이터 삭제하기
 localStorage.removeItem('merchantUid');
-
-console.log(merchantUid);
-console.log(customerId);
-
 $(document).ready(function () { //사전검증 요청
     $.ajax({
         url: "/payment/prepare",
@@ -35,7 +31,6 @@ document.getElementById('membership-paymentButton').addEventListener('click', ()
         buyer_email: email,
         buyer_name: nickName
     }, function (rsp) {
-        console.log(rsp);
         if (rsp.success) {
             $.ajax({
                 url: '/payment/validate',
@@ -69,7 +64,6 @@ document.getElementById('membership-paymentButton').addEventListener('click', ()
                     },
                     complete: function (xhr, status) {
                         // 요청이 완료되었을 때 (성공 또는 실패 모두 포함) 실행되는 코드
-                        console.log("요청 완료:", status);
                     }
                 });
 

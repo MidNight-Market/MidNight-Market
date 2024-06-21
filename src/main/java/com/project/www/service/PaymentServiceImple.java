@@ -118,7 +118,6 @@ public class PaymentServiceImple implements PaymentService {
             List<BasketVO> basketList = basketMapper.getMyBasket(paymentDTO.getCustomerId());
             List<ProductVO> productList = new ArrayList<>();
 
-            log.info("바스켓 가져온거 객체리스트확인>>>{}", basketList);
             if (basketList == null || basketList.isEmpty()) {
                 return "quantity_exhaustion";
             }
@@ -186,7 +185,6 @@ public class PaymentServiceImple implements PaymentService {
     public int paySuccessUpdate(PaymentDTO paymentDTO) {
         try {
             int isOk = paymentMapper.paySuccessUpdate(paymentDTO); //결제 테이블 업데이트
-            log.info("결제 성공시 결제DTO확인하기{}",paymentDTO);
 
             long usedCouponAmount = paymentDTO.getUsedCouponAmount(); //사용한 쿠폰 가격
             long usedPoint = paymentDTO.getUsedPoint(); //사용한 포인트
@@ -232,7 +230,6 @@ public class PaymentServiceImple implements PaymentService {
             return isOk;
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("paySuccessUpdate 중 오류 발생");
             return -1;
         }
     }
@@ -276,7 +273,6 @@ public class PaymentServiceImple implements PaymentService {
             DecimalFormat df = new DecimalFormat("#,###");
             return df.format(ordersVO.getPayPrice()) + "원이 정상적으로 환불되었습니다.";
         } catch (IamportResponseException | IOException | RuntimeException e) {
-            log.error("환불 실패 : {}", e.getMessage());
             return "Refund failed :" + e.getMessage();
         }
 
@@ -311,7 +307,6 @@ public class PaymentServiceImple implements PaymentService {
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
-            log.error("멤버쉽 가입 오류 " + e.getMessage());
             return -1;
         }
 

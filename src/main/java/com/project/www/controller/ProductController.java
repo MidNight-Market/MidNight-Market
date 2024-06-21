@@ -58,14 +58,7 @@ public class ProductController {
 
         productDTO.setProductVO(fileHandler.uploadFile(file,productVO));
         productDTO.setImageList(fileHandler.uploadFiles(files,productVO));
-
-
-
-        log.info(">>>프로덕트DTO{}",productDTO);
-
         int isOk = psv.insert(productDTO);
-
-
         return "redirect:/";
     }
 
@@ -86,11 +79,8 @@ public class ProductController {
         isAuthenticated = !auth.getPrincipal().equals("anonymousUser");
         model.addAttribute("isAuthenticated", isAuthenticated); // 모델에 추가
         String customerId = (String)httpSession.getAttribute("id");
-        log.info("프린시팔 아이디 확인>>>{}",customerId);
-        log.info(">>>>Product Detail Id 확인>>>>{}",id);
 
         ProductDTO productDTO = psv.getDetail(customerId ,id);
-        log.info(">>>DTO확인>>>>{}",productDTO);
 
         List<ReviewVO> rvo = psv.getReview(id);
         List<ReviewVO> rvo2 = psv.getReviewP(pgvo);
@@ -99,8 +89,6 @@ public class ProductController {
 
         int totalCount = psv.getTotal(pgvo);
         PagingHandler ph = new PagingHandler(pgvo, totalCount, id);
-        log.info("review 페이징 테스트 totalCount{}", totalCount);
-        log.info("review 페이징 테스트 ph{}", ph);
 
         model.addAttribute("productDTO",productDTO);
         model.addAttribute("customerId",customerId);
@@ -111,8 +99,6 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/slang/{customerId}/{productId}")
     public String slangPost(@PathVariable("customerId")String customerId, @PathVariable("productId")long productId){
-
-        log.info("찜하기 테스트 잘 연결됌{} , {}", productId,customerId);
         int isOk = psv.slangPost(new SlangVO(customerId, productId));
         return isOk > 0 ? "post_success" : "post_fail";
     }
@@ -120,8 +106,6 @@ public class ProductController {
     @ResponseBody
     @DeleteMapping("/slang/{customerId}/{productId}")
     public String slangDelete(@PathVariable("customerId")String customerId, @PathVariable("productId")long productId){
-
-        //log.info("찜하기 테스트 잘 연결됌");
         int isOk = psv.slangDelete(new SlangVO(customerId, productId));
         return isOk > 0 ? "delete_success" : "delete_fail";
     }
@@ -132,10 +116,6 @@ public class ProductController {
     public void list(Model model, ListPagingVO pgvo){
 
         int totalCount = psv.getTotalCount(pgvo);
-        log.info("pgvo확인>>>{}",pgvo);
-
-        log.info("토탈카운트 확인: >>{}",totalCount);
-
         List<ProductVO> list = psv.getProductList(pgvo);
         ListPagingHandler ph = new ListPagingHandler(pgvo,totalCount);
 
@@ -156,7 +136,6 @@ public class ProductController {
     @ResponseBody
     @GetMapping("/getMySlangProductList/{customerId}")
     public List<ProductVO> getMySlangProduct(@PathVariable("customerId")String customerId){
-        log.info(">>>>내가찜한품목 고객아이디 확인>>>{}",customerId);
         return psv.getMySlangProduct(customerId);
     }
 
@@ -164,7 +143,6 @@ public class ProductController {
     @PostMapping("/isExist")
     public String isExist(@RequestBody ReviewLikeVO reviewLikeVO){
         Boolean isExist = rsv.isExist(reviewLikeVO);
-        log.info("isExist값 {}",isExist);
         if(isExist){
             return "있음";
         }
@@ -175,7 +153,6 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/reviewLikeRegister")
     public String reviewRegister(@RequestBody ReviewLikeVO reviewLikeVO){
-        log.info("reviewLikeVO 확인 @register@ {}",reviewLikeVO);
         int isOK = rsv.registerLike(reviewLikeVO);
         String id = String.valueOf(reviewLikeVO.getReviewId());
         if (isOK > 0) {
@@ -190,7 +167,6 @@ public class ProductController {
     @ResponseBody
     @DeleteMapping("/reviewLikeRegister")
     public String reviewLikeRegister(@RequestBody  ReviewLikeVO reviewLikeVO) {
-        log.info("reviewLikeVO 확인 @delete@ {}",reviewLikeVO);
         int isOK = rsv.deleteLike(reviewLikeVO);
         String id = String.valueOf(reviewLikeVO.getReviewId());
         if (isOK > 0) {

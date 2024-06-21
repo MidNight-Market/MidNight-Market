@@ -171,10 +171,8 @@
 
             // 고객일 경우
             if(e.target.id == 'customer'){
-                console.log('고객일 경우');
                 let form = document.getElementById('select-change');
                 form.action = "/login/form";
-                console.log(form);
                 document.querySelector('.social-icon').style.display = '';
                 document.getElementById('cusOnly1').style.display = '';
                 document.getElementById('cusOnly2').style.display = '';
@@ -183,10 +181,8 @@
 
             // 판매자일 경우
             if(e.target.id == 'seller'){
-                console.log('판매자일 경우');
                 let form = document.getElementById('select-change');
                 form.action = "/login/seller/form";
-                console.log(form);
                 document.querySelector('.social-icon').style.display = 'none';
                 document.getElementById('cusOnly1').style.display = 'none';
                 document.getElementById('cusOnly2').style.display = 'none';

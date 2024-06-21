@@ -18,9 +18,6 @@ for(let i = 0; i<secret.length; i++){
             .getAttribute("data-hno");
         if(e.currentTarget.classList.contains('yes')){
             let writer = e.currentTarget.closest("[data-id]").getAttribute("data-id");
-            console.log("비밀글")
-            console.log(sesId); /*[[${session.id}]] -> 현재 로그인 한 사람의 id(우리는 email형식으로 했음)*/
-            console.log(sesName); /*[[${session.name}]] -> 현재 로그인 한 사람의 nickName*/
             if(sesName == writer || role=="role_admin"){
                 window.location.href = "/help/detail?hno="+hno;
             }else if(sesName != writer){
@@ -39,10 +36,8 @@ for(let i=0; i<adminReply.length; i++){
     adminReply[i].addEventListener('click',(e)=>{
         let hno = e.currentTarget.closest("[data-hno]").getAttribute("data-hno");
         let writer = e.currentTarget.closest("[data-id]").getAttribute("data-id");
-        console.log(hno, writer);
         let secretCheck = e.currentTarget.closest("[data-secretCheck]").getAttribute("data-secretCheck")
         let replyCheck = e.currentTarget.closest("[data-replyCheck]").getAttribute("data-replyCheck")
-        console.log(secretCheck, replyCheck);
         if(role == "role_admin"){
             window.location.href = "/help/replyAns?hno="+hno;
         }else if(secretCheck == "Y" && sesName == writer){

@@ -353,7 +353,6 @@
     const params = new URLSearchParams(queryString);
     let searchVal = params.get('search');
     const role = `[[${session.role}]]`;
-    console.log(searchVal);
     let searchResultElement = document.getElementById('searchValPrint');
     if (searchVal != null && (searchVal).length !== 0) {
         searchResultElement.style.display = '';
@@ -363,7 +362,6 @@
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
     const subType = [[${ph.pgvo.subType}]];
-    console.log(subType);
     if(subType != null){
         document.getElementById(subType).style.color = 'black';
     }
