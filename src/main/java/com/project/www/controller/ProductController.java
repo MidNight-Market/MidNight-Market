@@ -3,6 +3,7 @@ package com.project.www.controller;
 import com.project.www.domain.*;
 import com.project.www.handler.FileHandler;
 import com.project.www.handler.ListPagingHandler;
+import com.project.www.handler.PagingHandler;
 import com.project.www.service.ProductService;
 import com.project.www.service.ReviewService;
 import jakarta.servlet.http.HttpSession;
@@ -70,7 +71,7 @@ public class ProductController {
 
     //상품 상세페이지
     @GetMapping("/detail")
-    public void detail(@RequestParam("id")long id, Model model, HttpSession httpSession){
+    public void detail(@RequestParam("id")long id, Model model, HttpSession httpSession, PagingVO pgvo){
 
         //프린시팔로 현재 사용중인 아이디 받아야 한다
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -92,13 +93,19 @@ public class ProductController {
         log.info(">>>DTO확인>>>>{}",productDTO);
 
         List<ReviewVO> rvo = psv.getReview(id);
+        List<ReviewVO> rvo2 = psv.getReviewP(pgvo);
         model.addAttribute("rvo",rvo);
+        model.addAttribute("rvo2",rvo2);
+
+        int totalCount = psv.getTotal(pgvo);
+        PagingHandler ph = new PagingHandler(pgvo, totalCount, id);
+        log.info("review 페이징 테스트 totalCount{}", totalCount);
+        log.info("review 페이징 테스트 ph{}", ph);
 
         model.addAttribute("productDTO",productDTO);
         model.addAttribute("customerId",customerId);
         model.addAttribute("productId",id);
-
-
+        model.addAttribute("ph",ph);
     }
 
     @ResponseBody
@@ -172,12 +179,10 @@ public class ProductController {
         int isOK = rsv.registerLike(reviewLikeVO);
         String id = String.valueOf(reviewLikeVO.getReviewId());
         if (isOK > 0) {
-            log.info("Test1");
             rsv.update(reviewLikeVO);
             int count = rsv.getCount(id);
             return "등록성공/"+count;
         } else {
-            log.info("Test2");
             int count = rsv.getCount(id);
             return "등록실패/"+count;
         }
@@ -189,12 +194,10 @@ public class ProductController {
         int isOK = rsv.deleteLike(reviewLikeVO);
         String id = String.valueOf(reviewLikeVO.getReviewId());
         if (isOK > 0) {
-            log.info("Test3");
             rsv.delete(reviewLikeVO);
             int count = rsv.getCount(id);
             return "삭제성공/"+count;
         } else {
-            log.info("Test4");
             int count = rsv.getCount(id);
             return "삭제실패/"+count;
         }

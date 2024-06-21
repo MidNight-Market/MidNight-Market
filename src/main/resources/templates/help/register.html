@@ -110,7 +110,7 @@
             </div>
             <div class="detail">
                 <label for="id">작성자</label>
-                <input type="text" class="input" id="id" name="id" th:value="${session.name}"  readonly>
+                <input type="text" class="input" id="id" name="id" th:value="${session.name}" readonly>
             </div>
             <div class="detail">
                 <div class="labelContainer">
@@ -131,6 +131,6 @@
         </form>
     </div>
 </div>
-<script th:src="@{/js/helpModify.js}"></script>
+<script src="/js/helpRegister.js"></script>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>

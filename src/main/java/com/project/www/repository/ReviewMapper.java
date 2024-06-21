@@ -1,5 +1,6 @@
 package com.project.www.repository;
 
+import com.project.www.domain.PagingVO;
 import com.project.www.domain.ReviewLikeVO;
 import com.project.www.domain.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,8 @@ public interface ReviewMapper {
     int getCount(String reviewId);
 
     List<ReviewVO> getMyWriteCompletedReviewList(String customerId);
+
+    List<ReviewVO> getReviewP(PagingVO pgvo);
+
+    int getTotal(PagingVO pgvo);
 }

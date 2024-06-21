@@ -111,6 +111,11 @@ public class ProductServiceImple implements ProductService {
     }
 
     @Override
+    public List<ReviewVO> getReviewP(PagingVO pgvo) {
+        return reviewMapper.getReviewP(pgvo);
+    }
+
+    @Override
     public int getTotalCount(ListPagingVO pgvo) {
         return productMapper.getTotalCount(pgvo);
     }
@@ -170,6 +175,11 @@ public class ProductServiceImple implements ProductService {
 
         return productMapper.getList(pgvo);
 
+    }
+
+    @Override
+    public int getTotal(PagingVO pgvo) {
+        return reviewMapper.getTotal(pgvo);
     }
 }
 

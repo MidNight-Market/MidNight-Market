@@ -75,7 +75,7 @@ document.addEventListener('click', (e) => {
 //장바쿠니 버튼을 클릭했을 경우
 document.getElementById('basketButton').addEventListener('click', () => {
     if(sellerCheck){
-        alert("판매자는 구입불가합니다. 일반고객으로 로그인해주세요")
+        alert("판매자는 구입불가합니다.\n일반고객으로 로그인해주세요")
     }else{
         if(isAuthenticated){
             //재고가 0일경우 상품 주문 불가
@@ -159,7 +159,7 @@ document.getElementById('slangBtn').addEventListener('click', (e) => {
     if (targetButton) {
         //로그인을 안했을 시
         if(sellerCheck){
-            alert("판매자는 찜불가합니다. 일반고객으로 로그인해주세요")
+            alert("판매자는 찜불가합니다.\n일반고객으로 로그인해주세요")
         }else {
             if (isAuthenticated) {
                 if (targetButton.dataset.type === 'post') {
@@ -232,7 +232,7 @@ function slangInfoChange(customerId, productId, type) {
 //상품 주문하기 버튼 클릭 시 ->  성공하면 DB에 저장 후 주문페이지로 이동
 document.getElementById('orderButton').addEventListener('click',(e)=>{
     if(sellerCheck){
-        alert("판매자는 구입불가합니다. 일반고객으로 로그인해주세요")
+        alert("판매자는 구입불가합니다.\n일반고객으로 로그인해주세요")
     }else{
         if(isAuthenticated){
             const targetButton = e.target.closest('#orderButton'); // 클릭된 요소가 like-button 클래스를 가진 버튼인지 확인
@@ -317,7 +317,7 @@ async function postPaymentToServer(payData){
 const likeBtn = document.querySelectorAll('.likeBtn');
 likeBtn.forEach(button =>{
     button.addEventListener('click', (e)=>{
-        if(customerId == null){
+        if(id == null){
             alert("로그인 후 클릭 가능합니다.");
             return;
         }else{
@@ -359,7 +359,7 @@ likeBtn.forEach(button =>{
 console.log(List);
 for(let i=0; i<List.length; i++){
     let data = {
-        customerId : customerId,
+        customerId : id,
         reviewId : List[i].id
     }
     let img = document.getElementById('likeIcon'+List[i].id);
@@ -476,6 +476,20 @@ function scroll(offset) {
     });
 }
 
+// 리뷰 이미지 클릭하면 모달띄우기
+function openModal(imageLink) {
+    let modal = document.getElementById('myModal'); // 모달창
+    let modalImg = document.getElementById('modalImg'); // 모달안 이미지
+
+    modal.style.display = 'block';
+    modalImg.src = imageLink; // 이미지 경로
+}
+
+    function closeModal() {
+        let modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+
 // 댓글 보이기
 function btnClick() {
         const mydiv = document.getElementById('my-div');
@@ -485,5 +499,5 @@ function btnClick() {
         }else {
           mydiv.style.display = 'block';
         }
-
 }
+

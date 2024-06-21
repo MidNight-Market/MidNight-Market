@@ -73,7 +73,7 @@ document.getElementById('membershipPayment').addEventListener('click', (e) => {
     saveMembershipPaymentInfo(customerId, merchantUid).then(rsp => {
 
         if (rsp === 'fail') { //사전검증 데이터 등록 안되었을 경우
-            alert('오류가 발생했습니다. 잠시후 다시 시도해주세요.');
+            alert('오류가 발생했습니다.\n잠시후 다시 시도해주세요.');
             return;
         }
 

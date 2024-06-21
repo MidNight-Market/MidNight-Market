@@ -211,7 +211,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
                 }
 
                 if (rsp === 'quantity_exhaustion') {
-                    alert('현재 장바구니에 등록된 상품이 존재하지 않습니다.\n상품을 하나이상 담고 진행해주세요.');
+                    alert('현재 장바구니에 등록된 상품이 존재하지 않습니다.\n상품을 1개 이상 담아주세요.');
                     return;
                 }
 
