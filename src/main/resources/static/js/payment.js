@@ -18,24 +18,20 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
 
     e.preventDefault(); //이벤트 취소
 
-    let finalPrice = paymentDTO.payPrice; //최종 결제금액 변수 선언
-    let usedPoint = pointInput.value; //사용 포인트
-    let usedCouponId;
-    const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
+    const checkboxes = document.querySelectorAll('.checkbox');
 
+    const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
 
-    if (selectedCoupon) {
-        const couponName = selectedCoupon.getAttribute('data-name');
-        const discountAmount = selectedCoupon.getAttribute('data-discount');
-        const couponId = selectedCoupon.getAttribute('data-coupon-id');
-        console.log('쿠폰아이디 : ',couponId);
-        console.log(couponName);
-        console.log(typeof discountAmount); //string임
-        finalPrice -= Number(discountAmount); //쿠폰값 빼주기
-        usedCouponId = Number(couponId); //쿠폰 아이디 저장
+    if(!allChecked){
+        alert('약관 동의를 모두 하고 결제를 진행해주세요.');
+        return;
     }
-    finalPrice -= usedPoint; //사용한 포인트값 뺴주기
-    console.log(finalPrice);
+
+
+
+    const finalPaymentPrice = payPrice - usedPoint - usedCoupon;
+
+    console.log('최종 결제금액' ,finalPaymentPrice);
 
     $(document).ready(function () { //쿠폰 및 포인트 사용시 사용한 쿠폰 포인트 합산해서 사전등록
         $.ajax({
@@ -44,7 +40,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
             contentType: "application/json",
             data: JSON.stringify({
                 merchantUid: paymentDTO.merchantUid, // 가맹점 주문번호
-                payPrice: finalPrice, // 결제 예정금액
+                payPrice: finalPaymentPrice, // 결제 예정금액
                 usedCouponId : usedCouponId,
                 usedPoint : usedPoint
             })
@@ -54,7 +50,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
 
     const data = {
         merchantUid: paymentDTO.merchantUid,
-        amount: finalPrice,
+        amount: finalPaymentPrice,
         tel: '010-1234-5678',
         address: '경기도 인천시 제주도구'
     }
@@ -67,7 +63,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
         pay_method: 'card',
         merchant_uid: paymentDTO.merchantUid,
         name: paymentDTO.payDescription,
-        amount: finalPrice,
+        amount: finalPaymentPrice,
         buyer_email: email,
         buyer_name: nickName,
         buyer_addr: '인천시 제주도 광역시',
@@ -93,7 +89,13 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
                         merchantUid: rsp.merchant_uid,
                         payMethod: rsp.pay_method,
                         payDescription: paymentDTO.payDescription,
-                        customerId: paymentDTO.customerId
+                        customerId: paymentDTO.customerId,
+                        originalPrice : payPrice,
+                        payPrice : finalPaymentPrice,
+                        usedPoint : usedPoint,
+                        usedCouponAmount : usedCoupon,
+                        usedCouponId : usedCouponId
+
                         // 주소와 전화번호와 같은 정보 기입
                     }),
                     success: function (response) {

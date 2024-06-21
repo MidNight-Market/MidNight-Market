@@ -103,7 +103,7 @@ a {
 }
 
 .text9 {
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 550;
 }
 
@@ -449,7 +449,9 @@ a {
     text-align: center;
     width: 300px;
     height: 70px;
-    background-color: orange;
+    background-color: #a52834;
+    color: white;
+    font-size: 17px;
     line-height: 70px;
     border-radius: 5px;
     margin: 64px auto;

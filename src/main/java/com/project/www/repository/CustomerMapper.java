@@ -37,4 +37,6 @@ public interface CustomerMapper {
     int memberShipJoinUpdate(PaymentDTO paymentDTO);
 
     List<AddressVO> getMyAddrList(String customerId);
+
+    int usedPointUpdate(CustomerVO customerVO);
 }

@@ -166,7 +166,7 @@
                         <div><span id="point"></span></div>
                     </div>
                     <div class="point-text-box">
-                        <div><input type="number" id="point-input" value=""></div>
+                        <div><input type="number" id="point-input" value="0"></div>
                         <div>
                             <button id="all-in">모두 사용</button>
                         </div>
@@ -185,7 +185,7 @@
 
                     <span class="agreement_text1">개인정보 수집ㆍ이용 처리 및 동의
                                         <label>
-                        <input type="checkbox" class=".checkbox_icon">
+                        <input type="checkbox" class=".checkbox_icon checkbox">
                     </label>
                     </span>
                     <!-- 첫 번째 Modal을 여는 클래스 -->
@@ -238,7 +238,7 @@
                 <div class="agreement2">
                     <span class="agreement_text3">전자지급 결제대행 서비스 이용 약관 동의
                         <label>
-                        <input type="checkbox">
+                        <input type="checkbox" class="checkbox">
                     </label>
                     </span>
 
@@ -557,32 +557,31 @@
                     </span>
                 </div>
 
-                <div class="order6">
+
                     <div>
                         <a href="#" id="purchaseButton">
                             <div class="basket6">
-                        <span class="text9"
-                              th:text="${#numbers.formatDecimal(paymentDTO.originalPrice, 0, 'COMMA', -1, 'POINT')} + ' 원 결제하기'"></span>
+                        <span class="text9">결제하기</span>
                             </div>
                         </a>
                     </div>
                 </div>
-            </div>
+
 
             <div class="price-info">
                 <div class="info-title"><span>결제 금액</span></div>
                 <div class="price-desc">
                     <div class="main-desc">
                         <div class="main-content main-title"><span>주문금액</span></div>
-                        <div class="main-content"><span id="ordersPay">6,990원</span></div>
+                        <div class="main-content"><span id="ordersPay" th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                     <div class="sub-desc">
                         <div class="sub-title"><span>└상품금액</span></div>
-                        <div class="sub-content"><span id="productPay"></span></div>
+                        <div class="sub-content"><span id="productPay" th:text="${#numbers.formatDecimal(paymentDTO.originalPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                     <div class="sub-desc">
                         <div class="sub-title"><span>└상품할인금액</span></div>
-                        <div class="sub-content"><span id="discountPay">-3,000원</span></div>
+                        <div class="sub-content"><span id="discountPay" th:text="'-' + ${#numbers.formatDecimal((paymentDTO.originalPrice - paymentDTO.payPrice), 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                     <div class="main-desc">
                         <div class="main-content main-title"><span>쿠폰할인</span></div>
@@ -594,7 +593,7 @@
                     </div>
                     <div class="last-desc">
                         <div class="last-content last-title"><span style="font-size: 17px">최종결제금액</span></div>
-                        <div class="lsat-content"><span id="lastPay">6,990원</span></div>
+                        <div class="lsat-content"><span id="lastPay" th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                 </div>
                 <div id="couponModal" class="modal-coupon">
@@ -602,12 +601,12 @@
                         <span class="closeModal">&times;</span>
                             <table>
                                 <thead>
-                                    <tr style="width: 25%; height: 34px; border: 1px solid black;">
-                                        <th>선택</th>
-                                        <th>쿠폰이름</th>
-                                        <th>할인가격</th>
-                                        <th>유효기간</th>
-                                    </tr>
+                                <tr style="width: 25%; height: 34px; border: 1px solid black;">
+                                    <th>선택</th>
+                                    <th>쿠폰이름</th>
+                                    <th>할인가격</th>
+                                    <th>유효기간</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="coupon, stat : ${couponList}">
@@ -624,121 +623,17 @@
             </div>
             <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+            <!--배송지 등록에 필요 script-->
+            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script th:inline="javascript">
                 const customerIdModify = /*[[${paymentDTO.customerId}]]*/ '';
                 const paymentDTO = [[${paymentDTO}]];
                 const couponList = [[${couponList}]];
-
+                const nickName = [[${session.name}]];
                 const pointVal = parseInt([[${#authentication.principal.point}]]); //고객 포인트 금액
-                let couponDiscount = 0;
-
                 const customerIdWithout = customerIdModify.replace(/\([^)]*\)/g, ''); // 이메일 앞에 붙은 (kakao),(google),(naver) 떼기
-
                 document.getElementById('customerIdWithoutSpan').innerText = customerIdWithout;
             </script>
-            <script th:inline="javascript">const nickName = [[${session.name}]];</script>
-            <script>
-                var couponModal = document.getElementById("couponModal");
-                var btn = document.getElementById("couponSelect");
-                var span = document.getElementsByClassName("closeModal")[0];
-                btn.onclick = function() {
-                    couponModal.style.display = "flex";
-                }
-                span.onclick = function() {
-                    couponModal.style.display = "none";
-                }
-                couponModal.onclick = function(event) {
-                    if (event.target == couponModal) {
-                        couponModal.style.display = "none";
-                    }
-                }
-                document.getElementById('selectCoupon').addEventListener('click', (e) => {
-                    // 선택된 라디오 버튼 찾기
-                    const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
-                    if (selectedCoupon) {
-                        const couponName = selectedCoupon.getAttribute('data-name');
-                        const discountAmount = selectedCoupon.getAttribute('data-discount');
-                        const pointValue = Number(document.getElementById('point-input').value);
-                        if(Number(discountAmount) + pointValue > (paymentDTO.payPrice )){ //결제할 값보다 클경우 취소
-                            alert('쿠폰금액이 결제할 금액을 초과하여 사용할 수 없습니다.');
-                            return;
-                        }
-                        couponDiscount = Number(discountAmount); //쿠폰사용 금액 저장
-                        document.getElementById('couponDiscount').innerText ='-' + Number(discountAmount).toLocaleString() + '원';
-                        document.getElementById('lastPay').innerText = (paymentDTO.payPrice - Number(discountAmount) - Number(pointValue)).toLocaleString() + '원';
-                        point.innerText = (paymentDTO.payPrice - Number(discountAmount)) > pointVal ? pointVal.toLocaleString() + '원' : (paymentDTO.payPrice - Number(discountAmount)).toLocaleString() + '원';
-                        const couponSelectionDiv = document.getElementById('couponSelection');
-                        couponSelectionDiv.innerHTML = `<span style="font-size: 18px; font-weight: 400; width: auto">선택된 쿠폰 : ${couponName}</span><br><span style="font-size: 18px; font-weight: 400; width: auto">할인 가격: ${discountAmount}원</span>`;
-                        couponSelectionDiv.style.display = 'block';
-                        couponModal.style.display = "none";
-                    } else {
-                        alert('쿠폰을 선택하세요.');
-                    }
-                })
-
-
-
-                window.onload = function () {
-                    function onClick() {
-                        document.querySelector('.modal_wrap1').style.display = 'block';
-                        document.querySelector('.black_bg1').style.display = 'block';
-                    }
-
-                    function offClick() {
-                        document.querySelector('.modal_wrap1').style.display = 'none';
-                        document.querySelector('.black_bg1').style.display = 'none';
-                    }
-
-                    document.getElementById('modal_btn1').addEventListener('click', onClick);
-
-                    document.querySelector('.modal_close1').addEventListener('click', offClick);
-
-                }
-
-                // Modal을 가져옵니다.
-                var modals = document.getElementsByClassName("modal");
-                // Modal을 띄우는 클래스 이름을 가져옵니다.
-                var btns = document.getElementsByClassName("btn");
-                // Modal을 닫는 close 클래스를 가져옵니다.
-                var spanes = document.getElementsByClassName("close");
-                var funcs = [];
-
-                // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
-                function Modal(num) {
-                    return function () {
-                        // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
-                        btns[num].onclick = function () {
-                            modals[num].style.display = "block";
-                            console.log(num);
-                        };
-
-                        // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
-                        spanes[num].onclick = function () {
-                            modals[num].style.display = "none";
-                        };
-                    };
-                }
-
-                // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
-                for (var i = 0; i < btns.length; i++) {
-                    funcs[i] = Modal(i);
-                }
-
-                // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
-                for (var j = 0; j < btns.length; j++) {
-                    funcs[j]();
-                }
-
-                // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
-                window.onclick = function (event) {
-                    if (event.target.className == "modal") {
-                        event.target.style.display = "none";
-                    }
-                };
-            </script>
-
-            <!--배송지 등록에 필요 script-->
-            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
             <script th:src="@{/js/orders.js}"></script>
             <script th:src="@{/js/payment.js}"></script>

@@ -30,7 +30,7 @@ public class PaymentServiceImple implements PaymentService {
     private final CustomerMapper customerMapper;
     private final NotificationService nsv;
     private final AddressMapper addressMapper;
-
+    private final MemberCouponMapper memberCouponMapper;
 
 
     @Transactional
@@ -185,8 +185,42 @@ public class PaymentServiceImple implements PaymentService {
     @Override
     public int paySuccessUpdate(PaymentDTO paymentDTO) {
         try {
-            int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
-            isOk *= ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());
+            int isOk = paymentMapper.paySuccessUpdate(paymentDTO); //결제 테이블 업데이트
+            log.info("결제 성공시 결제DTO확인하기{}",paymentDTO);
+
+            long usedCouponAmount = paymentDTO.getUsedCouponAmount(); //사용한 쿠폰 가격
+            long usedPoint = paymentDTO.getUsedPoint(); //사용한 포인트
+            long combinedDiscount = usedCouponAmount + usedPoint; // 쿠폰가격 + 사용한 포인트
+
+
+            if(combinedDiscount != 0){//포인트나 쿠폰을 사용했을경우
+                //여기서 가격을 업데이트해서 결제금액을 orders table에 업데이트 시켜주어야 한다.
+                List<OrdersVO> ordersVOList = ordersMapper.findExpiredOrders(paymentDTO.getMerchantUid()); //해당 merchantUid 상품들 가져온다.
+                for (OrdersVO ordersVO : ordersVOList) {
+                long calcPrice = (ordersVO.getPayPrice() / paymentDTO.getOriginalPrice()) * paymentDTO.getPayPrice();  // 상품가격 / 총금액 * 구매가격
+                    ordersVO.setPayPrice(calcPrice); //포인트와 쿠폰이 적용된 할인가격을 넣어줌
+                    ordersMapper.usedCombineDiscountUpdate(ordersVO); //포인트와 쿠폰이 적용도니 할인가격을 업데이트
+                }
+                
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+                principalDetails.updatePoints(principalDetails.getPoint() - usedPoint); // principal 객체에 포인트 사용 업데이트
+
+                CustomerVO customerVO = CustomerVO.builder() //Customer 객체 생성
+                        .id(paymentDTO.getCustomerId())
+                        .point(usedPoint)
+                        .build();
+
+                MemberCouponVO memberCouponVO = MemberCouponVO.builder() //MemberCoupone 객체 생성
+                        .customerId(paymentDTO.getCustomerId())
+                        .couponId(paymentDTO.getUsedCouponId())
+                        .build();
+                
+                isOk *= customerMapper.usedPointUpdate(customerVO); //사용한포인트 차감하기
+                isOk *= memberCouponMapper.usedCouponUpdate(memberCouponVO); //사용한 쿠폰 못쓰게 하기
+            }
+
+            isOk *= ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());  //주문 성공 업데이트
             isOk *= basketMapper.clearBasketOnPaymentSuccess(paymentDTO.getCustomerId());//결제 성공하고 결제한 장바구니 지우기
             NotificationVO nvo = new NotificationVO();
             nvo.setCustomerId(paymentDTO.getCustomerId());

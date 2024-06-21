@@ -312,7 +312,7 @@
                     쇼핑
                 </div>
                 <div class="mypage_text8" id="5">상품 후기</div>
-                <div class="mypage_text8" id="6">상품 문의</div>
+<!--                <div class="mypage_text8" id="6">상품 문의</div>-->
             </div>
 
             <hr class="hr1">
@@ -322,7 +322,7 @@
                     내 정보 관리
                 </div>
                 <div class="mypage_text8" id="7">배송지 관리</div>
-                <div class="mypage_text8" id="8">개인 정보 수정</div>
+<!--                <div class="mypage_text8" id="8">개인 정보 수정</div>-->
             </div>
 
         </div>
@@ -412,7 +412,7 @@
             </div>
             <hr class="hr2">
 
-            <div class="page-info-box" style="background-color: violet">
+            <div class="page-info-box">
                 <div th:each="avo : ${list}" id="addressContainer" th:data="${avo.isMain}">
                     <div class="mypage3_text2" id="addName">
                         <span class="mypage2_text4" th:text="${avo.isMain == 'Y' ? '기본배송지' : '추가배송지'}"></span>
