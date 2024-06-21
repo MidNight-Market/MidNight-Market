@@ -15,34 +15,15 @@
         </svg></div>
         <div style="display: flex; flex: 1;">
             <aside class="sidebar">
-                <div class="chatRoom">chatRom1</div>
-                <div class="chatRoom">chatRom2</div>
-                <div class="chatRoom">chatRom3</div>
-                <div class="chatRoom">chatRom4</div>
                 <button id="newChat">+</button>
             </aside>
             <div class="contentDiv">
                 <div class="messages">
 
-                    <div class="message received first">안녕하세요.<span>shopName</span>에 방문해주셔서 감사합니다. 문의사항을 남겨주시면 빠르게 답변드릴게요.</div>
-                    <div class="message sent">안녕하세요!</div>
-                    <div class="message received">안녕하세요! 반갑습니다.</div>
-                    <div class="message sent">어떻게 지내세요?</div>
-                    <div class="message received">잘 지내고 있어요. 당신은요?</div>
-                    <div class="message sent">안녕하세요!</div>
-                    <div class="message received">안녕하세요! 반갑습니다.</div>
-                    <div class="message sent">어떻게 지내세요?</div>
-                    <div class="message received">잘 지내고 있어요. 당신은요?</div>
-                    <div class="message sent">어떻게 지내세요?</div>
-                    <div class="message received">잘 지내고 있어요. 당신은요?</div>
-                    <div class="message sent">어떻게 지내세요?</div>
-                    <div class="message received">잘 지내고 있어요. 당신은요?</div>
-                    <div class="message sent">어떻게 지내세요?</div>
-                    <div class="message received last">잘 지내고 있어요. 당신은요?</div>
                 </div>
                 <img src="/dist/icon/arrow-up.svg" alt="x" class="topBtn" id="topBtn" style="display: none">
                 <div class="inputDiv" id="inputDiv">
-                    <input type="text" placeholder="Enter text..."><img src="/dist/icon/send-fill.svg" alt="x" id="send">
+                    <input type="text" placeholder="Enter text... " id="inputVal"><img src="/dist/icon/send-fill.svg" alt="x" id="send" onclick="sendMessage()">
                 </div>
             </div>
         </div>
