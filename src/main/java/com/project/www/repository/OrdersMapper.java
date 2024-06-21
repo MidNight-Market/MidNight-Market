@@ -38,4 +38,5 @@ public interface OrdersMapper {
 
     List<OrdersVO> getMyList(String currentId);
 
+    void usedCombineDiscountUpdate(OrdersVO ordersVO);
 }

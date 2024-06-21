@@ -1,46 +1,44 @@
 // 변수 선언부
 let pointText = document.getElementById('point'); //포인트
 let pointInputText = document.getElementById('point-input'); //포인트 인풋
-let ordersPayText = document.getElementById('ordersPay'); //주문 금액
-let productPayText = document.getElementById('productPay'); //상품금액
-let discountPayText = document.getElementById('discountPay'); //상품할인금액
+let couponDiscount = document.getElementById('couponDiscount');
 let pointDiscountText = document.getElementById('pointDiscount'); //포인트할인
-let lastPayText = document.getElementById('lastPay');//최종 결제 금액
+let finalPayText = document.getElementById('lastPay');//최종 결제 금액
 
+const payPrice = paymentDTO.payPrice; //원래 결제금액
+let usedCoupon = 0; //사용 쿠폰 금액
+let usedCouponId = 0;
+let usedPoint = 0; //사용 포인트 금액
+let maxPoint = payPrice > pointVal ? pointVal - 100 : payPrice - 100; //소지하고있는 포인트가 결제금액보다 많을경우 결제금액이 최대 포인트가 되야한다.
+pointText.innerText = maxPoint.toLocaleString() + '원';
 
 //변수 선언부
 
 
-
-var couponModal = document.getElementById("couponModal");
-var btn = document.getElementById("couponSelect");
-var span = document.getElementsByClassName("closeModal")[0];
-btn.onclick = function() {
-    couponModal.style.display = "flex";
-}
-span.onclick = function() {
-    couponModal.style.display = "none";
-}
-couponModal.onclick = function(event) {
-    if (event.target == couponModal) {
-        couponModal.style.display = "none";
-    }
-}
 document.getElementById('selectCoupon').addEventListener('click', (e) => {
     // 선택된 라디오 버튼 찾기
     const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
     if (selectedCoupon) {
+
         const couponName = selectedCoupon.getAttribute('data-name');
-        const discountAmount = selectedCoupon.getAttribute('data-discount');
-        const pointValue = Number(document.getElementById('point-input').value);
-        if(Number(discountAmount) + pointValue > (paymentDTO.payPrice )){ //결제할 값보다 클경우 취소
+        const discountAmount = Number(selectedCoupon.getAttribute('data-discount')); //사용할 쿠폰 가격
+        const couponId = Number(selectedCoupon.getAttribute('data-coupon-id'));
+        usedPoint = Number(pointInputText.value); //사용한 포인트 가격
+
+        console.log(couponId);
+
+        if ((payPrice - discountAmount - usedPoint) < 100) { //쿠폰을 사용하고 최종금액이 100원미만인 경우
             alert('쿠폰금액이 결제할 금액을 초과하여 사용할 수 없습니다.');
             return;
         }
-        couponDiscount = Number(discountAmount); //쿠폰사용 금액 저장
-        document.getElementById('couponDiscount').innerText ='-' + Number(discountAmount).toLocaleString() + '원';
-        document.getElementById('lastPay').innerText = (paymentDTO.payPrice - Number(discountAmount) - Number(pointValue)).toLocaleString() + '원';
-        point.innerText = (paymentDTO.payPrice - Number(discountAmount)) > pointVal ? pointVal.toLocaleString() + '원' : (paymentDTO.payPrice - Number(discountAmount)).toLocaleString() + '원';
+
+        usedCoupon = discountAmount; //쿠폰사용 금액 저장
+        usedCouponId = couponId;
+        couponDiscount.innerText = '-' + usedCoupon.toLocaleString() + '원'; //픽시드에 쿠폰할인금액 innerText 변경
+        finalPayText.innerText = (payPrice - usedCoupon - usedPoint).toLocaleString() + '원'; // 최종 결제금액 변경
+        maxPoint = (payPrice - usedCoupon) > maxPoint ? maxPoint : (payPrice - usedCoupon - 100); //쿠폰을 사용했을 때 최대로 사용 할 수 있는 포인트 가격 변경
+        pointText.innerText = maxPoint.toLocaleString() + '원';
+
         const couponSelectionDiv = document.getElementById('couponSelection');
         couponSelectionDiv.innerHTML = `<span style="font-size: 18px; font-weight: 400; width: auto">선택된 쿠폰 : ${couponName}</span><br><span style="font-size: 18px; font-weight: 400; width: auto">할인 가격: ${discountAmount}원</span>`;
         couponSelectionDiv.style.display = 'block';
@@ -48,9 +46,66 @@ document.getElementById('selectCoupon').addEventListener('click', (e) => {
     } else {
         alert('쿠폰을 선택하세요.');
     }
+});
+
+
+document.getElementById('point-input').addEventListener('input', (e) => { //포인트를 변경할 경우 이벤트
+
+    const inputVal = Number(pointInputText.value); //현재 포인트 입력한 금액
+
+    if (inputVal < 0) { //입력한 포인트가 음수라면 안되게
+        usedPoint = 0; //포인트 사용값 0으로 변경
+        pointInputText.value = 0; //인풋밸류값 변경
+        pointText.innerText = maxPoint.toLocaleString() + '원'; //포인트 사용값 최대 포인트로 변경
+        pointDiscountText.innerText = 0 + '원'; //포인트 할인금액 0으로 변경
+        finalPayText.innerText = (payPrice - usedCoupon - usedPoint).toLocaleString() + '원'; //최종결제금액 변경
+        return;
+    }
+    if (inputVal > maxPoint) { //최대로 사용할 수 있는 포인트를 넘는다면
+        usedPoint = maxPoint; //사용한포인트는 최대 포인트로 변경
+        pointInputText.value = maxPoint; //인풋 밸류값 최대값으로 변경
+        pointText.innerText = '0원' //최대로 사용했기 떄문에 사용할 수있는 금액 0원으로 변경
+        pointDiscountText.innerText = '-' + maxPoint.toLocaleString() + '원'; //포인트 할인금액 최대값으로 변경
+        finalPayText.innerText = (payPrice - usedCoupon - usedPoint).toLocaleString() + '원'; //최종 결제금액 변경
+        return;
+    }
+
+    usedPoint = inputVal; //사용한 포인트값 변경
+    pointText.innerText = (maxPoint - inputVal).toLocaleString() + '원'; //사용한금액 차감하고 표시
+    pointDiscountText.innerText = '-' + inputVal.toLocaleString() + '원'; //포인트 할인금액 변경
+    finalPayText.innerText = (payPrice - usedCoupon - usedPoint).toLocaleString() + '원'; //최종 결제금액 변경
+
 })
 
+//포인트 모두 사용 버튼 클릭 시
+document.getElementById('all-in').addEventListener('click', () => {
 
+    if (maxPoint === Number(pointInputText.value)) {
+        alert('사용할 수 있는 포인트가 최대입니다.');
+        return;
+    }
+
+    usedPoint = maxPoint; //사용한포인트는 최대 포인트로 변경
+    pointInputText.value = maxPoint; //인풋 밸류값 최대값으로 변경
+    pointText.innerText = '0원' //최대로 사용했기 떄문에 사용할 수있는 금액 0원으로 변경
+    pointDiscountText.innerText = '-' + maxPoint.toLocaleString() + '원'; //포인트 할인금액 최대값으로 변경
+    finalPayText.innerText = (payPrice - usedCoupon - usedPoint).toLocaleString() + '원'; //최종 결제금액 변경
+});
+
+var couponModal = document.getElementById("couponModal");
+var btn = document.getElementById("couponSelect");
+var span = document.getElementsByClassName("closeModal")[0];
+btn.onclick = function () {
+    couponModal.style.display = "flex";
+}
+span.onclick = function () {
+    couponModal.style.display = "none";
+}
+couponModal.onclick = function (event) {
+    if (event.target == couponModal) {
+        couponModal.style.display = "none";
+    }
+}
 
 window.onload = function () {
     function onClick() {
@@ -109,45 +164,6 @@ window.onclick = function (event) {
         event.target.style.display = "none";
     }
 };
-
-console.log(paymentDTO);
-
-
-
-document.getElementById('point-input').addEventListener('input', (e) => { //포인트를 변경할 경우 이벤트
-    let usePoint = Number(e.target.value);
-
-    if (usePoint > pointVal || maxPoint < usePoint ) { //현재 보유한 포인트보다 많이 입력을 한다면
-        e.target.value = pointVal; //value값 변경
-        point.innerText = '0원'; //잔여 포인트값 변경
-        pointDiscount.innerText = formatCurrency(pointVal) //픽시드값 변경
-        lastPay.innerText = formatCurrency(1234); //최종결제금액 변경
-        return;
-    }
-
-    lastPay.innerText = formatCurrency(paymentDTO.payPrice - couponDiscount - usePoint); //최종 결제금액 변경
-    point.innerText = formatCurrency(paymentDTO.payPrice - couponDiscount  - usePoint); //잔여 포인트값 변경
-
-
-
-
-
-})
-
-//포인트 모두 사용 버튼 클릭 시
-document.getElementById('all-in').addEventListener('click', () => {
-    point.innerText = '0 원';
-    pointInput.value = maxPoint; //인풋값 변경
-    pointDiscount.innerText = formatCurrency(maxPoint) //픽시드값 변경
-    lastPay.innerText = formatCurrency((cleanCurrencyString(lastPay.innerText) - pointVal)); //최종결제금액 변경
-});
-
-
-
-
-
-
-
 
 
 //쉼표와 원을 붙여주는 함수

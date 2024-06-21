@@ -166,7 +166,7 @@
                         <div><span id="point"></span></div>
                     </div>
                     <div class="point-text-box">
-                        <div><input type="number" id="point-input" value=""></div>
+                        <div><input type="number" id="point-input" value="0"></div>
                         <div>
                             <button id="all-in">모두 사용</button>
                         </div>
@@ -185,7 +185,7 @@
 
                     <span class="agreement_text1">개인정보 수집ㆍ이용 처리 및 동의
                                         <label>
-                        <input type="checkbox" class=".checkbox_icon">
+                        <input type="checkbox" class=".checkbox_icon checkbox">
                     </label>
                     </span>
                     <!-- 첫 번째 Modal을 여는 클래스 -->
@@ -238,7 +238,7 @@
                 <div class="agreement2">
                     <span class="agreement_text3">전자지급 결제대행 서비스 이용 약관 동의
                         <label>
-                        <input type="checkbox">
+                        <input type="checkbox" class="checkbox">
                     </label>
                     </span>
 
@@ -557,32 +557,31 @@
                     </span>
                 </div>
 
-                <div class="order6">
+
                     <div>
                         <a href="#" id="purchaseButton">
                             <div class="basket6">
-                        <span class="text9"
-                              th:text="${#numbers.formatDecimal(paymentDTO.originalPrice, 0, 'COMMA', -1, 'POINT')} + ' 원 결제하기'"></span>
+                        <span class="text9">결제하기</span>
                             </div>
                         </a>
                     </div>
                 </div>
-            </div>
+
 
             <div class="price-info">
                 <div class="info-title"><span>결제 금액</span></div>
                 <div class="price-desc">
                     <div class="main-desc">
                         <div class="main-content main-title"><span>주문금액</span></div>
-                        <div class="main-content"><span id="ordersPay">6,990원</span></div>
+                        <div class="main-content"><span id="ordersPay" th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                     <div class="sub-desc">
                         <div class="sub-title"><span>└상품금액</span></div>
-                        <div class="sub-content"><span id="productPay"></span></div>
+                        <div class="sub-content"><span id="productPay" th:text="${#numbers.formatDecimal(paymentDTO.originalPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                     <div class="sub-desc">
                         <div class="sub-title"><span>└상품할인금액</span></div>
-                        <div class="sub-content"><span id="discountPay">-3,000원</span></div>
+                        <div class="sub-content"><span id="discountPay" th:text="'-' + ${#numbers.formatDecimal((paymentDTO.originalPrice - paymentDTO.payPrice), 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                     <div class="main-desc">
                         <div class="main-content main-title"><span>쿠폰할인</span></div>
@@ -594,7 +593,7 @@
                     </div>
                     <div class="last-desc">
                         <div class="last-content last-title"><span style="font-size: 17px">최종결제금액</span></div>
-                        <div class="lsat-content"><span id="lastPay">6,990원</span></div>
+                        <div class="lsat-content"><span id="lastPay" th:text="${#numbers.formatDecimal(paymentDTO.payPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span></div>
                     </div>
                 </div>
                 <div id="couponModal" class="modal-coupon">
@@ -632,7 +631,6 @@
                 const couponList = [[${couponList}]];
                 const nickName = [[${session.name}]];
                 const pointVal = parseInt([[${#authentication.principal.point}]]); //고객 포인트 금액
-                let couponDiscount = 0;
                 const customerIdWithout = customerIdModify.replace(/\([^)]*\)/g, ''); // 이메일 앞에 붙은 (kakao),(google),(naver) 떼기
                 document.getElementById('customerIdWithoutSpan').innerText = customerIdWithout;
             </script>
