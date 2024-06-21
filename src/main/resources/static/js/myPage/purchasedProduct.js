@@ -1,4 +1,4 @@
-//상품 정보 저장
+//상품 정보 저장 하기
 let purchasedData;
 
 async function getMyPurchasedProductListFromServer(customerId) {

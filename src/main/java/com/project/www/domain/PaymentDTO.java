@@ -31,4 +31,5 @@ public class PaymentDTO {
     private AddressVO addressVO; //배송지
     private long usedCouponId;
     private long usedPoint;
+    private long usedCouponAmount;
 }

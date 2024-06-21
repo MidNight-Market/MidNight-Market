@@ -14,5 +14,14 @@
     <select id="getCount" resultType="int">
         select count(*) from member_coupon where customer_id = #{customer_id}
     </select>
+    
+    <update id="usedCouponUpdate">
+        UPDATE member_coupon
+        SET
+        use_status = 1,
+        use_date = now()
+        WHERE
+        customer_id = #{customerId} AND coupon_id = #{couponId}
+    </update>
 
 </mapper>

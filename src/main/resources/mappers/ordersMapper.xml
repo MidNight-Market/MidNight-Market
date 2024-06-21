@@ -111,5 +111,13 @@
     <select id="getMyList" resultType="com.project.www.domain.OrdersVO">
         select * from orders where customer_id = ${currentId}
     </select>
+    
+    <update id="usedCombineDiscountUpdate">
+        UPDATE orders
+        SET
+        pay_price = #{payPrice}
+        WHERE
+        id = #{id}
+    </update>
 
 </mapper>
