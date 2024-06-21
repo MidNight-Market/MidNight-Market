@@ -88,7 +88,8 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/prepare")
     public void prepare(@RequestBody PaymentDTO paymentDTO) throws IamportResponseException, IOException {
-        //log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
+        log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
+        psv.usedPointAndCouponUpdate(paymentDTO);
         importService.postPrepare(paymentDTO);
     }
 

@@ -22,4 +22,6 @@ public interface BasketMapper {
     int getBasketTotalCount(String username);
 
     int myBasketCheckedUpdate(BasketVO basketVO);
+
+    int clearBasketOnPaymentSuccess(String customerId);
 }

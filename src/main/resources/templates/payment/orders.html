@@ -611,7 +611,7 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="coupon, stat : ${couponList}">
-                                        <td><input type="radio" name="coupon" th:id="'checkbox' + ${stat.index}" th:data-name="${coupon.name}" th:data-discount="${coupon.discountAmount}"></td>
+                                        <td><input type="radio" name="coupon" th:id="'checkbox' + ${stat.index}" th:data-coupon-id="${coupon.id}" th:data-name="${coupon.name}" th:data-discount="${coupon.discountAmount}"></td>
                                         <td><label th:for="'checkbox' + ${stat.index}" th:text="${coupon.name}"></label></td>
                                         <td><span th:text="${coupon.discountAmount}"></span></td>
                                         <td><span th:text="${coupon.issueDate}"></span></td>
@@ -624,12 +624,13 @@
             </div>
             <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-            <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
             <script th:inline="javascript">
                 const customerIdModify = /*[[${paymentDTO.customerId}]]*/ '';
                 const paymentDTO = [[${paymentDTO}]];
+                const couponList = [[${couponList}]];
 
-                const pointVal = parseInt([[${#authentication.principal.point}]]);
+                const pointVal = parseInt([[${#authentication.principal.point}]]); //고객 포인트 금액
+                let couponDiscount = 0;
 
                 const customerIdWithout = customerIdModify.replace(/\([^)]*\)/g, ''); // 이메일 앞에 붙은 (kakao),(google),(naver) 떼기
 
@@ -654,11 +655,18 @@
                 document.getElementById('selectCoupon').addEventListener('click', (e) => {
                     // 선택된 라디오 버튼 찾기
                     const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
-
                     if (selectedCoupon) {
                         const couponName = selectedCoupon.getAttribute('data-name');
                         const discountAmount = selectedCoupon.getAttribute('data-discount');
-
+                        const pointValue = Number(document.getElementById('point-input').value);
+                        if(Number(discountAmount) + pointValue > (paymentDTO.payPrice )){ //결제할 값보다 클경우 취소
+                            alert('쿠폰금액이 결제할 금액을 초과하여 사용할 수 없습니다.');
+                            return;
+                        }
+                        couponDiscount = Number(discountAmount); //쿠폰사용 금액 저장
+                        document.getElementById('couponDiscount').innerText ='-' + Number(discountAmount).toLocaleString() + '원';
+                        document.getElementById('lastPay').innerText = (paymentDTO.payPrice - Number(discountAmount) - Number(pointValue)).toLocaleString() + '원';
+                        point.innerText = (paymentDTO.payPrice - Number(discountAmount)) > pointVal ? pointVal.toLocaleString() + '원' : (paymentDTO.payPrice - Number(discountAmount)).toLocaleString() + '원';
                         const couponSelectionDiv = document.getElementById('couponSelection');
                         couponSelectionDiv.innerHTML = `<span style="font-size: 18px; font-weight: 400; width: auto">선택된 쿠폰 : ${couponName}</span><br><span style="font-size: 18px; font-weight: 400; width: auto">할인 가격: ${discountAmount}원</span>`;
                         couponSelectionDiv.style.display = 'block';

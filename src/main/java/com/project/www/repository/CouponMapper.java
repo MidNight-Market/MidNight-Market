@@ -14,4 +14,6 @@ public interface CouponMapper {
     long search(String couponCode);
 
     CouponVO getCouponList(long tmpCouponId);
+
+    CouponVO getUsedCoupon(long usedCouponId);
 }

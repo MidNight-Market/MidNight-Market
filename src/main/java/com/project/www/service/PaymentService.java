@@ -19,4 +19,6 @@ public interface PaymentService {
     String saveMembershipPaymentInfo(PaymentDTO paymentDTO);
 
     int membershipRegistrationCompletedUpdate(PaymentDTO paymentDTO);
+
+    void usedPointAndCouponUpdate(PaymentDTO paymentDTO);
 }

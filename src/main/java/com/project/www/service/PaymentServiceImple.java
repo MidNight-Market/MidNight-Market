@@ -130,7 +130,7 @@ public class PaymentServiceImple implements PaymentService {
                     return "excess_quantity";
                 }
 
-                if (bsv.getQty() != 0) {//상단에 이름 저장하기위해 수량이 0이 아닌 상품의 이름을 가져옴
+                if (bsv.getQty() != 0 && bsv.isChecked()) {//상단에 이름 저장하기위해 수량이 0이 아닌 상품의 이름을 가져오고 체크박스를 클릭한 상품만 넣기
                     productName = productVO.getName();
                     productCount += 1;
                     productQuantity = bsv.getQty();
@@ -163,7 +163,7 @@ public class PaymentServiceImple implements PaymentService {
                             .productId(ordersVO.getProductId())
                             .build();
 
-                    isOk *= basketMapper.delete(basketVO);
+//                    isOk *= basketMapper.delete(basketVO); 장바구니에 담겨있던 물건은 결제시에 삭제하는거로 변경
                     isOk *= ordersMapper.register(ordersVO); // 주문 정보 등록
                     isOk *= productMapper.orderUpdate(ordersVO); //상품의 quantity 도 주문한 갯수만큼 수정
                 }
@@ -187,6 +187,7 @@ public class PaymentServiceImple implements PaymentService {
         try {
             int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
             isOk *= ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());
+            isOk *= basketMapper.clearBasketOnPaymentSuccess(paymentDTO.getCustomerId());//결제 성공하고 결제한 장바구니 지우기
             NotificationVO nvo = new NotificationVO();
             nvo.setCustomerId(paymentDTO.getCustomerId());
             nvo.setNotifyContent(paymentDTO.getPayDescription()+" 주문이 완료되었습니다. ");
@@ -281,5 +282,10 @@ public class PaymentServiceImple implements PaymentService {
         }
 
         return 1;
+    }
+
+    @Override
+    public void usedPointAndCouponUpdate(PaymentDTO paymentDTO) {
+        paymentMapper.usedPointAndCouponUpdate(paymentDTO);
     }
 }
