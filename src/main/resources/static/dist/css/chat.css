@@ -1,102 +1,189 @@
-body{
+body, html {
+    height: 100%;
     margin: 0;
-    padding: 0;
-    background-color: #e8e8e8;
-}
-.popupTitle{
-    background-color: orange;
-    text-align: center;
-    height: 50px;
-    line-height: 50px;
-    font-size: 20px;
-    font-weight: 900;
-    color: white;
-    position: relative;
-}
-.bi{
-    position: absolute;
-    bottom: 25px;
-    left: 420px;
-}
-.buttonDiv{
-    width: 100%;
     display: flex;
+    flex-direction: column;
 }
-.option1{
-    width: 50%;
-    background-color: white;
-    border: 1px solid #bebebe;
-    font-size: 15px;
-    font-weight: 700;
+.servicePopup {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
-.option2{
-    width: 50%;
-    background-color: white;
-    border: 1px solid #bebebe;
-    border-left: 0;
-    font-size: 15px;
-    font-weight: 700;
-}
-.option1>img{
-    margin-top: 15px;
-}
-.option2>img{
-    margin-top: 15px;
-}
-.option1Div{
-    border: 1px solid black;
-    background-color: white;
-    padding: 10px;
-    font-size: 13px;
-    width: 300px;
-    margin-left: 20px;
-    border-radius: 6px;
-    margin-top: 20px;
-    line-height: 20px;
-    position: relative;
-    height: 130px;
-}
-#first{
-    position: absolute;
-    background-color: orange;
+.popupTitle {
+    background: orange;
     color: white;
-    border: none;
-    border-radius: 5px;
-    width: 200px;
-    height: 30px;
-    left: 20%;
-    margin-top: 10px;
-}
-.selectOption1, .selectOption2{
-    width: 200px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 6px;
     padding: 10px;
-    font-size: 13px;
-    line-height: 20px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 28px;
+    font-weight: bold;
+    height: 40px;
+    border-bottom: 1px solid black;
 }
-.selectOption1{
-    margin-top: 60px;
-    margin-left: -10px;
-}
-.selectOption2{
-    margin-top: 20px;
-    margin-left: -10px;
-}
-#reply1{
+.popupTitle svg {
     position: absolute;
-    width: 380px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 6px;
-    font-size: 15px;
-    line-height: 20px;
-    text-align: center;
-    left: 280px;
-    top : 300px
+    left: 500px;
+
 }
-#reply1 > table{
-    padding-left: 15px;
+.sidebar {
+    width: 30%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-right: 1px solid black;
+}
+
+.sidebar button {
+    position: absolute;
+    top : 690px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.contentDiv {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+}
+.topBtn{
+    position: absolute;
+    top : 630px;
+    right: 260px;
+    background-color: #fff;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+#inputDiv{
+    position: fixed;
+    top: 740px;
+    right: 0;
+    width: 70%;
+    height: 60px;
+}
+.contentDiv input {
+    width: 90%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 40px;
+    position: absolute;
+    vertical-align: 80px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+.message.sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    margin-right: 10px;
+    margin-bottom: 5px;
+
+}
+.message.received {
+    background-color: #ffffff;
+    align-self: flex-start;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+.message.received.first{
+    margin-top: 20px;
+}
+.message.received.last{
+    margin-bottom: 70px;
+}
+.inputDiv{
+    width: 100%;
+    background-color: gray;
+    height: 60px;
+    position: relative;
+}
+#send{
+    position: absolute;
+    top: 15px;
+    right: 13px;
+}
+.chatRoom{
+    width: 100%;
+    height: 60px;
+    background-color: #dddddd;
+    border-bottom: 1px solid #606060;
+    text-align: center;
+    line-height: 60px;
+}
+span{
+    margin-top: 10px;
+    margin-left: 13px;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #f57700;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+::-webkit-scrollbar-track {
+    background-color: #f2c092;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px white;
+}
+.seller-input-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid coral;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* 팝업이 다른 요소들 위에 뜨도록 설정 */
+}
+.seller-input-text{
+    font-size: 20px;
+    font-weight: 700;
+}
+.seller-input-input{
+    height: 30px;
+}
+
+.seller-input-button{
+    margin-left: 15px;
+    height: 35px;
+    font-size: 20px;
+    border: none;
+    background-color: coral;
+    color: white;
+    vertical-align: middle;
 }
