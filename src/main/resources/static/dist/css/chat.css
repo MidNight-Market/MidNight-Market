@@ -187,3 +187,9 @@ span{
     color: white;
     vertical-align: middle;
 }
+.room{
+    background-color: #9a9a9a;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
