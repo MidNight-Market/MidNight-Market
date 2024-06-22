@@ -33,7 +33,6 @@ public class PaymentController {
     private final MemberCouponService mscv;
     private final CouponService csv;
 
-
     @ResponseBody
     @PostMapping("/post")
     public String paymentPost(@RequestBody PaymentDTO paymentDTO) {
@@ -135,11 +134,17 @@ public class PaymentController {
         }else{
             memberShipPointeRate = 0.01;
         }
-
-
         PaymentDTO paymentDTO = psv.getMyPaymentProduct(merchantUid);
         paymentDTO.setOriginalPrice(Math.round(paymentDTO.getOriginalPrice() * memberShipPointeRate ));
+
         model.addAttribute("paymentDTO", paymentDTO);
+
+        //알림추가
+        NotificationVO nvo = new NotificationVO();
+        nvo.setCustomerId(principalDetails.getUsername());
+        //이부분에 포인트만 계산한값 넣어주세요
+        nvo.setNotifyContent("구매가 완료되었습니다. 구매확정시 포인트 "+" 원 지급될 예정입니다. ");
+        nsv.insert(nvo);
         return "payment/success";
     }
 
