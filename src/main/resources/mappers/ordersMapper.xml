@@ -6,9 +6,9 @@
 
     <insert id="register">
         INSERT INTO orders
-        (merchant_uid, customer_id, product_id, qty, pay_price)
+        (merchant_uid, customer_id, product_id, qty, original_price, pay_price)
         VALUES
-        (#{merchantUid}, #{customerId}, #{productId}, #{qty}, #{payPrice})
+        (#{merchantUid}, #{customerId}, #{productId}, #{qty}, #{originalPrice}, #{payPrice})
     </insert>
 
     <select id="getMyOrdersProduct" resultType="com.project.www.domain.OrdersVO">
@@ -20,6 +20,7 @@
     <update id="paySuccessUpdate">
         UPDATE orders
         SET
+        imp_uid = #{impUid},
         orders_date = now(),
         status = '주문완료',
         status_date = now()

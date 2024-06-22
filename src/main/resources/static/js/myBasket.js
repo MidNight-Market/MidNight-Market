@@ -76,12 +76,8 @@ function spreadMyBasketList(customerId) {
             customerId: customerId
         },
         success: function (response) {
-
             myBasket = response;
-
             myBasketList(response);
-            // 체크되어 있는 상품들을 다시 체크 처리
-
         }
     });
 }
@@ -164,10 +160,16 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
 
     if (button) {
 
+        if(myBasket.length === 0){ //장바구니에 물건이 아예 없을 경우
+            alert('장바구니에 물건을 담고 진행해주세요.');
+            return;
+        }
+
         if (!confirm('장바구니에 담긴 상품들을 주문하시겠습니까?')) {
             e.preventDefault();
             return;
         }
+
 
         let soldOutQuantity = myBasket.filter(item => item.qty === 0);
 
@@ -186,7 +188,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
             }
         }
 
-        const merchant_uid = 'merchant+_uid' + new Date().getTime();
+        const merchant_uid = 'merchant_uid' + new Date().getTime();
 
         const payData = {
             merchantUid: merchant_uid,

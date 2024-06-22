@@ -12,9 +12,11 @@ public class OrdersVO {
 
     private long id;
     private String merchantUid;
+    private String impUid;
     private String customerId;
     private long productId;
     private long qty;
+    private long originalPrice;
     private long payPrice;
     private String ordersDate;
     private String status;
