@@ -23,13 +23,12 @@ public class CHatWebSocketController {
 
     @MessageMapping("/chat.sendMessage")
     public void sendMessage(MessageVO messageVO) {
-        log.info("여기잘드렁옴?");
         csv.saveMessage(messageVO);
         messagingTemplate.convertAndSend("/topic/" + messageVO.getChatRoomId(), messageVO);
     }
 
     @MessageMapping("/chat.addUser")
-    public void addUser(MessageVO MessageVO) {
-        messagingTemplate.convertAndSend("/topic/" + MessageVO.getChatRoomId(), MessageVO);
+    public void addUser(MessageVO messageVO) {
+        messagingTemplate.convertAndSend("/topic/" + messageVO.getChatRoomId(), messageVO);
     }
 }
