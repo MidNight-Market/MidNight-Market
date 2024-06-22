@@ -9,7 +9,12 @@ const payPrice = paymentDTO.payPrice; //원래 결제금액
 let usedCoupon = 0; //사용 쿠폰 금액
 let usedCouponId = 0;
 let usedPoint = 0; //사용 포인트 금액
-let maxPoint = payPrice > pointVal ? pointVal - 100 : payPrice - 100; //소지하고있는 포인트가 결제금액보다 많을경우 결제금액이 최대 포인트가 되야한다.
+let maxPoint = 0;
+
+if(pointVal !== 0){ //포인트를 소지하고있으면
+   maxPoint = payPrice > pointVal ? pointVal - 100 : payPrice - 100; //소지하고있는 포인트가 결제금액보다 많을경우 결제금액이 최대 포인트가 되야한다.
+}
+
 pointText.innerText = maxPoint.toLocaleString() + '원';
 
 //변수 선언부

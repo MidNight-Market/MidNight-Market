@@ -39,4 +39,6 @@ public interface CustomerMapper {
     List<AddressVO> getMyAddrList(String customerId);
 
     int usedPointUpdate(CustomerVO customerVO);
+
+    int rollbackRefundPoint(CustomerVO customerVO);
 }
