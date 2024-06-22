@@ -92,7 +92,6 @@ public class ImportService {
         CancelData cancelData = new CancelData(impUid, true, BigDecimal.valueOf(amount));
         cancelData.setReason("그냥 환불하고 싶어요");
         IamportResponse<Payment> testData = api.cancelPaymentByImpUid(cancelData);
-        log.info("환불 데이터 확인하기>>{}",testData.getResponse());
         return testData;
     }
 

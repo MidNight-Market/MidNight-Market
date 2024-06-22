@@ -53,7 +53,7 @@ document.getElementById('membership-paymentButton').addEventListener('click', ()
                         // 주소와 전화번호와 같은 정보 기입
                     }),
                     success: function (response) {
-                        alert('결제가 성공적으로 완료되었습니다');
+                        alert('결제에 성공하였습니다.\n멤버쉽 가입을 축하합니다~');
                         window.close();
                         opener.location.reload();
                     },

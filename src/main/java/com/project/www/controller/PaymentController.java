@@ -67,7 +67,7 @@ public class PaymentController {
         int couponCount = mscv.getCount(paymentDTO.getCustomerId());
         List<MemberCouponVO>mList = mscv.getMemberCouponList(paymentDTO.getCustomerId());
         List<CouponVO> couponList = new ArrayList<>();
-        for(MemberCouponVO mcvo : mList) {
+        for(MemberCouponVO mcvo : mList) { //쿠폰목록 불러오기
             long couponId = mcvo.getCouponId();
             CouponVO cvo = csv.getCouponList(couponId);
             couponList.add(cvo);
