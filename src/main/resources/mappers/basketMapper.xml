@@ -47,6 +47,12 @@
         from basket
         where customer_id = #{username}
     </select>
+
+    <select id="getReadyToCheckoutCartItems" resultType="com.project.www.domain.BasketVO">
+        SELECT * FROM basket
+        WHERE
+        customer_id = #{customerId} AND qty > 0 AND is_checked = 1
+    </select>
     
     <update id="myBasketCheckedUpdate">
         UPDATE basket

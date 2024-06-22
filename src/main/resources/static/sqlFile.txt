@@ -47,9 +47,11 @@ CREATE TABLE product (
 CREATE TABLE orders (
     id bigint AUTO_INCREMENT,
 	merchant_uid VARCHAR(256) NOT NULL,
+	imp_uid VARCHAR(256),
 	customer_id VARCHAR(150) NOT NULL,
 	product_id bigint NOT NULL,
 	qty bigint NOT NULL,
+	originalPrice bigint NOT NULL,
 	pay_price bigint NOT NULL,
 	orders_date DATETIME DEFAULT NOW(),
 	status VARCHAR(10) default '주문대기',

@@ -84,6 +84,7 @@ document.getElementById('purchaseButton').addEventListener('click', (e) => {
                     contentType: 'application/json',
                     data: JSON.stringify({
                         merchantUid: rsp.merchant_uid,
+                        impUid: rsp.imp_uid,
                         payMethod: rsp.pay_method,
                         payDescription: paymentDTO.payDescription,
                         customerId: paymentDTO.customerId,
