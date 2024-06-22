@@ -238,6 +238,25 @@ CREATE TABLE slang (
     register_date DATETIME DEFAULT NOW()
 );
 
+#소켓채팅
+CREATE TABLE chat_room (
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    customer_id VARCHAR(150) NOT NULL,
+    seller_id VARCHAR(150) NOT NULL,
+    PRIMARY KEY (id)
+);
+#소켓채팅
+CREATE TABLE message (
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    chat_room_id BIGINT NOT NULL,
+    sender_id varchar(150) not null,
+    sender_type varchar(50) not null,
+    content TEXT NOT NULL,
+    send_time DATETIME DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (chat_room_id) REFERENCES chat_room(id)
+);
+
 
 ALTER TABLE product_category_detail ADD CONSTRAINT FK_product_category_TO_product_category_detail_1 FOREIGN KEY (
 	product_category_id

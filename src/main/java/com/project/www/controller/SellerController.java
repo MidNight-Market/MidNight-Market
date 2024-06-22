@@ -90,4 +90,10 @@ public class SellerController {
         return ssv.getList();
     }
 
+    @ResponseBody
+    @GetMapping("/getShopName/{sellerId}")
+    public String getShopName(@PathVariable String sellerId){
+        return ssv.getShopName(sellerId);
+    }
+
 }

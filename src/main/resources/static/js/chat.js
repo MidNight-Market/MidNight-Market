@@ -42,13 +42,18 @@ async function renderChatRoomList(currentId) {
         result.forEach(chatRoom => {
             const roomElement = document.createElement('div');
             roomElement.classList.add('room');
-            roomElement.textContent = `Chat Room ID: ${chatRoom.id}`;
             const roomId = document.createElement('p');
             roomId.textContent = `${chatRoom.id}`;
             roomId.style.display = 'none';
-            roomElement.appendChild(roomId);
+            const marketName = document.createElement('p');
+            marketName.classList.add("marketName")
+            getMarketName(chatRoom.sellerId).then(result =>
+                marketName.textContent = result
+            );
+            roomElement.append(roomId,marketName);
             sidebar.appendChild(roomElement);
             lastRoomId = chatRoom.id;
+
         });
         if (lastRoomId) {
             await loadChatRoom(lastRoomId);
@@ -67,7 +72,6 @@ async function loadChatRoom(chatRoomId) {
         };
         const resp = await fetch(url, config);
         const messages = await resp.json();
-        const messagesContainer = document.querySelector('.messages');
         window.scrollTo(0, document.body.scrollHeight);
         displayMessages(messages);
     } catch (error) {
@@ -78,6 +82,12 @@ async function loadChatRoom(chatRoomId) {
 function displayMessages(messages) {
     const messagesContainer = document.querySelector('.messages');
     messagesContainer.innerHTML = ''; // 기존 메시지 초기화
+    let roomId = document.createElement('p');
+    roomId.textContent = messages[0].chatRoomId;
+    roomId.style.display = 'none';
+    roomId.id = 'roomId'
+    messagesContainer.appendChild(roomId);
+
 
     messages.forEach(message => {
         spreadMessage(message, messagesContainer);
@@ -102,14 +112,18 @@ function spreadMessage(message, messagesContainer) {
 }
 
 // 메시지 보내기
-function sendMessage() {
+function sendMessage(roomId) {
     const inputVal = document.getElementById('inputVal').value;
-    // 현재 활성화된 채팅방 ID 가져오는 로직 필요
-    const chatRoomId = 1;
+    let senderType;
+    if(role == "role_user"){
+        senderType = "customer";
+    }else if(role == "role_seller"){
+        senderType = "seller";
+    }
     const message = {
-        chatRoomId: chatRoomId,
-        senderId: "(kakao)ehdwo13@kakao.com",
-        senderType: 'customer', // 혹은 'seller', 상황에 맞게 설정
+        chatRoomId: roomId,
+        senderId: currentId,
+        senderType: senderType,
         content: inputVal
     };
     // 웹소켓을 통해 메시지 전송
@@ -125,9 +139,8 @@ function sendMessage() {
 // 페이지 로드 시 실행
 document.addEventListener('DOMContentLoaded', async function () {
     window.scrollTo(0, document.body.scrollHeight);
-    const currentId = "(kakao)ehdwo13@kakao.com"; // 예시: 현재 사용자 ID
     try {
-        await renderChatRoomList("(kakao)ehdwo13@kakao.com");
+        await renderChatRoomList(currentId);
     } catch (error) {
         console.error('Error loading chat room list on page load:', error.message);
     }
@@ -135,32 +148,38 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 // 채팅방 클릭 시 해당 방 로드
 document.body.addEventListener('click', function (event) {
-    // sidebar의 room 클래스를 가진 요소가 클릭된 경우
-    if (event.target.classList.contains('room')) {
-        const roomIdElement = event.target.querySelector('p'); // 클릭된 room 안의 p 태그
-        const chatRoomId = roomIdElement.textContent.trim(); // p 태그의 내용을 가져와서 공백 제거
-        if (chatRoomId) {
-            loadChatRoom(chatRoomId)
-                .then(() => {
-                    console.log('Chat room loaded successfully.');
-                })
-                .catch(error => {
-                    console.error('Error loading chat room:', error.message);
-                });
+    if (event.target.classList.contains('room') || event.target.classList.contains('marketName')) {
+        const roomElement = event.target.closest('.room');
+        if (roomElement) {
+            const roomIdElement = roomElement.querySelector('p');
+            const chatRoomId = roomIdElement.textContent.trim();
+            if (chatRoomId) {
+                loadChatRoom(chatRoomId)
+                    .then(() => {
+                        console.log('Chat room loaded successfully.');
+                    })
+                    .catch(error => {
+                        console.error('Error loading chat room:', error.message);
+                    });
+            }
         }
     }
-
-    // send 클릭된 경우
     if (event.target.id === 'send') {
-        // const chatRoomId = document.getElementById('chatRoomId').value.trim(); // chatRoomId 입력 필드의 값 가져오기
-        const senderId = "(kakao)ehdwo13@kakao.com";
-        const chatRoomId = 1;
-        const content = document.getElementById('inputVal').value.trim();
-        sendMessage(chatRoomId, senderId, content);
+        const roomId = document.getElementById('roomId').innerText.trim();
+        sendMessage(roomId);
     }
 });
-function getMarketName(sellerId){
-
+async function getMarketName(sellerId){
+    try{
+        const url = '/seller/getShopName/'+sellerId;
+        const config = {
+            method: 'GET'
+        };
+        const resp = await fetch(url, config);
+        return await resp.text();
+    }catch (e){
+        console.log(e);
+    }
 }
 
 // 새로운 채팅방 생성
@@ -250,6 +269,7 @@ function showMessageOutput(message) {
 
     messageElement.appendChild(messageContent);
     messagesContainer.appendChild(messageElement);
+    document.getElementById('inputVal').value = '';
 }
 
 // 페이지 로드 시 WebSocket 연결

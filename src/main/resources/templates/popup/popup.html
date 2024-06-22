@@ -32,7 +32,8 @@
     </div>
 </body>
 <script sec:authorize="isAuthenticated()">
-let currentId = `[[${#authentication.name}]]`;
+    let role = `[[${session.role}]]`;
+    let currentId = `[[${#authentication.name}]]`;
 </script>
 <script src="/js/chat.js"></script>
 </html>

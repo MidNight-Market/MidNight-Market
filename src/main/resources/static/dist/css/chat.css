@@ -213,13 +213,16 @@ span{
     cursor: pointer;
 }
 .room{
-    background-color: #d2d2d2;
+    background-color: #fbecc1;
     height: 50px;
     width: 100%;
     border-bottom: 1px solid black;
+    font-size: 18px;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 ::-webkit-scrollbar {
     width: 20px;
