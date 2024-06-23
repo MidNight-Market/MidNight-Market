@@ -379,8 +379,7 @@ body{
 }
 
 .product_qna_title {
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin: 50px 0;
 }
 
 .product-review {
@@ -589,4 +588,18 @@ body{
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+.chatBtn {
+    font-size: 20px;
+    width: 380px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f29b78;
+    color: white;
+}
+
+.chatBtn:hover {
+    background: #9f654f;
 }

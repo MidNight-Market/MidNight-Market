@@ -15,7 +15,7 @@
             max-width: 940px;
             margin: 20px auto;
             background-color: #ffffff;
-            padding: 33px;
+            padding: 33px 33px 33px 21px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             font-family: 'NanumSquareRoundL';
@@ -54,7 +54,7 @@
 
         .divBtn {
             width: 50%;
-            margin: 37px 0 0 16px;
+            margin: 37px 0 0 19px;
         }
 
         .divBtn > a > button,
@@ -82,17 +82,18 @@
             background-color: #f7f7f7;
             border: 1px solid #ccc;
             padding: 10px;
-            margin-top: 20px;
+            margin: 20px 0 0 67px;
             border-radius: 5px;
+            width: 481px;
         }
 
         .replyForm {
-            margin: 27px 0 0 52px;
+            margin: 17px 0 0 7px;
             padding: 10px;
-            background-color: aliceblue;
+            background-color: #f7f7f7;
             border: 1px solid #ccc;
             border-radius: 5px;
-            width: 497px;
+            width: 100%;
         }
 
         .adminReply p:first-child,
@@ -166,7 +167,6 @@
             </div>
         </form>
     </div>
-
     <!--관리자 답변은 관리자만 달 수 있게-->
     <!--답변이 있는 경우-->
     <div th:if="${hvo.replyContent != null}" class="adminReply">
@@ -183,6 +183,15 @@
         </form>
     </div>
 </div>
-    <script th:src="@{/js/helpDetail.js}"></script>
+<script>
+    document.getElementById('delBtn').addEventListener('click',()=>{
+        if(confirm("질문을 삭제하시겠습니까?")){
+            document.getElementById('realDelBtn').click();
+            ("삭제되었습니다.");
+        }else{
+            alert("취소되었습니다.");
+        }
+    });
+</script>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>

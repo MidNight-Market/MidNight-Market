@@ -15,7 +15,7 @@
             max-width: 940px;
             margin: 20px auto;
             background-color: #ffffff;
-            padding: 33px;
+            padding: 33px 33px 33px 21px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             font-family: 'NanumSquareRoundL';
@@ -54,7 +54,7 @@
 
         .divBtn {
             width: 50%;
-            margin: 37px 0 0 16px;
+            margin: 37px 0 0 19px;
         }
 
         .divBtn > a > button,
@@ -82,50 +82,17 @@
             background-color: #f7f7f7;
             border: 1px solid #ccc;
             padding: 10px;
-            margin-top: 20px;
+            margin: 20px 0 0 19px;
             border-radius: 5px;
+            width: 480px;
         }
 
-        .replyForm {
-            margin: 27px 0 0 52px;
-            padding: 10px;
-            background-color: aliceblue;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 497px;
-        }
-
-        .adminReply p:first-child,
-        .replyForm p {
+        .adminReply p:first-child {
             font-size: 17px;
             font-weight: bold;
             margin: 10px auto;
         }
 
-        .replyForm textarea {
-            width: 100%;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-
-        .replyForm button {
-            margin-top: 10px;
-            padding: 8px 16px;
-            font-size: 14px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-
-        .replyForm button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <th:block th:replace="~{header :: header}"></th:block>
@@ -156,19 +123,28 @@
                     <textarea name="content" id="content" cols="50" rows="5" readonly class="input">[[${hvo.content}]]</textarea>
                 </div>
             </div>
+            <!--관리자 답변은 관리자만 달 수 있게-->
+            <!--답변이 있는 경우-->
+            <div th:if="${hvo.replyContent != null}" class="adminReply">
+                <p>관리자 답변</p>
+                <p>[[${hvo.replyContent}]]</p>
+            </div>
             <div class="divBtn">
                 <a th:href="@{/help/list}"><button type="button" id="listBtn" class="btn btn-outline-primary">목록</button></a>
             </div>
         </form>
     </div>
 
-    <!--관리자 답변은 관리자만 달 수 있게-->
-    <!--답변이 있는 경우-->
-    <div th:if="${hvo.replyContent != null}" class="adminReply">
-        <p>관리자 답변</p>
-        <p>[[${hvo.replyContent}]]</p>
-    </div>
 </div>
-<script th:src="@{/js/helpDetail.js}"></script>
+<script>
+    document.getElementById('delBtn').addEventListener('click',()=>{
+        if(confirm("질문을 삭제하시겠습니까?")){
+            document.getElementById('realDelBtn').click();
+            ("삭제되었습니다.");
+        }else{
+            alert("취소되었습니다.");
+        }
+    });
+</script>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>

@@ -1,8 +1,9 @@
 // 문의글 작성은 로그인 한 사람만 할 수 있게
 document.getElementById('hb').addEventListener('click', ()=>{
-    console.log("이벤트리스너 진입");
     if(sesId == null){
         alert("로그인 후 작성 가능합니다.");
+    }else if(sesId == 'admin'){
+        alert("관리자는 작성할 수 없습니다.");
     }else{
         window.location.href = "/help/register";
     }

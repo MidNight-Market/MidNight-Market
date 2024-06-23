@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>배송지 변경</title>
     <style>
-        /* 스타일 시트 */
+        @font-face {
+            font-family: 'NanumSquareRoundL KR';
+            src: url("/dist/font/nanum-square-round/NanumSquareRoundL.ttf");
+        }
+        body {
+            font-size: 14px;
+            font-family: 'NanumSquareRoundL KR';
+        }
         button {
             padding: 10px 20px;
             background-color: #007bff;
@@ -18,7 +25,7 @@
         }
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse; /*border 안겹치게*/
             margin-bottom: 20px;
         }
         th, td {
@@ -37,6 +44,9 @@
             border: 1px solid lightgray;
             background-color: rgba(211, 211, 211, 0.247);
             border-radius: 15%;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -105,7 +115,7 @@ let customerId = [[${session.id}]];
                 if(opener.location.href.includes("customer")) {
                     opener.location.href = '/customer/myPage?reload=1';
                 }
-                window.close();
+                // window.close();
             } else {
                 alert('기본배송지 설정에 실패하였습니다.');
             }
@@ -187,7 +197,7 @@ let customerId = [[${session.id}]];
     function displayMainAddress(address) {
         const mainAddressDiv = document.getElementById('mainAddress');
         mainAddressDiv.innerHTML =
-            `<span class="mypage2_text4" th:text="${address.isMain == 'Y' ? '기본배송지' : '추가배송지'}">
+            `<span class="mypage2_text4 hidden" th:text="${address.isMain == 'Y' ? '기본배송지' : '추가배송지'}">
             </span>${address.addrName}
             <div>
                 <span>${address.address}</span>

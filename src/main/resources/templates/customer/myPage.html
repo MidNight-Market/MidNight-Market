@@ -415,7 +415,7 @@
             <div class="page-info-box">
                 <div th:each="avo : ${list}" id="addressContainer" th:data="${avo.isMain}">
                     <div class="mypage3_text2" id="addName">
-                        <span class="mypage2_text4" th:text="${avo.isMain == 'Y' ? '기본배송지' : '추가배송지'}"></span>
+                        <span class="mypage2_text4 hidden" th:text="${avo.isMain == 'Y' ? '기본배송지' : '추가배송지'}"></span>
                         [[${avo.addrName}]]
                     </div>
                     <span class="mypage3_text3" id="address">
@@ -819,7 +819,7 @@
 
     let addressAddBtn = document.getElementById('addressAddBtn');
     addressAddBtn.addEventListener('click', () => {
-        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=700,height=600');
+        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600');
     });
 
 </script>

@@ -15,14 +15,10 @@
         width: 940px;
         margin: 0 auto;
         background-color: #ffffff;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        font-family: 'NanumSquareRoundL';
-    }
+        }
 
     .containerInner {
-        width: 80%;
+        width: 940px;
         margin: 24px auto;
         border: 1px solid lightgray;
     }
@@ -40,10 +36,10 @@
     }
 
     .buttons {
-        width: 91%;
+        width: 100%;
         display: flex;
         justify-content: flex-start;
-        margin-left: 131px;
+        margin: 30px 0 30px 178px;
     }
 
     .btn {
@@ -56,10 +52,18 @@
         color: #fff;
     }
 
+    #hb:hover {
+        background-color: #0056b3;
+    }
+
     #myHelpBtn {
         background-color: #28a745;
         border-color: #28a745;
         color: #fff;
+    }
+
+    #myHelpBtn:hover {
+        background-color: #1b8331;
     }
 
     .adminReply {
@@ -70,10 +74,28 @@
     .adminReply:hover {
         font-weight: bold;
     }
+    .helpBox {
+        margin: 40px auto;
+        height: auto;
+        width: 940px;
+    }
+    .help1 {
+        font-size: 35px;
+        font-weight: 550;
+    }
+
+    .help2 {
+        font-size: 13px;
+        color: gray;
+    }
 </style>
 </head>
 <body>
 <div class="container">
+    <div class="helpBox">
+        <span class="help1">1:1 문의</span>
+        <span class="help2">궁금한 점이나 도움이 필요하신 게 있으면 언제든 문의해주세요.</span>
+    </div>
     <div class="containerInner">
         <table class="table table-striped" style="margin-bottom: 0">
             <thead>
