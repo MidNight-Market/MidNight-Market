@@ -1,9 +1,12 @@
 package com.project.www.service;
 
+import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.*;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -100,7 +103,17 @@ public class ProductServiceImple implements ProductService {
 
         for (ReviewVO review : rvo) {
             review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
-            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review));
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.getPrincipal() instanceof PrincipalDetails) {
+                PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+//           log.info("아이디 잘 뽑히나 확인>>>>{}",principalDetails.getUsername());
+           ReviewLikeVO reviewLikeVO = ReviewLikeVO.builder()
+                   .reviewId(review.getId())
+                   .customerId(principalDetails.getUsername())
+                   .build();
+            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(reviewLikeVO));
+            }
         }
         return rvo;
     }
