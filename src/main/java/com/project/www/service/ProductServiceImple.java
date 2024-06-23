@@ -100,7 +100,7 @@ public class ProductServiceImple implements ProductService {
 
         for (ReviewVO review : rvo) {
             review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
-            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
+            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review));
         }
         return rvo;
     }

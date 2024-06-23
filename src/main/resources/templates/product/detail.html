@@ -11,7 +11,8 @@
 
 <div class="product-container">
     <div class="first-content">
-        <div class="main-image-box"><img th:src="${productDTO.productVO.mainImage}" style="width: 100%; height: 100%; border-radius: 5px">
+        <div class="main-image-box"><img th:src="${productDTO.productVO.mainImage}"
+                                         style="width: 100%; height: 100%; border-radius: 5px">
         </div>
 
         <div class="right-content-box">
@@ -30,8 +31,9 @@
                     <p>[[${productDTO.productVO.description}]]</p>
                 </div>
 
-                <div class="product-description-box">
-                    <p>⭐⭐⭐⭐⭐ (+카운트)</p>
+                <div class="product-description-box" style="margin-top:10px">
+                    <span id="starAverage"></span>
+                    <span id="reviewCounter" style="margin-left:12px;"></span>
                 </div>
 
                 <div class="product-description-box">
@@ -112,126 +114,32 @@
             <p class="product-review">상품후기</p>
             <div class="detailReviewBox">
                 <div class="reviewList">
-                    <p class="after">추천순</p>
-                    <p>최신순</p>
+                    <p class="after" id="sortedByRecommendation">추천순</p>
+                    <p id="sortedByNewest">최신순</p>
                 </div>
 
-                <div class="review" th:each="rev : ${rvo}">
-                    <div class="left-side">
-                        <p>[[${rev.nickName}]]</p>
-                    </div>
-                    <div class="right-side">
-                        <!--별점-->
-                        <div th:switch="${rev.star}">
-                            <span th:case="5" class="star">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="10">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="15">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="20">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="25">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="30">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="35">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="40">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star.svg">
-                            </span>
-                            <span th:case="45">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-half.svg">
-                            </span>
-                            <span th:case="50">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                                <img src="/dist/icon/star-fill.svg">
-                            </span>
-                        </div>
-                        <p class="productName">[[${productDTO.productVO.name}]]</p>
-                        <p class="reviewContent">[[${rev.content}]]</p>
-                        <div class="reviewImgDatail">
-                            <th:block th:each="img : ${rev.reviewImageVOList}">
-                                <img th:src="${img.reviewImage}" th:onclick="openModal([[${img.reviewImage}]])">
-                            </th:block>
-                        </div>
-                        <!-- 모달 창 -->
-                        <div id="myModal" class="modal" onclick="closeModal()">
-                            <span class="close">&times;</span> <!--&times;는 x버튼-->
-                            <img class="modal-content" id="modalImg" style="width: 80%; height: 90%;">
-                        </div>
-                        <div class="date">[[${rev.registerDate}]]
-                            <button type="button" id="likeBtn" class="likeBtn"
-                                    th:attr="data-type=${rev.reviewLikeVO == null ? 'post':'delete'}, data-reviewid=${rev.id}">
-                                <img src="/dist/icon/good.png" style="width: 26px; height: 26px;" th:id="likeIcon+${rev.id}">도움돼요
-                                <p class="count" th:id="count+${rev.id}">[[${rev.revUpCount}]]</p>
-                                <p id="reviewId" style="display: none">[[${rev.id}]]</p>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!--페이지네이션-->
             <nav aria-label="Page navigation example" class="pageNav" th:if="${ph.totalCount != 0}">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${ph.prev == false} ? 'disabled' : ''">
-                        <a class="page-link" th:href="@{/product/detail(id=${ph.id}, pageNum=${ph.startPage-1},pageSize=${ph.pgvo.pageSize})}" aria-label="Previous">
+                        <a class="page-link"
+                           th:href="@{/product/detail(id=${ph.id}, pageNum=${ph.startPage-1},pageSize=${ph.pgvo.pageSize})}"
+                           aria-label="Previous">
                             <span aria-hidden="true">≪</span>
                         </a>
                     </li>
                     <li th:each="i : ${#numbers.sequence(ph.startPage, ph.endPage)}"
                         th:classappend="${i == ph.pgvo.pageNum} ? 'active' : ''"
                         class="page-item">
-                        <a class="page-link" th:href="@{/product/detail(id=${ph.id}, pageNum=${i}, pageSize=${ph.pgvo.pageSize})}" th:text="${i}"></a>
+                        <a class="page-link"
+                           th:href="@{/product/detail(id=${ph.id}, pageNum=${i}, pageSize=${ph.pgvo.pageSize})}"
+                           th:text="${i}"></a>
                     </li>
                     <li class="page-item" th:classappend="${ph.next == false} ? 'disabled' : ''">
-                        <a class="page-link" th:href="@{/product/detail(id=${ph.id}, pageNum=${ph.endPage+1},pageSize=${ph.pgvo.pageSize})}" aria-label="Next">
+                        <a class="page-link"
+                           th:href="@{/product/detail(id=${ph.id}, pageNum=${ph.endPage+1},pageSize=${ph.pgvo.pageSize})}"
+                           aria-label="Next">
                             <span aria-hidden="true">≫</span>
                         </a>
                     </li>
@@ -252,61 +160,71 @@
         </div>
     </div>
 
-<!--양쪽 배너-->
-<div class="memberShip">
-    <a href="#">
-        <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
-    </a>
-</div>
-<div class="rightBanner" id="rightBanner">
-    <a>
-        <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;" id="bannerBasket">장바구니
-    </a>
-    <hr>
-    <a >
-        <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;" id="bannerSlang">찜
-    </a>
-    <hr>
-    <a onclick="openPopup()">
-        <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;" id="bannerInquiry">채팅문의
-    </a>
-    <hr>
-    <div class="RecentlyViewed">
-        <p>최근 본 상품</p>
-        <div id="recentViewContainer"></div>
+    <!--양쪽 배너-->
+    <div class="memberShip">
+        <a href="#">
+            <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
+        </a>
     </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script sec:authorize="isAuthenticated()">
-    let customerId = `[[${#authentication.name}]]`;
-</script>
-<script th:inline="javascript">
-    const productDTO = [[${productDTO}]];
-    const productId = [[${productId}]];
-    let isAuthenticated = [[${isAuthenticated}]];
-    let sellerCheck = [[${sellerCheck}]];
-    let value = [[${productDTO.shopName}]];
-    const role = [[${session.role}]];
-    const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
-    let pThumb = encodeURIComponent([[${productDTO.productVO.thumbImage}]]);
-    let pName = encodeURIComponent([[${productDTO.productVO.name}]]);
-    let pPrice = encodeURIComponent([[${productDTO.productVO.price}]]);
-    let pLink = encodeURIComponent(window.location.href);
-    let setCookie = function(cookieName, thumb, name, price, link) {
-        let existingCookies = document.cookie.split('; ').find(row => row.startsWith(cookieName + '='));
-        let recentViews = existingCookies ? existingCookies.split('=')[1].split('|') : [];
-        let currentProduct = thumb + "@" + name + "@" + price + "@" + link;
-        recentViews = recentViews.filter(view => !view.includes(name));
-        recentViews.unshift(currentProduct);
-        while (recentViews.length > 3) {
-            recentViews.pop();
+    <div class="rightBanner" id="rightBanner">
+        <a>
+            <img th:src="@{/dist/icon/cart.svg}" style="width: 30px; height: 30px;" id="bannerBasket">장바구니
+        </a>
+        <hr>
+        <a>
+            <img th:src="@{/dist/icon/heart.svg}" style="width: 30px; height: 30px;" id="bannerSlang">찜
+        </a>
+        <hr>
+        <a onclick="openPopup()">
+            <img th:src="@{/dist/icon/bot.png}" style="width: 30px; height: 30px;" id="bannerInquiry">채팅문의
+        </a>
+        <hr>
+        <div class="RecentlyViewed">
+            <p>최근 본 상품</p>
+            <div id="recentViewContainer"></div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script sec:authorize="isAuthenticated()">
+        let customerId = `[[${#authentication.name}]]`;
+    </script>
+    <script th:if="${not #authorization.expression('isAuthenticated()')}">
+        let customerId = null; // 로그인하지 않은 경우
+    </script>
+    <script th:inline="javascript">
+        const productDTO = [[${productDTO}]];
+        let rvo = [[${rvo}]];
+        console.log(rvo);
+        const productId = [[${productId}]];
+        let isAuthenticated = [[${isAuthenticated}]];
+        let sellerCheck = [[${sellerCheck}]];
+        let value = [[${productDTO.shopName}]];
+        const role = [[${session.role}]];
+        const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
+        let pThumb = encodeURIComponent([[${productDTO.productVO.thumbImage}]]);
+        let pName = encodeURIComponent([[${productDTO.productVO.name}]]);
+        let pPrice = encodeURIComponent([[${productDTO.productVO.price}]]);
+        let pLink = encodeURIComponent(window.location.href);
+        let setCookie = function(cookieName, thumb, name, price, link) {
+            let existingCookies = document.cookie.split('; ').find(row => row.startsWith(cookieName + '='));
+            let recentViews = existingCookies ? existingCookies.split('=')[1].split('|') : [];
+            let currentProduct = thumb + "@" + name + "@" + price + "@" + link;
+            recentViews = recentViews.filter(view => !view.includes(name));
+            recentViews.unshift(currentProduct);
+            while (recentViews.length > 3) {
+                recentViews.pop();
+            }
+            document.cookie = cookieName + "=" + recentViews.join('|') + "; path=/";
         }
-        document.cookie = cookieName + "=" + recentViews.join('|') + "; path=/";
-    }
-    setCookie("recentView", pThumb, pName, pPrice, pLink);
-</script>
-<script src="/js/sidebar.js"></script>
-<script th:src="@{/js/banner.js}"></script>
-<script th:src="@{/js/productDetail.js}"></script>
+        setCookie("recentView", pThumb, pName, pPrice, pLink);
+    </script>
+    <script src="/js/sidebar.js"></script>
+    <script th:src="@{/js/banner.js}"></script>
+    <script th:src="@{/js/productDetail.js}"></script>
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('sortedByRecommendation').click();
+        });
+    </script>
 </body>
 <th:block th:replace="~{footer :: footer}"></th:block>

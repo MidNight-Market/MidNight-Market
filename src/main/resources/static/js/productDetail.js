@@ -1,3 +1,6 @@
+//리뷰카운트 업데이트
+document.getElementById('reviewCounter').innerText = rvo.length != 0 ? ' +' + rvo.length : '  리뷰없음';
+
 let productQty = document.getElementById('productQty');
 let productPrice = document.getElementById('productPrice');
 
@@ -303,94 +306,167 @@ async function postPaymentToServer(payData){
 }
 
 // 리뷰 도움돼요 버튼
-const likeBtn = document.querySelectorAll('.likeBtn');
-likeBtn.forEach(button =>{
-    button.addEventListener('click', (e)=>{
-        if(id == null){
-            alert("로그인 후 클릭 가능합니다.");
-            return;
-        }else{
-            let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
-            let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
-            const data = {
-                customerId : customerId,
-                reviewId : reviewId
+document.addEventListener('DOMContentLoaded', () => {
+    const detailReviewBox = document.querySelector('.detailReviewBox');
+
+    // 이벤트 위임을 통해 likeBtn 버튼 처리
+    detailReviewBox.addEventListener('click', (e) => {
+
+            if (e.target.matches('#sortedByRecommendation')) {
+                sortReviewsList('recommendation');
+                return;
+            } else if (e.target.matches('#sortedByNewest')) {
+                sortReviewsList('newest');
+                return;
             }
-            isExist(data).then(result=>{
-                if(result.includes("있음")){
-                    dataType = "delete"
+
+        if (e.target && e.target.matches('.likeBtn')) {
+
+            if (customerId == null) {
+                alert("로그인 후 클릭 가능합니다.");
+                return;
+            }
+
+            const button = e.target;
+            const id = customerId; // customerId가 어디서 온 변수인지 확인 필요
+
+            let dataType = button.dataset.type;
+            let reviewId = button.dataset.reviewid;
+            const index = button.dataset.index;
+            console.log(index);
+            const data = {
+                customerId: id,
+                reviewId: reviewId
+            };
+            //변경해야할 목록
+            //data-type, img, revCount,
+            isExist(data).then(result => {
+                if (result.includes("있음")) {
+                    rvo[index].reviewLikeVO = null;
+                    dataType = "delete"; //있으면 삭제로 바꿔줌
                     button.dataset.type = dataType;
-                    let img = document.getElementById('likeIcon'+data.reviewId);
+                    let img = document.getElementById('likeIcon' + data.reviewId);
                     img.src = '/dist/icon/good.png'; // 버튼 취소했을 때
-                    reviewLikeUpdateFromServer(dataType, data).then(result =>{
+                    reviewLikeUpdateFromServer(dataType, data).then(result => {
                         let str = result;
-                        let count = str.substring(str.search("/")+1, str.length);
-                        document.getElementById('count'+reviewId).innerText = count;
+                        let count = str.substring(str.search("/") + 1, str.length);
+                        document.getElementById('count' + reviewId).innerText = count;
                     });
-                }else if(result.includes("없음")){
-                    dataType = "post"
+                } else if (result.includes("없음")) {
+                    rvo[index].reviewLikeVO =
+                    {
+                    reviewId : reviewId,
+                    customerId : customerId
+                    };
+                    dataType = "post";
                     button.dataset.type = dataType;
-                    let img = document.getElementById('likeIcon'+data.reviewId)
-                        img.src = '/dist/icon/good-fill.png'; // 버튼 눌렀을 때
-                    reviewLikeUpdateFromServer(dataType,data).then(result =>{
+                    let img = document.getElementById('likeIcon' + data.reviewId)
+                    img.src = '/dist/icon/good-fill.png'; // 버튼 눌렀을 때
+                    reviewLikeUpdateFromServer(dataType, data).then(result => {
                         let str = result;
-                        let count = str.substring(str.search("/")+1, str.length);
-                        document.getElementById('count'+reviewId).innerText = count;
+                        let count = str.substring(str.search("/") + 1, str.length);
+                        document.getElementById('count' + reviewId).innerText = count;
                     });
                 }
+                console.log(rvo);
             });
         }
     });
-});
-for(let i=0; i<List.length; i++){
-    let data = {
-        customerId : id,
-        reviewId : List[i].id
-    }
-    let img = document.getElementById('likeIcon'+List[i].id);
-    isExist(data).then(result =>{
-        if(result.includes("있음")){
-            img.src = '/dist/icon/good-fill.png'; // 좋아요를 눌렀을 때의 이미지
-        }else if(result.includes("없음")){
-            img.src = '/dist/icon/good.png'; // 좋아요를 취소했을 때의 이미지
-        }
-    })
-}
-async function isExist(data){
-    try {
-        const url = "/product/isExist";
-        const config = {
-            method : 'POST',
-            headers : {
-                'Content-Type': 'application/json; charset = utf-8'
-            },
-            body : JSON.stringify(data)
-        }
-        const resp = await fetch(url, config);
-        const result = await resp.text();
-        return result;
-    }catch (e){
-        console.log(e);
-    }
-}
 
-async function reviewLikeUpdateFromServer(type, data){
-    try {
-        const url = "/product/reviewLikeRegister";
-        const config = {
-            method : type,
-            headers : {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify(data)
+
+    // 리뷰 추천순, 최신순 정렬 함수
+    function sortReviewsList(sortType) {
+        console.log(sortType);
+        if (sortType === 'recommendation') { //추천순 정렬
+            rvo.sort((a, b) => b.revUpCount - a.revUpCount);
         }
-        const resp = await fetch(url, config);
-        const result = await resp.text();
-        return result;
-    }catch (e){
-        console.log(e);
+        if (sortType === 'newest') { //최신순 정렬
+            rvo.sort((a, b) => new Date(b.registerDate) - new Date(a.registerDate));
+        }
+        spreadReviewList();
     }
-}
+
+    function spreadReviewList() {
+        const reviews = detailReviewBox.querySelectorAll('.review');
+        reviews.forEach(review => review.remove()); //review Class 삭제
+
+        let str = '';
+        rvo.forEach((value, index) => {
+            let arrayObj = [value];
+
+            str += `<div class="review">`;
+            str += `<div class="left-side">`;
+            str += `<p>${value.nickName}</p>`;
+            str += `</div>`;
+            str += `<div class="right-side">`;
+            str += `<span class="star">${starCalculate(arrayObj)}</span>`;
+//            str += `</div>`;
+            str += `<p class="productName">${productDTO.productVO.name}</p>`;
+            str += `<p class="reviewContent">${value.content}</p>`;
+            str += `<div class="reviewImgDatail">`;
+
+            value.reviewImageVOList.forEach((reviewImg) => {
+                let fixedReviewImage = reviewImg.reviewImage.replace(/\\/g, '/');
+                str += `<img src="${reviewImg.reviewImage}" onclick="openModal('${fixedReviewImage}')">`;
+            });
+
+            str += `</div>`;
+            str += `<div id="myModal" class="modal" onclick="closeModal()">`;
+            str += `<span class="close">&times;</span>`;
+            str += `<img class="modal-content" id="modalImg" style="width: 80%; height: 90%;">`;
+            str += `</div>`;
+            str += `<div class="date">${value.registerDate}`;
+            str += `<button type="button" class="likeBtn" `;
+            str += `data-type=${value.reviewLikeVO == null ? 'post' : 'delete'} data-reviewid=${value.id} data-index=${index}>`;
+            str += `<img src=${value.reviewLikeVO == null ? '/dist/icon/good.png' : '/dist/icon/good-fill.png'} style="width: 26px; height: 26px;" id="likeIcon${value.id}">도움돼요`;
+            str += `<p class="count" id="count${value.id}">${value.revUpCount}</p>`;
+            str += `<p id="reviewId" style="display: none">${value.id}</p>`;
+            str += `</button>`;
+            str += `</div>`;
+            str += `</div>`;
+            str += `</div>`;
+        });
+
+        detailReviewBox.innerHTML += str;
+    }
+
+    async function isExist(data) {
+        try {
+            const url = "/product/isExist";
+            const config = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            };
+            const resp = await fetch(url, config);
+            const result = await resp.text();
+            return result;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async function reviewLikeUpdateFromServer(type, data) {
+        try {
+            const url = "/product/reviewLikeRegister";
+            const config = {
+                method: type,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            const resp = await fetch(url, config);
+            const result = await resp.text();
+            return result;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+});
+
 
 // async function reviewCountFromServer(reviewId){
 //     try{
@@ -474,8 +550,6 @@ function openModal(imageLink) {
         modal.style.display = 'none';
     }
 
-// 리뷰 별점 평점
-
 
 // 댓글 보이기
 function btnClick() {
@@ -487,4 +561,138 @@ function btnClick() {
           mydiv.style.display = 'block';
         }
 }
+
+
+document.getElementById('starAverage').innerHTML = starCalculate(rvo); //함수로 별점 관리
+
+//별점 평균 구해서 뿌리는 function
+
+
+//숫자에 따라 별표시 함수
+function starCalculate(rvoList) {
+
+let starScore = 0; //점수 넣을 변수
+
+rvoList.forEach((value,index) =>{ //reviewVOList에 있는 별점 합산
+starScore += value.star;
+});
+
+starScore = starScore / rvoList.length;
+starScore = customRound(starScore); //5이상이면 반올림 4이하이면 반내림
+starScore = String(starScore); //스트링형으로 만들어서 형변환 해줌;;; 귀차니즘
+
+    let result;
+
+    switch (starScore) {
+        case '5':
+            result = `
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '10':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '15':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '20':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '25':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '30':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '35':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '40':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star.svg" alt="Empty Star">
+        `;
+            break;
+        case '45':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-half.svg" alt="Half Star">
+        `;
+            break;
+        case '50':
+            result = `
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+            <img src="/dist/icon/star-fill.svg" alt="Filled Star">
+        `;
+            break;
+        default:
+            result = '';
+            break;
+    }
+    return result;
+}
+
+function customRound(num) {
+  // 나머지를 구함
+  const remainder = num % 5;
+
+  // 나머지가 5 이상이면 반올림, 그렇지 않으면 반내림
+  if (remainder >= 2.5) {
+    return Math.ceil(num / 5) * 5;
+  } else {
+    return Math.floor(num / 5) * 5;
+  }
+}
+
+
+
 
