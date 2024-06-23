@@ -14,4 +14,5 @@ public interface ChatMapper {
     List<MessageVO> findMessagesByChatRoomId(@Param("chatRoomId") Long chatRoomId);
     void insertMessage(MessageVO message);
     void deleteChatRoom(Long chatRoomId);
+    Long getTargetChatRoom(String customerId, String sellerId);
 }

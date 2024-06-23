@@ -37,4 +37,8 @@ public class ChatRestController {
     public void deleteChatRoom(@PathVariable Long chatRoomId) {
         chatService.deleteChatRoom(chatRoomId);
     }
+    @GetMapping("/getRoomId/{customerId}/{sellerId}")
+    public Long getRoomId(@PathVariable String customerId, @PathVariable String sellerId) {
+        return chatService.getTargetChatRoom(customerId, sellerId);
+    }
 }
