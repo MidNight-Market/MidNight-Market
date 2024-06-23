@@ -307,6 +307,10 @@ async function showNotification(event) {
         alert("로그인이 필요한 서비스입니다.");
         event.preventDefault();
         window.location.href = "http://localhost:8090/login/form";
+
+    } else if(roleHeader == "role_seller" || roleHeader == "role_admin") {
+        alert("고객만 사용가능한 서비스입니다. ")
+        event.preventDefault();
     } else {
         if (notificationDiv && event) {
             document.body.removeChild(notificationDiv);

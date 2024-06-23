@@ -16,7 +16,13 @@ public class MailController {
     @ResponseBody
     @GetMapping("/mailSend/{mail}")
     public void mailSend(@PathVariable("mail")String mail) {
+//        long startTime = System.nanoTime();
         mailService.sendMail(mail);
+//        long endTime = System.nanoTime();
+//        long timeElapsed = endTime - startTime;
+//        System.out.println("nano seconds :" +  timeElapsed);
+//        System.out.println("milli seconds: " + timeElapsed / 1000000);
+//        System.out.println("seconds : " + (double)timeElapsed / 1_000_000_000);
     }
 
     @ResponseBody
