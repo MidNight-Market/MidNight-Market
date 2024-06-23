@@ -29,6 +29,7 @@ async function getChatRoomList(currentId) {
         console.error(error);
     }
 }
+//사이드바에 방리스트렌더링
 async function renderChatRoomList(currentId) {
     try {
         const result = await getChatRoomList(currentId);
@@ -42,6 +43,7 @@ async function renderChatRoomList(currentId) {
         result.forEach(chatRoom => {
             const roomElement = document.createElement('div');
             roomElement.classList.add('room');
+            roomElement.dataset.roomId = chatRoom.id;
             const roomId = document.createElement('p');
             roomId.textContent = `${chatRoom.id}`;
             roomId.style.display = 'none';
@@ -52,8 +54,10 @@ async function renderChatRoomList(currentId) {
             );
             roomElement.append(roomId,marketName);
             sidebar.appendChild(roomElement);
-            lastRoomId = chatRoom.id;
-
+            if (lastRoomId === null || chatRoom.id > lastRoomId) {
+                lastRoomId = chatRoom.id;
+            }
+            currentRoomId = lastRoomId;
         });
         if (lastRoomId) {
             await loadChatRoom(lastRoomId);
@@ -71,13 +75,21 @@ async function loadChatRoom(chatRoomId) {
             method: 'GET'
         };
         const resp = await fetch(url, config);
-        const messages = await resp.json();
-        window.scrollTo(0, document.body.scrollHeight);
-        displayMessages(messages);
+        if (!resp.ok) {
+            throw new Error('Network response was not ok');
+        }
+        let messages = [];
+        try {
+            messages = await resp.json();
+            displayMessages(messages);
+        } catch (e) {
+            console.warn('No JSON response or empty response:', e.message);
+        }
     } catch (error) {
         console.error('Error loading chat room messages:', error.message);
     }
 }
+
 
 function displayMessages(messages) {
     const messagesContainer = document.querySelector('.messages');
@@ -87,28 +99,39 @@ function displayMessages(messages) {
     roomId.style.display = 'none';
     roomId.id = 'roomId'
     messagesContainer.appendChild(roomId);
-
-
     messages.forEach(message => {
         spreadMessage(message, messagesContainer);
     });
 
-    // 스크롤 맨 아래로 이동
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+function splitDate(time) {
+    const parts = time.split('T');
+    return {
+        datePart: parts[0],
+        timePart: parts[1]
+    };
 }
 
 function spreadMessage(message, messagesContainer) {
     const messageElement = document.createElement('div');
-    messageElement.textContent = `${message.senderId}: ${message.content}`;
-
-    // Sender type에 따라 CSS 클래스를 추가합니다.
+    const date = document.createElement('p');
+    const time = document.createElement('p');
+    messageElement.textContent = `${message.content}`;
+    const timeSplit = splitDate(message.sendTime);
+    date.textContent = timeSplit.datePart;
+    time.textContent = timeSplit.timePart;
     if (message.senderType === 'customer') {
         messageElement.classList.add('message', 'customer');
+        date.classList.add('date','customer')
+        time.classList.add('time','customer')
     } else if (message.senderType === 'seller') {
         messageElement.classList.add('message', 'seller');
+        date.classList.add('date','seller');
+        time.classList.add('time','seller')
     }
-
     messagesContainer.appendChild(messageElement);
+    messagesContainer.appendChild(time)
 }
 
 // 메시지 보내기
@@ -138,7 +161,6 @@ function sendMessage(roomId) {
 
 // 페이지 로드 시 실행
 document.addEventListener('DOMContentLoaded', async function () {
-    window.scrollTo(0, document.body.scrollHeight);
     try {
         await renderChatRoomList(currentId);
     } catch (error) {
@@ -152,7 +174,8 @@ document.body.addEventListener('click', function (event) {
         const roomElement = event.target.closest('.room');
         if (roomElement) {
             const roomIdElement = roomElement.querySelector('p');
-            const chatRoomId = roomIdElement.textContent.trim();
+            const chatRoomId = roomIdElement.innerText.trim();
+            currentRoomId = chatRoomId;
             if (chatRoomId) {
                 loadChatRoom(chatRoomId)
                     .then(() => {
@@ -165,13 +188,24 @@ document.body.addEventListener('click', function (event) {
         }
     }
     if (event.target.id === 'send') {
-        const roomId = document.getElementById('roomId').innerText.trim();
-        sendMessage(roomId);
+        sendMessage(currentRoomId);
     }
 });
 async function getMarketName(sellerId){
     try{
         const url = '/seller/getShopName/'+sellerId;
+        const config = {
+            method: 'GET'
+        };
+        const resp = await fetch(url, config);
+        return await resp.text();
+    }catch (e){
+        console.log(e);
+    }
+}
+async function getSellerId(marketName){
+    try{
+        const url = '/seller/getSellerId/'+marketName;
         const config = {
             method: 'GET'
         };
@@ -193,7 +227,7 @@ document.body.addEventListener('click', (e) => {
 
         const text = document.createElement('p');
         text.classList.add('seller-input-text');
-        text.textContent = '판매자이름을 입력해주세요. ';
+        text.textContent = '쇼핑몰 이름을 입력해주세요. ';
 
         // X 닫기 버튼 추가
         const closeButton = document.createElement('button');
@@ -224,9 +258,8 @@ document.body.addEventListener('click', (e) => {
         newDiv.appendChild(inputContainer);
         document.body.appendChild(newDiv);
 
-        const currentId = "(kakao)ehdwo13@kakao.com";
         button.addEventListener('click', async () => {
-            const sellerId = input.value;
+            const sellerId = await getSellerId(input.value);
             const response = await fetch(`/chat/rooms`, {
                 method: 'POST',
                 headers: {
@@ -235,8 +268,11 @@ document.body.addEventListener('click', (e) => {
                 body: `customerId=${currentId}&sellerId=${sellerId}`
             });
             const chatRoom = await response.json();
-            renderChatRoomList(currentId); // 방 리스트 다시 렌더링
-            await loadChatRoom(chatRoom.id); // 새로 생성된 방 열기
+            // 방 리스트 다시 렌더링
+            renderChatRoomList(currentId);
+            // 새로 생성된 방 열기
+            await loadChatRoom(chatRoom.id);
+            // newDiv 요소 제거
             document.body.removeChild(newDiv);
         });
     }
@@ -265,12 +301,31 @@ function showMessageOutput(message) {
 
     const messageContent = document.createElement('div');
     messageContent.classList.add('message-content');
-    messageContent.textContent = `${message.senderId}: ${message.content}`;
+    messageContent.textContent = `${message.content}`;
+
+    const time = document.createElement('p');
+    time.textContent = getCurrentTime();
+    time.classList.add('time');
+    time.classList.add(message.senderType);
 
     messageElement.appendChild(messageContent);
     messagesContainer.appendChild(messageElement);
+    messagesContainer.appendChild(time)
+
     document.getElementById('inputVal').value = '';
+}
+let currentRoomId = null;
+
+function getCurrentTime() {
+    const now = new Date();
+
+    const hours = now.getHours();       // 시
+    const minutes = now.getMinutes();   // 분
+    const seconds = now.getSeconds();   // 초
+
+    return `${hours}:${minutes}:${seconds}`;
 }
 
 // 페이지 로드 시 WebSocket 연결
 connect();
+

@@ -12,11 +12,11 @@
     </select>
 
     <select id="findMessagesByChatRoomId" parameterType="Long" resultType="com.project.www.domain.MessageVO">
-        SELECT * FROM message WHERE chat_room_id = #{chatRoomId} ORDER BY sendTime ASC
+        SELECT * FROM message WHERE chat_room_id = #{chatRoomId} ORDER BY send_time ASC
     </select>
 
     <insert id="insertMessage" parameterType="com.project.www.domain.MessageVO">
-        INSERT INTO message (chat_room_id, senderId, senderType, content)
+        INSERT INTO message (chat_room_id, sender_id, sender_type, content)
         VALUES (#{chatRoomId}, #{senderId}, #{senderType}, #{content})
     </insert>
 
