@@ -167,6 +167,7 @@ body {
     font-size: 13px;
     font-family: 'NanumSquareRoundL';
     font-weight: bold;
+    position: relative;
 }
 
 .loginBox > a {
@@ -335,7 +336,9 @@ body {
 }
 
 .member {
-    margin-right: -12px;
+    position: absolute;
+    top: -4px;
+    left: -40px;
 }
 
 .input-box{
