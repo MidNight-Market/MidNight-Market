@@ -236,7 +236,6 @@ async function getRoomId(customerId, sellerId){
     const result = await resp.text();
     return result;
 }
-
 document.body.addEventListener('click', function (event) {
     if (event.target.classList.contains('room') || event.target.classList.contains('marketName')) {
         const roomElement = event.target.closest('.room');
@@ -274,6 +273,11 @@ document.body.addEventListener('click', function (event) {
         sendMessage(currentRoomId);
     }
 });
+function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+        sendMessage(currentRoomId);
+    }
+}
 async function getMarketName(sellerId){
     try{
         const url = '/seller/getShopName/'+sellerId;
