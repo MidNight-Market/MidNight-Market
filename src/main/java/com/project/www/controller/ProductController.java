@@ -84,8 +84,10 @@ public class ProductController {
 
         List<ReviewVO> rvo = psv.getReview(id);
         List<ReviewVO> rvo2 = psv.getReviewP(pgvo);
+        List<ReviewVO> reviewList = rsv.getReviewDesc(id);
         model.addAttribute("rvo",rvo);
         model.addAttribute("rvo2",rvo2);
+        model.addAttribute("reviewList",reviewList);
 
         int totalCount = psv.getTotal(pgvo);
         PagingHandler ph = new PagingHandler(pgvo, totalCount, id);

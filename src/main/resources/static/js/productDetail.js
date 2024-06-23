@@ -474,6 +474,9 @@ function openModal(imageLink) {
         modal.style.display = 'none';
     }
 
+// 리뷰 별점 평점
+
+
 // 댓글 보이기
 function btnClick() {
         const mydiv = document.getElementById('my-div');

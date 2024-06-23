@@ -24,4 +24,6 @@ public interface ReviewMapper {
     List<ReviewVO> getReviewP(PagingVO pgvo);
 
     int getTotal(PagingVO pgvo);
+
+    List<ReviewVO> getReviewDesc(long id);
 }

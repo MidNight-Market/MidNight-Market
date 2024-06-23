@@ -22,4 +22,6 @@ public interface ReviewService {
     Boolean isExist(ReviewLikeVO reviewLikeVO);
 
     List<ReviewVO> getMyWriteCompletedReviewList(String customerId);
+
+    List<ReviewVO> getReviewDesc(long id);
 }
