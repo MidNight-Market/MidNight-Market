@@ -23,4 +23,8 @@
     <delete id="deleteChatRoom" parameterType="Long">
         DELETE FROM chat_room WHERE id = #{chatRoomId}
     </delete>
+
+    <select id="getTargetChatRoom" resultType="Long">
+        select id from chat_room where customer_id = #{customerId} and seller_id = #{sellerId}
+    </select>
 </mapper>

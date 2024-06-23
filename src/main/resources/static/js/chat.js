@@ -15,7 +15,6 @@ document.getElementById('topBtn').addEventListener('click',()=>{
     window.scrollTo(0,0);
 })
 
-// 아이디 주고 생성된 방리스트 가져오기
 async function getChatRoomList(currentId) {
     try {
         const url = '/chat/rooms/' + currentId;
@@ -29,7 +28,6 @@ async function getChatRoomList(currentId) {
         console.error(error);
     }
 }
-//사이드바에 방리스트렌더링
 async function renderChatRoomList(currentId) {
     try {
         const result = await getChatRoomList(currentId);
@@ -48,26 +46,31 @@ async function renderChatRoomList(currentId) {
             roomId.textContent = `${chatRoom.id}`;
             roomId.style.display = 'none';
             const marketName = document.createElement('p');
-            marketName.classList.add("marketName")
+            marketName.classList.add("marketName");
             getMarketName(chatRoom.sellerId).then(result =>
                 marketName.textContent = result
             );
-            roomElement.append(roomId,marketName);
+            roomElement.append(roomId, marketName);
             sidebar.appendChild(roomElement);
             if (lastRoomId === null || chatRoom.id > lastRoomId) {
                 lastRoomId = chatRoom.id;
             }
             currentRoomId = lastRoomId;
+
+            roomElement.addEventListener('click', async () => {
+                setActiveRoomStyle(roomElement);
+                await loadChatRoom(chatRoom.id);
+            });
         });
         if (lastRoomId) {
             await loadChatRoom(lastRoomId);
+            setActiveRoomStyle(document.querySelector(`[data-room-id='${lastRoomId}']`));
         }
     } catch (error) {
         console.error(error);
     }
 }
 
-// 채팅방 로드 및 메시지 자동 채우기
 async function loadChatRoom(chatRoomId) {
     try {
         const url = '/chat/messages/' + chatRoomId;
@@ -83,13 +86,12 @@ async function loadChatRoom(chatRoomId) {
             messages = await resp.json();
             displayMessages(messages);
         } catch (e) {
-            console.warn('No JSON response or empty response:', e.message);
+            console.warn(e.message);
         }
     } catch (error) {
-        console.error('Error loading chat room messages:', error.message);
+        console.error(error.message);
     }
 }
-
 
 function displayMessages(messages) {
     const messagesContainer = document.querySelector('.messages');
@@ -97,16 +99,16 @@ function displayMessages(messages) {
     let roomId = document.createElement('p');
     roomId.textContent = messages[0].chatRoomId;
     roomId.style.display = 'none';
-    roomId.id = 'roomId'
+    roomId.id = 'roomId';
     messagesContainer.appendChild(roomId);
     messages.forEach(message => {
         spreadMessage(message, messagesContainer);
     });
-    scrollToBottom(messagesContainer);
 }
-function scrollToBottom(element) {
-    element.scrollTop = element.scrollHeight;
+function getHeight(){
+
 }
+
 function splitDate(time) {
     const parts = time.split('T');
     return {
@@ -133,16 +135,22 @@ function spreadMessage(message, messagesContainer) {
         time.classList.add('time','seller')
     }
     messagesContainer.appendChild(messageElement);
-    messagesContainer.appendChild(time)
+    messagesContainer.appendChild(time);
+    let totalHeight = 0;
+    messagesContainer.childNodes.forEach(message => {
+        totalHeight += message.offsetHeight;
+    });
+
+    document.documentElement.scrollTop = totalHeight;
+    document.body.scrollTop = totalHeight;
 }
 
-// 메시지 보내기
 function sendMessage(roomId) {
     const inputVal = document.getElementById('inputVal').value;
     let senderType;
-    if(role == "role_user"){
+    if (role == "role_user") {
         senderType = "customer";
-    }else if(role == "role_seller"){
+    } else if (role == "role_seller") {
         senderType = "seller";
     }
     const message = {
@@ -151,50 +159,83 @@ function sendMessage(roomId) {
         senderType: senderType,
         content: inputVal
     };
-    // 웹소켓을 통해 메시지 전송
-    stompClient.send(`/app/chat.sendMessage`, {}, JSON.stringify(message), function() {
-        console.log('Message sent successfully');
-        document.getElementById('messageInput').value = ''; // 입력 필드 초기화
+    stompClient.send(`/app/chat.sendMessage`, {}, JSON.stringify(message), function () {
+        document.getElementById('inputVal').value = '';
         showMessageOutput(message);
-    }, function(error) {
+    }, function (error) {
         console.error('Error sending message:', error);
     });
 }
-
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', async function () {
-    try {
-        await renderChatRoomList(currentId);
-    } catch (error) {
-        console.error('Error loading chat room list on page load:', error.message);
-    }
-});
-
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', async () => {
     let urlParams = new URLSearchParams(window.location.search);
     let paramValue = urlParams.get('param');
-    if(paramValue != null){
+    if (paramValue != null) {
         getSellerId(paramValue).then(async result => {
-            const sellerId = result;
-            const response = await fetch(`/chat/rooms`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `customerId=${currentId}&sellerId=${sellerId}`
+            getChatRoomList(result).then(async roomList => {
+                if (roomList == null || roomList.length == 0) {
+                    let sellerId = result;
+                    const response = await fetch(`/chat/rooms`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `customerId=${currentId}&sellerId=${sellerId}`
+                    });
+                    const chatRoom = await response.json();
+                    await renderChatRoomList(currentId);
+                    await loadChatRoom(chatRoom.id);
+                } else {
+                    await renderChatRoomList(currentId);
+                    const roomId = await getRoomId(currentId, result);
+                    if (roomId) {
+                        await loadChatRoom(roomId);
+                    }
+                }
             });
-            const chatRoom = await response.json();
-            // 방 리스트 다시 렌더링
-            renderChatRoomList(currentId).then(result=>{
-                console.log(result);
-            })
-            // 새로 생성된 방 열기
-            await loadChatRoom(chatRoom.id);
-        })
+        });
+    } else {
+        try {
+            await renderChatRoomList(currentId);
+            if (currentRoomId) {
+                await loadChatRoom(currentRoomId);
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
     }
-})
-
-// 채팅방 클릭 시 해당 방 로드
+});
+document.addEventListener('DOMContentLoaded', async () => {
+    let urlParams = new URLSearchParams(window.location.search);
+    let paramValue = urlParams.get('param');
+    if (paramValue != null) {
+        const sellerId = await getSellerId(paramValue);
+        const roomId = await getRoomId(currentId, sellerId);
+        if (roomId) {
+            await renderChatRoomList(currentId);
+            await loadChatRoom(roomId);
+            setActiveRoomStyle(document.querySelector(`[data-room-id='${roomId}']`));
+        }
+    } else {
+        try {
+            await renderChatRoomList(currentId);
+            if (currentRoomId) {
+                await loadChatRoom(currentRoomId);
+                setActiveRoomStyle(document.querySelector(`[data-room-id='${currentRoomId}']`));
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+});
+async function getRoomId(customerId, sellerId){
+    const url = "/chat/getRoomId/"+customerId+"/"+sellerId;
+    const config = {
+        method: 'GET'
+    };
+    const resp = await fetch(url, config);
+    const result = await resp.text();
+    return result;
+}
 document.body.addEventListener('click', function (event) {
     if (event.target.classList.contains('room') || event.target.classList.contains('marketName')) {
         const roomElement = event.target.closest('.room');
@@ -202,13 +243,28 @@ document.body.addEventListener('click', function (event) {
             const roomIdElement = roomElement.querySelector('p');
             const chatRoomId = roomIdElement.innerText.trim();
             currentRoomId = chatRoomId;
+            let clicked = document.querySelectorAll('[data-room-id]');
+            let clickedArray = Array.from(clicked);
+            let previousRoomId = null;
+            function resetPreviousStyle() {
+                if (previousRoomId !== null && previousRoomId < clickedArray.length) {
+                    clickedArray[previousRoomId].style.backgroundColor = "";
+                }
+            }
+            clickedArray.forEach(function(element, index) {
+                element.addEventListener('click', function() {
+                    resetPreviousStyle();
+                    element.style.backgroundColor ="#f2cc61";
+                    previousRoomId = index;
+                });
+            });
             if (chatRoomId) {
                 loadChatRoom(chatRoomId)
                     .then(() => {
                         console.log('Chat room loaded successfully.');
                     })
                     .catch(error => {
-                        console.error('Error loading chat room:', error.message);
+                        console.error(error.message);
                     });
             }
         }
@@ -217,6 +273,11 @@ document.body.addEventListener('click', function (event) {
         sendMessage(currentRoomId);
     }
 });
+function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+        sendMessage(currentRoomId);
+    }
+}
 async function getMarketName(sellerId){
     try{
         const url = '/seller/getShopName/'+sellerId;
@@ -242,7 +303,6 @@ async function getSellerId(marketName){
     }
 }
 
-// 새로운 채팅방 생성
 document.body.addEventListener('click', (e) => {
     if (e.target.id == "newChat") {
         const newDiv = document.createElement('div');
@@ -255,7 +315,6 @@ document.body.addEventListener('click', (e) => {
         text.classList.add('seller-input-text');
         text.textContent = '쇼핑몰 이름을 입력해주세요. ';
 
-        // X 닫기 버튼 추가
         const closeButton = document.createElement('button');
         closeButton.classList.add('close-button');
         closeButton.textContent = 'X';
@@ -294,16 +353,12 @@ document.body.addEventListener('click', (e) => {
                 body: `customerId=${currentId}&sellerId=${sellerId}`
             });
             const chatRoom = await response.json();
-            // 방 리스트 다시 렌더링
             renderChatRoomList(currentId);
-            // 새로 생성된 방 열기
             await loadChatRoom(chatRoom.id);
-            // newDiv 요소 제거
             document.body.removeChild(newDiv);
         });
     }
 });
-// WebSocket 연결 설정
 let stompClient;
 
 function connect() {
@@ -318,7 +373,6 @@ function connect() {
 }
 
 function showMessageOutput(message) {
-    console.log('Received message:', message);
     const messagesContainer = document.querySelector('.messages');
     const messageElement = document.createElement('div');
 
@@ -336,10 +390,15 @@ function showMessageOutput(message) {
 
     messageElement.appendChild(messageContent);
     messagesContainer.appendChild(messageElement);
-    messagesContainer.appendChild(time)
+    messagesContainer.appendChild(time);
 
     document.getElementById('inputVal').value = '';
+
+    let scrollAmount = 100;
+    document.documentElement.scrollTop += scrollAmount;
+    document.body.scrollTop += scrollAmount;
 }
+
 let currentRoomId = null;
 
 function getCurrentTime() {
@@ -352,6 +411,12 @@ function getCurrentTime() {
     return `${hours}:${minutes}:${seconds}`;
 }
 
-// 페이지 로드 시 WebSocket 연결
-connect();
+function setActiveRoomStyle(roomElement) {
+    const clickedRooms = document.querySelectorAll('.room');
+    clickedRooms.forEach(room => {
+        room.style.backgroundColor = ""; // 이전에 선택된 방의 배경 초기화
+    });
+    roomElement.style.backgroundColor = "#f2cc61"; // 선택된 방의 배경 설정
+}
 
+connect();
