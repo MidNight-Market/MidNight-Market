@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ReviewLikeMapper {
 
-    ReviewLikeVO getReviewLike(ReviewVO review);
+    ReviewLikeVO getReviewLike(ReviewLikeVO reviewLikeVO);
 
     int registerLike(ReviewLikeVO reviewLikeVO);
 
