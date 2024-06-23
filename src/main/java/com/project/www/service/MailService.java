@@ -27,6 +27,7 @@ public class MailService {
     @Async("mailExecutor")
     public void sendMail(String mail) {
         MimeMessage message = javaMailSender.createMimeMessage();
+
         try {
             message.setFrom(new InternetAddress(senderEmail, "미드나잇 마켓"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));
