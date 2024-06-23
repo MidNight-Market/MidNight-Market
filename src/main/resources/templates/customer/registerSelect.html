@@ -66,6 +66,14 @@
             letter-spacing:-3px;
         }
 
+        .body1 >.join1 > .join3 > .text1:first-child{
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 40px;
+            letter-spacing:-3px;
+            color: darkorange;
+        }
+
         .text2{
             font-size: 35px;
             font-weight: 700;
@@ -201,6 +209,26 @@
             margin: 190px auto !important;
         }
 
+        @keyframes wave {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .join3 span span {
+            display: inline-block;
+            animation: wave 0.5s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        .join3 span:first-child span:nth-child(1) { animation-delay: 0s; }
+        .join3 span:first-child span:nth-child(2) { animation-delay: 0.1s; }
+        .join3 span:first-child span:nth-child(3) { animation-delay: 0.2s; }
+        .join3 span:first-child span:nth-child(4) { animation-delay: 0.3s; }
+        .join3 span:first-child span:nth-child(5) { animation-delay: 0.4s; }
+        .join3 span:first-child span:nth-child(6) { animation-delay: 0.5s; }
+        .join3 span:first-child span:nth-child(7) { animation-delay: 0.6s; }
+
+
     </style>
 </head>
 
@@ -210,9 +238,12 @@
 <div class="body1">
     <div class="join1">
         <div class="join3">
-            <span class="text1">믿고 사는 즐거움</span><br>
+        <span class="text1">
+            <span>믿</span><span>고</span> <span>사</span><span>는</span> <span>즐</span><span>거</span><span>움</span>
+        </span><br>
             <span class="text2">미드나잇 마켓</span>
             <span class="text1">에 오신것을 <br> 환영합니다</span>
+        </span>
         </div>
     </div>
 
