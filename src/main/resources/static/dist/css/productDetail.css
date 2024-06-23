@@ -603,3 +603,16 @@ body{
 .chatBtn:hover {
     background: #9f654f;
 }
+
+.pagination .page-item.active .page-link {
+    background-color: orange;
+    border-color: orange;
+    color: white;
+}
+.pagination .page-link {
+    color: black;
+}
+
+.pagination .page-link:hover {
+    font-weight: 700;
+}
