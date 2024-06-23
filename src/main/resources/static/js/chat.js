@@ -95,7 +95,7 @@ async function loadChatRoom(chatRoomId) {
 
 function displayMessages(messages) {
     const messagesContainer = document.querySelector('.messages');
-    messagesContainer.innerHTML = ''; // 기존 메시지 초기화
+    messagesContainer.innerHTML = '';
     let roomId = document.createElement('p');
     roomId.textContent = messages[0].chatRoomId;
     roomId.style.display = 'none';
@@ -377,8 +377,7 @@ function showMessageOutput(message) {
     const messageElement = document.createElement('div');
 
     messageElement.classList.add('message');
-    messageElement.classList.add(message.senderType); // Add class based on senderType
-
+    messageElement.classList.add(message.senderType);
     const messageContent = document.createElement('div');
     messageContent.classList.add('message-content');
     messageContent.textContent = `${message.content}`;
@@ -404,9 +403,9 @@ let currentRoomId = null;
 function getCurrentTime() {
     const now = new Date();
 
-    const hours = now.getHours();       // 시
-    const minutes = now.getMinutes();   // 분
-    const seconds = now.getSeconds();   // 초
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
 
     return `${hours}:${minutes}:${seconds}`;
 }
@@ -414,9 +413,9 @@ function getCurrentTime() {
 function setActiveRoomStyle(roomElement) {
     const clickedRooms = document.querySelectorAll('.room');
     clickedRooms.forEach(room => {
-        room.style.backgroundColor = ""; // 이전에 선택된 방의 배경 초기화
+        room.style.backgroundColor = "";
     });
-    roomElement.style.backgroundColor = "#f2cc61"; // 선택된 방의 배경 설정
+    roomElement.style.backgroundColor = "#f2cc61";
 }
 
 connect();

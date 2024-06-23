@@ -13,4 +13,7 @@
     <delete id="deleteByContent">
         DELETE FROM notification WHERE notify_content = #{content} and customer_id = #{id}
     </delete>
+    <select id="getCount" resultType="int">
+        select count(*) from notification where customer_id = #{customerId}
+    </select>
 </mapper>

@@ -64,6 +64,9 @@
                 <div class="etc-part">
                     <a id="notificationButton">
                         <img th:src="@{/dist/icon/bell.png}">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notiBadge" th:if="${session.role == 'role_user'}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </a>
                     <a id="cartBtn" class="cartBtnPosition" onclick="showAlert(event, id)">
                         <img th:src="@{/dist/icon/cart.png}" class="cart-icon">
@@ -232,6 +235,7 @@
     <script src="/js/header.js"></script>
     <script th:inline="javascript">
         GetBasketQuantity([[${session.id}]]);
+        getNotificationCount([[${session.id}]]);
     </script>
 </th:block>
 </html>

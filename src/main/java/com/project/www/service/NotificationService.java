@@ -10,4 +10,6 @@ public interface NotificationService {
     List<NotificationVO> getList(String username);
 
     boolean deleteNotificationByContent(String content,String id);
+
+    int getCount(String customerId);
 }

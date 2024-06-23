@@ -292,7 +292,8 @@ async function deleteNotification(content, id) {
             method: 'DELETE',
         });
         if (response.ok) {
-            await showNotification(); // 알림을 새로고침
+            await showNotification();
+            await getNotificationCount(loginId)// 알림을 새로고침
         } else {
             console.error('Failed to delete notification');
         }
@@ -480,4 +481,18 @@ async function GetBasketQuantity(customerId) {
 
     }
 
+}
+//알림 배지 카운트 가져오기
+async function getNotificationCount(customerId) {
+    try {
+        const response = await fetch('/notification/count/' + customerId);
+        const result = await response.text();
+
+        if (result !== null || result !== '') {
+            document.getElementById('notiBadge').innerText = result; //값 집어넣음
+        }
+
+    } catch (e) {
+
+    }
 }
