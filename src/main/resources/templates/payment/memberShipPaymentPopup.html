@@ -89,7 +89,7 @@
         .content-box>ul{
             width: 100%;
             height: 250px;
-            margin-top: 89px;
+            margin-top: 59px;
         }
 
         .content-box ul li {
@@ -112,7 +112,14 @@
         }
 
         .content-box ul li:nth-child(3) {
-            animation-delay: 2.8s;
+            animation-delay: 3.0s;
+        }
+
+        .content-box ul li:nth-child(4) {
+            animation-delay: 4.2s;
+            font-size: 20px;
+            font-weight: 700;
+            color: #833131;
         }
     </style>
 </head>
@@ -137,7 +144,7 @@
 
 
 <div class="memberShipPaymentButton-box">
-    <button id="membership-paymentButton">(4,900원) 결제하기(일단 100원으로 해놓음)</button>
+    <button id="membership-paymentButton">4,900원 결제하기</button>
 </div>
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
