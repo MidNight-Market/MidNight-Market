@@ -47,9 +47,11 @@ CREATE TABLE product (
 CREATE TABLE orders (
     id bigint AUTO_INCREMENT,
 	merchant_uid VARCHAR(256) NOT NULL,
+	imp_uid VARCHAR(256),
 	customer_id VARCHAR(150) NOT NULL,
 	product_id bigint NOT NULL,
 	qty bigint NOT NULL,
+	originalPrice bigint NOT NULL,
 	pay_price bigint NOT NULL,
 	orders_date DATETIME DEFAULT NOW(),
 	status VARCHAR(10) default '주문대기',
@@ -234,6 +236,25 @@ CREATE TABLE slang (
     customer_id VARCHAR(30) NOT NULL,
     product_id bigint NOT NULL,
     register_date DATETIME DEFAULT NOW()
+);
+
+#소켓채팅
+CREATE TABLE chat_room (
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    customer_id VARCHAR(150) NOT NULL,
+    seller_id VARCHAR(150) NOT NULL,
+    PRIMARY KEY (id)
+);
+#소켓채팅
+CREATE TABLE message (
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    chat_room_id BIGINT NOT NULL,
+    sender_id varchar(150) not null,
+    sender_type varchar(50) not null,
+    content TEXT NOT NULL,
+    send_time DATETIME DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (chat_room_id) REFERENCES chat_room(id)
 );
 
 

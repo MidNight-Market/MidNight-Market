@@ -12,6 +12,7 @@ import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.request.PrepareData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+@Slf4j
 @Service
 public class ImportService {
 
@@ -86,9 +88,11 @@ public class ImportService {
     }
 
     //merchantUid 환불 api
-    public IamportResponse<Payment> refundPaymentByMerchantUid(String merchantUid, long amount, BigDecimal checksum) throws IOException, IamportResponseException{
-        CancelData cancelData = new CancelData(merchantUid, false, BigDecimal.valueOf(amount));
-        return api.cancelPaymentByImpUid(cancelData);
+    public IamportResponse<Payment> refundPaymentByMerchantUid(String impUid, long amount, BigDecimal checksum) throws IOException, IamportResponseException{
+        CancelData cancelData = new CancelData(impUid, true, BigDecimal.valueOf(amount));
+        cancelData.setReason("그냥 환불하고 싶어요");
+        IamportResponse<Payment> testData = api.cancelPaymentByImpUid(cancelData);
+        return testData;
     }
 
 }

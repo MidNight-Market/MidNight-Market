@@ -24,16 +24,12 @@ public class ReviewController {
     @ResponseBody
     @PostMapping("/register")
     public String register(@ModelAttribute ReviewVO reviewVO,@RequestParam(required = false, name = "files") MultipartFile[] files){
-        log.info(">>>>리뷰객체 확인>>>{}",reviewVO);
-        log.info("파일 온거 확인>>>>{}",(Object) files);
-
         return rsv.register(fileHandler.reviewImageUploadFiles(files,reviewVO));
     }
 
     @ResponseBody
     @GetMapping("/getMyWriteCompletedReviewList/{customerId}")
     public List<ReviewVO> getMyWriteCompletedReviewList(@PathVariable("customerId")String customerId){
-        log.info("내가작성한 리뷰 메서드 고객아이디 잘 들어오나 확인>>>{}",customerId);
        return rsv.getMyWriteCompletedReviewList(customerId);
     }
 

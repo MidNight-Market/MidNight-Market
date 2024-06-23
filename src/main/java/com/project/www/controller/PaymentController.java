@@ -33,20 +33,15 @@ public class PaymentController {
     private final MemberCouponService mscv;
     private final CouponService csv;
 
-
     @ResponseBody
     @PostMapping("/post")
     public String paymentPost(@RequestBody PaymentDTO paymentDTO) {
-        //log.info("결제DTO확인 ->>>{}",paymentDTO);
-
         return psv.post(paymentDTO);
     }
 
     @ResponseBody
     @PostMapping("/basketPost")
     public String basketPaymentPost(@RequestBody PaymentDTO paymentDTO) {
-        //log.info("장바구니 결제 DTO 확인 >>>>{}",paymentDTO);
-
         return psv.basketPost(paymentDTO);
     }
 
@@ -70,14 +65,12 @@ public class PaymentController {
         //내쿠폰 정보
         int couponCount = mscv.getCount(paymentDTO.getCustomerId());
         List<MemberCouponVO>mList = mscv.getMemberCouponList(paymentDTO.getCustomerId());
-        log.info("내가가진{}", mList);
         List<CouponVO> couponList = new ArrayList<>();
-        for(MemberCouponVO mcvo : mList) {
+        for(MemberCouponVO mcvo : mList) { //쿠폰목록 불러오기
             long couponId = mcvo.getCouponId();
             CouponVO cvo = csv.getCouponList(couponId);
             couponList.add(cvo);
         }
-        log.info("쿠폰{}", couponList);
         model.addAttribute("couponList", couponList);
         model.addAttribute("couponCount", couponCount);
         model.addAttribute("paymentDTO", paymentDTO);
@@ -88,7 +81,6 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/prepare")
     public void prepare(@RequestBody PaymentDTO paymentDTO) throws IamportResponseException, IOException {
-        log.info("사전검증 데이터 잘들어온지 확인<>>>>>>{}",paymentDTO);
         psv.usedPointAndCouponUpdate(paymentDTO);
         importService.postPrepare(paymentDTO);
     }
@@ -142,11 +134,17 @@ public class PaymentController {
         }else{
             memberShipPointeRate = 0.01;
         }
-
-
         PaymentDTO paymentDTO = psv.getMyPaymentProduct(merchantUid);
         paymentDTO.setOriginalPrice(Math.round(paymentDTO.getOriginalPrice() * memberShipPointeRate ));
+
         model.addAttribute("paymentDTO", paymentDTO);
+
+        //알림추가
+        NotificationVO nvo = new NotificationVO();
+        nvo.setCustomerId(principalDetails.getUsername());
+        //이부분에 포인트만 계산한값 넣어주세요
+        nvo.setNotifyContent("구매가 완료되었습니다. 구매확정시 포인트 "+" 원 지급될 예정입니다. ");
+        nsv.insert(nvo);
         return "payment/success";
     }
 
@@ -155,8 +153,6 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/refund")
     public String refund(@RequestBody OrdersVO ordersVO) {
-        //log.info(">>>주문아이디확인>>>{}",ordersVO);
-
         return psv.refundUpdate(ordersVO);
     }
 

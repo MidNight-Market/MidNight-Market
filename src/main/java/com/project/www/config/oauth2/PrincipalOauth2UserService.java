@@ -37,7 +37,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        log.info("getAttributes : {}",oAuth2User.getAttributes());
         String provider = userRequest.getClientRegistration().getRegistrationId();
         OAuth2UserInfo oAuth2UserInfo = null;
         if(provider.equals("google")){
@@ -54,7 +53,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String role = "role_user";
         CustomerVO existingCustomer = customerMapper.findByUserName(providerId);
         if (existingCustomer == null) {
-            log.info("New user, creating account");
             CustomerVO newCustomer = new CustomerVO();
             newCustomer.setId("("+provider+")"+id);
             newCustomer.setNickName(nickName);

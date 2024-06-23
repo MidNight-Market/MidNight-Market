@@ -7,8 +7,6 @@ $(document).ready(function () {
 
         const checkedCount = $('.basketCheckbox:checked').not('[id="basketCheckboxAll"]').length;
 
-        console.log(checkedCount);
-
         if (checkedCount === 0) { // 체크가 모두 안되어 있을 경우
             return;
         }
@@ -28,7 +26,6 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify(checkedValues),
             success: function (response) {
-                console.log(response);
                 // 리스트 뿌리기
                 const checkedLength = $('.basketCheckbox:checked').not('[id="basketCheckboxAll"]').length;
                 let basketBadge = document.getElementById('basketBadge');
@@ -61,7 +58,6 @@ $(document).on('click', '.box1 button', function () {
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (response) {
-            console.log(response);
 
             // 리스트 뿌리기
             spreadMyBasketList(customerId);
@@ -80,13 +76,8 @@ function spreadMyBasketList(customerId) {
             customerId: customerId
         },
         success: function (response) {
-
             myBasket = response;
-            console.log(myBasket);
-
             myBasketList(response);
-            // 체크되어 있는 상품들을 다시 체크 처리
-
         }
     });
 }
@@ -169,10 +160,16 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
 
     if (button) {
 
+        if(myBasket.length === 0){ //장바구니에 물건이 아예 없을 경우
+            alert('장바구니에 물건을 담고 진행해주세요.');
+            return;
+        }
+
         if (!confirm('장바구니에 담긴 상품들을 주문하시겠습니까?')) {
             e.preventDefault();
             return;
         }
+
 
         let soldOutQuantity = myBasket.filter(item => item.qty === 0);
 
@@ -191,7 +188,7 @@ document.getElementById('orders-button').addEventListener('click', (e) => {
             }
         }
 
-        const merchant_uid = 'merchant+_uid' + new Date().getTime();
+        const merchant_uid = 'merchant_uid' + new Date().getTime();
 
         const payData = {
             merchantUid: merchant_uid,
@@ -236,9 +233,6 @@ $(document).ready(function () { // 시작되고
         const productId = $(this).val(); // 체크박스 밸류 상품 아이디 가져옴
         let isChecked = $(this).data('isChecked'); // 체크상태를 가져옴
 
-        console.log('체크박스 클릭함 : ', productId);
-        console.log('체크박스 업데이트할때  : ', isChecked);
-
         const data = {
             customerId: customerId,
             productId: productId,
@@ -261,7 +255,6 @@ $(document).ready(function () { // 시작되고
                     isChecked = 'no-all'; // 데이터 값을 변경
                     $checkbox.data('isChecked', isChecked); // 데이터 세트에도 변경된 값을 적용
                 }
-                console.log('Updated isChecked value:', isChecked); // 변경된 값 출력
                 spreadMyBasketList(customerId); // 바스켓 리스트 업데이트 함수 호출
             },
             error: function (error) {

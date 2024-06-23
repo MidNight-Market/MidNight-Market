@@ -37,7 +37,6 @@ public class CustomerController {
 
     @PostMapping("/insert")
     public String insert(CustomerVO cvo) {
-        log.info("cvo 값 확인 {}", cvo);
         cvo.setPw(bCryptPasswordEncoder.encode(cvo.getPw()));
         cvo.setProvider("form");
         cvo.setProviderId(cvo.getId());
@@ -105,9 +104,6 @@ public class CustomerController {
     @ResponseBody
     @GetMapping("/resetPw/{id}/{pw}")
     public String resetPw(@PathVariable("id") String id, @PathVariable("pw") String pw) {
-        log.info("test");
-        log.info("아이디 {}", id);
-        log.info("비번 {}", pw);
         String bCryptPw = bCryptPasswordEncoder.encode(pw);
         csv.updateDefaultPw(id, bCryptPw);
         return "1";
@@ -115,16 +111,12 @@ public class CustomerController {
 
     @GetMapping("/info")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        log.info("{}",principalDetails.getUsername());
-        log.info("{}",principalDetails.getAttributes());
-
         return principalDetails.getUsername();
     }
 
     @GetMapping("/myPage")
     public void myPage(Model m, HttpSession session) {
         String CustomerId = (String) session.getAttribute("id");
-        log.info("아이디 확인>>>>{}", CustomerId);
         List<AddressVO> list = csv.getMyAddrList(CustomerId);
 
         // 기본배송지가 맨위로 오게

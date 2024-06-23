@@ -24,4 +24,6 @@ public interface BasketMapper {
     int myBasketCheckedUpdate(BasketVO basketVO);
 
     int clearBasketOnPaymentSuccess(String customerId);
+
+    List<BasketVO> getReadyToCheckoutCartItems(String customerId);
 }

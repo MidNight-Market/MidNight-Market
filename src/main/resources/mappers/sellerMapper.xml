@@ -24,6 +24,10 @@
         SELECT shop_name from seller
         WHERE id = #{sellerId}
     </select>
+    <select id="getSellerId" resultType="String">
+        select id from seller
+        where shop_name = #{marketName}
+    </select>
 
 
     

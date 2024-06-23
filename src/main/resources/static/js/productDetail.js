@@ -1,5 +1,3 @@
-
-
 let productQty = document.getElementById('productQty');
 let productPrice = document.getElementById('productPrice');
 
@@ -39,7 +37,6 @@ document.addEventListener('click', (e) => {
 
     //수량 감소 버튼
     if (e.target.id == '-') {
-        //console.log('추가');
         productQty.innerText = Number(productQty.innerText) - 1; //수량 -1
         productPrice.innerText =
             (Number(productDTO.productVO.price) * Number(productQty.innerText))
@@ -96,9 +93,6 @@ document.getElementById('basketButton').addEventListener('click', () => {
                 contentType: 'application/json',
                 data: JSON.stringify(productData),
                 success: function (rsp) {
-                    console.log("응답 오느지 확인" + rsp);
-
-
                     const message = rsp.replace(/\d+$/, '');
                     const number = rsp.replace(/\D/g, '');
 
@@ -168,8 +162,6 @@ document.getElementById('slangBtn').addEventListener('click', (e) => {
                 if (targetButton.dataset.type === 'delete') {
                     slangInfoChange(customerId, productId, 'DELETE');
                 }
-                console.log(targetButton.id);
-                console.log(targetButton.dataset.type);
             }else{
                 if(confirm("로그인이 필요한 서비스입니다. 로그인페이지로 이동하시겠습니까? ")){
                     let returnUrl = encodeURI(window.location.href);
@@ -202,8 +194,6 @@ async function sendSlangUpdateServer(customerId, productId, type) {
 function slangInfoChange(customerId, productId, type) {
 
     sendSlangUpdateServer(customerId, productId, type).then(result => {
-
-        console.log(result);
 
         let div = document.querySelector('.like-button');
         div.dataset.type = ''; // 데이터셋 속성 초기화
@@ -248,7 +238,6 @@ document.getElementById('orderButton').addEventListener('click',(e)=>{
                 };
 
                 postPaymentToServer(payData).then(result=>{
-                    console.log(result);
 
                     const message = result.replace(/\d+$/, '');
                     const number = result.replace(/\D/g, '');
@@ -323,14 +312,11 @@ likeBtn.forEach(button =>{
         }else{
             let dataType = e.currentTarget.closest("[data-type]").getAttribute("data-type");
             let reviewId = e.currentTarget.closest("[data-reviewid]").getAttribute("data-reviewid");
-            console.log("dataType : ",dataType);
-            console.log("reviewId : ",reviewId);
             const data = {
                 customerId : customerId,
                 reviewId : reviewId
             }
             isExist(data).then(result=>{
-                console.log(result);
                 if(result.includes("있음")){
                     dataType = "delete"
                     button.dataset.type = dataType;
@@ -356,7 +342,6 @@ likeBtn.forEach(button =>{
         }
     });
 });
-console.log(List);
 for(let i=0; i<List.length; i++){
     let data = {
         customerId : id,
@@ -449,7 +434,6 @@ async function reviewLikeUpdateFromServer(type, data){
 document.getElementById('product-detail').addEventListener('click', () => {
     let productDetail = document.querySelector('.product-detail');
     let productDetailOffset = productDetail.offsetTop-70; //너무 내려가서 -70처리해서 위치조절함
-    console.log('product-detail offset:', productDetailOffset);
     scroll(productDetailOffset);
 });
 document.getElementById('product-review').addEventListener('click', () => {

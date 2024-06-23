@@ -28,7 +28,7 @@ reviewButtons.forEach(button => {
         }
 
         //내가적은 상품 후기일경우
-        console.log('ddd');
+
 
 
     });
@@ -50,7 +50,6 @@ async function getMyWriteReviewListFromServer(customerId) {
 function spreadMyWriteReviewList(customerId) {
     getMyWriteReviewListFromServer(customerId).then(result => {
         reviewWriteData = result;
-        console.log(result);
         let div = document.getElementById('write-reviewPage');
         div.innerHTML = '';
         let str = '';
@@ -103,7 +102,6 @@ async function getMyWriteCompletedReviewListFromServer(customerId) {
 function spreadMyWriteCompletedReviewList(customerId) {
     getMyWriteCompletedReviewListFromServer(customerId).then(result => {
         reviewWriteData = result;
-        console.log(result);
         let div = document.getElementById('write-reviewPage');
         div.innerHTML = '';
         let str = '';
@@ -338,9 +336,7 @@ function initStars() {
 //모달열면 정보 바뀌게
 document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('review-button')) {
-        console.log('버튼이 클릭되었습니다.');
         const dataIndex = e.target.getAttribute('data-index');
-        console.log(dataIndex);
         document.getElementById('modal-image').src = reviewWriteData[dataIndex].productVO.mainImage;
         document.getElementById('modal-product-name').innerText = reviewWriteData[dataIndex].productVO.name;
         document.getElementById('modal-product-description').innerText = reviewWriteData[dataIndex].productVO.description;
@@ -393,7 +389,6 @@ document.getElementById('files').addEventListener('change', (e) => {
 
 //리뷰 등록 버튼 이벤트
 document.getElementById('register-button').addEventListener('click', () => {
-    console.log('register-button click');
     const content = document.getElementById('content'); //리뷰 내용
 
     //내용 5자 미만 시
@@ -430,7 +425,6 @@ document.getElementById('register-button').addEventListener('click', () => {
         }
     }
 
-    console.log(data);
 
     sendReviewRegisterFromServer(data).then(result => {
         const parts = result.split('/');

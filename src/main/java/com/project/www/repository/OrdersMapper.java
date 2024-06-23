@@ -1,6 +1,7 @@
 package com.project.www.repository;
 
 import com.project.www.domain.OrdersVO;
+import com.project.www.domain.PaymentDTO;
 import com.project.www.domain.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ public interface OrdersMapper {
 
     List<OrdersVO> getMyOrdersProduct(String merchantUid);
 
-    int paySuccessUpdate(String merchantUid);
+    int paySuccessUpdate(PaymentDTO paymentDTO);
 
     List<OrdersVO> getMyPurchasedProductList(String customerId);
 

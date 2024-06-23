@@ -312,7 +312,7 @@
                     쇼핑
                 </div>
                 <div class="mypage_text8" id="5">상품 후기</div>
-<!--                <div class="mypage_text8" id="6">상품 문의</div>-->
+                <!--                <div class="mypage_text8" id="6">상품 문의</div>-->
             </div>
 
             <hr class="hr1">
@@ -322,7 +322,7 @@
                     내 정보 관리
                 </div>
                 <div class="mypage_text8" id="7">배송지 관리</div>
-<!--                <div class="mypage_text8" id="8">개인 정보 수정</div>-->
+                <!--                <div class="mypage_text8" id="8">개인 정보 수정</div>-->
             </div>
 
         </div>
@@ -547,7 +547,6 @@
     let point = parseInt([[${#authentication.principal.point}]]);
     document.getElementById('point').innerText = point.toLocaleString();
     let mStatus = [[${#authentication.principal.mStatus}]];
-    console.log(mStatus);
 </script>
 <script th:src="@{/js/myPage/slang.js}"></script>
 <script th:src="@{/js/myPage/purchasedProduct.js}"></script>
@@ -564,10 +563,9 @@
         if (defaultTab) {
             // 기본 탭 선택 로직
             select_button[2].click();
-        }else if(reloadTab){
+        } else if (reloadTab) {
             select_button[6].click();
-        }
-        else {
+        } else {
             select_button[0].click();
         }
     }
@@ -632,7 +630,7 @@
                     select_button[0].click();
                 }
             }
-            if(target === 7){
+            if (target === 7) {
 
             }
         }
@@ -752,22 +750,49 @@
     function spreadMyCouponList(customerId) {
         couponListFromServer(customerId).then(result => {
             if (result) {
-                console.log(result)
                 let div = document.getElementById('coupon-list-box');
                 div.innerHTML = '';
                 let str = '';
                 result.forEach(result => {
+                    const issueDate = result.cvo.issueDate.match(/\d{2}(\d{2})-(\d{2})-(\d{2})/).slice(1).join('');
+                    const endDate = result.cvo.endDate.match(/\d{2}(\d{2})-(\d{2})-(\d{2})/).slice(1).join('');
+
                     str += `
-                    <div class="couponList-box">
-                        <div class="couponName">
-                            <span>${result.cvo.name}</span><br>
-                            <span>${result.cvo.discountAmount.toLocaleString()}원</span>
-                        </div>
-                        <div class="coupon-info">
-                        ${result.memberCouponVO.useStatus ? `${result.memberCouponVO.useDate}일 사용완료` : `${result.cvo.endDate}까지 사용가능`}
-                        </div>
-                    </div>
-            `;
+<div class="ticket">
+<span class="issueDate">발급일자</span>
+<span class="endDate">사용기한</span>
+  <div class="ticket-edge-top-left"></div>
+  <div class="ticket-edge-top-right"></div>
+  <div class="ticket-edge-bottom-left"></div>
+  <div class="ticket-edge-bottom-right"></div>
+  <div class="ticket-punches"></div>
+  <div class="ticket-punches-right"></div>
+  <div class="ticket-inner">
+    <div class="ticket-headline">
+      <span>${result.cvo.name} 할인쿠폰</span>
+      <span class="pro">PRO</span>
+    </div>
+    <div class="ticket-star">
+      <i class="fa fa-star-o"></i>
+    </div>
+    <div class="ticket-admit">
+      <span class="char">할</span>
+      <span class="char">인</span>
+      <span class="char">금</span>
+      <span class="char"></span>
+      <span class="char">3</span>
+      <span class="char">0</span>
+      <span class="char">0</span>
+      <span class="char">0</span>
+      <span class="char">원</span>
+    </div>
+    <div class="ticket-numbers">${issueDate}</div>
+    <div class="ticket-numbers second">${endDate}</div>
+  </div>
+</div>
+</div>
+`;
+
                 });
                 div.innerHTML = str;
             } else {

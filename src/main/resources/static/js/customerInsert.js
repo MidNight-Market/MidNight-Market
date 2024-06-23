@@ -55,7 +55,6 @@ async function confirmNumber(){
 }
 document.getElementById('confirmBtn').addEventListener('click', ()=>{
     confirmNumber().then(result=>{
-        console.log(result);
         if(result === "1"){
             alert("인증번호 확인 완료.");
             confirmEmailCheck = true;
@@ -113,9 +112,6 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
                 duplicateIdCheckStatus = true;
                 document.getElementById('sendBtn').style.display = '';
                 document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
-                console.log(document.getElementById('customerEmail').value)
-                console.log(document.getElementById('idF').value)
-                console.log(document.getElementById('idB').value)
             }
         })
     }else{
