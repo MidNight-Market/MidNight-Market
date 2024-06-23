@@ -42,4 +42,9 @@ public class ChatServiceImpl implements ChatService {
     public void deleteChatRoom(Long chatRoomId) {
         chatMapper.deleteChatRoom(chatRoomId);
     }
+
+    @Override
+    public Long getTargetChatRoom(String customerId, String sellerId) {
+        return chatMapper.getTargetChatRoom(customerId,sellerId);
+    }
 }

@@ -153,7 +153,6 @@ function sendMessage(roomId) {
     };
     // 웹소켓을 통해 메시지 전송
     stompClient.send(`/app/chat.sendMessage`, {}, JSON.stringify(message), function() {
-        console.log('Message sent successfully');
         document.getElementById('messageInput').value = ''; // 입력 필드 초기화
         showMessageOutput(message);
     }, function(error) {
@@ -163,36 +162,71 @@ function sendMessage(roomId) {
 
 // 페이지 로드 시 실행
 document.addEventListener('DOMContentLoaded', async function () {
-    try {
-        await renderChatRoomList(currentId);
-    } catch (error) {
-        console.error('Error loading chat room list on page load:', error.message);
-    }
+
 });
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded',async () => {
     let urlParams = new URLSearchParams(window.location.search);
     let paramValue = urlParams.get('param');
-    if(paramValue != null){
+    if (paramValue != null) {
         getSellerId(paramValue).then(async result => {
-            const sellerId = result;
-            const response = await fetch(`/chat/rooms`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `customerId=${currentId}&sellerId=${sellerId}`
-            });
-            const chatRoom = await response.json();
-            // 방 리스트 다시 렌더링
-            renderChatRoomList(currentId).then(result=>{
-                console.log(result);
+            getChatRoomList(result).then(async roomList => {
+                if (roomList == null || roomList.length == 0) {
+                    let sellerId = result;
+                    const response = await fetch(`/chat/rooms`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `customerId=${currentId}&sellerId=${sellerId}`
+                    });
+                    const chatRoom = await response.json();
+                    // 방 리스트 다시 렌더링
+                    renderChatRoomList(currentId);
+                    // 새로 생성된 방 열기
+                    await loadChatRoom(chatRoom.id);
+                }else{
+                    renderChatRoomList(currentId);
+                    getRoomId(currentId,result).then(async id => {
+                        if (id != null) {
+                            console.log(id);
+                            await loadChatRoom(id);
+                        }else{
+                            let sellerId = result;
+                            const response = await fetch(`/chat/rooms`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: `customerId=${currentId}&sellerId=${sellerId}`
+                            });
+                            const chatRoom = await response.json();
+                            // 방 리스트 다시 렌더링
+                            renderChatRoomList(currentId);
+                            // 새로 생성된 방 열기
+                            await loadChatRoom(chatRoom.id);
+                        }
+                    })
+                }
             })
-            // 새로 생성된 방 열기
-            await loadChatRoom(chatRoom.id);
         })
+    } else {
+        try {
+            await renderChatRoomList(currentId);
+        } catch (error) {
+            console.error('Error loading chat room list on page load:', error.message);
+        }
     }
 })
+async function getRoomId(customerId, sellerId){
+    const url = "/chat/getRoomId/"+customerId+"/"+sellerId;
+    const config = {
+        method: 'GET'
+    };
+    const resp = await fetch(url, config);
+    const result = await resp.text();
+    return result;
+}
 
 // 채팅방 클릭 시 해당 방 로드
 document.body.addEventListener('click', function (event) {
@@ -318,7 +352,6 @@ function connect() {
 }
 
 function showMessageOutput(message) {
-    console.log('Received message:', message);
     const messagesContainer = document.querySelector('.messages');
     const messageElement = document.createElement('div');
 

@@ -11,4 +11,5 @@ public interface ChatService {
     List<MessageVO> getMessagesByChatRoomId(Long chatRoomId);
     void saveMessage(MessageVO message);
     void deleteChatRoom(Long chatRoomId);
+    Long getTargetChatRoom(String customerId, String sellerId);
 }
