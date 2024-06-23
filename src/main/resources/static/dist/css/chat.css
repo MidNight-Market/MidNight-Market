@@ -111,6 +111,27 @@ body, html {
     background-color: #f8d7da; /* Seller message background color */
     align-self: flex-start; /* Align to the left */
 }
+.date{
+    font-size: 14px;
+}
+.date.customer{
+    align-self: flex-end; /* Align to the right */
+}
+.date.seller{
+    align-self: flex-start;
+}
+.time{
+    font-size: 14px;
+    margin-top: -10px;
+    margin-left: 10px;
+}
+.time.customer{
+    align-self: flex-end; /* Align to the right */
+    margin-right: 15px;
+}
+.time.seller{
+    align-self: flex-start; /* Align to the left */
+}
 
 
 .inputDiv {
@@ -161,7 +182,7 @@ span{
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    width: 300px;
+    width: 400px;
     text-align: center;
     padding: 20px;
     border: 1px solid coral;

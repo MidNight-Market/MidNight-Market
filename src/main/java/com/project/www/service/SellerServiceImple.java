@@ -78,5 +78,10 @@ public class SellerServiceImple implements SellerService {
         return sellerMapper.getShopName(sellerId);
     }
 
+    @Override
+    public String getSellerId(String marketName) {
+        return sellerMapper.getSellerId(marketName);
+    }
+
 
 }
