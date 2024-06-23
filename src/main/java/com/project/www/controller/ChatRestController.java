@@ -30,7 +30,6 @@ public class ChatRestController {
 
     @GetMapping("/messages/{chatRoomId}")
     public List<MessageVO> getMessagesByChatRoomId(@PathVariable Long chatRoomId) {
-        log.info("여기들어오냐?{}",chatRoomId);
         return chatService.getMessagesByChatRoomId(chatRoomId);
     }
 

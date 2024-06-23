@@ -102,8 +102,10 @@ function displayMessages(messages) {
     messages.forEach(message => {
         spreadMessage(message, messagesContainer);
     });
-
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    scrollToBottom(messagesContainer);
+}
+function scrollToBottom(element) {
+    element.scrollTop = element.scrollHeight;
 }
 function splitDate(time) {
     const parts = time.split('T');
@@ -167,6 +169,30 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.error('Error loading chat room list on page load:', error.message);
     }
 });
+
+document.addEventListener('DOMContentLoaded',()=>{
+    let urlParams = new URLSearchParams(window.location.search);
+    let paramValue = urlParams.get('param');
+    if(paramValue != null){
+        getSellerId(paramValue).then(async result => {
+            const sellerId = result;
+            const response = await fetch(`/chat/rooms`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `customerId=${currentId}&sellerId=${sellerId}`
+            });
+            const chatRoom = await response.json();
+            // 방 리스트 다시 렌더링
+            renderChatRoomList(currentId).then(result=>{
+                console.log(result);
+            })
+            // 새로 생성된 방 열기
+            await loadChatRoom(chatRoom.id);
+        })
+    }
+})
 
 // 채팅방 클릭 시 해당 방 로드
 document.body.addEventListener('click', function (event) {
