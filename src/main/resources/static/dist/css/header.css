@@ -226,6 +226,19 @@ body {
     width: 16px;
     height: 16px;
 }
+#notificationButton {
+    position: relative;
+}
+
+#notificationButton .badge {
+    position: absolute;
+    z-index: 1;
+    font-size: 9px;
+    padding: 3px 0;
+    margin: 4px 0 0 2px;
+    width: 16px;
+    height: 16px;
+}
 
 .menu {
     height: 100%;

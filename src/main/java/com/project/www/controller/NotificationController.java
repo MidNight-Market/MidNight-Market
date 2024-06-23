@@ -44,5 +44,11 @@ public class NotificationController {
         }
     }
 
+    @ResponseBody
+    @GetMapping("/count/{customerId}")
+    public int count(@PathVariable("customerId")String customerId) {
+        return nsv.getCount(customerId);
+    }
+
 
 }

@@ -27,4 +27,9 @@ public class NotificationServiceImpl implements NotificationService{
         int rowsAffected = notificationMapper.deleteByContent(content, id);
         return rowsAffected > 0;
     }
+
+    @Override
+    public int getCount(String customerId) {
+        return notificationMapper.getCount(customerId);
+    }
 }

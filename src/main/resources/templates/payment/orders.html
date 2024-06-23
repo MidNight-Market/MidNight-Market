@@ -613,7 +613,7 @@
                                         <td><input type="radio" name="coupon" th:id="'checkbox' + ${stat.index}" th:data-coupon-id="${coupon.id}" th:data-name="${coupon.name}" th:data-discount="${coupon.discountAmount}"></td>
                                         <td><label th:for="'checkbox' + ${stat.index}" th:text="${coupon.name}"></label></td>
                                         <td><span th:text="${coupon.discountAmount}"></span></td>
-                                        <td><span th:text="${coupon.issueDate}"></span></td>
+                                        <td><span th:text="${coupon.endDate}"></span></td>
                                     </tr>
                                 </tbody>
                             </table>

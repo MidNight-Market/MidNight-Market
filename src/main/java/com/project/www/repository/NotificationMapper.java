@@ -13,4 +13,6 @@ public interface NotificationMapper {
     List<NotificationVO> getList(String username);
 
     int deleteByContent(@Param("content") String content, @Param("id") String id);
+
+    int getCount(String customerId);
 }
