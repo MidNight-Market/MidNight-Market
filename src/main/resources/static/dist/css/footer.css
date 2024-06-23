@@ -153,3 +153,7 @@ footer > .inner1 > .footerBt .t4 {
   padding-left: 10px;
   font-size: xx-small;
 }
+
+.icon img:hover {
+  filter: brightness(90%);
+}

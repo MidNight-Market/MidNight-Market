@@ -20,14 +20,23 @@
     .containerInner {
         width: 940px;
         margin: 24px auto;
-        border: 1px solid lightgray;
+        border-top: 1px solid lightgray;
+        border-bottom: 1px solid lightgray;
+    }
+
+    .tr:first-child {
+        border-top: 2px solid black;
+        border-bottom: 1px solid black;
     }
 
     .tr > th {
-        font-weight: bold;
+        height: 49px;
+        line-height: 49px;
+        font-size: 19px;
     }
 
-    .table th, .table td {
+    .table th,
+    .table td {
         text-align: center;
     }
 
@@ -47,18 +56,16 @@
     }
 
     #hb {
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: darkorange;
         color: #fff;
     }
 
     #hb:hover {
-        background-color: #0056b3;
+        background-color: #c65d01;
     }
 
     #myHelpBtn {
         background-color: #28a745;
-        border-color: #28a745;
         color: #fff;
     }
 
@@ -88,6 +95,18 @@
         font-size: 13px;
         color: gray;
     }
+    .pagination .page-item.active .page-link {
+        background-color: orange;
+        border-color: orange;
+        color: white;
+    }
+    .pagination .page-link {
+        color: black;
+    }
+
+    .pagination .page-link:hover {
+        font-weight: 700;
+    }
 </style>
 </head>
 <body>
@@ -100,7 +119,7 @@
         <table class="table table-striped" style="margin-bottom: 0">
             <thead>
             <tr class="tr">
-                <th>No</th>
+                <th>번호</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
