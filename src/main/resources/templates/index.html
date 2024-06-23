@@ -218,6 +218,7 @@
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
     const mStatus = [[${session.mStatus}]];
+    let value = null;
     document.getElementById('membershipPayment').style.display="";
     if(role == "role_admin" || role == "role_seller"){
         document.getElementById('membershipPayment').style.display="none";
