@@ -1,6 +1,7 @@
 package com.project.www.repository;
 
 import com.project.www.domain.ReviewLikeVO;
+import com.project.www.domain.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ReviewLikeMapper {
 
-    List<ReviewLikeVO> getReviewLike(long id);
+    ReviewLikeVO getReviewLike(ReviewVO review);
 
     int registerLike(ReviewLikeVO reviewLikeVO);
 

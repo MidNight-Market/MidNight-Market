@@ -6,7 +6,8 @@
 
     <select id="getReviewLike" resultType="com.project.www.domain.ReviewLikeVO">
         select * from review_like
-        where review_id = #{id}
+        where
+        review_id = #{id} AND customer_id = #{customerId}
     </select>
 
     <insert id="registerLike">
