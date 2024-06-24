@@ -564,7 +564,7 @@
             // 기본 탭 선택 로직
             select_button[2].click();
         } else if (reloadTab) {
-            select_button[6].click();
+            select_button[5].click();
         } else {
             select_button[0].click();
         }
@@ -815,7 +815,7 @@
 
     let addressAddBtn = document.getElementById('addressAddBtn');
     addressAddBtn.addEventListener('click', () => {
-        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600');
+        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600,left=340px,top=80px');
     });
 
 </script>
