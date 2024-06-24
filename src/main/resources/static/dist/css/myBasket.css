@@ -147,7 +147,8 @@ a {
 #basketList > .basketList-li{
     width: 100%;
     height: 121px;
-    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 30px;
     /*background-color: violet;*/
     margin: 0 auto 34px;
     display: flex;
@@ -165,6 +166,7 @@ a {
     /*background-color: #055160;*/
     width: 60%;
     height: 100%;
+    margin-top: 10px;
 }
 .product-desc-box p:first-child{
     margin-top: 11px;
@@ -179,7 +181,7 @@ a {
 .calc-box{
     width: 100px;
     height: 30px;
-    margin-top: 20px;
+    margin-top: 25px;
     margin-right: 20px;
     /*background-color: #03c75a;*/
 }
@@ -191,7 +193,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    line-height: 65px;
+    line-height: 75px;
 }
 
 
