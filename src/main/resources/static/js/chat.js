@@ -366,7 +366,6 @@ function connect() {
     let socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/{chatRoomId}', function (messageOutput) {
             showMessageOutput(JSON.parse(messageOutput.body));
         });
