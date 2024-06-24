@@ -1,5 +1,5 @@
 //리뷰카운트 업데이트
-document.getElementById('reviewCounter').innerText = rvo.length != 0 ? ' +' + rvo.length : '  리뷰없음';
+document.getElementById('reviewCounter').innerText = rvo.length != 0 ? ' +' + rvo.length : '';
 
 let productQty = document.getElementById('productQty');
 let productPrice = document.getElementById('productPrice');
@@ -579,7 +579,7 @@ starScore += value.star;
 
 starScore = starScore / rvoList.length;
 starScore = customRound(starScore); //5이상이면 반올림 4이하이면 반내림
-starScore = String(starScore); //스트링형으로 만들어서 형변환 해줌;;; 귀차니즘
+starScore = String(starScore); //스트링형으로 만들어서 형변환 해줌
 
     let result;
 
@@ -675,7 +675,13 @@ starScore = String(starScore); //스트링형으로 만들어서 형변환 해�
         `;
             break;
         default:
-            result = '';
+            result = `
+            <img src="/dist/icon/star-gray.svg" alt="Empty Star">
+            <img src="/dist/icon/star-gray.svg" alt="Empty Star">
+            <img src="/dist/icon/star-gray.svg" alt="Empty Star">
+            <img src="/dist/icon/star-gray.svg" alt="Empty Star">
+            <img src="/dist/icon/star-gray.svg" alt="Empty Star">
+        `;
             break;
     }
     return result;
