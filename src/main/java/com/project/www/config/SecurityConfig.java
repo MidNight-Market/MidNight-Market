@@ -48,7 +48,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(5)
+    @Order(2)
     SecurityFilterChain CustomerFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
@@ -75,7 +75,7 @@ public class SecurityConfig {
         return http.build();
     }
     @Bean
-    @Order(3)
+    @Order(1)
     SecurityFilterChain SellerFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
