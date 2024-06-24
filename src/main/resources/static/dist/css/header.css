@@ -199,6 +199,7 @@ body {
 .etc-part > a > img {
     width: 25px;
     height: 25px;
+    cursor: pointer;
 }
 
 .etc-part > #notificationButton > img:hover {
