@@ -8,7 +8,7 @@ function openPopup() {
 }
 document.getElementById('bannerBasket').addEventListener('click', ()=>{
     if(role != "role_user" || role == null){
-        if(confirm("구매자만 사용가능한 서비스 입니다. 로그인 하시겠습니까? ")){
+        if(confirm("구매자만 사용가능한 서비스 입니다.\n로그인 하시겠습니까? ")){
             window.location.href = "/login/form";
         }
     }else{
@@ -17,7 +17,7 @@ document.getElementById('bannerBasket').addEventListener('click', ()=>{
 });
 document.getElementById('bannerSlang').addEventListener('click', ()=>{
     if(role != "role_user" || role == null){
-        if(confirm("구매자만 사용가능한 서비스 입니다. 로그인 하시겠습니까? ")){
+        if(confirm("구매자만 사용가능한 서비스 입니다.\n로그인 하시겠습니까? ")){
             window.location.href = "/login/form";
         }
     }else{
@@ -25,7 +25,7 @@ document.getElementById('bannerSlang').addEventListener('click', ()=>{
     }
 });document.getElementById('bannerInquiry').addEventListener('click', ()=>{
     if((role != "role_user" &&  role != "role_seller") || role == null ){
-        if(confirm("구매자만 사용가능한 서비스 입니다. 로그인 하시겠습니까? ")) {
+        if(confirm("구매자만 사용가능한 서비스 입니다.\n로그인 하시겠습니까? ")) {
             window.location.href = "/login/form";
         }
     }else{
