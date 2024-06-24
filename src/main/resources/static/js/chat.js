@@ -105,9 +105,6 @@ function displayMessages(messages) {
         spreadMessage(message, messagesContainer);
     });
 }
-function getHeight(){
-
-}
 
 function splitDate(time) {
     const parts = time.split('T');
@@ -345,17 +342,21 @@ document.body.addEventListener('click', (e) => {
 
         button.addEventListener('click', async () => {
             const sellerId = await getSellerId(input.value);
-            const response = await fetch(`/chat/rooms`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `customerId=${currentId}&sellerId=${sellerId}`
-            });
-            const chatRoom = await response.json();
-            renderChatRoomList(currentId);
-            await loadChatRoom(chatRoom.id);
-            document.body.removeChild(newDiv);
+            if(sellerId == null || sellerId.length == 0){
+                alert("존재하지 않는 판매자입니다. \n확인 후 다시 입력해주세요. ")
+            }else{
+                const response = await fetch(`/chat/rooms`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `customerId=${currentId}&sellerId=${sellerId}`
+                });
+                const chatRoom = await response.json();
+                renderChatRoomList(currentId);
+                await loadChatRoom(chatRoom.id);
+                document.body.removeChild(newDiv);
+            }
         });
     }
 });
