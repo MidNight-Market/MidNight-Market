@@ -174,5 +174,5 @@ let addrModifyBtn = document.getElementById('addrModifyBtn');
 
 // 버튼 클릭시 팝업 보이게
 addrModifyBtn.addEventListener('click', () => {
-    window.open('/payment/addrModifyPopup', '배송지 변경', 'width=700,height=600');
+    window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600,left=340px,top=80px');
 });
