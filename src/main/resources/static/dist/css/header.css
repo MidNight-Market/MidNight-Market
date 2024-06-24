@@ -161,7 +161,7 @@ body {
 }
 
 .loginBox {
-    width: 213px;
+    width: 156px;
     display: flex;
     justify-content: flex-start;
     font-size: 13px;
@@ -170,16 +170,16 @@ body {
     position: relative;
 }
 
-.loginBox > a {
-    width: 94px;
+.loginBox a {
+    width: 56px;
     font-size: 13px;
     color: black;
     text-align: center;
     font-family: 'NanumSquareRoundL';
     font-weight: bold;
-    display: flex;
-    justify-content: end;
-    margin-left: 9px;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis;
 }
 .loginBox > a:last-child {
     width: 53px;
@@ -188,6 +188,7 @@ body {
     text-align: center;
     font-family: 'NanumSquareRoundL';
     font-weight: bold;
+    margin-left: 7px;
 }
 
 .loginBox > a:hover {
@@ -362,8 +363,8 @@ body {
 
 .member {
     position: absolute;
-    top: -5px;
-    left: -93px;
+    top: -4px;
+    left: -50px;
 }
 .input-box{
     margin: 10px auto;
@@ -445,7 +446,7 @@ body {
 }
 #recentSearch > .delBtn{
     position: fixed;
-    left: 1115px;
+    left: 1141px;
     margin-top: 12px;
 }
 #delAll, #offRecent{
