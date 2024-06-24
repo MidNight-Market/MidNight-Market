@@ -74,9 +74,9 @@
     }
 
     .adminReply {
-        float: left;
-        margin-left: 161px;
-        color: black;
+        float: left !important;;
+        margin-left: 144px !important;;
+        color: darkgray;
     }
     .adminReply:hover {
         font-weight: bold;
@@ -107,6 +107,10 @@
     .pagination .page-link:hover {
         font-weight: 700;
     }
+    #idInfo:hover {
+        font-weight: bold;
+    }
+
 </style>
 </head>
 <body>
@@ -130,7 +134,7 @@
             <tr>
                 <td>[[${hvo.hno}]]</td>
                 <td>
-                    <a href="#" id="idInfo" th:data-id="${hvo.id}" th:data-hno="${hvo.hno}">
+                    <a href="#" id="idInfo" th:data-id="${hvo.id}" th:data-hno="${hvo.hno}" style="color: black">
                         <span th:text="${hvo.secret == 'Y' ? '비밀글입니다.' : hvo.title}"
                               th:classappend="${hvo.secret == 'Y' ? 'yes' : ''}" class="secret"></span>
                     </a>
