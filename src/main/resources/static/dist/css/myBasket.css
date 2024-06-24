@@ -112,6 +112,7 @@ a {
 .text9 {
     font-size: 20px;
     font-weight: 550;
+    color: white;
 }
 
 .accumulate {
@@ -178,7 +179,7 @@ a {
 .calc-box{
     width: 100px;
     height: 30px;
-    margin-top: 25px;
+    margin-top: 20px;
     margin-right: 20px;
     /*background-color: #03c75a;*/
 }
@@ -214,6 +215,7 @@ a {
 .box2 {
     width: 40px;
     height: 100px;
+    line-height: 25px;
     /* background-color: yellow; */
 }
 
@@ -255,7 +257,7 @@ input[type="checkbox"] {
 /* checked */
 .checkbox_label input:checked + .checkbox_icon::before {
     /*   transition: all 0.15s ease; */
-    background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) #03c75a no-repeat center;
+    background: url(https://intranet.adef.co.kr/asset/images/ic_check.png) orange no-repeat center;
     border: none;
 }
 
