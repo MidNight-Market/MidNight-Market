@@ -693,7 +693,7 @@
             submitButton.addEventListener('click', () => {
                 const couponCode = input.value;
                 if(couponCode == "멤버쉽1" || couponCode == "멤버쉽2" || couponCode == "멤버쉽3" ){
-                    alert("멤버쉽 전용 쿠폰입니다. 등록하실 수 없습니다. ")
+                    alert("멤버쉽 전용 쿠폰입니다.\n등록하실 수 없습니다. ")
                 }else{
                     searchCoupon(couponCode, customerId).then(result => {
                         if (result > 0) {
