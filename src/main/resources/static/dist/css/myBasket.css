@@ -194,6 +194,13 @@ a {
     flex-direction: column;
     align-items: center;
     line-height: 75px;
+    position: relative;
+}
+
+.product-price-box s{
+    position: absolute;
+    top: 25px;
+    left: 37px;
 }
 
 

@@ -564,7 +564,7 @@
             // 기본 탭 선택 로직
             select_button[2].click();
         } else if (reloadTab) {
-            select_button[6].click();
+            select_button[5].click();
         } else {
             select_button[0].click();
         }
@@ -692,27 +692,30 @@
 
             submitButton.addEventListener('click', () => {
                 const couponCode = input.value;
-                searchCoupon(couponCode, customerId).then(result => {
-                    if (result > 0) {
-                        if (confirm("쿠폰을 등록하시겠습니까?")) {
-                            addCoupon(customerId, result).then(result => {
-                                if (result == "1") {
-                                    alert("등록완료");
-                                    couponContainer.style.display = "none";
-                                    spreadMyCouponList(customerId)
-                                } else {
-                                    alert("등록실패 관리자문의");
-                                }
-                            });
+                if(couponCode == "멤버쉽1" || couponCode == "멤버쉽2" || couponCode == "멤버쉽3" ){
+                    alert("멤버쉽 전용 쿠폰입니다. 등록하실 수 없습니다. ")
+                }else{
+                    searchCoupon(couponCode, customerId).then(result => {
+                        if (result > 0) {
+                            if (confirm("쿠폰을 등록하시겠습니까?")) {
+                                addCoupon(customerId, result).then(result => {
+                                    if (result == "1") {
+                                        alert("등록완료");
+                                        couponContainer.style.display = "none";
+                                        spreadMyCouponList(customerId)
+                                    } else {
+                                        alert("등록실패 관리자문의");
+                                    }
+                                });
+                            }
+                        } else if (result == -2) {
+                            alert("이미 등록된 쿠폰입니다. ");
+                        } else {
+                            alert("존재하지않는 쿠폰입니다. 다시입력해주세요.");
                         }
-                    } else if (result == -2) {
-                        alert("이미 등록된 쿠폰입니다. ");
-                    } else {
-                        alert("존재하지않는 쿠폰입니다. 다시입력해주세요.");
-                    }
-                });
+                    });
+                }
             });
-
             document.body.appendChild(couponContainer);
             input.focus();
         }
@@ -815,7 +818,7 @@
 
     let addressAddBtn = document.getElementById('addressAddBtn');
     addressAddBtn.addEventListener('click', () => {
-        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600');
+        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600,left=340px,top=80px');
     });
 
 </script>

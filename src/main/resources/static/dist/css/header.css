@@ -445,7 +445,7 @@ body {
 }
 #recentSearch > .delBtn{
     position: fixed;
-    left: 1140px;
+    left: 1115px;
     margin-top: 12px;
 }
 #delAll, #offRecent{
