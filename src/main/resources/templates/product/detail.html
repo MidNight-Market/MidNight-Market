@@ -7,7 +7,7 @@
 </head>
 <th:block th:replace="~{header :: header}"></th:block>
 
-<body>
+<body id="detailBody">
 
 <div class="product-container">
     <div class="first-content">
@@ -23,7 +23,7 @@
                     <p>카테고리 > [[${productDTO.pcVO.name}]] > [[${productDTO.pcdVO.name}]] </p>
                 </div>
 
-                <div class="product-description-box">
+                <div class="product-description-box" style="margin: 16px 0;">
                     <p>[[${productDTO.productVO.name}]]</p>
                 </div>
 
@@ -40,8 +40,13 @@
                     <p>판매자 : [[${productDTO.shopName}]]</p>
                 </div>
 
-                <div class="product-description-box">
-                    <p th:text="${#numbers.formatDecimal(productDTO.productVO.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></p>
+                <div class="product-description-box" style="margin-top: 15px; margin-bottom: 12px; font-weight: 600; font-size: 24px">
+                    <span th:if="${productDTO.productVO.discountRate != 0}" style="margin-right: 11px; color: orangered">[[${productDTO.productVO.discountRate}]]%</span>
+                    <span th:text="${#numbers.formatDecimal(productDTO.productVO.discountPrice, 0, 'COMMA', -1, 'POINT')} + ' 원'"></span>
+                </div>
+
+                <div th:if="${productDTO.productVO.discountRate != 0}" class="product-description-box">
+                    <s th:text="${#numbers.formatDecimal(productDTO.productVO.price, 0, 'COMMA', -1, 'POINT')} + ' 원'"></s>
                 </div>
             </div>
 
@@ -162,8 +167,8 @@
 
     <!--양쪽 배너-->
     <div class="memberShip">
-        <a href="#">
-            <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg">
+        <a href="#" id="membershipPayment">
+            <img th:src="@{/dist/image/banner_ad/membership_banner_ad.png}" id="memberShipImg" alt="">
         </a>
     </div>
     <div class="rightBanner" id="rightBanner">
@@ -194,12 +199,12 @@
     <script th:inline="javascript">
         const productDTO = [[${productDTO}]];
         let rvo = [[${rvo}]];
-        console.log(rvo);
         const productId = [[${productId}]];
         let isAuthenticated = [[${isAuthenticated}]];
         let sellerCheck = [[${sellerCheck}]];
         let value = [[${productDTO.shopName}]];
         const role = [[${session.role}]];
+        const mStatus = [[${session.mStatus}]];
         const List = /*[[${rvo}]]*/[]; //reviewVO 배열로 받아오기
         let pThumb = encodeURIComponent([[${productDTO.productVO.thumbImage}]]);
         let pName = encodeURIComponent([[${productDTO.productVO.name}]]);
@@ -217,6 +222,14 @@
             document.cookie = cookieName + "=" + recentViews.join('|') + "; path=/";
         }
         setCookie("recentView", pThumb, pName, pPrice, pLink);
+
+        //멤버쉽 배너 가입하면 안보이게 설정
+        document.getElementById('membershipPayment').style.display="";
+        if(role == "role_admin" || role == "role_seller"){
+            document.getElementById('membershipPayment').style.display="none";
+        }else if(mStatus == true){
+            document.getElementById('membershipPayment').style.display="none";
+        }
     </script>
     <script src="/js/sidebar.js"></script>
     <script th:src="@{/js/banner.js}"></script>
