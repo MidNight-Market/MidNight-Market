@@ -21,6 +21,6 @@ public class ReviewVO {
     private long revUpCount;
     private String nickName;
     private List<ReviewImageVO> reviewImageVOList;
-    private List<ReviewLikeVO> reviewLikeVO;
+    private ReviewLikeVO reviewLikeVO;
     private ProductVO productVO;
 }

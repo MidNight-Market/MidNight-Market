@@ -312,7 +312,7 @@
                     쇼핑
                 </div>
                 <div class="mypage_text8" id="5">상품 후기</div>
-                <div class="mypage_text8" id="6">상품 문의</div>
+                <!--                <div class="mypage_text8" id="6">상품 문의</div>-->
             </div>
 
             <hr class="hr1">
@@ -322,7 +322,7 @@
                     내 정보 관리
                 </div>
                 <div class="mypage_text8" id="7">배송지 관리</div>
-                <div class="mypage_text8" id="8">개인 정보 수정</div>
+                <!--                <div class="mypage_text8" id="8">개인 정보 수정</div>-->
             </div>
 
         </div>
@@ -412,10 +412,10 @@
             </div>
             <hr class="hr2">
 
-            <div class="page-info-box" style="background-color: violet">
+            <div class="page-info-box">
                 <div th:each="avo : ${list}" id="addressContainer" th:data="${avo.isMain}">
                     <div class="mypage3_text2" id="addName">
-                        <span class="mypage2_text4" th:text="${avo.isMain == 'Y' ? '기본배송지' : '추가배송지'}"></span>
+                        <span class="mypage2_text4 hidden" th:text="${avo.isMain == 'Y' ? '기본배송지' : '추가배송지'}"></span>
                         [[${avo.addrName}]]
                     </div>
                     <span class="mypage3_text3" id="address">
@@ -547,7 +547,6 @@
     let point = parseInt([[${#authentication.principal.point}]]);
     document.getElementById('point').innerText = point.toLocaleString();
     let mStatus = [[${#authentication.principal.mStatus}]];
-    console.log(mStatus);
 </script>
 <script th:src="@{/js/myPage/slang.js}"></script>
 <script th:src="@{/js/myPage/purchasedProduct.js}"></script>
@@ -564,10 +563,9 @@
         if (defaultTab) {
             // 기본 탭 선택 로직
             select_button[2].click();
-        }else if(reloadTab){
+        } else if (reloadTab) {
             select_button[6].click();
-        }
-        else {
+        } else {
             select_button[0].click();
         }
     }
@@ -632,7 +630,7 @@
                     select_button[0].click();
                 }
             }
-            if(target === 7){
+            if (target === 7) {
 
             }
         }
@@ -752,22 +750,45 @@
     function spreadMyCouponList(customerId) {
         couponListFromServer(customerId).then(result => {
             if (result) {
-                console.log(result)
                 let div = document.getElementById('coupon-list-box');
                 div.innerHTML = '';
                 let str = '';
+                console.log(result);
                 result.forEach(result => {
-                    str += `
-                    <div class="couponList-box">
-                        <div class="couponName">
-                            <span>${result.cvo.name}</span><br>
-                            <span>${result.cvo.discountAmount.toLocaleString()}원</span>
-                        </div>
-                        <div class="coupon-info">
-                        ${result.memberCouponVO.useStatus ? `${result.memberCouponVO.useDate}일 사용완료` : `${result.cvo.endDate}까지 사용가능`}
-                        </div>
-                    </div>
-            `;
+                    const issueDate = result.cvo.issueDate.match(/\d{2}(\d{2})-(\d{2})-(\d{2})/).slice(1).join('');
+                    const endDate = result.cvo.endDate.match(/\d{2}(\d{2})-(\d{2})-(\d{2})/).slice(1).join('');
+                    const discountAmount = result.cvo.discountAmount.toString().split('');
+                    console.log(discountAmount);
+                    str += `<div class="ticket">`;
+                    str += `<span class="issueDate">발급일자</span>`;
+                    str += `<span class="endDate">사용기한</span>`;
+                    str += `<div class="ticket-edge-top-left"></div>`;
+                    str += `<div class="ticket-edge-top-right"></div>`;
+                    str += `<div class="ticket-edge-bottom-left"></div>`;
+                    str += `<div class="ticket-edge-bottom-right"></div>`;
+                    str += `<div class="ticket-punches"></div>`;
+                    str += `<div class="ticket-punches-right"></div>`;
+                    str += `<div class="ticket-inner">`;
+                    str += `<div class="ticket-headline">`;
+                    str += `<span>${result.cvo.name} 할인쿠폰</span>`;
+                    str += `</div>`;
+                    str += `<div class="ticket-star">`;
+                    str += `<i class="fa fa-star-o"></i>`;
+                    str += `</div>`;
+                    str += `<div class="ticket-admit">`;
+
+                    discountAmount.forEach((value)=>{
+                    str += `<span class="char">${value}</span>`;
+                    });
+
+                    str += `<span class="char">원</span>`;
+                    str += `</div>`;
+                    str += `<div class="ticket-numbers">${issueDate}</div>`;
+                    str += `<div class="ticket-numbers second">${endDate}</div>`;
+                    str += `</div>`;
+                    str += `</div>`;
+                    str += `</div>`;
+
                 });
                 div.innerHTML = str;
             } else {
@@ -794,7 +815,7 @@
 
     let addressAddBtn = document.getElementById('addressAddBtn');
     addressAddBtn.addEventListener('click', () => {
-        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=700,height=600');
+        window.open('/payment/addrModifyPopup', '배송지 변경', 'width=800,height=600');
     });
 
 </script>

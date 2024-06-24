@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        log.info("getAttributes : {}",oAuth2User.getAttributes());
         String provider = userRequest.getClientRegistration().getRegistrationId();
         OAuth2UserInfo oAuth2UserInfo = null;
         if(provider.equals("google")){
@@ -46,10 +46,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String providerId = oAuth2UserInfo.getProviderId();
         String id = oAuth2UserInfo.getEmail();
         String nickName= oAuth2UserInfo.getName();
-        String role = "ROLE_USER";
+        String role = "role_user";
         CustomerVO existingCustomer = customerMapper.findByUserName(providerId);
         if (existingCustomer == null) {
-            log.info("New user, creating account");
             CustomerVO newCustomer = new CustomerVO();
             newCustomer.setId("("+provider+")"+id);
             newCustomer.setNickName(nickName);

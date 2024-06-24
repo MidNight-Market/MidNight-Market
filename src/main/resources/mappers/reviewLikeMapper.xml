@@ -6,7 +6,8 @@
 
     <select id="getReviewLike" resultType="com.project.www.domain.ReviewLikeVO">
         select * from review_like
-        where review_id = #{id}
+        where
+        review_id = #{reviewId} AND customer_id = #{customerId}
     </select>
 
     <insert id="registerLike">
@@ -20,6 +21,7 @@
         and
         review_id = #{reviewId}
     </delete>
+
     <select id="isExist" resultType="Boolean">
         SELECT    IF(COUNT(*) = 1, 1, 0)
         FROM    review_like

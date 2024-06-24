@@ -20,15 +20,12 @@ public class OrdersController {
     @ResponseBody
     @GetMapping("/getMyPurchasedProductList/{customerId}")
     public List<OrdersVO> getMyPurchasedProductList(@PathVariable("customerId") String customerId){
-
         return osv.getMyPurchasedProductList(customerId);
     }
 
     @ResponseBody
     @GetMapping("/getMyFrequentPurchasesList/{customerId}")
     public List<OrdersVO> getMyFrequentPurchasesList(@PathVariable("customerId") String customerId){
-
-        //log.info("내가 자주 주문한 리스트에서 고객 아이디 확인>>>{}",customerId);
         return osv.getMyFrequentPurchasesList(customerId);
     }
 
@@ -36,7 +33,6 @@ public class OrdersController {
     @ResponseBody
     @GetMapping("/getMyWriteReviewList/{customerId}")
     public List<OrdersVO> getMyWriteReviewList(@PathVariable("customerId") String customerId){
-       //log.info("리뷰 작성할 리스트에서 고객아이디 확인>>>{}",customerId);
         return osv.getMyWriteReviewList(customerId);
     }
 
@@ -49,16 +45,12 @@ public class OrdersController {
     @ResponseBody
     @PutMapping("/confirmOrderUpdate")
     public String confirmOrderUpdate(@RequestBody OrdersVO ordersVO){
-//        log.info("주문 객체 확인>>>>{}",ordersVO);
         return osv.confirmOrderUpdate(ordersVO);
     }
 
     @ResponseBody
     @GetMapping("/getList/{currentId}")
     public List<OrdersVO> getOrderList(@PathVariable("currentId") String currentId) {
-        // currentId를 사용한 로직 처리
-        log.info("들어옴");
-        log.info("아이디체크{}", currentId);
         return osv.getMyList(currentId);
     }
 }

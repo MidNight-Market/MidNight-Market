@@ -55,7 +55,6 @@ async function confirmNumber(){
 }
 document.getElementById('confirmBtn').addEventListener('click', ()=>{
     confirmNumber().then(result=>{
-        console.log(result);
         if(result === "1"){
             alert("인증번호 확인 완료.");
             confirmEmailCheck = true;
@@ -113,9 +112,6 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
                 duplicateIdCheckStatus = true;
                 document.getElementById('sendBtn').style.display = '';
                 document.getElementById('customerEmail').value = document.getElementById('idF').value+"@"+document.getElementById('idB').value;
-                console.log(document.getElementById('customerEmail').value)
-                console.log(document.getElementById('idF').value)
-                console.log(document.getElementById('idB').value)
             }
         })
     }else{
@@ -240,21 +236,21 @@ document.getElementById('joinBtn1').addEventListener('click', (e)=>{
         alert("아이디 중복체크를 해주세요. ");
     }else if(duplicateNicknameCheck == false){
         e.preventDefault();
-        alert("닉네임 중복체크를 해주세요. ")
+        alert("닉네임 중복체크를 해주세요.")
     }else if(duplicateIdCheckStatus == false){
         e.preventDefault();
-        alert("아이디 값이 중복입니다. 다시 체크해주세요. ")
+        alert("아이디 값이 중복입니다.\n다시 체크해주세요. ")
     }else if(duplicateNicknameCheck == false){
         e.preventDefault();
-        alert("닉네임 값이 중복입니다. 다시 체크해주세요. ")
+        alert("닉네임 값이 중복입니다.\n다시 체크해주세요. ")
     }else if(confirmEmailCheck == false){
         e.preventDefault();
-        alert("이메일 인증을 통과하지 못했습니다. 다시 시도해주세요. ")
+        alert("이메일 인증을 통과하지 못했습니다.\n다시 시도해주세요. ")
     }else if(confirmPasswordCheck == false){
         e.preventDefault();
         alert("비밀번호가 입력형식에 맞지 않습니다.\n비밀번호는 8글자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.")
     }else if(confirmRepeatPasswordCheck == false){
         e.preventDefault();
-        alert("비밀번호 확인란이 동일하지 않습니다. 다시 입력해주세요. ")
+        alert("비밀번호 확인란이 동일하지 않습니다.\n다시 입력해주세요. ")
     }
 })

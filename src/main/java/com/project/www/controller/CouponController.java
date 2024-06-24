@@ -49,7 +49,6 @@ public class CouponController {
     public List<CouponDTO> getCoupon(@PathVariable("customerId")String customerId) {
         List<CouponDTO>couponDTO = new ArrayList<>();
         List<MemberCouponVO>memberCouponList = mcsv.getMemberCouponList(customerId);
-        log.info("가져온멤버쿠폰리스트{}", memberCouponList);
         for(MemberCouponVO memberCouponVO : memberCouponList){
             long tmpCouponId = memberCouponVO.getCouponId();
             CouponVO cvo = csv.getCouponList(tmpCouponId);
@@ -58,7 +57,6 @@ public class CouponController {
             cdto.setMemberCouponVO(memberCouponVO);
             couponDTO.add(cdto);
         }
-        log.info("DTO값체크 하기{}", couponDTO);
         return couponDTO;
     }
 }

@@ -4,15 +4,17 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessageVO {
+@NoArgsConstructor
+public class MessageVO {
     private Long id;
-    private String chatRoomId;
+    private Long chatRoomId;
     private String senderId;
-    private String message;
-    private LocalDateTime timestamp;
+    private String senderType;
+    private String content;
+    private LocalDateTime sendTime;
 }

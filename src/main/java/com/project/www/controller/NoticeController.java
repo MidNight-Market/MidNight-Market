@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -28,7 +31,6 @@ public class NoticeController {
 
     @PostMapping("/register")
     public String register(NoticeVO nvo){
-        log.info("{}",nvo);
         nsv.register(nvo);
         return "redirect:/notice/notice";
     }
@@ -37,12 +39,17 @@ public class NoticeController {
     public void notice(Model m, PagingVO pgvo){
         List<NoticeVO> list = nsv.getList(pgvo);
         int totalCount = nsv.getTotal(pgvo);
-
         PagingHandler ph = new PagingHandler(pgvo, totalCount);
-
-        log.info("totalCount{}", totalCount);
-        log.info("ph{}", ph);
-
+        SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 기존 문자열 형식
+        SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+        for(NoticeVO nvo : list){
+            try {
+                Date date = originalFormat.parse(nvo.getRegisterDate());
+                nvo.setFormattedDate(targetFormat.format(date));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
         m.addAttribute("list",list);
         m.addAttribute("ph", ph);
     }
@@ -61,7 +68,6 @@ public class NoticeController {
 
     @PostMapping("/modify")
     public String modify(NoticeVO nvo){
-        log.info("nvo{}",nvo);
         isOk = nsv.modify(nvo);
 
         return "redirect:/notice/detail?id="+nvo.getId();

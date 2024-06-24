@@ -35,4 +35,20 @@
         customer_id = #{customer_id}
         ORDER BY register_date DESC
     </select>
+
+    <select id="getTotal" resultType="int">
+        SELECT count(id) from review
+    </select>
+
+    <select id="getReviewP" resultType="com.project.www.domain.ReviewVO">
+        select * from review
+        order by id desc
+        limit #{pageStart}, #{pageSize}
+    </select>
+
+    <select id="getReviewDesc" resultType="com.project.www.domain.ReviewVO">
+        SELECT * from review
+        WHERE product_id = #{id}
+        ORDER BY register_date desc
+    </select>
 </mapper>

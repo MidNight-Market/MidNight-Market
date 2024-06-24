@@ -26,8 +26,7 @@ public class NoticeServiceImpl implements NoticeService{
 
     @Override
     public NoticeVO getDetail(long id) {
-        NoticeVO nvo =
-            noticeMapper.getDetail(id);
+        NoticeVO nvo = noticeMapper.getDetail(id);
         return nvo;
     }
 

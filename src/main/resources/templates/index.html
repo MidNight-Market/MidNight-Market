@@ -7,7 +7,6 @@
     <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/dist/css/main.css}">
     <link rel="stylesheet" th:href="@{dist/css/popup.css}">
-    <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
 </head>
 <th:block th:replace="~{header :: header}"></th:block>
 
@@ -27,7 +26,6 @@
         </div>
     </div>
 </form>
-
 <section>
     <!--광고배너(자동슬라이드&버튼)-->
     <div class="inner sectionBox">
@@ -46,7 +44,7 @@
                     <img th:src="@{/dist/image/banner_ad/banner_ad4.jpg}">
                 </div>
                 <div class="slideImg">
-                    <img th:src="@{/dist/image/banner_ad/banner_ad5.png}">
+                    <img th:src="@{/dist/image/banner_ad/banner_ad5.jpg}">
                 </div>
                 <div class="slideImg">
                     <img th:src="@{/dist/image/banner_ad/banner_ad6.jpg}">
@@ -220,9 +218,9 @@
     const customerId = [[${session.id}]];
     const role = [[${session.role}]];
     const mStatus = [[${session.mStatus}]];
+    let value = null;
     document.getElementById('membershipPayment').style.display="";
     if(role == "role_admin" || role == "role_seller"){
-        console.log("들어옴")
         document.getElementById('membershipPayment').style.display="none";
     }else if(mStatus == true){
         document.getElementById('membershipPayment').style.display="none";

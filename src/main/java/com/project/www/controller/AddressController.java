@@ -22,8 +22,6 @@ public class AddressController {
 
     @PostMapping("/register")
     public String register(AddressVO avo) {
-        log.info("진입test");
-        log.info("avo >>@@@ {}", avo);
         isOK = asv.register(avo);
         return "/payment/addrModifyPopup";
     }
@@ -32,7 +30,6 @@ public class AddressController {
     @GetMapping("/list")
     public List<AddressVO> list() {
         List<AddressVO> list = asv.getList();
-        log.info("list >>@@@ {}", list);
 
         // 기본배송지가 맨위로 오게
         list.sort((a1, a2) -> {
@@ -44,15 +41,12 @@ public class AddressController {
                 return 0; // 동일하면 그대로
             }
         });
-
-        log.info("list >>@@@ {}", list);
         return list;
     }
 
     @ResponseBody
     @PutMapping("/address/updateIsMain")
     public AddressVO updateIsMain(@RequestBody AddressVO avo) {
-        log.info("updateIsMain >>@@@ {}", avo);
         isOK = asv.update(avo);
         AddressVO address = asv.getAddress(avo);
         return isOK > 0 ? address : null;
@@ -61,7 +55,6 @@ public class AddressController {
     @ResponseBody
     @DeleteMapping("/delete/{ano}")
     public String delete(@PathVariable("ano") long ano) {
-        log.info("delete >>@@@ {}", ano);
         isOK = asv.delete(ano);
         return "redirect:/address/list";
     }

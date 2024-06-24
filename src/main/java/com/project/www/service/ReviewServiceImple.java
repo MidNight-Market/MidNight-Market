@@ -139,5 +139,10 @@ public class ReviewServiceImple implements ReviewService {
         return reviewVOList;
     }
 
+    @Override
+    public List<ReviewVO> getReviewDesc(long id) {
+        return reviewMapper.getReviewDesc(id);
+    }
+
 
 }

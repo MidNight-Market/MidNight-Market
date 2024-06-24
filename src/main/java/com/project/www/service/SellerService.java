@@ -19,4 +19,8 @@ public interface SellerService {
     int checkShopName(String shopName);
 
     List<SellerVO> getList();
+
+    String getShopName(String sellerId);
+
+    String getSellerId(String marketName);
 }

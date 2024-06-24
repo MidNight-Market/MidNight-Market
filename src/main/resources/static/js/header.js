@@ -211,6 +211,8 @@ document.getElementById('recentSearch').addEventListener('click', (e) => {
             saveOff();
             document.getElementById('offRecent').innerHTML = "최근검색어 저장 끄기"
         }
+    }else{
+
     }
 });
 function handleEnter(event) {
@@ -290,8 +292,8 @@ async function deleteNotification(content, id) {
             method: 'DELETE',
         });
         if (response.ok) {
-            console.log('Notification deleted');
-            await showNotification(); // 알림을 새로고침
+            await showNotification();
+            await getNotificationCount(loginId)// 알림을 새로고침
         } else {
             console.error('Failed to delete notification');
         }
@@ -305,6 +307,10 @@ async function showNotification(event) {
         alert("로그인이 필요한 서비스입니다.");
         event.preventDefault();
         window.location.href = "http://localhost:8090/login/form";
+
+    } else if(roleHeader == "role_seller" || roleHeader == "role_admin") {
+        alert("고객만 사용가능한 서비스입니다. ")
+        event.preventDefault();
     } else {
         if (notificationDiv && event) {
             document.body.removeChild(notificationDiv);
@@ -479,4 +485,18 @@ async function GetBasketQuantity(customerId) {
 
     }
 
+}
+//알림 배지 카운트 가져오기
+async function getNotificationCount(customerId) {
+    try {
+        const response = await fetch('/notification/count/' + customerId);
+        const result = await response.text();
+
+        if (result !== null || result !== '') {
+            document.getElementById('notiBadge').innerText = result; //값 집어넣음
+        }
+
+    } catch (e) {
+
+    }
 }

@@ -13,4 +13,8 @@ public interface MemberCouponMapper {
     List<MemberCouponVO> getMemberCouponList(String customerId);
 
     int isExist(long couponId, String customerId);
+
+    int getCount(String customerId);
+
+    int usedCouponUpdate(MemberCouponVO memberCouponVO);
 }

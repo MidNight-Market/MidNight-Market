@@ -13,11 +13,11 @@
 </div>
 
 <div class="basket1">
-    <div class="basket3">
+    <div class="basket3" id="basket3">
 
-        <div>
+        <div id="select-all">
             <label class="checkbox_label">
-                <input type="checkbox" id="basketCheckboxAll">
+                <input type="checkbox" id="basketCheckboxAll" class="basketCheckbox" checked data-is-checked="no-all" value="0">
                 <span class="checkbox_icon" style="font-weight: 500">전체 선택</span>
                 <a href="" id="select-delete"><span class="text2" style="font-weight: 500">선택 삭제</span></a>
             </label>
@@ -68,7 +68,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">const customerId = [[${session.id}]];
-console.log(customerId + '확인');</script>
+</script>
 <script th:src="@{/js/myBasket.js}"></script>
 <script th:inline="javascript" th:if="customerId != null">
     spreadMyBasketList(customerId);

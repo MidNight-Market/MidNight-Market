@@ -1,9 +1,12 @@
 package com.project.www.service;
 
+import com.project.www.config.oauth2.PrincipalDetails;
 import com.project.www.domain.*;
 import com.project.www.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,7 @@ public class ProductServiceImple implements ProductService {
     private final ReviewMapper reviewMapper;
     private final ReviewImageMapper reviewImageMapper;
     private final ReviewLikeMapper reviewLikeMapper;
+    private final SellerMapper sellerMapper;
 
     @Transactional
     @Override
@@ -33,13 +37,9 @@ public class ProductServiceImple implements ProductService {
 
         long productId = productMapper.getProductId();
 
-        log.info(">>>>>상품번호 마지막 가져오기>>>>>{}", productId);
-
         if (isOK > 0) {
             for (ProductDetailImageVO image : productDTO.getImageList()) {
                 image.setProductId(productId);
-
-                log.info(">>>>세부이미지 리스트>>>>>{}", image);
 
                 productDetailImageMapper.insert(image);
             }
@@ -57,7 +57,7 @@ public class ProductServiceImple implements ProductService {
         productDTO.setPcdVO(productCategoryDetailMapper.getMyCategoryDetail(productDTO.getProductVO().getProductCategoryDetailId()));
         productDTO.setPcVO(productCategoryMapper.getMyCategory(productDTO.getPcdVO().getProductCategoryId()));
         productDTO.setSlangVO(slangMapper.getMySlang(customerId, id));
-
+        productDTO.setShopName(sellerMapper.getShopName(productDTO.getProductVO().getSellerId()));
         return productDTO;
     }
 
@@ -103,10 +103,24 @@ public class ProductServiceImple implements ProductService {
 
         for (ReviewVO review : rvo) {
             review.setReviewImageVOList(reviewImageMapper.getReviewImgList(review.getId()));
-            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(review.getId()));
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.getPrincipal() instanceof PrincipalDetails) {
+                PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+//           log.info("아이디 잘 뽑히나 확인>>>>{}",principalDetails.getUsername());
+           ReviewLikeVO reviewLikeVO = ReviewLikeVO.builder()
+                   .reviewId(review.getId())
+                   .customerId(principalDetails.getUsername())
+                   .build();
+            review.setReviewLikeVO(reviewLikeMapper.getReviewLike(reviewLikeVO));
+            }
         }
-        log.info("rvo >> {}", rvo);
         return rvo;
+    }
+
+    @Override
+    public List<ReviewVO> getReviewP(PagingVO pgvo) {
+        return reviewMapper.getReviewP(pgvo);
     }
 
     @Override
@@ -169,6 +183,11 @@ public class ProductServiceImple implements ProductService {
 
         return productMapper.getList(pgvo);
 
+    }
+
+    @Override
+    public int getTotal(PagingVO pgvo) {
+        return reviewMapper.getTotal(pgvo);
     }
 }
 

@@ -47,5 +47,14 @@
         merchant_uid = #{merchantUid}
     </delete>
 
+    <update id="usedPointAndCouponUpdate">
+        UPDATE payment
+        SET
+        used_point = #{usedPoint},
+        used_coupon_id = #{usedCouponId}
+        WHERE
+        merchant_uid = #{merchantUid}
+    </update>
+
 
 </mapper>

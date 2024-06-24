@@ -1,7 +1,7 @@
 function blank(){
-    const title = document.querySelector('.title').value.trim(); //문자 앞뒤 공백 제거
-    const content = document.querySelector('.content').value.trim();
-    if(title === ''){
+    const title = document.getElementById('title').value.trim().length; //문자 앞뒤 공백 제거
+    const content = document.getElementById('content').value.trim();
+    if(title === 0){
         alert("문의 제목을 입력해주세요.");
         return false;
     }else if(content === ''){

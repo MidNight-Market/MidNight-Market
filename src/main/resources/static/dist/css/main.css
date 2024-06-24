@@ -280,7 +280,7 @@ a#membershipPayment {
 }
 
 .rightBanner {
-    top: 50%;
+    top: 25%;
     right: 110px;
     border: 1px solid lightgray;
     width: 100px;
@@ -300,8 +300,9 @@ a#membershipPayment {
 .rightBanner > a:visited {
     color: black;
 }
-.rightBanner > a{
+.rightBanner a {
     color: black;
+    cursor: pointer;
 }
 .rightBanner > a > img {
     display: block;

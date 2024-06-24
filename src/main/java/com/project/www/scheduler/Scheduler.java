@@ -45,7 +45,7 @@ public class Scheduler {
 
     //30분마다 결제 대기인 상품 삭제 후 상품 수량 되돌려놓기
     @Transactional
-    @Scheduled(fixedDelay = 180000)
+    @Scheduled(fixedDelay = 1800000)
     public void deleteExpiredPayments() {
 
         try {

@@ -32,8 +32,6 @@ public class NotificationController {
     @DeleteMapping("/{content}/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteNotification(@PathVariable("content") String content, @PathVariable("id")String id) {
-        log.info("컨텐츠 내용: {}", content);
-        log.info("ID: {}", id);
         try {
             boolean isDeleted = nsv.deleteNotificationByContent(content,id);
             if (isDeleted) {
@@ -44,6 +42,12 @@ public class NotificationController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting notification");
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/count/{customerId}")
+    public int count(@PathVariable("customerId")String customerId) {
+        return nsv.getCount(customerId);
     }
 
 

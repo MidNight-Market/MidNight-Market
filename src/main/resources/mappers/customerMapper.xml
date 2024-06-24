@@ -60,4 +60,20 @@
         WHERE
         customer_id = #{customerId}
     </select>
+
+    <update id="usedPointUpdate">
+        UPDATE customer
+        SET
+        point = point - #{point}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="rollbackRefundPoint">
+        UPDATE customer
+        SET
+        point = point + #{point}
+        WHERE
+        id = #{id}
+    </update>
 </mapper>

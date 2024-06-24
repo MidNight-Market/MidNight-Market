@@ -223,8 +223,9 @@
             margin: 5px 0;
         }
 
-        .rightBanner > a{
+        .rightBanner a {
             color: black;
+            cursor: pointer;
         }
         .rightBanner > a:visited {
             color: black;
@@ -237,6 +238,18 @@
 
         .RecentlyViewed > p {
             margin: 10px auto;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: orange;
+            border-color: orange;
+            color: white;
+        }
+        .pagination .page-link {
+            color: black;
+        }
+
+        .pagination .page-link:hover {
+            font-weight: 700;
         }
     </style>
 </head>
@@ -352,7 +365,6 @@
     const params = new URLSearchParams(queryString);
     let searchVal = params.get('search');
     const role = `[[${session.role}]]`;
-    console.log(searchVal);
     let searchResultElement = document.getElementById('searchValPrint');
     if (searchVal != null && (searchVal).length !== 0) {
         searchResultElement.style.display = '';
@@ -362,7 +374,6 @@
 <script th:inline="javascript">
     const customerId = [[${session.id}]];
     const subType = [[${ph.pgvo.subType}]];
-    console.log(subType);
     if(subType != null){
         document.getElementById(subType).style.color = 'black';
     }
@@ -373,6 +384,7 @@
 
 
 <script>
+    let value = null;
     //멤버십결제 페이지 이동
     document.getElementById('membershipPayment').addEventListener('click', (e) => {
 

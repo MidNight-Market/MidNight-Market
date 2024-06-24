@@ -1,4 +1,4 @@
-//상품 정보 저장
+//상품 정보 저장 하기
 let purchasedData;
 
 async function getMyPurchasedProductListFromServer(customerId) {
@@ -14,7 +14,6 @@ async function getMyPurchasedProductListFromServer(customerId) {
 
 function spreadMyPurchasedProductList(customerId) {
     getMyPurchasedProductListFromServer(customerId).then(result => {
-        console.log(result);
         let div = document.getElementById('purchasedPage');
         div.innerHTML = '';
         let str = '';
@@ -86,9 +85,12 @@ function spreadMyPurchasedProductList(customerId) {
                     })
                         .then(response => response.text())
                         .then(data => {
-                            console.log('Success:', data);
                             // 서버 응답 처리
                             alert(data);
+                            let point = document.getElementById('point')
+                            const refundPoint = Number(data.match(/환급된 포인트\s*:\s*([\d,]+)원/)[1].replace(/,/g, ''));
+                            let withoutCommaPoint = parseInt(point.innerText.replace(/,/g, ''), 10);
+                            point.innerText = (withoutCommaPoint + refundPoint).toLocaleString();
                             spreadMyPurchasedProductList(customerId);
                         })
                         .catch((error) => {

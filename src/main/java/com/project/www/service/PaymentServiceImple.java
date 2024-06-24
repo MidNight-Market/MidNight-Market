@@ -30,7 +30,8 @@ public class PaymentServiceImple implements PaymentService {
     private final CustomerMapper customerMapper;
     private final NotificationService nsv;
     private final AddressMapper addressMapper;
-
+    private final CouponMapper couponMapper;
+    private final MemberCouponMapper memberCouponMapper;
 
 
     @Transactional
@@ -67,6 +68,7 @@ public class PaymentServiceImple implements PaymentService {
                     .customerId(paymentDTO.getCustomerId())
                     .productId(paymentDTO.getProductId())
                     .qty(paymentQuantity)
+                    .originalPrice(discountPayment)
                     .payPrice(discountPayment)
                     .build();
 
@@ -115,10 +117,9 @@ public class PaymentServiceImple implements PaymentService {
             long productQuantity = 0;
 
             // 내 장바구니 리스트
-            List<BasketVO> basketList = basketMapper.getMyBasket(paymentDTO.getCustomerId());
+            List<BasketVO> basketList = basketMapper.getReadyToCheckoutCartItems(paymentDTO.getCustomerId());
             List<ProductVO> productList = new ArrayList<>();
 
-            log.info("바스켓 가져온거 객체리스트확인>>>{}", basketList);
             if (basketList == null || basketList.isEmpty()) {
                 return "quantity_exhaustion";
             }
@@ -130,7 +131,7 @@ public class PaymentServiceImple implements PaymentService {
                     return "excess_quantity";
                 }
 
-                if (bsv.getQty() != 0) {//상단에 이름 저장하기위해 수량이 0이 아닌 상품의 이름을 가져옴
+                if (bsv.getQty() != 0 && bsv.isChecked()) {//상단에 이름 저장하기위해 수량이 0이 아닌 상품의 이름을 가져오고 체크박스를 클릭한 상품만 넣기
                     productName = productVO.getName();
                     productCount += 1;
                     productQuantity = bsv.getQty();
@@ -155,15 +156,10 @@ public class PaymentServiceImple implements PaymentService {
                             .customerId(paymentDTO.getCustomerId()) //고객아이디
                             .productId(basketList.get(i).getProductId()) //상품번호
                             .qty(basketList.get(i).getQty()) //구매하려는 상품 개수
+                            .originalPrice(basketList.get(i).getQty() * productList.get(i).getDiscountPrice())
                             .payPrice(basketList.get(i).getQty() * productList.get(i).getDiscountPrice()) //구매하려는 상품 가격
                             .build();
 
-                    BasketVO basketVO = BasketVO.builder()//주문이 들어가면 기존에 있던 장바구니 목록 삭제
-                            .customerId(ordersVO.getCustomerId())
-                            .productId(ordersVO.getProductId())
-                            .build();
-
-                    isOk *= basketMapper.delete(basketVO);
                     isOk *= ordersMapper.register(ordersVO); // 주문 정보 등록
                     isOk *= productMapper.orderUpdate(ordersVO); //상품의 quantity 도 주문한 갯수만큼 수정
                 }
@@ -185,19 +181,57 @@ public class PaymentServiceImple implements PaymentService {
     @Override
     public int paySuccessUpdate(PaymentDTO paymentDTO) {
         try {
-            int isOk = paymentMapper.paySuccessUpdate(paymentDTO);
-            isOk *= ordersMapper.paySuccessUpdate(paymentDTO.getMerchantUid());
+            int isOk = paymentMapper.paySuccessUpdate(paymentDTO); //결제 테이블 업데이트
+
+            long usedCouponAmount = paymentDTO.getUsedCouponAmount(); //사용한 쿠폰 가격
+            long usedPoint = paymentDTO.getUsedPoint(); //사용한 포인트
+            long combinedDiscount = usedCouponAmount + usedPoint; // 쿠폰가격 + 사용한 포인트
+
+            List<OrdersVO> ordersVOList = ordersMapper.findExpiredOrders(paymentDTO.getMerchantUid()); //해당 merchantUid 상품들 가져온다.
+
+            if (combinedDiscount != 0) {//포인트나 쿠폰을 사용했을경우
+                //여기서 가격을 업데이트해서 결제금액을 orders table에 업데이트 시켜주어야 한다.
+                for (OrdersVO ordersVO : ordersVOList) {
+                    long calcPrice = Math.round(((float) ordersVO.getPayPrice() / paymentDTO.getOriginalPrice()) * paymentDTO.getPayPrice());  // 상품가격 / 총금액 * 구매가격
+                    ordersVO.setImpUid(paymentDTO.getImpUid());
+                    ordersVO.setPayPrice(calcPrice); //포인트와 쿠폰이 적용된 할인가격을 넣어줌
+                    ordersMapper.usedCombineDiscountUpdate(ordersVO); //포인트와 쿠폰이 적용도니 할인가격을 업데이트
+                }
+
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+                principalDetails.updatePoints(principalDetails.getPoint() - usedPoint); // principal 객체에 포인트 사용 업데이트
+
+                CustomerVO customerVO = CustomerVO.builder() //Customer 객체 생성
+                        .id(paymentDTO.getCustomerId())
+                        .point(usedPoint)
+                        .build();
+
+                MemberCouponVO memberCouponVO = MemberCouponVO.builder() //MemberCoupone 객체 생성
+                        .customerId(paymentDTO.getCustomerId())
+                        .couponId(paymentDTO.getUsedCouponId())
+                        .build();
+
+                isOk *= customerMapper.usedPointUpdate(customerVO); //사용한포인트 차감하기
+                isOk *= memberCouponMapper.usedCouponUpdate(memberCouponVO); //사용한 쿠폰 못쓰게 하기
+            }
+
+            isOk *= ordersMapper.paySuccessUpdate(paymentDTO);  //주문 성공 업데이트
+
+            if (ordersVOList.size() > 1) { //여러개 상품을 주문했을경우 (장바구니 이용시)
+                isOk *= basketMapper.clearBasketOnPaymentSuccess(paymentDTO.getCustomerId());//결제 성공하고 결제한 장바구니 지우기
+            }
+
             NotificationVO nvo = new NotificationVO();
             nvo.setCustomerId(paymentDTO.getCustomerId());
-            nvo.setNotifyContent(paymentDTO.getPayDescription()+" 주문이 완료되었습니다. ");
+            nvo.setNotifyContent(paymentDTO.getPayDescription() + " 주문이 완료되었습니다. ");
             nsv.insert(nvo);
-            if(isOk == 0){
+            if (isOk == 0) {
                 throw new RuntimeException();
             }
             return isOk;
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("paySuccessUpdate 중 오류 발생");
             return -1;
         }
     }
@@ -210,38 +244,73 @@ public class PaymentServiceImple implements PaymentService {
         try {
             ordersVO = ordersMapper.selectOne(ordersVO.getId()); // 환불할 주문 객체 가져오기
             PaymentDTO paymentDTO = paymentMapper.getMyPaymentProduct(ordersVO.getMerchantUid()); // 부분 환불될 결제 금액 가져오기
+            long refundPoint = 0; //환불하면 지급받는 포인트
+            int isOk = 1;
+
             ProductVO productVO = ProductVO.builder()
                     .totalQty(ordersVO.getQty()) // 환불될 상품 수량
                     .id(ordersVO.getProductId())  // 환불될 상품 번호
                     .build();
 
             String merchantUid = paymentDTO.getMerchantUid(); // 결제 주문 번호
+            String impUid = ordersVO.getImpUid();
             long amount = ordersVO.getPayPrice(); // 환불 금액
-            BigDecimal checksum = BigDecimal.valueOf(paymentDTO.getPayPrice() - ordersVO.getPayPrice()); // 환불하고 남은 금액 (부분 환불)
+            BigDecimal checksum = BigDecimal.valueOf(paymentDTO.getPayPrice() - ordersVO.getOriginalPrice()); // 환불하고 남은 금액 (부분 환불)
 
-            importService.refundPaymentByMerchantUid(merchantUid, amount, checksum);
+            importService.refundPaymentByMerchantUid(impUid, amount, checksum);
+
+            if(paymentDTO.getUsedPoint() != 0 || paymentDTO.getUsedCouponId() != 0){ //쿠폰이나 포인트를 사용했을 경우
+
+
+                long usedCouponId = 0; //사용한 쿠폰 아이디
+                long usedCouponAmount = 0; //사용한 쿠폰 가격
+                long usedPoint = paymentDTO.getUsedPoint(); //사용한 포인트
+
+                if(paymentDTO.getUsedCouponId() != 0){
+                CouponVO couponVO = couponMapper.getUsedCoupon(paymentDTO.getUsedCouponId()); //사용한 쿠폰 가져와서 할인가격 알아오기
+                    usedCouponId = paymentDTO.getUsedCouponId();
+                    usedCouponAmount = couponVO.getDiscountAmount();
+                }
+
+                long combinedDiscount = usedCouponAmount + usedPoint; // 쿠폰가격 + 사용한 포인트
+
+                double payPricePointRefundPercent = (double) ordersVO.getOriginalPrice()/ paymentDTO.getPayPrice();//결제가격 포인트 환불 퍼센트 (결제한 원래 상품가격) / (상품 총결제금액)
+                refundPoint = Math.round(combinedDiscount * payPricePointRefundPercent); //환불 포인트 계산
+
+                CustomerVO customerVO = CustomerVO.builder() //객체생성
+                        .id(paymentDTO.getCustomerId())
+                        .point(refundPoint)
+                        .build();
+
+                isOk *= customerMapper.rollbackRefundPoint(customerVO);
+
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                if (authentication != null && authentication.getPrincipal() instanceof PrincipalDetails) {
+                    PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+                    principalDetails.updatePoints(principalDetails.getPoint() + refundPoint); //Principal 객체에도 환불된 포인트 추가하여 업데이트
+                }
+            }
 
             // 환불시 결제 DB 업데이트
-            paymentDTO.setPayPrice(paymentDTO.getPayPrice() - ordersVO.getPayPrice()); // 결제하고 남은 금액
+            paymentDTO.setPayPrice(paymentDTO.getPayPrice() - ordersVO.getOriginalPrice()); // 결제하고 남은 금액
             ordersVO.setPayPrice(amount); // 결제한 금액
 
-            int isOk = paymentMapper.refundUpdate(paymentDTO);
+//            isOk *= paymentMapper.refundUpdate(paymentDTO); //
             isOk *= ordersMapper.refundUpdate(ordersVO);
             isOk *= productMapper.rollbackRefundQuantity(productVO);
-            NotificationVO nvo = new NotificationVO();
 
+            NotificationVO nvo = new NotificationVO();
             nvo.setCustomerId(paymentDTO.getCustomerId());
             ProductVO pvo = productMapper.getDetail(ordersVO.getProductId());
             String productName = pvo.getName();
-            nvo.setNotifyContent(productName+" 의 환불이 완료되었습니다. ");
+            nvo.setNotifyContent(productName + " 의 환불이 완료되었습니다. ");
             nsv.insert(nvo);
             if (isOk == 0) {
                 throw new RuntimeException("환불 처리에 실패했습니다.");
             }
             DecimalFormat df = new DecimalFormat("#,###");
-            return df.format(ordersVO.getPayPrice()) + "원이 정상적으로 환불되었습니다.";
+            return df.format(ordersVO.getPayPrice()) + "원이 정상적으로 환불되었습니다.\n환급된 포인트 : " + df.format(refundPoint)+"원";
         } catch (IamportResponseException | IOException | RuntimeException e) {
-            log.error("환불 실패 : {}", e.getMessage());
             return "Refund failed :" + e.getMessage();
         }
 
@@ -276,10 +345,14 @@ public class PaymentServiceImple implements PaymentService {
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
-            log.error("멤버쉽 가입 오류 " + e.getMessage());
             return -1;
         }
 
         return 1;
+    }
+
+    @Override
+    public void usedPointAndCouponUpdate(PaymentDTO paymentDTO) {
+        paymentMapper.usedPointAndCouponUpdate(paymentDTO);
     }
 }

@@ -33,7 +33,6 @@ public class SellerController {
 
     @PostMapping("/register")
     public String register(SellerVO sellerVO){
-        log.info("셀러객체 {}", sellerVO);
         //Password 암호화
         sellerVO.setPw(bCryptPasswordEncoder.encode(sellerVO.getPw()));
 
@@ -69,7 +68,6 @@ public class SellerController {
     @ResponseBody
     @GetMapping("/checkId/{id}")
     public String checkId(@PathVariable("id") String id){
-        log.info("아이디 값{}", id);
         int isOk = ssv.checkId(id);
         if(isOk > 0){
             return "0";
@@ -90,6 +88,18 @@ public class SellerController {
     @GetMapping("/getList")
     public List<SellerVO> getList(){
         return ssv.getList();
+    }
+
+    @ResponseBody
+    @GetMapping("/getShopName/{sellerId}")
+    public String getShopName(@PathVariable String sellerId){
+        return ssv.getShopName(sellerId);
+    }
+
+    @ResponseBody
+    @GetMapping("/getSellerId/{marketName}")
+    public String getSellerId(@PathVariable String marketName){
+        return ssv.getSellerId(marketName);
     }
 
 }

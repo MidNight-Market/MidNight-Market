@@ -22,7 +22,6 @@ public class SellerPrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         SellerVO svo = sellerMapper.findById(id);
-        log.info("판매자엔티티{}",svo);
         if(svo != null) {
             return new SellerPrincipalDetails(svo);
         }

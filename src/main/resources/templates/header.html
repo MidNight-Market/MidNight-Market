@@ -8,12 +8,12 @@
             let id = [[${session.id}]];
         </script>
         <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}">
-        <script th:src="@{/dist/js/bootstrap.bundle.min.js}"></script>
         <link rel="stylesheet" th:href="@{/dist/css/header.css}">
         <link rel="stylesheet" th:href="@{/dist/css/reset.css}">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
     </head>
     <body>
     <header class="header">
@@ -51,6 +51,7 @@
                                 <a th:if="${auth.authority == 'role_admin'}" th:href="@{/admin/admin}">
                                     [[${session.name}]] 님
                                 </a>
+
                             </th:block>
                             <a href="/logout" id="logoutBtn" class="logout">로그아웃</a>
                             <th:block th:if="${pwReset == 1}">
@@ -63,6 +64,9 @@
                 <div class="etc-part">
                     <a id="notificationButton">
                         <img th:src="@{/dist/icon/bell.png}">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notiBadge" th:if="${session.role == 'role_user'}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </a>
                     <a id="cartBtn" class="cartBtnPosition" onclick="showAlert(event, id)">
                         <img th:src="@{/dist/icon/cart.png}" class="cart-icon">
@@ -231,6 +235,7 @@
     <script src="/js/header.js"></script>
     <script th:inline="javascript">
         GetBasketQuantity([[${session.id}]]);
+        getNotificationCount([[${session.id}]]);
     </script>
 </th:block>
 </html>

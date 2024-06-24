@@ -58,18 +58,21 @@ public class BasketController {
     @ResponseBody
     @GetMapping("/myBasketList")
     public List<BasketVO> myBasketList(@RequestParam("customerId") String customerId){
-        //log.info("바스켓객체 확인{}",customerId);
         return bsv.getMyBasket(customerId);
     }
 
     @ResponseBody
+    @PutMapping("/checkedUpdate")
+    public String checkedUpdate(@RequestBody BasketVO basketVO){
+        int isOk = bsv.myBasketCheckedUpdate(basketVO);
+        return "잘들어옴";
+    }
+
+
+    @ResponseBody
     @DeleteMapping("/delete")
     public String delete(@RequestBody List<BasketVO> basketList){
-
-        log.info("삭제할 바스켓 객체 확인>>{}",basketList);
-
         int isOk = bsv.delete(basketList);
-
         return isOk > 0 ? "success" : "fail";
 
     }
@@ -77,19 +80,13 @@ public class BasketController {
     @ResponseBody
     @PutMapping("/update")
     public String update(@RequestBody BasketVO basketVO){
-
         int isOk = bsv.update(basketVO);
-        log.info("업데이트할 바스켓 객체 확인 >> {} ",basketVO);
-
         return isOk > 0 ? "success" : "fail";
     }
 
     @GetMapping("/getBasketQuantity/{customerId}")
     @ResponseBody
     public String GetBasketQuantity(@PathVariable("customerId")String customerId){
-        
-        log.info(">>>바스켓 카운트 확인>>>>{}",customerId);
-//        return "바스켓카운트 연결 잘됌";
         return String.valueOf(bsv.getBasketTotalCount(customerId));
     }
 

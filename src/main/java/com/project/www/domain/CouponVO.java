@@ -11,7 +11,7 @@ import lombok.*;
 public class CouponVO {
     private long id;
     private String name;
-    private String discountAmount;
+    private long discountAmount;
     private String issueDate;
     private String endDate;
 }

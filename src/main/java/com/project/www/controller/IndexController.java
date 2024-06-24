@@ -32,7 +32,6 @@ public class IndexController {
 
     private final IndexService isv;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final BasketService bsv;
 
     @GetMapping("/")
     public String index(Model model,HttpServletResponse response, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principal, @AuthenticationPrincipal SellerPrincipalDetails sellerPrincipalDetails) {
@@ -40,9 +39,9 @@ public class IndexController {
         List<ProductVO> newProductList = isv.getIndexNewProductList();
         List<ProductVO> heavySoldList = isv.getIndexHeavySoldList();
         List<ProductVO> discountProductList = isv.getIndexDiscountProductList();
-        Cookie del = new Cookie("url", null); // choiceCookieName(쿠키 이름)에 대한 값을 null로 지정
-        del.setMaxAge(0); // 유효시간을 0으로 설정
-        response.addCookie(del); // 응답 헤더에 추가해서 없어지도록 함
+        Cookie del = new Cookie("url", null);
+        del.setMaxAge(0);
+        response.addCookie(del);
 
         if(sellerPrincipalDetails != null){
             HttpSession ses = request.getSession();
@@ -75,11 +74,5 @@ public class IndexController {
         model.addAttribute("discountProductList", discountProductList);
         return "index";
     }
-
-    @GetMapping("/dd")
-    public void dd(){}
-
-
-
 
 }
