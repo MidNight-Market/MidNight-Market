@@ -738,6 +738,7 @@ async function saveMembershipPaymentInfo(customerId, merchantUid) {
         customerId: customerId
     }
 
+
     try {
         const url = '/payment/saveMembershipPaymentInfo';
         const config = {
