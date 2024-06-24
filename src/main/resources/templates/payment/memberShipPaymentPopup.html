@@ -117,10 +117,31 @@
 
         .content-box ul li:nth-child(4) {
             animation-delay: 4.2s;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 700;
             color: #833131;
         }
+
+        @keyframes wave {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .content-box ul .wave {
+            display: inline-block;
+            animation: wave 0.5s ease-in-out forwards;
+            opacity: 0;
+        }
+        .content-box ul .wave:nth-child(1) { animation-delay: 4.7s; }
+        .content-box ul .wave:nth-child(2) { animation-delay: 4.8s; margin-right: 5px; }
+        .content-box ul .wave:nth-child(3) { animation-delay: 4.9s; }
+        .content-box ul .wave:nth-child(4) { animation-delay: 5.0s; margin-right: 5px; }
+        .content-box ul .wave:nth-child(5) { animation-delay: 5.1s; }
+        .content-box ul .wave:nth-child(6) { animation-delay: 5.2s; }
+        .content-box ul .wave:nth-child(7) { animation-delay: 5.3s; }
+        .content-box ul .wave:nth-child(8) { animation-delay: 5.4s; }
+        .content-box ul .wave:nth-child(9) { animation-delay: 5.5s; }
+        .content-box ul .wave:nth-child(10) { animation-delay: 5.6s; }
+        .content-box ul .wave:nth-child(11) { animation-delay: 5.7s; }
     </style>
 </head>
 <body>
@@ -138,7 +159,11 @@
         <li>상품 구매시 구매금액의 5% 적립!</li>
         <li>상품 구매후 리뷰 등록시 포인트 지급 2배!</li>
         <li>3,000원 할인쿠폰 x3장 증정!</li>
-        <li>지금 바로 시작해보세요</li>
+        <li style="display: flex; justify-content: center;">
+            <span class="wave">지</span><span class="wave">금</span><span class="wave">바</span><span class="wave">로</span>
+            <span class="wave">시</span><span class="wave">작</span><span class="wave">해</span><span class="wave">보</span>
+            <span class="wave">세</span><span class="wave">요</span><span class="wave">!</span>
+        </li>
     </ul>
 </div>
 
